@@ -9,11 +9,11 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <h3 className="font-serif text-2xl font-bold mb-4 flex items-center gap-2">
-              <span className="text-secondary">✦</span>
+              <span className="text-primary-foreground">✦</span>
               Floating Paradise
             </h3>
             <p className="text-sm opacity-90">
-              A solar-powered sanctuary dedicated to sustainable luxury and island harmony in Karimunjawa.
+              A handcrafted guesthouse above the sea. Solar-powered. Intentional. Karimunjawa.
             </p>
           </div>
 
@@ -78,11 +78,11 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 px-3 py-2 text-sm text-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
+                className="flex-1 px-3 py-2 text-sm text-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-foreground"
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-secondary text-primary rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
+                className="px-4 py-2 bg-white text-primary rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
               >
                 Subscribe
               </button>

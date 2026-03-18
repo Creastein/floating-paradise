@@ -19,7 +19,7 @@ export default function HighlightsSection() {
             <div className="space-y-6">
               <div>
                 <h2 className="font-serif text-4xl font-bold text-foreground text-pretty">
-                  Three Rooms, Carefully Crafted
+                  Our Floating Bungalows
                 </h2>
               </div>
               <p className="text-lg text-foreground/70 leading-relaxed">
@@ -58,36 +58,42 @@ export default function HighlightsSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 order-2 lg:order-1">
               <div>
+                <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">
+                  New at Floating Paradise
+                </p>
                 <h2 className="font-serif text-4xl font-bold text-foreground text-pretty">
-                  Yoga & Meditation
+                  The Art of Floating
                 </h2>
+                <p className="text-lg text-foreground/70 mt-3">
+                  8–14 June 2026 · Karimunjawa
+                </p>
               </div>
               <p className="text-lg text-foreground/70 leading-relaxed">
-                Join our expert instructors for transformative yoga and meditation sessions. Practice on our oceanfront pavilion as the sun rises or sets over the pristine waters of Karimunjawa.
+                A 7-day nature-based yoga retreat above the sea. Sunrise and sunset yoga on the jetty, nature immersion, and meaningful contribution — all shaped by the rhythm of island life.
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold mt-1">✓</span>
-                  <span className="text-foreground/80">Daily guided sessions</span>
+                  <span className="text-foreground/80">Daily yoga & meditation</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold mt-1">✓</span>
-                  <span className="text-foreground/80">Expert international instructors</span>
+                  <span className="text-foreground/80">Sunset practice on the jetty</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold mt-1">✓</span>
-                  <span className="text-foreground/80">Oceanfront pavilion</span>
+                  <span className="text-foreground/80">Mangrove kayaking & reef snorkeling</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold mt-1">✓</span>
-                  <span className="text-foreground/80">Wellness workshops</span>
+                  <span className="text-foreground/80">Plant-based fusion meals</span>
                 </li>
               </ul>
               <Link
                 href="/yoga-retreat"
                 className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:shadow-lg transition-all font-semibold"
               >
-                Learn About Yoga Retreats
+                Discover the Retreat
               </Link>
             </div>
             <div className="order-1 lg:order-2 relative h-96 lg:h-full min-h-96 rounded-xl overflow-hidden shadow-lg">

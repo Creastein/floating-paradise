@@ -21,8 +21,8 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-serif text-2xl font-bold text-primary hover:text-accent transition-colors">
-            <span className="text-accent">✦</span>
+          <Link href="/" className="flex items-center gap-2 font-serif text-2xl font-bold text-primary hover:text-primary transition-colors">
+            <span className="text-primary">✦</span>
             Floating Paradise
           </Link>
 

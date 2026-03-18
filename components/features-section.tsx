@@ -19,7 +19,7 @@ export default function FeaturesSection() {
   ]
 
   return (
-    <section className="py-20 bg-muted">
+    <section className="py-20" style={{ backgroundColor: '#F5EFE4' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <p className="text-lg text-foreground/80 font-serif max-w-2xl mx-auto">

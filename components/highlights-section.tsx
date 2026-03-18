@@ -18,11 +18,8 @@ export default function HighlightsSection() {
             </div>
             <div className="space-y-6">
               <div>
-                <div className="text-accent text-sm font-semibold uppercase tracking-wider mb-2">
-                  Accommodations
-                </div>
                 <h2 className="font-serif text-4xl font-bold text-foreground text-pretty">
-                  Luxury Bungalows
+                  Three Rooms, Carefully Crafted
                 </h2>
               </div>
               <p className="text-lg text-foreground/70 leading-relaxed">
@@ -48,9 +45,9 @@ export default function HighlightsSection() {
               </ul>
               <Link
                 href="/bungalows"
-                className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all font-semibold"
+                className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:shadow-lg transition-all font-semibold"
               >
-                View All Bungalows
+                View All Rooms
               </Link>
             </div>
           </div>
@@ -61,9 +58,6 @@ export default function HighlightsSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 order-2 lg:order-1">
               <div>
-                <div className="text-accent text-sm font-semibold uppercase tracking-wider mb-2">
-                  Wellness
-                </div>
                 <h2 className="font-serif text-4xl font-bold text-foreground text-pretty">
                   Yoga & Meditation
                 </h2>
@@ -91,7 +85,7 @@ export default function HighlightsSection() {
               </ul>
               <Link
                 href="/yoga-retreat"
-                className="inline-block px-6 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-accent transition-all font-semibold"
+                className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:shadow-lg transition-all font-semibold"
               >
                 Learn About Yoga Retreats
               </Link>

@@ -4,64 +4,71 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light theme - tropical paradise */
-  --background: oklch(0.98 0.01 90);
-  --foreground: oklch(0.15 0.02 240);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.02 240);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.02 240);
-  --primary: oklch(0.35 0.18 164);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.65 0.15 65);
-  --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.88 0.02 90);
-  --muted-foreground: oklch(0.45 0.02 240);
-  --accent: oklch(0.58 0.22 33);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.02 90);
-  --input: oklch(0.95 0.01 90);
-  --ring: oklch(0.35 0.18 164);
-  --chart-1: oklch(0.35 0.18 164);
-  --chart-2: oklch(0.58 0.22 33);
-  --chart-3: oklch(0.65 0.15 65);
-  --chart-4: oklch(0.45 0.12 120);
-  --chart-5: oklch(0.70 0.08 200);
+  /* Floating Paradise - Earthy, handcrafted aesthetic */
+  --background: #FFFFFF;
+  --foreground: #2F4A3F;
+  --card: #FFFFFF;
+  --card-foreground: #2F4A3F;
+  --popover: #FFFFFF;
+  --popover-foreground: #2F4A3F;
+  --primary: #2F4A3F;
+  --primary-foreground: #FFFFFF;
+  --secondary: #D8C3A5;
+  --secondary-foreground: #2F4A3F;
+  --muted: #F5EFE4;
+  --muted-foreground: #6B8680;
+  --accent: #2F4A3F;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5DDD0;
+  --input: #F5EFE4;
+  --ring: #2F4A3F;
+  --chart-1: #2F4A3F;
+  --chart-2: #D8C3A5;
+  --chart-3: #6B8680;
+  --chart-4: #8FA39B;
+  --chart-5: #B8AE9E;
   --radius: 0.625rem;
 }
 
 .dark {
-  --background: oklch(0.12 0.02 240);
-  --foreground: oklch(0.95 0.02 90);
-  --card: oklch(0.18 0.02 240);
-  --card-foreground: oklch(0.95 0.02 90);
-  --popover: oklch(0.18 0.02 240);
-  --popover-foreground: oklch(0.95 0.02 90);
-  --primary: oklch(0.55 0.20 164);
-  --primary-foreground: oklch(0.12 0.02 240);
-  --secondary: oklch(0.75 0.15 65);
-  --secondary-foreground: oklch(0.12 0.02 240);
-  --muted: oklch(0.35 0.02 240);
-  --muted-foreground: oklch(0.70 0.02 90);
-  --accent: oklch(0.70 0.22 33);
-  --accent-foreground: oklch(0.12 0.02 240);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.95 0.02 90);
-  --border: oklch(0.28 0.02 240);
-  --input: oklch(0.25 0.02 240);
-  --ring: oklch(0.55 0.20 164);
-  --chart-1: oklch(0.55 0.20 164);
-  --chart-2: oklch(0.70 0.22 33);
-  --chart-3: oklch(0.75 0.15 65);
-  --chart-4: oklch(0.55 0.12 120);
-  --chart-5: oklch(0.80 0.08 200);
+  --background: #1A2620;
+  --foreground: #F5EFE4;
+  --card: #2F4A3F;
+  --card-foreground: #F5EFE4;
+  --popover: #2F4A3F;
+  --popover-foreground: #F5EFE4;
+  --primary: #6B8680;
+  --primary-foreground: #FFFFFF;
+  --secondary: #D8C3A5;
+  --secondary-foreground: #2F4A3F;
+  --muted: #3D5A4F;
+  --muted-foreground: #B8AE9E;
+  --accent: #D8C3A5;
+  --accent-foreground: #2F4A3F;
+  --destructive: #EF4444;
+  --destructive-foreground: #1A2620;
+  --border: #3D5A4F;
+  --input: #3D5A4F;
+  --ring: #6B8680;
+  --chart-1: #6B8680;
+  --chart-2: #D8C3A5;
+  --chart-3: #8FA39B;
+  --chart-4: #A8B8B0;
+  --chart-5: #D0C5B0;
+}
+
+@layer base {
+  body {
+    line-height: 1.7;
+  }
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: 'Lato', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-mono: 'Courier New', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

@@ -1,10 +1,16 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Cormorant_Garamond, Lato } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const cormorant = Cormorant_Garamond({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"]
+});
+const lato = Lato({ 
+  subsets: ["latin"],
+  weight: ["400", "700"]
+});
 
 export const metadata: Metadata = {
   title: 'Floating Paradise | Solar-Powered Eco-Luxury Retreat',
@@ -41,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
+      <body className={`${lato.className} antialiased`} style={{ '--font-serif': cormorant.style.fontFamily } as React.CSSProperties}>
         {children}
         <Analytics />
       </body>

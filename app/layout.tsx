@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Lato } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
+import FloatingWhatsapp from '@/components/floating-whatsapp'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({ 
@@ -49,7 +51,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${lato.className} antialiased`} style={{ '--font-serif': cormorant.style.fontFamily } as React.CSSProperties}>
         {children}
+        <FloatingWhatsapp />
         <Analytics />
+        <Script 
+          src="https://tripla.jp/sdk/javascript/tripla.min.js" 
+          strategy="afterInteractive"
+          data-triplabot-code="019c5054-aa76-72af-8207-e3dd1c280fa3"
+        />
       </body>
     </html>
   )

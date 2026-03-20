@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
+import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 
 interface BungalowCardProps {
   title: string
@@ -44,9 +45,14 @@ export default function BungalowCard({
             </div>
           ))}
         </div>
-        <button className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all font-semibold">
+        <a
+          href={TRIPLA_BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all font-semibold text-center"
+        >
           Check Availability
-        </button>
+        </a>
       </div>
     </div>
   )

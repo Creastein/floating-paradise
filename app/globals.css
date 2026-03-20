@@ -29,6 +29,9 @@
   --chart-3: #6B8680;
   --chart-4: #8FA39B;
   --chart-5: #B8AE9E;
+  --whatsapp: #25D366;
+  --whatsapp-foreground: #FFFFFF;
+  --whatsapp-ring: rgba(37, 211, 102, 0.3);
   --radius: 0.625rem;
 }
 
@@ -57,9 +60,15 @@
   --chart-3: #8FA39B;
   --chart-4: #A8B8B0;
   --chart-5: #D0C5B0;
+  --whatsapp: #25D366;
+  --whatsapp-foreground: #FFFFFF;
+  --whatsapp-ring: rgba(37, 211, 102, 0.3);
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     line-height: 1.7;
   }
@@ -114,4 +123,19 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.floating-whatsapp {
+  background-color: var(--whatsapp);
+  color: var(--whatsapp-foreground);
+  box-shadow: 0 12px 30px -12px var(--whatsapp-ring);
+}
+
+/* ============================================
+   TRIPLA SDK — TEMPORARILY HIDDEN
+   ============================================ */
+[class*="tripla"],
+[id*="tripla"],
+.tripla-booking-bar {
+  display: none !important;
 }

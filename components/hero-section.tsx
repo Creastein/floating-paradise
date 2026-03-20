@@ -1,41 +1,121 @@
+"use client"
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
+import { useRef, useEffect } from 'react'
+import { gsap, ScrollTrigger } from '@/lib/gsap-init'
+import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 
 export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Parallax: image moves slower than scroll (scrub with smooth lag)
+      if (imageRef.current) {
+        gsap.to(imageRef.current, {
+          yPercent: 20,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.2,
+          },
+        })
+      }
+
+      // Fade out content on scroll (scrub with smooth lag)
+      if (contentRef.current) {
+        gsap.to(contentRef.current, {
+          opacity: 0,
+          y: 80,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: '60% top',
+            scrub: 1.2,
+          },
+        })
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="relative h-screen min-h-[600px] overflow-hidden">
-      {/* Background Image */}
-      <Image
-        src="/hero-island.jpg"
-        alt="Floating Paradise Island"
-        fill
-        className="object-cover"
-        priority
-      />
+    <section ref={sectionRef} className="relative h-screen min-h-[600px] w-full overflow-hidden">
+      {/* Parallax Background Image */}
+      <div ref={imageRef} className="absolute inset-0 will-change-transform">
+        <Image
+          src="/hero-img.jpg"
+          alt="Floating Paradise Island"
+          fill
+          className="object-cover"
+          priority
+          unoptimized={true}
+        />
+        {/* Cinematic Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      </div>
 
-      {/* Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8">
+      {/* Animated Content */}
+      <div 
+        ref={contentRef}
+        className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 will-change-transform"
+      >
         <div className="max-w-2xl space-y-6">
-          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white text-pretty leading-tight">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="font-serif text-5xl sm:text-6xl lg:text-7xl font-medium text-white text-pretty leading-tight drop-shadow-lg"
+          >
             Floating Paradise
-          </h1>
+          </motion.h1>
           
-          <p className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto leading-relaxed">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto leading-relaxed drop-shadow-md"
+          >
             for the relaxed adventurer
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            <Link
-              href="#check-availability"
-              className="px-8 py-3 bg-primary text-primary-foreground hover:shadow-lg transition-all rounded-lg font-semibold"
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row gap-4 justify-center pt-6"
+          >
+            <a 
+              href={TRIPLA_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-base font-medium px-10 py-4 rounded-full bg-[#2d5a3d] text-white hover:bg-[#3a7350] transition-all duration-300 hover:scale-105 drop-shadow-xl"
             >
               Check Availability
-            </Link>
-          </div>
+            </a>
+          </motion.div>
         </div>
+
+        {/* Bouncing Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, y: [0, 10, 0] }}
+          transition={{ 
+            opacity: { delay: 1.5, duration: 1 },
+            y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
+          }}
+          className="absolute bottom-12 text-white/70"
+        >
+          <ChevronDown className="w-8 h-8" />
+        </motion.div>
       </div>
     </section>
   )

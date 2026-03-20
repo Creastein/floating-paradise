@@ -1,8 +1,9 @@
 import Navigation from '@/components/navigation'
 import HeroSection from '@/components/hero-section'
-import FeaturesSection from '@/components/features-section'
-import HighlightsSection from '@/components/highlights-section'
-import CTASection from '@/components/cta-section'
+import AboutUsSection from '@/components/about-us-section'
+import ExploreSection from '@/components/explore-section'
+import BungalowsSection from '@/components/bungalows-section'
+import YogaRetreatSection from '@/components/yoga-retreat-section'
 import Footer from '@/components/footer'
 
 export default function Home() {
@@ -10,9 +11,14 @@ export default function Home() {
     <main className="min-h-screen">
       <Navigation />
       <HeroSection />
-      <FeaturesSection />
-      <HighlightsSection />
-      <CTASection />
+      <AboutUsSection />
+      {/* Smooth transition: white → beige */}
+      <div className="h-24 md:h-32 bg-gradient-to-b from-background to-[#f5efe6]" />
+      <ExploreSection />
+      {/* Smooth transition: beige → white */}
+      <div className="h-24 md:h-32 bg-gradient-to-b from-[#f5efe6] to-background" />
+      <BungalowsSection />
+      <YogaRetreatSection />
       <Footer />
     </main>
   )

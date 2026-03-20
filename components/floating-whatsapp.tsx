@@ -1,23 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
-
 export default function FloatingWhatsapp() {
-  const [showGreeting, setShowGreeting] = useState(false)
-
-  useEffect(() => {
-    // Show the greeting automatically after 5 seconds
-    const showTimer = setTimeout(() => setShowGreeting(true), 5000)
-    
-    // Hide it automatically after 15 seconds (so it's visible for 10s total)
-    const hideTimer = setTimeout(() => setShowGreeting(false), 15000)
-
-    return () => {
-      clearTimeout(showTimer)
-      clearTimeout(hideTimer)
-    }
-  }, [])
-
   return (
     <a
       href="https://wa.me/6282226945510"
@@ -43,7 +26,7 @@ export default function FloatingWhatsapp() {
 
         {/* Pop-out Greeting Bubble */}
         <span 
-          className={`pointer-events-none absolute right-full mr-4 whitespace-nowrap rounded-2xl rounded-br-sm bg-white px-4 py-3 text-[13px] font-medium text-slate-800 shadow-[0_5px_15px_rgba(0,0,0,0.1)] ring-1 ring-black/5 origin-bottom-right transition-all duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${showGreeting ? 'scale-100 opacity-100' : 'scale-50 opacity-0'} group-hover:scale-100 group-hover:opacity-100`}
+          className="pointer-events-none absolute right-full mr-4 whitespace-nowrap rounded-2xl rounded-br-sm bg-white px-4 py-3 text-[13px] font-medium text-slate-800 shadow-[0_5px_15px_rgba(0,0,0,0.1)] ring-1 ring-black/5 origin-bottom-right transition-all duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100"
         >
           How can I help you?
         </span>

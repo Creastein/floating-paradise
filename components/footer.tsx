@@ -48,19 +48,19 @@ export default function Footer() {
               Floating Paradise
             </Link>
             <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-sm">
-              A solar-powered eco-luxury guesthouse gracefully floating above the pristine reefs of Karimunjawa, Indonesia.
+              A handcrafted guesthouse above the sea. Solar-powered. Intentional. Karimunjawa.
             </p>
             <div className="pt-4 space-y-3">
-              <a href="mailto:hello@floatingparadise.com" className="flex items-center gap-3 text-primary-foreground/80 hover:text-white transition-colors group w-fit">
+              <a href="mailto:floatingparadise.legonlele@gmail.com" className="flex items-center gap-3 text-primary-foreground/80 hover:text-white transition-colors group w-fit">
                 <Mail size={18} className="text-[#c1a06a] group-hover:scale-110 transition-transform" />
                 <span className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 group-hover:after:w-full">
-                  hello@floating-paradise.com
+                  floatingparadise.legonlele@gmail.com
                 </span>
               </a>
               <div className="flex items-start gap-3 text-primary-foreground/80">
                 <MapPin size={18} className="text-[#c1a06a] mt-1 shrink-0" />
                 <span className="leading-relaxed">
-                  Karimunjawa National Park,<br />Jepara, Central Java, Indonesia
+                  Jalan Kapuran, Legon Lele,<br />Karimunjawa – Jepara, Indonesia
                 </span>
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function Footer() {
           <div className="footer-elem lg:col-span-3 text-center md:text-left">
             <h4 className="font-serif text-xl mb-6 text-[#e8e4db]">Connect</h4>
             <div className="flex justify-center md:justify-start gap-5 mb-10">
-              <a href="#" className="p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
+              <a href="https://www.instagram.com/paradisefloating/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
                 <Instagram size={20} />
               </a>
               <a href="#" className="p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
@@ -107,7 +107,7 @@ export default function Footer() {
               <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
               <div className="w-[1px] h-4 bg-white/20 hidden md:block"></div>
               <button 
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }} 

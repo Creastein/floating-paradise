@@ -170,7 +170,7 @@ export default function BungalowsSection() {
             <div key={index} className="bungalow-card group cursor-pointer flex flex-col h-full bg-[#f5efe6] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-700">
               <div className="relative h-72 w-full overflow-hidden">
                 <div
-                  ref={(el) => { cardImageRefs.current[index] = el }}
+                  ref={(el: HTMLDivElement | null) => { cardImageRefs.current[index] = el }}
                   className="absolute inset-0 will-change-transform"
                   style={{ top: '-10%', height: '120%' }}
                 >
@@ -197,7 +197,7 @@ export default function BungalowsSection() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-xs font-bold text-primary hover:text-foreground transition-colors duration-700 w-full"
                   >
-                    Reserve Room <span className="text-lg opacity-80">&rarr;</span>
+                    Book This Room <span className="text-lg opacity-80">&rarr;</span>
                   </a>
                 </div>
               </div>

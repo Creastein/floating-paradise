@@ -95,7 +95,7 @@ export default function BungalowsPage() {
                   rel="noopener noreferrer"
                   className="inline-block border border-primary text-primary px-8 py-3 rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-medium"
                 >
-                  Reserve Room
+                  Book This Room
                 </a>
               </div>
             </div>

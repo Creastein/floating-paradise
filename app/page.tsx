@@ -4,6 +4,7 @@ import AboutUsSection from '@/components/about-us-section'
 import ExploreSection from '@/components/explore-section'
 import BungalowsSection from '@/components/bungalows-section'
 import YogaRetreatSection from '@/components/yoga-retreat-section'
+import ReviewBadges from '@/components/review-badges'
 import Footer from '@/components/footer'
 
 export default function Home() {
@@ -19,6 +20,9 @@ export default function Home() {
       <div className="h-24 md:h-32 bg-gradient-to-b from-[#f5efe6] to-background" />
       <BungalowsSection />
       <YogaRetreatSection />
+      {/* Smooth transition: white → warm beige for reviews */}
+      <div className="h-16 md:h-20 bg-gradient-to-b from-background to-[#f0ebe3]" />
+      <ReviewBadges />
       <Footer />
     </main>
   )

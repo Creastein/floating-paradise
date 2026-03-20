@@ -1,23 +1,52 @@
+"use client"
+
+import { useState, useEffect } from 'react'
+
 export default function FloatingWhatsapp() {
+  const [showGreeting, setShowGreeting] = useState(false)
+
+  useEffect(() => {
+    // Show the greeting automatically after 5 seconds
+    const showTimer = setTimeout(() => setShowGreeting(true), 5000)
+    
+    // Hide it automatically after 15 seconds (so it's visible for 10s total)
+    const hideTimer = setTimeout(() => setShowGreeting(false), 15000)
+
+    return () => {
+      clearTimeout(showTimer)
+      clearTimeout(hideTimer)
+    }
+  }, [])
+
   return (
     <a
       href="https://wa.me/6282226945510"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="floating-whatsapp group fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[color:var(--whatsapp-ring)] sm:bottom-8 sm:right-8"
+      className="group fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center sm:bottom-8 sm:right-8 rounded-full"
     >
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 32 32"
-        className="h-6 w-6"
-        fill="currentColor"
-      >
-        <path d="M19.11 17.52c-.3-.15-1.73-.85-2-.95-.27-.1-.47-.15-.66.15-.2.3-.76.95-.93 1.15-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.89-.8-1.5-1.8-1.67-2.1-.17-.3-.02-.47.13-.62.13-.13.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.07-.15-.66-1.6-.9-2.2-.23-.56-.47-.48-.66-.49h-.56c-.2 0-.53.07-.8.38-.28.3-1.05 1.02-1.05 2.48 0 1.45 1.07 2.85 1.22 3.05.15.2 2.1 3.2 5.1 4.5.71.3 1.26.48 1.7.61.71.23 1.35.2 1.86.12.57-.08 1.73-.7 1.98-1.38.25-.68.25-1.27.17-1.38-.07-.12-.27-.2-.56-.35zm-3.1 10.04c-6.04 0-10.95-4.91-10.95-10.95S9.97 5.66 16.01 5.66c6.04 0 10.95 4.91 10.95 10.95S22.05 27.56 16.01 27.56zm0-24.06C8.6 3.5 3.5 8.6 3.5 15.99c0 2.93.98 5.62 2.63 7.77L4.8 28.5l4.9-1.28c2.08 1.13 4.47 1.78 7.02 1.78 7.39 0 12.5-5.1 12.5-12.5S23.4 3.5 16.01 3.5z" />
-      </svg>
-      <span className="pointer-events-none absolute bottom-full right-0 mb-3 whitespace-nowrap rounded-full bg-background/90 px-3 py-2 text-xs font-medium text-foreground shadow-lg ring-1 ring-foreground/10 opacity-0 translate-y-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0">
-        how can i help you?
-      </span>
-    </a>
+      {/* Outer Pulse/Ping Ring */}
+      <span className="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-30 animate-ping" style={{ animationDuration: '2.5s' }}></span>
+        
+        {/* Main Button */}
+        <span className="relative flex h-full w-full items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 group-hover:scale-[1.15] group-hover:shadow-[0_10px_30px_rgba(37,211,102,0.4)]">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="h-8 w-8 ml-[1px] mt-[1px]"
+            fill="currentColor"
+          >
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+        </span>
+
+        {/* Pop-out Greeting Bubble */}
+        <span 
+          className={`pointer-events-none absolute right-full mr-4 whitespace-nowrap rounded-2xl rounded-br-sm bg-white px-4 py-3 text-[13px] font-medium text-slate-800 shadow-[0_5px_15px_rgba(0,0,0,0.1)] ring-1 ring-black/5 origin-bottom-right transition-all duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${showGreeting ? 'scale-100 opacity-100' : 'scale-50 opacity-0'} group-hover:scale-100 group-hover:opacity-100`}
+        >
+          How can I help you?
+        </span>
+      </a>
   )
 }

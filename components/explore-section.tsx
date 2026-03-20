@@ -9,6 +9,9 @@ export default function ExploreSection() {
   const lineRef = useRef<HTMLDivElement>(null)
   const img1Ref = useRef<HTMLDivElement>(null)
   const img2Ref = useRef<HTMLDivElement>(null)
+  const mobileImg1Ref = useRef<HTMLDivElement>(null)
+  const mobileImg2Ref = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -48,6 +51,24 @@ export default function ExploreSection() {
         );
       });
 
+      // Heading slide-in from left
+      if (headingRef.current) {
+        gsap.fromTo(headingRef.current,
+          { x: -80, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        )
+      }
+
       // Images Entrance Timeline (Slide from right)
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -75,6 +96,40 @@ export default function ExploreSection() {
           ease: 'power3.out'
         }, "-=1.8");
       }
+
+      // Mobile images — fade up on scroll (same feel as desktop)
+      if (mobileImg1Ref.current) {
+        gsap.fromTo(mobileImg1Ref.current,
+          { opacity: 0, y: 80 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: mobileImg1Ref.current,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        )
+      }
+      if (mobileImg2Ref.current) {
+        gsap.fromTo(mobileImg2Ref.current,
+          { opacity: 0, y: 80 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: mobileImg2Ref.current,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        )
+      }
     }, sectionRef)
 
     return () => ctx.revert()
@@ -84,15 +139,14 @@ export default function ExploreSection() {
     <section ref={sectionRef} className="py-24 overflow-hidden relative" style={{ backgroundColor: '#f5efe6' }}>
       
       {/* Title & Line */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left mb-16 lg:mb-24">
+      <div ref={headingRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left mb-16 lg:mb-24">
         <h2 className="scrub-text font-serif text-3xl md:text-5xl lg:text-6xl text-foreground font-medium mb-8 tracking-wide">
           Built by Hand,<br className="hidden md:block"/> Powered by Sun
         </h2>
         {/* GSAP Decorative Line */}
         <div 
           ref={lineRef} 
-          className="w-24 md:w-48 h-[2px] bg-primary/60 mx-auto md:mx-0 origin-left will-change-transform"
-          style={{ transformOrigin: 'center left' }}
+          className="w-32 md:w-48 h-[2px] bg-primary/60 mx-auto md:mx-0 origin-center md:origin-left will-change-transform"
         />
       </div>
 
@@ -101,38 +155,62 @@ export default function ExploreSection() {
         <div className="flex flex-col md:flex-row-reverse gap-12 lg:gap-16 items-start">
           
           {/* Left: Sticky Calm Gallery */}
-          <div className="w-full md:w-1/2 sticky top-24 hidden md:flex flex-col gap-5">
-            {/* Image 1 — Handcrafted Structure */}
-            <div ref={img1Ref} className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-lg will-change-transform">
+            <div className="w-full md:w-1/2 sticky top-24 hidden md:flex flex-col gap-5">
+             {/* Image 1 — Handcrafted Structure */}
+            <div
+              ref={img1Ref}
+              className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden will-change-transform cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
+              style={{
+                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
+              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+            >
               <Image
                 src="/Builtbyhand-1.webp"
                 alt="Handcrafted natural materials"
                 fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/10" />
             </div>
             {/* Image 2 — Solar Power */}
-            <div ref={img2Ref} className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden shadow-lg will-change-transform">
+            <div
+              ref={img2Ref}
+              className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden will-change-transform cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
+              style={{
+                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
+              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+            >
               <Image
                 src="/Builtbyhand-2.webp"
                 alt="Solar powered living"
                 fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/10" />
             </div>
           </div>
           
-          {/* Mobile: same calm gallery */}
+          {/* Mobile: same calm gallery with scroll animation */}
           <div className="w-full md:hidden flex flex-col gap-5">
-            <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-lg">
-              <Image src="/Builtbyhand-1.webp" fill alt="Materials" className="object-cover"/>
-              <div className="absolute inset-0 bg-black/10" />
+            <div
+              ref={mobileImg1Ref}
+              className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
+              style={{
+                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
+              }}
+            >
+              <Image src="/Builtbyhand-1.webp" fill alt="Materials" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
             </div>
-            <div className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden shadow-lg">
-              <Image src="/Builtbyhand-2.webp" fill alt="Solar Panel" className="object-cover"/>
-              <div className="absolute inset-0 bg-black/10" />
+            <div
+              ref={mobileImg2Ref}
+              className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
+              style={{
+                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
+              }}
+            >
+              <Image src="/Builtbyhand-2.webp" fill alt="Solar Panel" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
             </div>
           </div>
 

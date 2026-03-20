@@ -1,87 +1,73 @@
 "use client"
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
 
 export default function AboutUsSection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const topImageRef = useRef<HTMLDivElement>(null)
-  const bottomImageRef = useRef<HTMLDivElement>(null)
+  const galleryRef = useRef<HTMLDivElement>(null)
   const textColumnRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Entrance Animation Timeline (Muncul satu-satu)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 60%', // Trigger slightly earlier to ensure they see it
-          toggleActions: 'restart none none reverse', // Fix replay: restarts every time entering from top, reverses when scrolling back up
-        }
-      })
-
-      if (topImageRef.current && bottomImageRef.current) {
-        // Set initial invisible state to the left
-        gsap.set([topImageRef.current, bottomImageRef.current], { opacity: 0, x: -120 })
-        
-        tl.to(topImageRef.current, {
-          opacity: 1,
-          x: 0,
-          duration: 2.5, // Diperlambat dari 1.8s ke 2.5s
-          ease: 'power3.out'
-        })
-        .to(bottomImageRef.current, {
-          opacity: 1,
-          x: 0,
-          duration: 2.5, 
-          ease: 'power3.out'
-        }, "-=1.8") // Gambar kedua menyusul 0.7s setelah gambar pertama
-      }
-
-      // 2. Parallax scroll effect
-      if (topImageRef.current) {
-        gsap.to(topImageRef.current, {
-          yPercent: -10,
-          ease: 'none',
+      // 1. Gallery frames — staggered reveal entrance
+      const frames = gsap.utils.toArray('.gallery-frame', galleryRef.current)
+      if (frames.length) {
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
+            start: 'top 60%',
+            toggleActions: 'restart none none reverse',
+          }
+        })
+
+        frames.forEach((frame: any, i: number) => {
+          gsap.set(frame, { opacity: 0, y: 60, scale: 0.95 })
+          tl.to(frame, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+          }, i * 0.25)
         })
       }
 
-      if (bottomImageRef.current) {
-        gsap.to(bottomImageRef.current, {
-          yPercent: 10,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        })
+      // Heading slide-in from left
+      if (headingRef.current) {
+        gsap.fromTo(headingRef.current,
+          { x: -80, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        )
       }
 
-      // 3. Text Scrub Animation (Membaca saat scroll)
+      // 2. Text Scrub Animation
       if (textColumnRef.current) {
         const paragraphs = gsap.utils.toArray('.scrub-text', textColumnRef.current)
         paragraphs.forEach((p: any) => {
-          gsap.fromTo(p, 
-            { opacity: 0.15, filter: 'blur(2px)' }, // Mulai dari redup & sedikit blur
+          gsap.fromTo(p,
+            { opacity: 0.15, filter: 'blur(2px)' },
             {
               opacity: 1,
-              filter: 'blur(0px)', // Menjadi tajam & terang sepenuhnya
+              filter: 'blur(0px)',
               ease: 'none',
               scrollTrigger: {
                 trigger: p,
-                start: 'top 85%', // Trigger saat teks mencapai 85% layar dari atas
-                end: 'top 55%',   // Selesai animasi saat teks di tengah layar
-                scrub: 1, // Efek scrub mulus yang mengikut scroll
+                start: 'top 85%',
+                end: 'top 55%',
+                scrub: 1,
               }
             }
           )
@@ -92,46 +78,63 @@ export default function AboutUsSection() {
     return () => ctx.revert()
   }, [])
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
-  }
-
   return (
     <section ref={sectionRef} className="relative -mt-16 z-10 pt-32 pb-24 bg-background overflow-hidden rounded-t-[2.5rem]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
-          {/* Images Column — Editorial Overlap Layout */}
-          <div className="relative h-[450px] sm:h-[550px] lg:h-[650px] w-full">
-            {/* Main Portrait Image (Back) */}
-            <div ref={topImageRef} className="absolute top-0 left-0 w-[85%] md:w-[75%] h-[80%] rounded-2xl overflow-hidden shadow-lg z-10 will-change-transform opacity-0 group/img1">
-              <Image 
-                src="/Welcome-to-Floating1.webp" 
-                alt="Floating Paradise Exterior" 
-                fill 
-                className="object-cover transition-transform duration-700 hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/10" />
-            </div>
+          {/* Images Column — Gallery Wall Layout */}
+          <div ref={galleryRef} className="grid grid-cols-5 grid-rows-2 gap-3 md:gap-4 h-[420px] sm:h-[500px] lg:h-[600px]">
             
-            {/* Secondary Overlapping Image (Front) */}
-            <div ref={bottomImageRef} className="absolute bottom-0 right-0 w-[70%] md:w-[65%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl z-20 border-8 lg:border-[12px] border-background will-change-transform opacity-0">
-              <Image 
-                src="/Welcome-to-Floating2.webp" 
-                alt="Floating Paradise Interior" 
-                fill 
-                className="object-cover transition-transform duration-700 hover:scale-105"
+            {/* Image 1 — Large, spans left 3 columns & both rows */}
+            <div
+              className="gallery-frame col-span-3 row-span-2 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3"
+              style={{
+                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
+              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+            >
+              <Image
+                src="/Welcome-to-Floating1.webp"
+                alt="Floating Paradise Exterior"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/10" />
+            </div>
+
+            {/* Image 2 — Top-right, spans right 2 columns */}
+            <div
+              className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3"
+              style={{
+                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
+              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+            >
+              <Image
+                src="/Welcome-to-Floating2.webp"
+                alt="Floating Paradise Interior"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+
+            {/* Image 3 — Bottom-right, spans right 2 columns */}
+            <div
+              className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3"
+              style={{
+                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
+              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+            >
+              <Image
+                src="/Welcome-to-Floating3.webp"
+                alt="Moonrise over Floating Paradise"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
           </div>
 
@@ -139,7 +142,7 @@ export default function AboutUsSection() {
           <div ref={textColumnRef} className="space-y-8 lg:space-y-10 py-6 relative">
             
             {/* Header Titles */}
-            <div className="scrub-text">
+            <div ref={headingRef} className="scrub-text">
               <h2 className="text-sm tracking-widest text-primary uppercase font-bold mb-3">
                 Welcome to Floating
               </h2>

@@ -139,3 +139,29 @@
 .tripla-booking-bar {
   display: none !important;
 }
+
+/* ============================================
+   CUSTOM BUTTON HOVER WIPE (SKEW)
+   ============================================ */
+.btn-skew {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-skew::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  background-color: white; 
+  transform: skewX(-45deg) scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+}
+
+.btn-skew:hover::after {
+  transform: skewX(-45deg) scaleX(1);
+}

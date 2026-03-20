@@ -97,9 +97,9 @@ export default function HeroSection() {
               href={TRIPLA_BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-base font-medium px-10 py-4 rounded-full bg-[#2d5a3d] text-white hover:bg-[#3a7350] transition-all duration-300 hover:scale-105 drop-shadow-xl"
+              className="btn-skew inline-block text-base font-medium px-10 py-4 rounded-full bg-[#2d5a3d] text-white hover:text-[#2d5a3d] transition-colors duration-300 drop-shadow-xl border border-transparent hover:border-[#2d5a3d]"
             >
-              Check Availability
+              <span className="relative z-10">Check Availability</span>
             </a>
           </motion.div>
         </div>

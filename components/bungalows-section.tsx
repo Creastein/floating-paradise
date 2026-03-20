@@ -10,22 +10,23 @@ export default function BungalowsSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const cardImageRefs = useRef<(HTMLDivElement | null)[]>([])
   const cardsGridRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLDivElement>(null)
 
   const bungalows = [
     {
       name: 'Sunrise Bungalow',
-      description: 'Wake with the sunrise shimmering across the water and fall asleep to the quiet rhythm of the waves.',
-      image: '/bungalow-1.jpg',
+      description: 'Our most private and sought-after bungalow, offering expansive sea views and soft ocean breezes right from your king-sized bed.',
+      image: '/Sunrise-home.webp',
     },
     {
       name: 'Sunset Bungalow',
-      description: 'Natural textures and open design create a space that feels both grounded and completely free.',
-      image: '/bungalow-2.jpg',
+      description: "Our soul went into creating Floating's first stand-alone bungalow — offering expansive sea views and sunset views along the bay.",
+      image: '/Sunset-.webp',
     },
     {
       name: 'Bayside Bungalow',
-      description: 'A generous balcony with comfortable seating provides your front-row seat to panoramic sea views.',
-      image: '/bungalow-3.jpg',
+      description: 'Originally our private family space, Bayside has evolved into a spacious two-bedroom bungalow where you can shower with a view and take in the mangrove forest to the East and the sea flowing gently into the bay in the West.',
+      image: '/Bayside-home.webp',
     },
   ]
 
@@ -49,6 +50,24 @@ export default function BungalowsSection() {
         );
       });
 
+      // Heading slide-in from left
+      if (headingRef.current) {
+        gsap.fromTo(headingRef.current,
+          { x: -80, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        )
+      }
+
       // Parallax on each card's image
       cardImageRefs.current.forEach((img) => {
         if (img) {
@@ -65,24 +84,49 @@ export default function BungalowsSection() {
         }
       });
 
-      // Cards staggered entrance and exit
+      // Cards entrance and exit
       if (cardsGridRef.current) {
+        let mm = gsap.matchMedia();
         const cards = gsap.utils.toArray('.bungalow-card', cardsGridRef.current) as HTMLElement[];
-        gsap.fromTo(cards,
-          { opacity: 0, y: 100 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: cardsGridRef.current,
-              start: 'top 85%',
-              toggleActions: 'play reverse play reverse',
+
+        // Desktop: Staggered animation based on grid
+        mm.add("(min-width: 768px)", () => {
+          gsap.fromTo(cards,
+            { opacity: 0, y: 100 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              stagger: 0.2,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: cardsGridRef.current,
+                start: 'top 85%',
+                toggleActions: 'play reverse play reverse',
+              }
             }
-          }
-        );
+          );
+        });
+
+        // Mobile: Individual animation per card
+        mm.add("(max-width: 767px)", () => {
+          cards.forEach((card) => {
+            gsap.fromTo(card,
+              { opacity: 0, y: 100 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top 85%',
+                  toggleActions: 'play reverse play reverse',
+                }
+              }
+            );
+          });
+        });
       }
     }, sectionRef)
 
@@ -97,7 +141,7 @@ export default function BungalowsSection() {
         {/* Header - Split Layout */}
         <div className="flex flex-col md:flex-row gap-8 lg:gap-16 items-start mb-16 lg:mb-24">
           <div className="w-full md:w-1/3">
-            <h2 className="scrub-text font-serif text-3xl md:text-5xl lg:text-5xl text-foreground font-medium tracking-wide leading-tight">
+            <h2 ref={headingRef} className="scrub-text font-serif text-3xl md:text-5xl lg:text-5xl text-foreground font-medium tracking-wide leading-tight">
               Our Floating <br className="hidden lg:block"/> Bungalows
             </h2>
           </div>

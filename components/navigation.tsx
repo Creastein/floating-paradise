@@ -83,9 +83,13 @@ export default function Navigation() {
               <Button 
                 asChild
                 variant={isSolid ? "default" : "secondary"} 
-                className={`font-semibold rounded-full px-6 transition-all duration-300 hover:scale-105 ${!isSolid && 'bg-white/15 hover:bg-white/25 backdrop-blur-md text-white border border-white/30'}`}
+                className={`btn-skew font-semibold rounded-full px-6 transition-colors duration-300 border ${
+                  isSolid 
+                    ? 'border-transparent text-primary-foreground hover:text-primary hover:border-primary' 
+                    : 'bg-white/15 backdrop-blur-md text-white border-white/30 hover:border-transparent hover:text-primary'
+                }`}
               >
-                <Link href="/bungalows">Book Now</Link>
+                <Link href="/bungalows"><span className="relative z-10">Book Now</span></Link>
               </Button>
             </div>
 
@@ -134,8 +138,13 @@ export default function Navigation() {
                 transition={{ delay: 0.3 }}
                 className="mt-8 mb-safe pb-8"
               >
-                <Button size="lg" className="w-full text-lg rounded-xl h-14" asChild onClick={() => setIsOpen(false)}>
-                  <Link href="/bungalows">Book Now</Link>
+                <Button 
+                  size="lg" 
+                  className="btn-skew w-full text-lg rounded-xl h-14 border border-transparent hover:border-primary text-primary-foreground hover:text-primary transition-colors duration-300" 
+                  asChild 
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Link href="/bungalows"><span className="relative z-10">Book Now</span></Link>
                 </Button>
               </motion.div>
             </div>

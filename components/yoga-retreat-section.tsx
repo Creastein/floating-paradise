@@ -9,22 +9,27 @@ export default function YogaRetreatSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const textColumnRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Image: smooth scale-up on scroll
+      // 1. Image: smooth scale-up and slide-up with subtle rotation
       if (imageRef.current) {
         gsap.fromTo(imageRef.current,
-          { scale: 0.88, opacity: 0 },
+          { scale: 0.8, opacity: 0, y: 150, rotation: -4 },
           {
             scale: 1,
             opacity: 1,
-            ease: 'power2.out',
+            y: 0,
+            rotation: 0,
+            duration: 2.5,
+            delay: 0.2,
+            ease: 'power3.out',
             scrollTrigger: {
-              trigger: sectionRef.current,
+              trigger: imageRef.current,
               start: 'top 85%',
-              end: 'top 30%',
-              scrub: 1.2,
+              toggleActions: 'play none none reverse',
             },
           }
         )
@@ -50,6 +55,43 @@ export default function YogaRetreatSection() {
           )
         })
       }
+
+      // Heading slide-in from left
+      if (headingRef.current) {
+        gsap.fromTo(headingRef.current,
+          { x: -80, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        )
+      }
+
+      // CTA Button slide-up and fade-in
+      if (ctaRef.current) {
+        gsap.fromTo(ctaRef.current,
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.5,
+            delay: 0.5, // stronger delay to appear after text 
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: ctaRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        )
+      }
     }, sectionRef)
 
     return () => ctx.revert()
@@ -62,10 +104,10 @@ export default function YogaRetreatSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Text Column — Editorial Style */}
-          <div ref={textColumnRef} className="space-y-8 lg:space-y-10 order-2 lg:order-1">
+          <div ref={textColumnRef} className="space-y-8 lg:space-y-10 order-1">
             
             {/* Subtitle */}
-            <div className="yoga-scrub-text">
+            <div ref={headingRef} className="yoga-scrub-text">
               <p className="text-sm tracking-widest text-primary uppercase font-bold mb-4">
                 New Experience
               </p>
@@ -97,7 +139,7 @@ export default function YogaRetreatSection() {
             </div>
 
             {/* CTA Button */}
-            <div className="yoga-scrub-text pt-2">
+            <div ref={ctaRef} className="pt-2">
               <Link
                 href="/yoga-retreat"
                 className="inline-block px-10 py-4 bg-primary text-primary-foreground rounded-full hover:bg-[#3a7350] transition-all duration-300 hover:scale-105 font-medium text-sm uppercase tracking-widest shadow-lg"
@@ -108,21 +150,26 @@ export default function YogaRetreatSection() {
           </div>
 
           {/* Image Column — Circular with Decorative Ring */}
-          <div className="order-1 lg:order-2 flex items-center justify-center">
+          <div className="order-2 flex items-center justify-center">
             <div ref={imageRef} className="relative will-change-transform">
               {/* Decorative outer ring */}
               <div className="absolute -inset-3 md:-inset-4 rounded-full border border-primary/20" />
               
               {/* Main circular image */}
-              <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[460px] md:h-[460px] lg:w-[500px] lg:h-[500px] rounded-full overflow-hidden shadow-2xl">
+              <div
+                className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[460px] md:h-[460px] lg:w-[500px] lg:h-[500px] rounded-full overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
+                style={{
+                  boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+              >
                 <Image
                   src="/yogahome.webp"
                   alt="Yoga at Sunset on Jetty"
                   fill
-                  className="object-cover transition-transform duration-700 hover:scale-110"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                {/* Subtle warm overlay */}
-                <div className="absolute inset-0 bg-primary/5 mix-blend-overlay" />
               </div>
             </div>
           </div>

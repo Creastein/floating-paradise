@@ -49,7 +49,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative h-screen min-h-[600px] w-full overflow-hidden">
+    <section ref={sectionRef} className="relative h-[calc(100vh+4rem)] min-h-[calc(600px+4rem)] w-full overflow-hidden">
       {/* Parallax Background Image */}
       <div ref={imageRef} className="absolute inset-0 will-change-transform">
         <Image
@@ -68,7 +68,7 @@ export default function HeroSection() {
       {/* Animated Content */}
       <div 
         ref={contentRef}
-        className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 will-change-transform"
+        className="absolute top-0 left-0 right-0 h-[100vh] min-h-[600px] flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 will-change-transform"
       >
         <div className="max-w-2xl space-y-6">
           <motion.h1 

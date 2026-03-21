@@ -167,7 +167,7 @@ export default function ExploreSection() {
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
             >
               <Image
-                src="/Builtbyhand-1.webp"
+                src="/image/homepage/Builtbyhand-1.webp"
                 alt="Handcrafted natural materials"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -184,7 +184,7 @@ export default function ExploreSection() {
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
             >
               <Image
-                src="/Builtbyhand-2.webp"
+                src="/image/homepage/Builtbyhand-2.webp"
                 alt="Solar powered living"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -201,7 +201,7 @@ export default function ExploreSection() {
                 boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
               }}
             >
-              <Image src="/Builtbyhand-1.webp" fill alt="Materials" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
+              <Image src="/image/homepage/Builtbyhand-1.webp" fill alt="Materials" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
             </div>
             <div
               ref={mobileImg2Ref}
@@ -210,7 +210,7 @@ export default function ExploreSection() {
                 boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
               }}
             >
-              <Image src="/Builtbyhand-2.webp" fill alt="Solar Panel" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
+              <Image src="/image/homepage/Builtbyhand-2.webp" fill alt="Solar Panel" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
             </div>
           </div>
 

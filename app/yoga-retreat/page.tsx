@@ -40,26 +40,28 @@ export default function YogaRetreatPage() {
       <Navigation />
 
       {/* 1. Page Hero */}
-      <section className="relative h-screen min-h-[600px] flex items-center justify-center">
-        <Image
-          src="/yoga-sunset.jpg"
-          alt="Yoga on the Jetty"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/40" />
+      <section className="relative h-[calc(100vh+4rem)] min-h-[calc(600px+4rem)] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 animate-hero-zoom">
+          <Image
+            src="/yoga-sunset.jpg"
+            alt="Yoga on the Jetty"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
         <div className="relative z-10 text-center text-white px-4 space-y-6 max-w-4xl mx-auto">
-          <p className="text-sm md:text-base tracking-widest uppercase font-semibold text-primary-foreground/90">
+          <p className="text-sm md:text-base tracking-widest uppercase font-semibold text-primary-foreground/90 animate-hero-subtitle-reveal">
             New at Floating Paradise
           </p>
-          <h1 className="font-serif text-5xl md:text-7xl font-bold">
+          <h1 className="font-serif text-5xl md:text-7xl font-bold animate-hero-text-reveal">
             The Art of Floating
           </h1>
-          <p className="text-xl md:text-2xl font-light tracking-wide text-primary-foreground/90">
+          <p className="text-xl md:text-2xl font-light tracking-wide text-primary-foreground/90 animate-hero-subtitle-reveal">
             8–14 June 2026 · Karimunjawa
           </p>
-          <div className="pt-8">
+          <div className="pt-8 animate-hero-subtitle-reveal">
             <a 
               href="#book-retreat"
               className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-full hover:bg-muted hover:text-primary transition-all duration-300 font-medium tracking-wide shadow-lg"
@@ -71,7 +73,7 @@ export default function YogaRetreatPage() {
       </section>
 
       {/* 2. Retreat Overview */}
-      <section className="py-24 bg-background">
+      <section className="relative -mt-16 z-10 pt-32 pb-24 bg-background overflow-hidden rounded-t-[2.5rem]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <p className="font-serif text-3xl text-foreground font-light leading-relaxed">
             A 7-day sea-based yoga retreat, hosted entirely off-grid.

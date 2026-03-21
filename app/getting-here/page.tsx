@@ -17,9 +17,10 @@ export default function GettingHerePage() {
         title="Getting to Karimunjawa"
         subtitle="Floating Paradise is located in Karimunjawa, a protected archipelago of 27 islands in the Java Sea, roughly 80 kilometers northwest of Jepara, Central Java."
         backgroundImage="/hero-island.jpg"
+        fullHeight
       />
 
-      <section className="py-24 bg-background">
+      <section className="relative -mt-16 z-10 pt-32 pb-24 bg-background overflow-hidden rounded-t-[2.5rem]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           
           <div className="text-center space-y-6">

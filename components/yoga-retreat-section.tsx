@@ -165,7 +165,7 @@ export default function YogaRetreatSection() {
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
               >
                 <Image
-                  src="/yogahome.webp"
+                  src="/image/homepage/yogahome.webp"
                   alt="Yoga at Sunset on Jetty"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"

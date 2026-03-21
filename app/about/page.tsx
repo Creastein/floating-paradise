@@ -17,9 +17,10 @@ export default function AboutPage() {
         title="Our Story"
         subtitle="A quiet conversation on a wooden pier, transformed into a sanctuary above the sea."
         backgroundImage="/hero-island.jpg"
+        fullHeight
       />
 
-      <section className="py-24 bg-background">
+      <section className="relative -mt-16 z-10 pt-32 pb-24 bg-background overflow-hidden rounded-t-[2.5rem]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
           
           <div className="flex flex-col md:flex-row items-center gap-16">

@@ -96,7 +96,7 @@ export default function AboutUsSection() {
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
             >
               <Image
-                src="/Welcome-to-Floating1.webp"
+                src="/image/homepage/Welcome-to-Floating1.webp"
                 alt="Floating Paradise Exterior"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -113,7 +113,7 @@ export default function AboutUsSection() {
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
             >
               <Image
-                src="/Welcome-to-Floating2.webp"
+                src="/image/homepage/Welcome-to-Floating2.webp"
                 alt="Floating Paradise Interior"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -130,7 +130,7 @@ export default function AboutUsSection() {
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
             >
               <Image
-                src="/Welcome-to-Floating3.webp"
+                src="/image/homepage/Welcome-to-Floating3.webp"
                 alt="Moonrise over Floating Paradise"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"

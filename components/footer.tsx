@@ -10,17 +10,18 @@ export default function Footer() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Staggered reveal for all footer elements with the .footer-elem class
-      const elements = gsap.utils.toArray('.footer-elem')
+      // Staggered reveal for all granular footer text and elements
+      const elements = gsap.utils.toArray('.footer-text')
       if (elements.length > 0) {
         gsap.fromTo(elements,
-          { y: 50, opacity: 0 },
+          { y: 30, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.2,
-            stagger: 0.1,
-            ease: 'power3.out',
+            duration: 0.8,
+            stagger: 0.05,
+            ease: 'power2.out',
+            force3D: true,
             scrollTrigger: {
               trigger: footerRef.current,
               start: 'top 85%',
@@ -42,22 +43,24 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
           
           {/* Column 1: Brand & Contact (Span 4) */}
-          <div className="footer-elem lg:col-span-5 space-y-6">
-            <Link href="/" className="font-serif text-3xl font-bold flex items-center gap-2 mb-6 text-[#e8e4db]">
+          <div className="lg:col-span-5 space-y-6">
+            <Link href="/" className="footer-text font-serif text-3xl font-bold flex items-center gap-2 mb-6 text-[#e8e4db] w-fit">
               <span className="text-[#c1a06a]">✦</span>
               Floating Paradise
             </Link>
-            <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-sm">
+            <p className="footer-text text-primary-foreground/70 text-lg leading-relaxed max-w-sm">
               A handcrafted guesthouse above the sea. Solar-powered. Intentional. Karimunjawa.
             </p>
             <div className="pt-4 space-y-3">
-              <a href="mailto:floatingparadise.legonlele@gmail.com" className="flex items-center gap-3 text-primary-foreground/80 hover:text-white transition-colors group w-fit">
-                <Mail size={18} className="text-[#c1a06a] group-hover:scale-110 transition-transform" />
-                <span className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 group-hover:after:w-full">
-                  floatingparadise.legonlele@gmail.com
-                </span>
-              </a>
-              <div className="flex items-start gap-3 text-primary-foreground/80">
+              <div className="footer-text">
+                <a href="mailto:floatingparadise.legonlele@gmail.com" className="flex items-center gap-3 text-primary-foreground/80 hover:text-white transition-colors group w-fit">
+                  <Mail size={18} className="text-[#c1a06a] group-hover:scale-110 transition-transform" />
+                  <span className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 group-hover:after:w-full">
+                    floatingparadise.legonlele@gmail.com
+                  </span>
+                </a>
+              </div>
+              <div className="footer-text flex items-start gap-3 text-primary-foreground/80">
                 <MapPin size={18} className="text-[#c1a06a] mt-1 shrink-0" />
                 <span className="leading-relaxed">
                   Jalan Kapuran, Legon Lele,<br />Karimunjawa – Jepara, Indonesia
@@ -67,11 +70,11 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Quick Links (Span 3) */}
-          <div className="footer-elem lg:col-span-3 lg:col-start-7 text-center md:text-left">
-            <h4 className="font-serif text-xl mb-6 text-[#e8e4db]">Explore</h4>
+          <div className="lg:col-span-3 lg:col-start-7 text-center md:text-left">
+            <h4 className="footer-text font-serif text-xl mb-6 text-[#e8e4db] w-fit mx-auto md:mx-0">Explore</h4>
             <ul className="space-y-4">
               {['Home', 'Bungalows', 'Explore', 'Yoga Retreat', 'Getting Here', 'About Us'].map((item) => (
-                <li key={item}>
+                <li key={item} className="footer-text">
                   <Link 
                     href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`} 
                     className="text-primary-foreground/70 hover:text-white transition-colors text-lg relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full inline-block"
@@ -84,13 +87,13 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Social & Newsletter (Span 3) */}
-          <div className="footer-elem lg:col-span-3 text-center md:text-left">
-            <h4 className="font-serif text-xl mb-6 text-[#e8e4db]">Connect</h4>
+          <div className="lg:col-span-3 text-center md:text-left">
+            <h4 className="footer-text font-serif text-xl mb-6 text-[#e8e4db] w-fit mx-auto md:mx-0">Connect</h4>
             <div className="flex justify-center md:justify-start gap-5 mb-10">
-              <a href="https://www.instagram.com/paradisefloating/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
+              <a href="https://www.instagram.com/paradisefloating/" target="_blank" rel="noopener noreferrer" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
+              <a href="#" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
                 <Facebook size={20} />
               </a>
             </div>
@@ -99,19 +102,19 @@ export default function Footer() {
         </div>
 
         {/* Divider & Copyright */}
-        <div className="footer-elem border-t border-white/10 pt-8 mt-12">
+        <div className="border-t border-white/10 pt-8 mt-12 w-full overflow-hidden">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary-foreground/50 gap-4">
-            <p>&copy; {new Date().getFullYear()} Floating Paradise. All rights reserved.</p>
+            <p className="footer-text">&copy; {new Date().getFullYear()} Floating Paradise. All rights reserved.</p>
             <div className="flex flex-wrap justify-center gap-6 md:gap-8 items-center">
-              <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
+              <Link href="#" className="footer-text hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="#" className="footer-text hover:text-white transition-colors">Terms of Service</Link>
               <div className="w-[1px] h-4 bg-white/20 hidden md:block"></div>
               <button 
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }} 
-                className="hover:text-white transition-colors text-[11px] tracking-[0.2em] font-mono uppercase"
+                className="footer-text hover:text-white transition-colors text-[11px] tracking-[0.2em] font-mono uppercase"
               >
                 BACK TO TOP ^
               </button>

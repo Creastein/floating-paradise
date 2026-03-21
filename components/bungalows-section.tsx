@@ -16,17 +16,17 @@ export default function BungalowsSection() {
     {
       name: 'Sunrise Bungalow',
       description: 'Our most private and sought-after bungalow, offering expansive sea views and soft ocean breezes right from your king-sized bed.',
-      image: '/Sunrise-home.webp',
+      image: '/image/homepage/Sunrise-home.webp',
     },
     {
       name: 'Sunset Bungalow',
       description: "Our soul went into creating Floating's first stand-alone bungalow — offering expansive sea views and sunset views along the bay.",
-      image: '/Sunset-.webp',
+      image: '/image/homepage/Sunset-.webp',
     },
     {
       name: 'Bayside Bungalow',
       description: 'Originally our private family space, Bayside has evolved into a spacious two-bedroom bungalow where you can shower with a view and take in the mangrove forest to the East and the sea flowing gently into the bay in the West.',
-      image: '/Bayside-home.webp',
+      image: '/image/homepage/Bayside-home.webp',
     },
   ]
 
@@ -92,16 +92,17 @@ export default function BungalowsSection() {
         // Desktop: Staggered animation based on grid
         mm.add("(min-width: 768px)", () => {
           gsap.fromTo(cards,
-            { opacity: 0, y: 100 },
+            { opacity: 0, y: 50 },
             {
               opacity: 1,
               y: 0,
-              duration: 1,
-              stagger: 0.2,
-              ease: 'power3.out',
+              duration: 0.8,
+              stagger: 0.15,
+              ease: 'power2.out',
+              force3D: true,
               scrollTrigger: {
                 trigger: cardsGridRef.current,
-                start: 'top 85%',
+                start: 'top 80%',
                 toggleActions: 'play reverse play reverse',
               }
             }

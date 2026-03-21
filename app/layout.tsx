@@ -49,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${lato.className} antialiased`} style={{ '--font-serif': cormorant.style.fontFamily } as React.CSSProperties}>
+      <body className={`${lato.className} antialiased`}>
         {children}
         <FloatingWhatsapp />
         <Analytics />

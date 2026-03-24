@@ -33,11 +33,11 @@ export default function PageHero({
 
       {/* Content with fade-up entrance */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white animate-hero-text-reveal">
+        <h1 className="text-5xl md:text-6xl lg:text-8xl font-serif text-white animate-hero-text-reveal">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-lg md:text-xl text-white/90 font-light max-w-2xl mx-auto animate-hero-subtitle-reveal">
+          <p className="text-xl md:text-2xl text-white/90 font-light max-w-2xl mx-auto animate-hero-subtitle-reveal">
             {subtitle}
           </p>
         )}

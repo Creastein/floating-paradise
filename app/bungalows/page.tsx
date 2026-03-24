@@ -10,24 +10,8 @@ import { Check, Camera } from 'lucide-react'
 import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 import { gsap } from '@/lib/gsap-init'
 
-export default function BungalowsPage() {
-  const mainRef = useRef<HTMLDivElement>(null)
-
-  const introQuoteRef = useRef<HTMLParagraphElement>(null)
-  const introSubRef = useRef<HTMLParagraphElement>(null)
-
-  const roomCardRefs = useRef<(HTMLDivElement | null)[]>([])
-  const roomImageRefs = useRef<(HTMLDivElement | null)[]>([])
-  const roomTextRefs = useRef<(HTMLDivElement | null)[]>([])
-
-
-
-  const [lightboxImages, setLightboxImages] = useState<string[] | null>(null)
-  const [lightboxIndex, setLightboxIndex] = useState(0)
-  const [lightboxAlt, setLightboxAlt] = useState('')
-
-  const rooms = [
-    {
+const ROOMS = [
+  {
       name: 'Sunrise Bungalow',
       description: 'Our most private and sought-after bungalow, offering expansive sea views and soft ocean breezes right from your king-sized bed.',
       image: '/image/homepage/Sunrise-home.webp',
@@ -83,13 +67,27 @@ export default function BungalowsPage() {
     },
   ];
 
-  const roomFacilities = [
+const ROOM_FACILITIES = [
     'Entire Bungalow',
     'En-suite Bathroom with toiletries & toilet paper',
     'Private Terrace',
     'Sea View',
-    'Tea, Coffee & Drinking Water',
-  ];
+  'Tea, Coffee & Drinking Water',
+];
+
+export default function BungalowsPage() {
+  const mainRef = useRef<HTMLDivElement>(null)
+
+  const introQuoteRef = useRef<HTMLParagraphElement>(null)
+  const introSubRef = useRef<HTMLParagraphElement>(null)
+
+  const roomCardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const roomImageRefs = useRef<(HTMLDivElement | null)[]>([])
+  const roomTextRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const [lightboxImages, setLightboxImages] = useState<string[] | null>(null)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
+  const [lightboxAlt, setLightboxAlt] = useState('')
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -119,7 +117,7 @@ export default function BungalowsPage() {
 
         const imgContainer = roomImageRefs.current[index];
         const textContainer = roomTextRefs.current[index];
-        const isReverse = rooms[index].reverse;
+        const isReverse = ROOMS[index].reverse;
 
         // Image Parallax (subtle vertical movement on scroll)
         if (imgContainer) {
@@ -190,7 +188,7 @@ export default function BungalowsPage() {
     }, mainRef);
 
     return () => ctx.revert();
-  }, [rooms]);
+  }, []);
 
   return (
     <main ref={mainRef} className="min-h-screen overflow-hidden">
@@ -218,7 +216,7 @@ export default function BungalowsPage() {
       {/* Rooms Zig-Zag */}
       <section className="pb-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-          {rooms.map((room, index) => (
+          {ROOMS.map((room, index) => (
             <div
               key={index}
               ref={(el) => { roomCardRefs.current[index] = el; }}
@@ -296,7 +294,7 @@ export default function BungalowsPage() {
                   </p>
                   {/* Internal Facilities Checklist */}
                   <ul className="space-y-3">
-                    {roomFacilities.map((feature, i) => (
+                    {ROOM_FACILITIES.map((feature, i) => (
                       <li key={i} className="flex items-start gap-4">
                         <Check className="w-5 h-5 text-[#2F4A3F] flex-shrink-0 mt-0.5" />
                         <span className="text-foreground/80 font-light">{feature}</span>

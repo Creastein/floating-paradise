@@ -217,3 +217,28 @@
   opacity: 0;
   animation: heroSubtitleReveal 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards;
 }
+
+/* ============================================
+   EXPLORE PAGE
+   ============================================ */
+.explore-number {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--foreground);
+  opacity: 0.05;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* ============================================
+   PREMIUM CUSTOM SHADOWS
+   ============================================ */
+.shadow-premium {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1);
+  transition: box-shadow 0.5s ease-out;
+}
+
+.shadow-premium:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15);
+}

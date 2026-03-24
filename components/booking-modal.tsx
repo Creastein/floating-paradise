@@ -9,13 +9,7 @@ interface BookingModalProps {
   onClose: () => void
 }
 
-/**
- * BookingModal
- *
- * Full-screen modal that contains the Tripla booking search bar.
- * When mounted, the Tripla SDK detects the mount point and renders
- * its booking interface inside this modal.
- */
+
 export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const mountRef = useRef<HTMLDivElement>(null)
 

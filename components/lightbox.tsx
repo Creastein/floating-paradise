@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useCallback, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface LightboxProps {
@@ -15,6 +16,11 @@ export default function Lightbox({ images, initialIndex = 0, alt = 'Gallery imag
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
   const [isAnimating, setIsAnimating] = useState(false)
   const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const goTo = useCallback((index: number) => {
     if (isAnimating) return
@@ -61,7 +67,9 @@ export default function Lightbox({ images, initialIndex = 0, alt = 'Gallery imag
     setTouchStart(null)
   }
 
-  return (
+  if (!mounted) return null
+
+  return createPortal(
     <div
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
       onClick={onClose}
@@ -158,6 +166,8 @@ export default function Lightbox({ images, initialIndex = 0, alt = 'Gallery imag
           ))}
         </div>
       )}
-    </div>
+    </div>,
+    document.body
   )
 }
+

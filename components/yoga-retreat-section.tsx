@@ -11,6 +11,7 @@ export default function YogaRetreatSection() {
   const textColumnRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
+  const yogaRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -36,9 +37,8 @@ export default function YogaRetreatSection() {
       }
 
       // 2. Text scrub animations (matching About Us style)
-      if (textColumnRef.current) {
-        const scrubItems = gsap.utils.toArray('.yoga-scrub-text', textColumnRef.current)
-        scrubItems.forEach((el: any) => {
+      yogaRefs.current.forEach((el) => {
+        if (el) { // Ensure element exists before animating
           gsap.fromTo(el,
             { opacity: 0.15, filter: 'blur(2px)' },
             {
@@ -53,8 +53,8 @@ export default function YogaRetreatSection() {
               }
             }
           )
-        })
-      }
+        }
+      })
 
       // Heading slide-in from left
       if (headingRef.current) {
@@ -157,12 +157,7 @@ export default function YogaRetreatSection() {
               
               {/* Main circular image */}
               <div
-                className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[460px] md:h-[460px] lg:w-[500px] lg:h-[500px] rounded-full overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
-                style={{
-                  boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+                className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[460px] md:h-[460px] lg:w-[500px] lg:h-[500px] rounded-full overflow-hidden cursor-pointer shadow-premium hover:-translate-y-3 group"
               >
                 <Image
                   src="/image/homepage/yogahome.webp"

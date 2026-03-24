@@ -6,89 +6,134 @@ import { TRIPLA_EXTRAS_URL } from '@/lib/tripla'
 
 export const metadata = {
   title: 'Explore Karimunjawa | Floating Paradise',
-  description: 'Discover the island through our curated activities: eco boat tours, sunset yoga, kayaking, trekking, dining, and turtle sanctuary visits.',
+  description: 'Discover the island through our curated activities: eco boat tours, sunset yoga, kayaking, trekking, turtle sanctuary, and local cuisine.',
 }
 
-export default function ExplorePage() {
-  const activities = [
-    {
+const ACTIVITIES = [
+  {
       title: 'Private Eco Boat Tour',
-      description: 'Our most popular and exclusive service is a full-day private boat trip departing directly from Floating Paradiseʼs pier. During this tour you can explore the most breathtaking, and less touristic areas of the archipelago. Guided by a well-trained, English speaking guide and a friendly captain, youʼll discover vibrant reefs and untouched tropical islands while enjoying a truly unforgettable day.\n\nIn line with our eco-friendly principles, we ensure all trips are as sustainable as possible: no single-use plastics are used, rubbish is collected and taken back with us, and we prioritise reef preservation. Destinations vary depending on weather, ensuring both safety and minimal environmental impact.',
-      gallery: ['/hero-img.jpg', '/hero-img.jpg', '/hero-img.jpg'],
-      ctaText: 'Pre-Book Now',
+      description:
+        'A full-day private boat trip departing from our pier to explore the most breathtaking corners of the archipelago. Guided by an English-speaking crew, discover vibrant reefs and untouched islands — sustainably.',
+      gallery: [
+        '/image/Explore/Private Eco Boat Tour/PB1.webp',
+        '/image/Explore/Private Eco Boat Tour/PB2.webp',
+        '/image/Explore/Private Eco Boat Tour/PB3.webp',
+        '/image/Explore/Private Eco Boat Tour/PB4.webp',
+        '/image/Explore/Private Eco Boat Tour/PB5.webp',
+        '/image/Explore/Private Eco Boat Tour/PB6.webp',
+        '/image/Explore/Private Eco Boat Tour/PB7.webp',
+        '/image/Explore/Private Eco Boat Tour/PB8.webp',
+      ],
+      ctaText: 'Book Now',
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
       title: 'Open Air Sunset Yoga',
-      description: 'As the heat softens and the sky begins to glow, we gather at the end of Floatingʼs jetty for a steady, grounding Hatha Flow practice. This 75 minute practice blends breathwork, meditation, yogic philosophy as well as mindful sequencing. Expect a balanced flow, gentle enough for beginners, with options to deepen for more experienced practitioners.\n\nPracticing above the water as the sun sets over the bay creates a naturally calming atmosphere. Classes are led by Astrid, Floatingʼs resident teacher with five years of experience. Mats are provided, just bring comfortable clothing and an open mind. End your day grounded, stretched, and steady.',
+      description:
+        'A 75-minute Hatha Flow practice at the end of our jetty as the sun sets over the bay. Led by Astrid, Floating\u2019s resident teacher — mats provided, just bring an open mind.',
       gallery: [
-        '/image/Explore/Open Air Sunset Yoga/sunsetyoga1.webp',
+        '/image/Explore/Open Air Sunset Yoga/sunsetyoga6.webp',
+        '/image/Explore/Open Air Sunset Yoga/sunsetyoga1.JPG',
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga2.webp',
-        '/image/Explore/Open Air Sunset Yoga/sunsetyoga3.webp'
+        '/image/Explore/Open Air Sunset Yoga/sunsetyoga3.webp',
+        '/image/Explore/Open Air Sunset Yoga/sunsetyoga4.webp',
+        '/image/Explore/Open Air Sunset Yoga/sunsetyoga5.webp',
+        '/image/Explore/Open Air Sunset Yoga/sunsetyoga7.webp',
+        '/image/Explore/Open Air Sunset Yoga/sunsetyoga8.webp',
       ],
-      ctaText: 'Retreat Info',
+      ctaText: 'Learn More',
       ctaLink: '/yoga-retreat',
       ctaExternal: false,
     },
     {
       title: 'Kayak, Lunch & Chill',
-      description: 'Explore the reef and mangroves of Karimunjawa at your own rhythm. Our new two-person kayaks invite you to paddle through crystal-clear water, discover secluded beaches, and glide quietly above vibrant coral reef.\n\nFor Outside Guests – Kayak Day Experience: Join us between 10am–3pm for a curated off-grid adventure. Includes welcome drink, use of a two-person kayak, free mask & snorkel rental, fresh seafood lunch, access to our jetty area, and 10% off bar orders.\nRp350,000 per person (Pre-booking required · Maximum 4 outside guests per day).\nA simple, beautiful day above the sea.',
-      gallery: ['/hero-img.jpg', '/hero-img.jpg', '/hero-img.jpg'],
-      ctaText: 'Reserve Now',
+      description:
+        'Paddle through crystal-clear water, discover secluded beaches, and glide above vibrant coral reef at your own pace. Includes welcome drink, kayak, snorkel gear, and a fresh seafood lunch.',
+      gallery: [
+        '/image/Explore/Kayak, Lunch & Chill/kayak2.webp',
+        '/image/Explore/Kayak, Lunch & Chill/kayak1.webp',
+        '/image/Explore/Kayak, Lunch & Chill/kayak3.webp',
+        '/image/Explore/Kayak, Lunch & Chill/kayak4.webp',
+        '/image/Explore/Kayak, Lunch & Chill/kayak5.webp',
+        '/image/Explore/Kayak, Lunch & Chill/kayak6.webp',
+      ],
+      ctaText: 'Book Now',
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
       title: 'Trekking Nyamplungan',
-      description: 'For those craving movement and panoramic reward, Nyamplungan Trek is one of Karimunjawaʼs most iconic hikes. This half-day adventure takes you to the islandʼs second-highest peak, climbing through tropical forest on a reasonably steep but manageable trail. Along the way, youʼll pass native trees, hear the sounds of the jungle, and feel the shift from sea breeze to mountain air.\n\nAt the summit, youʼre met with sweeping views across the archipelago and the wild northern coastline. As part of the journey, youʼll have the opportunity to plant a sapling at the top, contributing directly to the islandʼs reforestation efforts. Challenge your body. Expand your view. Give something back.',
-      gallery: ['/hero-img.jpg', '/hero-img.jpg', '/hero-img.jpg'],
-      ctaText: 'Pre-Book Now',
+      description:
+        'A half-day hike to the island\u2019s second-highest peak through tropical forest, rewarded with sweeping views of the archipelago. Plant a sapling at the summit and give something back.',
+      gallery: [
+        '/image/Explore/Trekking Nyamplungan/Trekking1.webp',
+        '/image/Explore/Trekking Nyamplungan/Trekking2.webp',
+        '/image/Explore/Trekking Nyamplungan/Trekking3.webp',
+        '/image/Explore/Trekking Nyamplungan/Trekking4.webp',
+        '/image/Explore/Trekking Nyamplungan/Trekking5.webp',
+      ],
+      ctaText: 'Book Now',
+      ctaLink: TRIPLA_EXTRAS_URL,
+      ctaExternal: true,
+    },
+    {
+      title: 'Turtle Sanctuary',
+      description:
+        'Visit the sea turtle conservation sanctuary in our bay, led by the national park authority. Join the afternoon release of baby turtles — a meaningful way to support the reef\u2019s future.',
+      gallery: [
+        '/image/Explore/Turtle Sanctuary/TS1.webp',
+        '/image/Explore/Turtle Sanctuary/TS2.webp',
+        '/image/Explore/Turtle Sanctuary/TS3.webp',
+        '/image/Explore/Turtle Sanctuary/TS4.webp',
+      ],
+      ctaText: 'Book Now',
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
       title: 'Tastes of Paradise',
-      description: 'At Floating, meals are slow, fresh, and deeply local; shaped by the sea, the seasons, and what the island provides that day.\n\nOur kitchen celebrates the flavours of Karimunjawa with fragrant Indonesian classics, freshly caught fish, tender squid, vibrant vegetable dishes, and nourishing plant-based options. Every plate is prepared to order using local ingredients. We donʼt rush food here and ingredients are sourced daily, which is why we kindly ask guests to pre-order lunch and dinner. At the bar, youʼll find chilled long drinks, cold beers, fresh juices, coconuts, and good coffee.',
-      gallery: ['/hero-img.jpg', '/hero-img.jpg', '/hero-img.jpg'],
-      ctaText: 'See Our Menu',
-      ctaLink: '#download-menu',
-      ctaExternal: false,
-    },
-    {
-      title: 'Turtle Sanctuary',
-      description: 'In the same bay as Floating Paradise, the Turtle Sanctuary is an initiative led by Balai Taman Nasional Karimunjawa (BTN), the authority responsible for protecting the marine ecosystem of Karimunjawa.\n\nThe sanctuary supports sea turtle conservation by safeguarding eggs from predators and increasing hatchling chances of survival. Guests are welcome to visit the sanctuary and participate in the release of baby sea turtles, which usually takes place in the afternoon. The visit is Rp150,000 per person (transport included). A meaningful way to witness — and support — the future of the reef.',
-      gallery: ['/hero-img.jpg', '/hero-img.jpg', '/hero-img.jpg'],
-      ctaText: 'Pre-Book Now',
+      description:
+        'Slow, fresh, and deeply local meals shaped by the sea and the seasons. Fragrant Indonesian classics, freshly caught fish, plant-based options, and good coffee at the bar.',
+      gallery: [
+        '/image/Explore/Tastes of Paradise/TP1.webp',
+        '/image/Explore/Tastes of Paradise/TP2.webp',
+        '/image/Explore/Tastes of Paradise/TP3.webp',
+        '/image/Explore/Tastes of Paradise/TP4.webp',
+        '/image/Explore/Tastes of Paradise/TP5.webp',
+      ],
+      ctaText: 'Book Now',
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
       title: 'Floating Merchandise',
-      description: 'Bamboo cotton t-shirts — soft, eco-friendly, and antibacterial. Each design handmade by Astrid herself.',
+      description:
+        'Bamboo cotton t-shirts — soft, eco-friendly, and antibacterial. Each design handmade by Astrid herself.',
+      gallery: ['/image/Explore/New folder/floating-merchandise.png'],
       detail: 'Rp 180,000 · Sizes S–XXL',
       label: 'Pre-order',
-      gallery: ['/image/Explore/floating-merchandise.png', '/image/Explore/floating-merchandise.png', '/image/Explore/floating-merchandise.png'],
-      ctaText: 'Pre-order Now',
+      ctaText: 'Pre-Order',
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
-    },
-  ];
+  },
+]
 
+export default function ExplorePage() {
   return (
     <main className="min-h-screen">
       <Navigation />
 
-      <PageHero 
-        title="Explore Karimunjawa"
-        subtitle="We offer a range of activities on site, or slightly beyond, that depart directly from Floating."
-        backgroundImage="/hero-img.jpg"
+      <PageHero
+        title="Explore"
+        subtitle="Every experience departs from our pier."
+        backgroundImage="/image/Explore/explore-hero.webp"
         fullHeight
       />
 
-      <section className="relative -mt-16 z-10 pt-32 pb-24 bg-background overflow-hidden rounded-t-[2.5rem]">
+      <section className="relative -mt-16 z-10 pt-24 md:pt-32 pb-16 md:pb-24 bg-white overflow-hidden rounded-t-[2.5rem]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ExploreContent activities={activities} />
+          <ExploreContent activities={ACTIVITIES} />
         </div>
       </section>
 

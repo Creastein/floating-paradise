@@ -13,7 +13,7 @@ export default function AboutUsSection() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // 1. Gallery frames — staggered reveal entrance
-      const frames = gsap.utils.toArray('.gallery-frame', galleryRef.current)
+      const frames = gsap.utils.toArray<HTMLElement>('.gallery-frame', galleryRef.current)
       if (frames.length) {
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -23,7 +23,7 @@ export default function AboutUsSection() {
           }
         })
 
-        frames.forEach((frame: any, i: number) => {
+        frames.forEach((frame, i) => {
           gsap.set(frame, { opacity: 0, y: 60, scale: 0.95 })
           tl.to(frame, {
             opacity: 1,
@@ -55,8 +55,8 @@ export default function AboutUsSection() {
 
       // 2. Text Scrub Animation
       if (textColumnRef.current) {
-        const paragraphs = gsap.utils.toArray('.scrub-text', textColumnRef.current)
-        paragraphs.forEach((p: any) => {
+        const paragraphs = gsap.utils.toArray<HTMLElement>('.scrub-text', textColumnRef.current)
+        paragraphs.forEach((p) => {
           gsap.fromTo(p,
             { opacity: 0.15, filter: 'blur(2px)' },
             {
@@ -88,12 +88,7 @@ export default function AboutUsSection() {
             
             {/* Image 1 — Large, spans left 3 columns & both rows */}
             <div
-              className="gallery-frame col-span-3 row-span-2 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3"
-              style={{
-                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
-              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+              className="gallery-frame col-span-3 row-span-2 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
                 src="/image/homepage/Welcome-to-Floating1.webp"
@@ -105,12 +100,7 @@ export default function AboutUsSection() {
 
             {/* Image 2 — Top-right, spans right 2 columns */}
             <div
-              className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3"
-              style={{
-                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
-              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+              className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
                 src="/image/homepage/Welcome-to-Floating2.webp"
@@ -122,12 +112,7 @@ export default function AboutUsSection() {
 
             {/* Image 3 — Bottom-right, spans right 2 columns */}
             <div
-              className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3"
-              style={{
-                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
-              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+              className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
                 src="/image/homepage/Welcome-to-Floating3.webp"

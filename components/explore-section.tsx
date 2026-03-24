@@ -159,12 +159,7 @@ export default function ExploreSection() {
              {/* Image 1 — Handcrafted Structure */}
             <div
               ref={img1Ref}
-              className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden will-change-transform cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
-              style={{
-                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
-              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+              className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden will-change-transform cursor-pointer shadow-premium transition-all duration-500 ease-out hover:-translate-y-3 group"
             >
               <Image
                 src="/image/homepage/Builtbyhand-1.webp"
@@ -176,12 +171,7 @@ export default function ExploreSection() {
             {/* Image 2 — Solar Power */}
             <div
               ref={img2Ref}
-              className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden will-change-transform cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
-              style={{
-                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.25), 0 50px 90px rgba(0,0,0,0.15)'}
-              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)'}
+              className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden will-change-transform cursor-pointer shadow-premium transition-all duration-500 ease-out hover:-translate-y-3 group"
             >
               <Image
                 src="/image/homepage/Builtbyhand-2.webp"
@@ -196,19 +186,13 @@ export default function ExploreSection() {
           <div className="w-full md:hidden flex flex-col gap-5">
             <div
               ref={mobileImg1Ref}
-              className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
-              style={{
-                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
-              }}
+              className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-premium transition-all duration-500 ease-out hover:-translate-y-3 group"
             >
               <Image src="/image/homepage/Builtbyhand-1.webp" fill alt="Materials" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
             </div>
             <div
               ref={mobileImg2Ref}
-              className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-3 group"
-              style={{
-                boxShadow: '0 8px 16px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.2), 0 30px 60px rgba(0,0,0,0.1)',
-              }}
+              className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden cursor-pointer shadow-premium transition-all duration-500 ease-out hover:-translate-y-3 group"
             >
               <Image src="/image/homepage/Builtbyhand-2.webp" fill alt="Solar Panel" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
             </div>

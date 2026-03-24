@@ -30,6 +30,7 @@ export default function Navigation() {
     { href: '/yoga-retreat', label: 'Yoga Retreat' },
     { href: '/getting-here', label: 'Getting Here' },
     { href: '/about', label: 'About Us' },
+    { href: '/contact', label: 'Contact' },
   ]
 
   const isSolid = isScrolled || isOpen
@@ -70,15 +71,35 @@ export default function Navigation() {
             </Link>
 
             <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`text-base font-semibold transition-colors duration-300 ${textColor}`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isActive = item.href === '/' 
+                  ? pathname === '/' 
+                  : pathname.startsWith(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`relative text-base font-semibold transition-colors duration-300 pb-1 ${
+                      isActive
+                        ? isSolid
+                          ? 'text-primary'
+                          : 'text-white [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%),_0_0px_2px_rgb(0_0_0_/_40%)]'
+                        : textColor
+                    }`}
+                  >
+                    {item.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className={`absolute left-0 right-0 -bottom-0.5 h-[2px] rounded-full ${
+                          isSolid ? 'bg-primary' : 'bg-white'
+                        }`}
+                        transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                )
+              })}
               
               <Button 
                 asChild
@@ -114,22 +135,31 @@ export default function Navigation() {
           >
             <div className="flex flex-col min-h-screen px-6 pt-24 pb-8">
               <div className="flex flex-col gap-6 flex-grow">
-                {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                  >
-                    <Link
-                      href={item.href}
-                      className="block text-3xl font-serif text-foreground hover:text-primary transition-colors py-2 border-b border-border/50"
-                      onClick={() => setIsOpen(false)}
+                {navItems.map((item, i) => {
+                  const isActive = item.href === '/' 
+                    ? pathname === '/' 
+                    : pathname.startsWith(item.href)
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
                     >
-                      {item.label}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link
+                        href={item.href}
+                        className={`block text-3xl font-serif transition-colors py-2 border-b border-border/50 ${
+                          isActive 
+                            ? 'text-primary border-l-4 border-l-primary pl-4' 
+                            : 'text-foreground hover:text-primary'
+                        }`}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  )
+                })}
               </div>
               
               <motion.div

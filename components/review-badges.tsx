@@ -58,7 +58,7 @@ export default function ReviewBadges() {
         mm.add("(max-width: 767px)", () => {
           gsap.fromTo(badges,
             { 
-              x: (i: any) => i % 2 === 0 ? -80 : 80, 
+              x: (i: number) => i % 2 === 0 ? -80 : 80, 
               y: 0,
               opacity: 0 
             },

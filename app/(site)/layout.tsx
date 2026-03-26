@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
       images: ogImageUrl ? [{ url: ogImageUrl, width: 1200, height: 630, alt: title }] : undefined,
     },
     icons: {
-      icon: '/logo.png',
+      icon: '/favicon.svg',
       apple: '/logo.png',
     },
   }

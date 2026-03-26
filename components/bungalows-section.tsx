@@ -5,14 +5,22 @@ import { motion } from 'framer-motion'
 import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
+import { urlFor } from '@/lib/sanity.image'
+import { PortableText } from '@/components/portable-text'
 
-export default function BungalowsSection() {
+type BungalowsSectionProps = {
+  title?: string;
+  text?: any;
+  bungalows?: any[];
+}
+
+export default function BungalowsSection({ title, text, bungalows: cmsBungalows }: BungalowsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const cardImageRefs = useRef<(HTMLDivElement | null)[]>([])
   const cardsGridRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLDivElement>(null)
 
-  const bungalows = [
+  const defaultBungalows = [
     {
       name: 'Sunrise Bungalow',
       description: 'Our most private and sought-after bungalow, offering expansive sea views and soft ocean breezes right from your king-sized bed.',
@@ -29,6 +37,9 @@ export default function BungalowsSection() {
       image: '/image/homepage/Bayside-home.webp',
     },
   ]
+
+  // Use CMS data if available, fallback to defaults
+  const displayBungalows = cmsBungalows && cmsBungalows.length > 0 ? cmsBungalows.slice(0, 3) : defaultBungalows
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -143,23 +154,38 @@ export default function BungalowsSection() {
         <div className="flex flex-col md:flex-row gap-8 lg:gap-16 items-start mb-16 lg:mb-24">
           <div className="w-full md:w-1/3">
             <h2 ref={headingRef} className="scrub-text font-serif text-3xl md:text-5xl lg:text-5xl text-foreground font-medium tracking-wide leading-tight">
-              Our Floating <br className="hidden lg:block"/> Bungalows
+              {title || (
+                <>Our Floating <br className="hidden lg:block"/> Bungalows</>
+              )}
             </h2>
           </div>
           
           <div className="w-full md:w-2/3 md:max-w-xl md:border-l-[2px] md:border-primary/20 md:pl-10 text-foreground/80 space-y-3 text-lg text-justify leading-relaxed">
-            <p className="scrub-text">
-              <strong className="text-foreground font-semibold">Suspended above the reef</strong>, our three handcrafted bamboo bungalows invite you to live between sea and sky.
-            </p>
-            <p className="scrub-text">
-              Built by hand and shaped by the elements, each bungalow has its own personality; no two are the same. Wake with the sunrise shimmering across the water, watch the tide shift beneath your feet, and fall asleep to the quiet rhythm of the waves.
-            </p>
-            <p className="scrub-text">
-              Inside, natural textures and open design create a space that feels both grounded and free. Each bungalow features a queen bed (or larger), a private ensuite with fresh water shower, sink, and flushing toilet, and a generous balcony with comfortable seating; your front-row seat to panoramic views of the sea and mangroves.
-            </p>
-            <p className="scrub-text font-medium text-foreground pt-3 mt-5 border-t border-border">
-              These are not just rooms, they're a place to exhale, to soften, and to float.
-            </p>
+            {text ? (
+              <PortableText 
+                value={text} 
+                components={{
+                  block: {
+                    normal: ({ children }: any) => <p className="scrub-text">{children}</p>
+                  }
+                }}
+              />
+            ) : (
+              <>
+                <p className="scrub-text">
+                  <strong className="text-foreground font-semibold">Suspended above the reef</strong>, our three handcrafted bamboo bungalows invite you to live between sea and sky.
+                </p>
+                <p className="scrub-text">
+                  Built by hand and shaped by the elements, each bungalow has its own personality; no two are the same. Wake with the sunrise shimmering across the water, watch the tide shift beneath your feet, and fall asleep to the quiet rhythm of the waves.
+                </p>
+                <p className="scrub-text">
+                  Inside, natural textures and open design create a space that feels both grounded and free. Each bungalow features a queen bed (or larger), a private ensuite with fresh water shower, sink, and flushing toilet, and a generous balcony with comfortable seating; your front-row seat to panoramic views of the sea and mangroves.
+                </p>
+                <p className="scrub-text font-medium text-foreground pt-3 mt-5 border-t border-border">
+                  These are not just rooms, they're a place to exhale, to soften, and to float.
+                </p>
+              </>
+            )}
           </div>
         </div>
 
@@ -167,7 +193,12 @@ export default function BungalowsSection() {
           ref={cardsGridRef}
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
-          {bungalows.map((bungalow, index) => (
+          {displayBungalows.map((bungalow, index) => {
+            const imgSrc = bungalow.gallery?.[0] ? urlFor(bungalow.gallery[0]).url() 
+                         : bungalow.mainImage ? urlFor(bungalow.mainImage).url() 
+                         : bungalow.image;
+            
+            return (
             <div key={index} className="bungalow-card group cursor-pointer flex flex-col h-full bg-[#f5efe6] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-700">
               <div className="relative h-72 w-full overflow-hidden">
                 <div
@@ -176,7 +207,7 @@ export default function BungalowsSection() {
                   style={{ top: '-10%', height: '120%' }}
                 >
                   <Image
-                    src={bungalow.image}
+                    src={imgSrc || "/image/homepage/Sunrise-home.webp"}
                     alt={bungalow.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -188,12 +219,23 @@ export default function BungalowsSection() {
                 <h3 className="font-serif text-2xl font-medium text-foreground mb-4">
                   {bungalow.name}
                 </h3>
-                <p className="text-foreground/70 text-base mb-8 flex-grow leading-relaxed">
-                  {bungalow.description}
-                </p>
+                <div className="text-foreground/70 text-base mb-8 flex-grow leading-relaxed flex flex-col items-center">
+                  {typeof bungalow.description === 'string' ? (
+                    <p>{bungalow.description}</p>
+                  ) : bungalow.description ? (
+                    <PortableText 
+                      value={bungalow.description} 
+                      components={{
+                        block: {
+                          normal: ({ children }: any) => <p className="mb-2 last:mb-0 max-w-sm">{children}</p>
+                        }
+                      }}
+                    />
+                  ) : null}
+                </div>
                 <div className="mt-6 pt-5 border-t border-primary/20">
                   <a 
-                    href={TRIPLA_BOOKING_URL}
+                    href={bungalow.triplaUrl || TRIPLA_BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-xs font-bold text-primary hover:text-foreground transition-colors duration-700 w-full"
@@ -203,7 +245,7 @@ export default function BungalowsSection() {
                 </div>
               </div>
             </div>
-          ))}
+          )})}
         </div>
       </div>
     </section>

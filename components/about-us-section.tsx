@@ -3,8 +3,18 @@
 import Image from 'next/image'
 import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
+import { urlFor } from '@/lib/sanity.image'
+import { PortableText } from '@/components/portable-text'
 
-export default function AboutUsSection() {
+type AboutUsSectionProps = {
+  title?: string;
+  text?: any;
+  image1?: any;
+  image2?: any;
+  image3?: any;
+}
+
+export default function AboutUsSection({ title, text, image1, image2, image3 }: AboutUsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const galleryRef = useRef<HTMLDivElement>(null)
   const textColumnRef = useRef<HTMLDivElement>(null)
@@ -91,7 +101,7 @@ export default function AboutUsSection() {
               className="gallery-frame col-span-3 row-span-2 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
-                src="/image/homepage/Welcome-to-Floating1.webp"
+                src={image1 ? urlFor(image1).url() : "/image/homepage/Welcome-to-Floating1.webp"}
                 alt="Floating Paradise Exterior"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -103,7 +113,7 @@ export default function AboutUsSection() {
               className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
-                src="/image/homepage/Welcome-to-Floating2.webp"
+                src={image2 ? urlFor(image2).url() : "/image/homepage/Welcome-to-Floating2.webp"}
                 alt="Floating Paradise Interior"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -115,7 +125,7 @@ export default function AboutUsSection() {
               className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
-                src="/image/homepage/Welcome-to-Floating3.webp"
+                src={image3 ? urlFor(image3).url() : "/image/homepage/Welcome-to-Floating3.webp"}
                 alt="Moonrise over Floating Paradise"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -132,38 +142,58 @@ export default function AboutUsSection() {
                 Welcome to Floating
               </h2>
               <h3 className="font-serif text-3xl md:text-5xl text-foreground font-medium leading-tight">
-                A sea-based guesthouse,<br className="hidden md:block"/> sheltered in a mangrove bay.
+                {title || (
+                  <>A sea-based guesthouse,<br className="hidden md:block"/> sheltered in a mangrove bay.</>
+                )}
               </h3>
             </div>
             
             {/* Body Paragraphs */}
             <div className="text-foreground/80 space-y-1 md:space-y-2 text-lg text-justify md:text-left leading-relaxed">
-              
-              {/* Paragraf 1 */}
-              <p className="scrub-text">
-                <strong className="text-foreground font-semibold">Floating Paradise</strong> is proudly solar-powered. Built consciously above the water, it invites a slower rhythm of living, where mornings begin gazing out to the horizon, days unfold barefoot, and life follows the tides more than the clock.
-              </p>
+              {text ? (
+                <PortableText 
+                  value={text} 
+                  components={{
+                    block: {
+                      normal: ({ children }: any) => <p className="scrub-text leading-relaxed">{children}</p>,
+                      blockquote: ({ children }: any) => (
+                        <p className="scrub-text italic font-serif text-xl md:text-2xl text-foreground/90 border-l-[3px] border-primary/40 pl-6 my-3 md:my-4 relative">
+                          <span className="absolute -left-3 -top-2 text-primary/30 text-4xl">"</span>
+                          {children}
+                        </p>
+                      )
+                    }
+                  }}
+                />
+              ) : (
+                <>
+                  {/* Fallback Paragraf 1 */}
+                  <p className="scrub-text">
+                    <strong className="text-foreground font-semibold">Floating Paradise</strong> is proudly solar-powered. Built consciously above the water, it invites a slower rhythm of living, where mornings begin gazing out to the horizon, days unfold barefoot, and life follows the tides more than the clock.
+                  </p>
 
-              {/* Paragraf 2 */}
-              <p className="scrub-text">
-                With just three cosy rooms, all locally crafted using wood and bamboo, with direct jetty access to deep water, and the reef at your doorstep, it's a unique, secluded, nature escape.
-              </p>
+                  {/* Fallback Paragraf 2 */}
+                  <p className="scrub-text">
+                    With just three cosy rooms, all locally crafted using wood and bamboo, with direct jetty access to deep water, and the reef at your doorstep, it's a unique, secluded, nature escape.
+                  </p>
 
-              {/* Paragraf 3 - Gentle Break */}
-              <p className="scrub-text italic font-serif text-xl md:text-2xl text-foreground/90 border-l-[3px] border-primary/40 pl-6 my-3 md:my-4 relative">
-                <span className="absolute -left-3 -top-2 text-primary/30 text-4xl">"</span>
-                Swim, snorkel, kayak, fish, explore nearby beaches, or practice yoga on our open decks overlooking the horizon.
-              </p>
+                  {/* Fallback Paragraf 3 - Gentle Break */}
+                  <p className="scrub-text italic font-serif text-xl md:text-2xl text-foreground/90 border-l-[3px] border-primary/40 pl-6 my-3 md:my-4 relative">
+                    <span className="absolute -left-3 -top-2 text-primary/30 text-4xl">"</span>
+                    Swim, snorkel, kayak, fish, explore nearby beaches, or practice yoga on our open decks overlooking the horizon.
+                  </p>
 
-              {/* Paragraf 4 */}
-              <p className="scrub-text">
-                At night, watch phosphorescent plankton glow beneath you or spot shooting stars above, not forgetting our fresh, abundant meals too. Immerse yourself in this unique tropical island space; slow down, reconnect, contribute sustainably, and connect to nature, all at Floating Paradise.
-              </p>
+                  {/* Fallback Paragraf 4 */}
+                  <p className="scrub-text">
+                    At night, watch phosphorescent plankton glow beneath you or spot shooting stars above, not forgetting our fresh, abundant meals too. Immerse yourself in this unique tropical island space; slow down, reconnect, contribute sustainably, and connect to nature, all at Floating Paradise.
+                  </p>
 
-              {/* Paragraf 5 - Final */}
-              <p className="scrub-text text-foreground font-medium pt-3 mt-4 md:mt-5 border-t border-border">
-                Comfort, exploration, and rejuvenation await in this tropical island paradise. We can't wait to welcome you!
-              </p>
+                  {/* Fallback Paragraf 5 - Final */}
+                  <p className="scrub-text text-foreground font-medium pt-3 mt-4 md:mt-5 border-t border-border">
+                    Comfort, exploration, and rejuvenation await in this tropical island paradise. We can't wait to welcome you!
+                  </p>
+                </>
+              )}
             </div>
           </div>
 

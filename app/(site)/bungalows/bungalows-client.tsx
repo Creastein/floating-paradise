@@ -9,6 +9,8 @@ import Image from 'next/image'
 import { Check, Camera } from 'lucide-react'
 import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 import { gsap } from '@/lib/gsap-init'
+import { PortableText } from '@/components/portable-text'
+import { urlFor } from '@/lib/sanity.image'
 
 const ROOMS = [
   {
@@ -75,11 +77,26 @@ const ROOM_FACILITIES = [
   'Tea, Coffee & Drinking Water',
 ];
 
-export default function BungalowsPage() {
+export default function BungalowsClient({ initialBungalows }: { initialBungalows?: any[] }) {
   const mainRef = useRef<HTMLDivElement>(null)
 
   const introQuoteRef = useRef<HTMLParagraphElement>(null)
   const introSubRef = useRef<HTMLParagraphElement>(null)
+
+  const displayRooms = initialBungalows && initialBungalows.length > 0
+    ? initialBungalows.map((b, index) => ({
+        name: b.name,
+        description: b.description,
+        image: b.gallery?.[0] ? urlFor(b.gallery[0]).url() : ROOMS[index]?.image || '/image/homepage/Sunrise-home.webp',
+        reverse: index % 2 !== 0,
+        guests: b.maxGuests?.toString() || ROOMS[index]?.guests || '2',
+        size: ROOMS[index]?.size || 'N/A', 
+        price: b.priceIDR ? `Rp ${b.priceIDR.toLocaleString('en-US')} / Night` : ROOMS[index]?.price || 'Check Rates',
+        gallery: b.gallery ? b.gallery.map((img: any) => urlFor(img).url()) : ROOMS[index]?.gallery || [],
+        triplaUrl: b.triplaUrl || TRIPLA_BOOKING_URL,
+        features: b.features || ROOM_FACILITIES,
+      }))
+    : ROOMS;
 
   const roomCardRefs = useRef<(HTMLDivElement | null)[]>([])
   const roomImageRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -117,7 +134,7 @@ export default function BungalowsPage() {
 
         const imgContainer = roomImageRefs.current[index];
         const textContainer = roomTextRefs.current[index];
-        const isReverse = ROOMS[index].reverse;
+        const isReverse = displayRooms[index].reverse;
 
         // Image Parallax (subtle vertical movement on scroll)
         if (imgContainer) {
@@ -216,7 +233,7 @@ export default function BungalowsPage() {
       {/* Rooms Zig-Zag */}
       <section className="pb-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-          {ROOMS.map((room, index) => (
+          {displayRooms.map((room, index) => (
             <div
               key={index}
               ref={(el) => { roomCardRefs.current[index] = el; }}
@@ -225,9 +242,11 @@ export default function BungalowsPage() {
               <div
                 className="w-full lg:w-1/2 overflow-hidden rounded-t-[40%] rounded-b-2xl shadow-xl will-change-transform group cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl"
                 onClick={() => {
-                  setLightboxImages(room.gallery)
-                  setLightboxIndex(0)
-                  setLightboxAlt(room.name)
+                  if (room.gallery && room.gallery.length > 0) {
+                    setLightboxImages(room.gallery)
+                    setLightboxIndex(0)
+                    setLightboxAlt(room.name)
+                  }
                 }}
               >
                 <div className="relative h-[400px] lg:h-[500px] w-full">
@@ -279,7 +298,7 @@ export default function BungalowsPage() {
                   </div>
                   
                   <a
-                    href={TRIPLA_BOOKING_URL}
+                    href={room.triplaUrl || TRIPLA_BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"
@@ -289,12 +308,23 @@ export default function BungalowsPage() {
                 </div>
 
                 <div className="space-y-6 pt-2">
-                  <p className="text-lg text-foreground/80 font-light leading-relaxed">
-                    {room.description}
-                  </p>
+                  <div className="text-lg text-foreground/80 font-light leading-relaxed">
+                    {typeof room.description === 'string' ? (
+                      <p>{room.description}</p>
+                    ) : room.description ? (
+                      <PortableText 
+                        value={room.description} 
+                        components={{
+                          block: {
+                            normal: ({ children }: any) => <p className="mb-4 last:mb-0">{children}</p>
+                          }
+                        }}
+                      />
+                    ) : null}
+                  </div>
                   {/* Internal Facilities Checklist */}
                   <ul className="space-y-3">
-                    {ROOM_FACILITIES.map((feature, i) => (
+                    {(room.features || ROOM_FACILITIES).map((feature: string, i: number) => (
                       <li key={i} className="flex items-start gap-4">
                         <Check className="w-5 h-5 text-[#2F4A3F] flex-shrink-0 mt-0.5" />
                         <span className="text-foreground/80 font-light">{feature}</span>

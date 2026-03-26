@@ -2,8 +2,13 @@
 
 import Image from 'next/image'
 import { useEditorialScroll } from '@/hooks/use-editorial-scroll'
+import { PortableText } from '@/components/portable-text'
 
-export default function AboutAstridTono() {
+interface AboutAstridTonoProps {
+  initialStory?: any[] | null
+}
+
+export default function AboutAstridTono({ initialStory }: AboutAstridTonoProps) {
   const { sectionRef, imageRef, textColumnRef, headingRef } =
     useEditorialScroll({ headingDirection: 'left' })
 
@@ -30,21 +35,28 @@ export default function AboutAstridTono() {
           </h3>
         </div>
         
-        <div className="text-foreground/80 space-y-4 md:space-y-6 text-lg text-justify leading-relaxed">
-          <p className="scrub-text">
-            My name is Tono and I am the proud owner of Floating Paradise. I was born and raised in Karimunjawa, and my family have been living and working here for generations. I'm very grateful that I can call this beautiful island home. I'm passionate about sharing this place with others, and making sure we can collectively preserve the island's natural beauty too.
-          </p>
-          <p className="scrub-text">
-            Astrid has been traveling her entire life, always seeking new experiences and connections. Yet it was during this particular journey, after nine months of exploring South-East Asia, that she met Tono in Karimunjawa. Sharing similar dreams and values, they quickly formed a deep connection.
-          </p>
-          <p className="scrub-text border-l-[3px] border-primary/40 pl-6 my-6 italic text-foreground/90 font-medium">
-            Together, Astrid and Tono established Floating Paradise, a retreat that embodies their shared vision of peace and harmony with nature.
-          </p>
-          <p className="scrub-text">
-            Over the years, they've built a life rooted in their love for the island, setting up an educational charity, constructing their own home and food forest, marrying, and welcoming two children into their lives. 
-          </p>
-        </div>
+        {initialStory ? (
+          <div className="text-foreground/80 space-y-4 md:space-y-6 text-lg text-justify leading-relaxed">
+            <PortableText value={initialStory} />
+          </div>
+        ) : (
+          <div className="text-foreground/80 space-y-4 md:space-y-6 text-lg text-justify leading-relaxed">
+            <p className="scrub-text">
+              My name is Tono and I am the proud owner of Floating Paradise. I was born and raised in Karimunjawa, and my family have been living and working here for generations. I'm very grateful that I can call this beautiful island home. I'm passionate about sharing this place with others, and making sure we can collectively preserve the island's natural beauty too.
+            </p>
+            <p className="scrub-text">
+              Astrid has been traveling her entire life, always seeking new experiences and connections. Yet it was during this particular journey, after nine months of exploring South-East Asia, that she met Tono in Karimunjawa. Sharing similar dreams and values, they quickly formed a deep connection.
+            </p>
+            <p className="scrub-text border-l-[3px] border-primary/40 pl-6 my-6 italic text-foreground/90 font-medium">
+              Together, Astrid and Tono established Floating Paradise, a retreat that embodies their shared vision of peace and harmony with nature.
+            </p>
+            <p className="scrub-text">
+              Over the years, they've built a life rooted in their love for the island, setting up an educational charity, constructing their own home and food forest, marrying, and welcoming two children into their lives. 
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )
 }
+

@@ -7,8 +7,19 @@ import { ChevronDown } from 'lucide-react'
 import { useRef, useEffect } from 'react'
 import { gsap, ScrollTrigger } from '@/lib/gsap-init'
 import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
+import { urlFor } from '@/lib/sanity.image'
 
-export default function HeroSection() {
+type HeroSectionProps = {
+  title?: string;
+  subtitle?: string;
+  image?: any;
+}
+
+export default function HeroSection({ 
+  title = "Floating Paradise", 
+  subtitle = "for the relaxed adventurer", 
+  image 
+}: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -53,8 +64,8 @@ export default function HeroSection() {
       {/* Parallax Background Image */}
       <div ref={imageRef} className="absolute inset-0 will-change-transform">
         <Image
-          src="/hero-img.jpg"
-          alt="Floating Paradise Island"
+          src={image ? urlFor(image).url() : "/hero-img.jpg"}
+          alt={title}
           fill
           className="object-cover"
           priority
@@ -76,7 +87,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             className="font-serif text-5xl sm:text-6xl lg:text-7xl font-medium text-white text-pretty leading-tight drop-shadow-lg"
           >
-            Floating Paradise
+            {title}
           </motion.h1>
           
           <motion.p 
@@ -84,7 +95,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto leading-relaxed drop-shadow-md"
           >
-            for the relaxed adventurer
+            {subtitle}
           </motion.p>
 
           <motion.div 

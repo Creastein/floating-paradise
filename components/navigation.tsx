@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
@@ -43,10 +44,6 @@ export default function Navigation() {
     ? "text-foreground/80 hover:text-primary" 
     : "text-white hover:text-white/80 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%),_0_0px_2px_rgb(0_0_0_/_40%)]"
     
-  const logoColor = isSolid 
-    ? "text-primary hover:text-primary/90" 
-    : "text-white hover:text-white/90 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%),_0_0px_2px_rgb(0_0_0_/_40%)]"
-    
   const iconColor = isSolid 
     ? "text-foreground" 
     : "text-white [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]"
@@ -64,10 +61,18 @@ export default function Navigation() {
             <Link 
               href="/" 
               onClick={() => setIsOpen(false)}
-              className={`flex items-center gap-2 font-serif text-2xl font-bold transition-colors duration-300 ${logoColor}`}
+              className="flex items-center transition-all duration-300"
             >
-              <span className={isSolid ? "text-primary" : "text-white"}>✦</span>
-              Floating Paradise
+              <Image
+                src="/logo.png"
+                alt="Floating Paradise"
+                width={180}
+                height={50}
+                className={`h-10 md:h-12 w-auto transition-all duration-300 ${
+                  isSolid ? '' : 'brightness-0 invert'
+                }`}
+                priority
+              />
             </Link>
 
             <div className="hidden md:flex items-center gap-8">

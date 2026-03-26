@@ -11,6 +11,8 @@ import {
 import AboutAstridTono from '@/components/about-astrid-tono'
 import AboutKejora from '@/components/about-kejora'
 import { FadeIn } from '@/components/ui/fade-in'
+import { PortableText } from '@/components/portable-text'
+import { getAboutPage } from '@/lib/sanity.fetch'
 import type { GreenPractice, CoreValue } from '@/data/about-data'
 
 // ── Static Data (co-located with icons) ────────────────────────────
@@ -41,7 +43,10 @@ export const metadata = {
 
 // ── Page ────────────────────────────────────────────────────────────
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const aboutResult = await getAboutPage()
+  const cmsData = aboutResult?.data
+
   return (
     <main className="min-h-screen border-box overflow-hidden">
       <Navigation />
@@ -50,7 +55,7 @@ export default function AboutPage() {
       <PageHero 
         title="Our Story"
         subtitle="A quiet conversation on a wooden pier, transformed into a sanctuary above the sea."
-        backgroundImage="/hero-island.jpg"
+        backgroundImage="/image/about-us/about-hero.jpg"
         fullHeight
       />
 
@@ -58,7 +63,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32">
           
           {/* 2. ASTRID & TONO STORY */}
-          <AboutAstridTono />
+          <AboutAstridTono initialStory={cmsData?.storyContent} />
 
           {/* 3. MISSION STATEMENT */}
           <FadeIn direction="up" distance={40}>
@@ -68,9 +73,15 @@ export default function AboutPage() {
                </div>
                <div className="relative z-10 max-w-4xl mx-auto space-y-8">
                   <h3 className="uppercase tracking-widest text-primary font-semibold text-sm">Mission Statement</h3>
-                  <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground font-medium leading-relaxed italic">
-                    Our dream is that Floating Paradise not only offers a retreat from the business of life, but also serves as a gentle reminder of the beauty of living harmoniously with the world around us.
-                  </p>
+                  {cmsData?.missionStatement ? (
+                    <div className="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground font-medium leading-relaxed italic">
+                      <PortableText value={cmsData.missionStatement} />
+                    </div>
+                  ) : (
+                    <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground font-medium leading-relaxed italic">
+                      Our dream is that Floating Paradise not only offers a retreat from the business of life, but also serves as a gentle reminder of the beauty of living harmoniously with the world around us.
+                    </p>
+                  )}
                </div>
             </div>
           </FadeIn>

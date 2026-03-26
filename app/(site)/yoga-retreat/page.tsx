@@ -8,13 +8,18 @@ import { StaggerGrid, StaggerItem } from "@/components/ui/stagger-grid"
 import { TextScrub } from "@/components/ui/text-scrub"
 import { AutoSlideshow } from "@/components/ui/auto-slideshow"
 import { AnimatedTimeline } from "@/components/ui/animated-timeline"
+import { getYogaRetreat } from '@/lib/sanity.fetch'
+import { PortableText } from '@/components/portable-text'
 
 export const metadata = {
   title: "Yoga Retreat | Floating Paradise",
   description: "The Art of Floating. Join our 7-day sea-based yoga retreat in Karimunjawa.",
 }
 
-export default function YogaRetreatPage() {
+export default async function YogaRetreatPage() {
+  const retreatResult = await getYogaRetreat()
+  const cmsData = retreatResult?.data
+
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
@@ -59,24 +64,32 @@ export default function YogaRetreatPage() {
       {/* 2. Retreat Overview — Overlaps hero */}
       <section className="relative -mt-16 z-10 pt-32 pb-24 bg-background overflow-hidden rounded-t-[2.5rem]">
         <div className="max-w-[700px] mx-auto px-4 text-center space-y-8">
-          <FadeIn once={false}>
-            <p className="text-lg md:text-xl text-foreground/60 font-light leading-relaxed italic font-serif">
-              Floating Paradise lives in relationship with its surroundings, shaped by the tides, the wind &amp; the moon&apos;s phases. This retreat invites you to tune into your own living flow too.
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.15} once={false}>
-            <div className="w-16 h-px bg-primary/30 mx-auto" />
-          </FadeIn>
-          <FadeIn delay={0.3} once={false}>
-            <p className="text-lg md:text-xl text-foreground/70 font-light leading-relaxed">
-              The Art of Floating is an intimate, sea-based yoga retreat designed for those ready to embrace a slower, more sustainable rhythm. Set at our solar-powered guesthouse suspended above the water, this retreat blends daily practice, nature immersion, and meaningful contribution, all shaped by the elements of island life.
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.45} once={false}>
-            <p className="text-lg md:text-xl text-foreground/80 font-medium italic font-serif">
-              Here, yoga is a tool for living, not a performance.
-            </p>
-          </FadeIn>
+          {cmsData?.overview ? (
+            <FadeIn once={false} className="prose prose-lg prose-emerald text-center mx-auto text-foreground/70 font-light max-w-none prose-p:leading-relaxed">
+              <PortableText value={cmsData.overview} />
+            </FadeIn>
+          ) : (
+            <>
+              <FadeIn once={false}>
+                <p className="text-lg md:text-xl text-foreground/60 font-light leading-relaxed italic font-serif">
+                  Floating Paradise lives in relationship with its surroundings, shaped by the tides, the wind &amp; the moon&apos;s phases. This retreat invites you to tune into your own living flow too.
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.15} once={false}>
+                <div className="w-16 h-px bg-primary/30 mx-auto" />
+              </FadeIn>
+              <FadeIn delay={0.3} once={false}>
+                <p className="text-lg md:text-xl text-foreground/70 font-light leading-relaxed">
+                  The Art of Floating is an intimate, sea-based yoga retreat designed for those ready to embrace a slower, more sustainable rhythm. Set at our solar-powered guesthouse suspended above the water, this retreat blends daily practice, nature immersion, and meaningful contribution, all shaped by the elements of island life.
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.45} once={false}>
+                <p className="text-lg md:text-xl text-foreground/80 font-medium italic font-serif">
+                  Here, yoga is a tool for living, not a performance.
+                </p>
+              </FadeIn>
+            </>
+          )}
         </div>
       </section>
 
@@ -128,14 +141,18 @@ export default function YogaRetreatPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <FadeIn direction="right" className="relative aspect-[4/5] md:aspect-square w-full rounded-2xl overflow-hidden" style={{ boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.35), 0 10px 30px -8px rgba(0, 0, 0, 0.2)' }}>
             <AutoSlideshow
-              images={[
-                { src: "/image/Yoga-retreat/yoga1.png", alt: "Yoga retreat moment 1" },
-                { src: "/image/Yoga-retreat/yoga2.png", alt: "Yoga retreat moment 2" },
-                { src: "/image/Yoga-retreat/yoga3.png", alt: "Yoga retreat moment 3" },
-                { src: "/image/Yoga-retreat/yoga4.png", alt: "Yoga retreat moment 4" },
-                { src: "/image/Yoga-retreat/yoga5.png", alt: "Yoga retreat moment 5" },
-                { src: "/image/Yoga-retreat/yoga6.png", alt: "Yoga retreat moment 6" },
-              ]}
+              images={
+                cmsData?.images?.length 
+                  ? cmsData.images.map((url: string, i: number) => ({ src: url, alt: `Yoga retreat moment ${i + 1}` }))
+                  : [
+                      { src: "/image/Yoga-retreat/yoga1.png", alt: "Yoga retreat moment 1" },
+                      { src: "/image/Yoga-retreat/yoga2.png", alt: "Yoga retreat moment 2" },
+                      { src: "/image/Yoga-retreat/yoga3.png", alt: "Yoga retreat moment 3" },
+                      { src: "/image/Yoga-retreat/yoga4.png", alt: "Yoga retreat moment 4" },
+                      { src: "/image/Yoga-retreat/yoga5.png", alt: "Yoga retreat moment 5" },
+                      { src: "/image/Yoga-retreat/yoga6.png", alt: "Yoga retreat moment 6" },
+                    ]
+              }
               interval={4000}
             />
           </FadeIn>
@@ -195,16 +212,27 @@ export default function YogaRetreatPage() {
             <p className="text-foreground/60 font-light">An unhurried flow designed to harmonize with the sun and sea.</p>
           </FadeIn>
           
-          <AnimatedTimeline
-            bgColor="#F5EFE4"
-            items={[
-              { title: "Dawn", description: "Morning yoga, blending meditation and pranayama.", side: "left" },
-              { title: "Morning", description: "Fresh breakfast followed by nature-based activities (kayaking, snorkeling, swimming) or free time.", side: "right" },
-              { title: "Midday", description: "Locally prepared lunch & rest during the warmest hours.", side: "left" },
-              { title: "Afternoon", description: "Sunset yoga on the jetty.", side: "right" },
-              { title: "Evening", description: "Plant-based buffet dinner followed by either a sharing circle, Yoga Nidra or Yin Yoga session.", side: "left" },
-            ]}
-          />
+          {cmsData?.dailySchedule?.length ? (
+            <AnimatedTimeline
+              bgColor="#F5EFE4"
+              items={cmsData.dailySchedule.map((s: any, index: number) => ({
+                title: s.time,
+                description: s.activity,
+                side: index % 2 === 0 ? "left" : "right"
+              }))}
+            />
+          ) : (
+            <AnimatedTimeline
+              bgColor="#F5EFE4"
+              items={[
+                { title: "Dawn", description: "Morning yoga, blending meditation and pranayama.", side: "left" },
+                { title: "Morning", description: "Fresh breakfast followed by nature-based activities (kayaking, snorkeling, swimming) or free time.", side: "right" },
+                { title: "Midday", description: "Locally prepared lunch & rest during the warmest hours.", side: "left" },
+                { title: "Afternoon", description: "Sunset yoga on the jetty.", side: "right" },
+                { title: "Evening", description: "Plant-based buffet dinner followed by either a sharing circle, Yoga Nidra or Yin Yoga session.", side: "left" },
+              ]}
+            />
+          )}
           <FadeIn delay={0.3} className="text-center mt-12">
             <p className="text-base text-foreground/50 font-light italic">Throughout the week: Yogic dharma inspired by the Yamas &amp; Niyamas woven gently into the retreat.</p>
           </FadeIn>
@@ -302,12 +330,20 @@ export default function YogaRetreatPage() {
               <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-6">Meet Astrid</h2>
             </div>
             
-            <p className="text-xl text-foreground/70 font-light leading-relaxed">
-              Astrid is the heart of the yoga experience at Floating Paradise, guiding with a gentle presence, and grounded in wisdom. She completed her 200-hour Yoga Teacher Training in India in 2020 and has been teaching here ever since, focusing on classic hatha and hatha flow practices, blending pranayama &amp; meditation into classes that are accessible, balanced, and deeply nourishing.
-            </p>
-            <p className="text-lg text-foreground/60 font-light leading-relaxed">
-              Guests at Floating frequently highlight her relaxed, supportive teaching style and the special magic of practicing yoga on the jetty at sunset, with the sound of water and the horizon stretching beside them.
-            </p>
+            {cmsData?.astridBio ? (
+              <div className="prose prose-lg prose-emerald text-foreground/70 font-light max-w-none prose-p:leading-relaxed">
+                <PortableText value={cmsData.astridBio} />
+              </div>
+            ) : (
+              <>
+                <p className="text-xl text-foreground/70 font-light leading-relaxed">
+                  Astrid is the heart of the yoga experience at Floating Paradise, guiding with a gentle presence, and grounded in wisdom. She completed her 200-hour Yoga Teacher Training in India in 2020 and has been teaching here ever since, focusing on classic hatha and hatha flow practices, blending pranayama &amp; meditation into classes that are accessible, balanced, and deeply nourishing.
+                </p>
+                <p className="text-lg text-foreground/60 font-light leading-relaxed">
+                  Guests at Floating frequently highlight her relaxed, supportive teaching style and the special magic of practicing yoga on the jetty at sunset, with the sound of water and the horizon stretching beside them.
+                </p>
+              </>
+            )}
           </FadeIn>
         </div>
 
@@ -520,38 +556,46 @@ export default function YogaRetreatPage() {
             <h2 className="text-3xl md:text-4xl font-serif text-foreground">Cancellation Policy</h2>
           </FadeIn>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FadeIn direction="up" distance={40}>
-              <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
-                <p className="text-sm uppercase tracking-widest text-primary font-semibold">More than 60 days</p>
-                <div className="w-12 h-px bg-primary/30 mx-auto" />
-                <p className="text-lg text-foreground font-light">Full refund minus deposit</p>
-              </div>
+          {cmsData?.cancellationPolicy ? (
+            <FadeIn direction="up" distance={40} className="max-w-4xl mx-auto prose prose-lg prose-emerald text-foreground/70 font-light prose-p:leading-relaxed text-center">
+              <PortableText value={cmsData.cancellationPolicy} />
             </FadeIn>
-            <FadeIn direction="up" distance={40} delay={0.15}>
-              <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
-                <p className="text-sm uppercase tracking-widest text-primary font-semibold">30–59 days</p>
-                <div className="w-12 h-px bg-primary/30 mx-auto" />
-                <p className="text-lg text-foreground font-light">50% of total cost refunded</p>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <FadeIn direction="up" distance={40}>
+                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
+                    <p className="text-sm uppercase tracking-widest text-primary font-semibold">More than 60 days</p>
+                    <div className="w-12 h-px bg-primary/30 mx-auto" />
+                    <p className="text-lg text-foreground font-light">Full refund minus deposit</p>
+                  </div>
+                </FadeIn>
+                <FadeIn direction="up" distance={40} delay={0.15}>
+                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
+                    <p className="text-sm uppercase tracking-widest text-primary font-semibold">30–59 days</p>
+                    <div className="w-12 h-px bg-primary/30 mx-auto" />
+                    <p className="text-lg text-foreground font-light">50% of total cost refunded</p>
+                  </div>
+                </FadeIn>
+                <FadeIn direction="up" distance={40} delay={0.3}>
+                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
+                    <p className="text-sm uppercase tracking-widest text-primary font-semibold">Less than 30 days</p>
+                    <div className="w-12 h-px bg-primary/30 mx-auto" />
+                    <p className="text-lg text-foreground font-light">Non-refundable</p>
+                  </div>
+                </FadeIn>
               </div>
-            </FadeIn>
-            <FadeIn direction="up" distance={40} delay={0.3}>
-              <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
-                <p className="text-sm uppercase tracking-widest text-primary font-semibold">Less than 30 days</p>
-                <div className="w-12 h-px bg-primary/30 mx-auto" />
-                <p className="text-lg text-foreground font-light">Non-refundable</p>
-              </div>
-            </FadeIn>
-          </div>
 
-          <FadeIn delay={0.4} direction="up" distance={30} className="max-w-2xl mx-auto mt-10 space-y-4">
-            <p className="text-center text-foreground/50 italic font-light text-base">
-              If you are unable to attend, you may transfer your place to another person at no additional charge (subject to approval).
-            </p>
-            <p className="text-center text-foreground/50 italic font-light text-base">
-              We strongly recommend purchasing travel insurance that covers trip cancellation, medical expenses, and travel delays.
-            </p>
-          </FadeIn>
+              <FadeIn delay={0.4} direction="up" distance={30} className="max-w-2xl mx-auto mt-10 space-y-4">
+                <p className="text-center text-foreground/50 italic font-light text-base">
+                  If you are unable to attend, you may transfer your place to another person at no additional charge (subject to approval).
+                </p>
+                <p className="text-center text-foreground/50 italic font-light text-base">
+                  We strongly recommend purchasing travel insurance that covers trip cancellation, medical expenses, and travel delays.
+                </p>
+              </FadeIn>
+            </>
+          )}
         </div>
       </section>
 

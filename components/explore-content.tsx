@@ -110,7 +110,7 @@ const FALLBACK_ACTIVITIES = [
       title: 'Floating Merchandise',
       description:
         'Bamboo cotton t-shirts — soft, eco-friendly, and antibacterial. Each design handmade by Astrid herself.',
-      gallery: ['/image/Explore/New folder/floating-merchandise.png'],
+      gallery: ['/image/Explore/floating-merchandise/floating-merchandise.png'],
       detail: 'Rp 180,000 · Sizes S–XXL',
       label: 'Pre-order',
       ctaText: 'Pre-Order',

@@ -66,9 +66,9 @@ export default function Navigation() {
               <Image
                 src="/logo.png"
                 alt="Floating Paradise"
-                width={180}
-                height={50}
-                className={`h-10 md:h-12 w-auto transition-all duration-300 ${
+                width={234}
+                height={65}
+                className={`h-[52px] md:h-[62px] w-auto transition-all duration-300 ${
                   isSolid ? '' : 'brightness-0 invert'
                 }`}
                 priority

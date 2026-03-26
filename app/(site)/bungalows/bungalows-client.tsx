@@ -11,6 +11,7 @@ import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 import { gsap } from '@/lib/gsap-init'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
+import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 
 interface DisplayRoom {
   name: string
@@ -91,6 +92,8 @@ const ROOM_FACILITIES = [
 ];
 
 export default function BungalowsClient({ initialBungalows }: { initialBungalows?: any[] }) {
+  const { t, language } = useLanguage()
+  const { getCmsValue } = useCmsTranslation()
   const mainRef = useRef<HTMLDivElement>(null)
 
   const introQuoteRef = useRef<HTMLParagraphElement>(null)
@@ -99,12 +102,12 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
   const displayRooms: DisplayRoom[] = initialBungalows && initialBungalows.length > 0
     ? initialBungalows.map((b, index) => ({
         name: b.name,
-        description: b.description,
+        description: getCmsValue(b, 'description', ROOMS[index]?.description),
         image: b.gallery?.[0] ? urlFor(b.gallery[0]).url() : ROOMS[index]?.image || '/image/homepage/Sunrise-home.webp',
         reverse: index % 2 !== 0,
         guests: b.maxGuests?.toString() || ROOMS[index]?.guests || '2',
         size: ROOMS[index]?.size || 'N/A', 
-        price: b.priceIDR ? `Rp ${b.priceIDR.toLocaleString('en-US')} / Night` : ROOMS[index]?.price || 'Check Rates',
+        price: b.priceIDR ? `Rp ${b.priceIDR.toLocaleString('en-US')} / ${t.bungalowsPage.night}` : ROOMS[index]?.price || 'Check Rates',
         gallery: b.gallery ? b.gallery.map((img: any) => urlFor(img).url()) : ROOMS[index]?.gallery || [],
         triplaUrl: b.triplaUrl || TRIPLA_BOOKING_URL,
         features: b.features || ROOM_FACILITIES,
@@ -225,8 +228,8 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
       <Navigation />
 
       <PageHero
-        title="Our Floating Rooms"
-        subtitle="Perched above the sea, built by hand, shaped by the elements."
+        title={t.bungalowsPage.title}
+        subtitle={t.bungalowsPage.subtitle}
         backgroundImage="/image/bungalows/home-bungalows.webp"
         fullHeight
       />
@@ -235,10 +238,14 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
       <section className="relative -mt-16 z-10 pt-32 pb-24 bg-background overflow-hidden rounded-t-[2.5rem]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <p ref={introQuoteRef} className="font-serif text-2xl text-foreground italic will-change-transform">
-            "Suspended above the reef, our three handcrafted bamboo bungalows invite you to live between sea and sky."
+            {language === 'id'
+              ? '"Tergantung di atas terumbu karang, tiga bungalow bambu buatan tangan kami mengundang Anda untuk hidup di antara laut dan langit."'
+              : '"Suspended above the reef, our three handcrafted bamboo bungalows invite you to live between sea and sky."'}
           </p>
           <p ref={introSubRef} className="text-lg text-foreground/80 font-light leading-relaxed will-change-transform">
-            Built by hand and shaped by the elements, each bungalow has its own personality; no two are the same. These are not just rooms, they're a place to exhale, to soften, and to float.
+            {language === 'id'
+              ? 'Dibangun dengan tangan dan dibentuk oleh elemen alam, setiap bungalow memiliki kepribadiannya sendiri; tak satupun yang sama. Ini bukan sekadar kamar, melainkan tempat untuk bernapas, melembutkan diri, dan mengapung bebas.'
+              : 'Built by hand and shaped by the elements, each bungalow has its own personality; no two are the same. These are not just rooms, they\'re a place to exhale, to soften, and to float.'}
           </p>
         </div>
       </section>
@@ -282,7 +289,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                   {/* Explore badge */}
                   <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/25 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300 group-hover:bg-white/25 group-hover:scale-105">
                     <Camera className="w-4 h-4" />
-                    <span className="font-medium tracking-wide">Explore Room</span>
+                    <span className="font-medium tracking-wide">{language === 'id' ? 'Lihat Kamar' : 'Explore Room'}</span>
                   </div>
                 </div>
               </div>
@@ -297,15 +304,15 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                 <div className="bg-[#2F4A3F] p-5 sm:p-6 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 w-full shadow-2xl shadow-[#2F4A3F]/30 border border-[#D8C3A5]/20 relative z-10 transition-transform hover:-translate-y-1 duration-300">
                   <div className="flex flex-wrap sm:flex-nowrap gap-4 sm:gap-6 w-full md:w-auto">
                     <div className="flex flex-col border-l-2 border-[#D8C3A5] pl-4">
-                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">Guests</span>
+                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{t.bungalowsPage.guests}</span>
                       <span className="text-white font-medium">{room.guests}</span>
                     </div>
                     <div className="flex flex-col border-l-2 border-[#D8C3A5] pl-4">
-                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">Size</span>
+                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{language === 'id' ? 'Ukuran' : 'Size'}</span>
                       <span className="text-white font-medium">{room.size}</span>
                     </div>
                     <div className="flex flex-col border-l-2 border-[#D8C3A5] pl-4">
-                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">Price/Night</span>
+                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{language === 'id' ? 'Harga/Malam' : 'Price/Night'}</span>
                       <span className="text-white font-medium">{room.price}</span>
                     </div>
                   </div>
@@ -316,7 +323,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                     rel="noopener noreferrer"
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"
                   >
-                    Book Now
+                    {language === 'id' ? 'Pesan Sekarang' : 'Book Now'}
                   </a>
                 </div>
 

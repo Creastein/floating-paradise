@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { FadeIn } from '@/components/ui/fade-in'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 // ── Types ──────────────────────────────────────────────────────────
 
@@ -38,6 +39,7 @@ const WHATSAPP_NUMBER = '6282226945510'
 // ── Component ──────────────────────────────────────────────────────
 
 export default function BoatTicketForm() {
+  const { t, language } = useLanguage()
   const [form, setForm] = useState<FormData>(INITIAL_FORM)
   const [submitted, setSubmitted] = useState(false)
 
@@ -94,17 +96,17 @@ export default function BoatTicketForm() {
             </svg>
           </div>
           <h3 className="font-serif text-2xl font-bold text-foreground">
-            Request Sent!
+            {language === 'id' ? 'Permintaan Terkirim!' : 'Request Sent!'}
           </h3>
           <p className="text-foreground/80 font-light leading-relaxed max-w-md mx-auto">
-            Thanks! We&apos;ll confirm your booking and send payment details via WhatsApp within a few hours.
+            {t.boatTicket.successMessage}
           </p>
           <button
             type="button"
             onClick={() => { setSubmitted(false); setForm(INITIAL_FORM) }}
             className="mt-4 text-sm text-primary font-medium hover:underline underline-offset-4"
           >
-            Book another ticket
+            {language === 'id' ? 'Pesan tiket lagi' : 'Book another ticket'}
           </button>
         </div>
       </FadeIn>
@@ -118,7 +120,7 @@ export default function BoatTicketForm() {
       {/* Full Name */}
       <div className="space-y-1.5">
         <label htmlFor="bt-name" className="block text-sm font-medium text-foreground">
-          Full Name
+          {t.boatTicket.formFullName}
         </label>
         <input
           id="bt-name"
@@ -126,7 +128,7 @@ export default function BoatTicketForm() {
           required
           value={form.fullName}
           onChange={(e) => update('fullName', e.target.value)}
-          placeholder="As per ID / passport"
+          placeholder={t.boatTicket.formFullNamePlaceholder}
           className="w-full px-4 py-3 rounded border border-border bg-background text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 transition-colors text-sm"
         />
       </div>
@@ -135,7 +137,7 @@ export default function BoatTicketForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <label htmlFor="bt-date" className="block text-sm font-medium text-foreground">
-            Travel Date
+            {t.boatTicket.formTravelDate}
           </label>
           <input
             id="bt-date"
@@ -149,7 +151,7 @@ export default function BoatTicketForm() {
         </div>
         <div className="space-y-1.5">
           <label htmlFor="bt-direction" className="block text-sm font-medium text-foreground">
-            Direction
+            {t.boatTicket.formDirection}
           </label>
           <select
             id="bt-direction"
@@ -167,7 +169,7 @@ export default function BoatTicketForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <label htmlFor="bt-tickets" className="block text-sm font-medium text-foreground">
-            Number of Tickets
+            {t.boatTicket.formTickets}
           </label>
           <input
             id="bt-tickets"
@@ -182,7 +184,7 @@ export default function BoatTicketForm() {
         </div>
         <div className="space-y-1.5">
           <label htmlFor="bt-contact" className="block text-sm font-medium text-foreground">
-            Contact / WhatsApp
+            {t.boatTicket.formContact}
           </label>
           <input
             id="bt-contact"
@@ -190,7 +192,7 @@ export default function BoatTicketForm() {
             required
             value={form.contact}
             onChange={(e) => update('contact', e.target.value)}
-            placeholder="+62 812 3456 7890"
+            placeholder={t.boatTicket.formContactPlaceholder}
             className="w-full px-4 py-3 rounded border border-border bg-background text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 transition-colors text-sm"
           />
         </div>
@@ -199,7 +201,7 @@ export default function BoatTicketForm() {
       {/* Nationality */}
       <div className="space-y-1.5">
         <label htmlFor="bt-nationality" className="block text-sm font-medium text-foreground">
-          Nationality
+          {t.boatTicket.formNationality}
         </label>
         <select
           id="bt-nationality"
@@ -207,8 +209,8 @@ export default function BoatTicketForm() {
           onChange={(e) => update('nationality', e.target.value as Nationality)}
           className="w-full px-4 py-3 rounded border border-border bg-background text-foreground focus:outline-none focus:border-primary/50 transition-colors text-sm"
         >
-          <option value="indonesian">Indonesian</option>
-          <option value="international">International</option>
+          <option value="indonesian">{language === 'id' ? 'WNI (Indonesia)' : 'Indonesian'}</option>
+          <option value="international">{language === 'id' ? 'WNA (Internasional)' : 'International'}</option>
         </select>
       </div>
 
@@ -216,7 +218,7 @@ export default function BoatTicketForm() {
       {form.nationality === 'international' && (
         <div className="space-y-1.5 animate-in fade-in slide-in-from-top-2 duration-300">
           <label htmlFor="bt-passport" className="block text-sm font-medium text-foreground">
-            Passport Number
+            {t.boatTicket.formPassportTitle}
           </label>
           <input
             id="bt-passport"
@@ -224,7 +226,7 @@ export default function BoatTicketForm() {
             required
             value={form.passportNumber}
             onChange={(e) => update('passportNumber', e.target.value)}
-            placeholder="e.g. A12345678"
+            placeholder={t.boatTicket.formPassportPlaceholder}
             className="w-full px-4 py-3 rounded border border-border bg-background text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 transition-colors text-sm"
           />
         </div>
@@ -250,11 +252,13 @@ export default function BoatTicketForm() {
         className="w-full bg-primary text-primary-foreground py-3.5 rounded font-medium tracking-wide hover:bg-primary/90 transition-colors shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
         style={{ borderRadius: '4px' }}
       >
-        Request My Ticket
+        {t.boatTicket.formSubmit}
       </button>
 
       <p className="text-xs text-foreground/50 text-center leading-relaxed">
-        This form sends your request via WhatsApp. No online payment — we&apos;ll reply with bank transfer details.
+        {language === 'id' 
+          ? 'Formulir ini menggunakan WhatsApp untuk mengirim detail pesanan Anda. Kami akan mengirimkan ketersediaan dan informasi transfer rekening balik ke nomor Anda.'
+          : 'This form sends your request via WhatsApp. No online payment — we\'ll reply with bank transfer details.'}
       </p>
     </form>
   )

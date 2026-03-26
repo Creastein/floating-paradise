@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Check } from 'lucide-react'
 // LOKAL10 — local guest discount, distributed via offline/WhatsApp only
 import { PROMO_CODE_LOCAL, PROMO_DISCOUNT_PERCENT } from '@/lib/tripla'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 interface BookingModalProps {
   isOpen: boolean
@@ -15,6 +16,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const mountRef = useRef<HTMLDivElement>(null)
   const [promoInput, setPromoInput] = useState('')
   const [promoStatus, setPromoStatus] = useState<'idle' | 'valid' | 'invalid'>('idle')
+  const { t, language } = useLanguage()
 
   // LOKAL10 — local guest discount, distributed via offline/WhatsApp only
   const validatePromo = useCallback(() => {
@@ -103,7 +105,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50/80">
               <h2 className="font-serif text-xl font-bold text-[#2F4A3F]">
-                Book Your Stay
+                {t.bookingModal.title}
               </h2>
               <button
                 onClick={onClose}
@@ -122,7 +124,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 aria-label="Booking widget"
               />
               <p className="text-center text-sm text-gray-500 mt-4">
-                Loading booking system...
+                {t.bookingModal.loading}
               </p>
 
               {/* ── Promo code input ─────────────────────────────── */}
@@ -140,10 +142,10 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     }}
                     onBlur={validatePromo}
                     onKeyDown={(e) => { if (e.key === 'Enter') validatePromo() }}
-                    placeholder="Kode khusus"
+                    placeholder={t.bookingModal.promoPlaceholder}
                     className="flex-1 text-xs px-3 py-2 rounded border border-gray-200 bg-gray-50/50 text-gray-500 placeholder:text-[#999] focus:outline-none focus:border-[#2F4A3F]/30 transition-colors"
                     style={{ fontSize: '12px' }}
-                    aria-label="Kode khusus"
+                    aria-label={t.bookingModal.promoLabel || t.bookingModal.promoPlaceholder}
                     autoComplete="off"
                     spellCheck={false}
                   />
@@ -153,7 +155,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     className="text-xs px-3 py-2 rounded border border-gray-200 text-[#999] hover:text-[#2F4A3F] hover:border-[#2F4A3F]/30 transition-colors"
                     style={{ fontSize: '12px' }}
                   >
-                    Apply
+                    {t.bookingModal.apply}
                   </button>
                 </div>
 
@@ -167,7 +169,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                       className="flex items-center gap-1.5 mt-2 text-[11px] text-[#2F4A3F]"
                     >
                       <Check className="w-3 h-3" />
-                      {PROMO_DISCOUNT_PERCENT}% discount — mention this code when confirming via WhatsApp
+                      {language === 'id' ? `Diskon ${PROMO_DISCOUNT_PERCENT}% — sebutkan kode ini saat konfirmasi via WhatsApp` : `${PROMO_DISCOUNT_PERCENT}% discount — mention this code when confirming via WhatsApp`}
                     </motion.p>
                   )}
                   {promoStatus === 'invalid' && (
@@ -177,7 +179,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                       exit={{ opacity: 0 }}
                       className="mt-2 text-[11px] text-[#999]"
                     >
-                      Code not recognised
+                      {t.bookingModal.promoInvalid}
                     </motion.p>
                   )}
                 </AnimatePresence>

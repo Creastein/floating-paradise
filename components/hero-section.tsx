@@ -71,7 +71,8 @@ export default function HeroSection({ homepage }: HeroSectionProps) {
           fill
           className="object-cover"
           priority
-          unoptimized={true}
+          sizes="100vw"
+          quality={80}
         />
         {/* Cinematic Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />

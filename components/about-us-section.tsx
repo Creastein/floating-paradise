@@ -112,6 +112,8 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
                 alt="Floating Paradise Exterior"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                loading="lazy"
               />
             </div>
 
@@ -124,6 +126,8 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
                 alt="Floating Paradise Interior"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 50vw, 20vw"
+                loading="lazy"
               />
             </div>
 
@@ -136,6 +140,8 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
                 alt="Moonrise over Floating Paradise"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 50vw, 20vw"
+                loading="lazy"
               />
             </div>
           </div>

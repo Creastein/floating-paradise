@@ -170,6 +170,8 @@ export default function ExploreSection() {
                 alt="Handcrafted natural materials"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 45vw"
+                loading="lazy"
               />
             </div>
             {/* Image 2 — Solar Power */}
@@ -182,6 +184,8 @@ export default function ExploreSection() {
                 alt="Solar powered living"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 45vw"
+                loading="lazy"
               />
             </div>
           </div>
@@ -192,13 +196,13 @@ export default function ExploreSection() {
               ref={mobileImg1Ref}
               className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-premium transition-all duration-500 ease-out hover:-translate-y-3 group"
             >
-              <Image src="/image/homepage/Builtbyhand-1.webp" fill alt="Materials" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
+              <Image src="/image/homepage/Builtbyhand-1.webp" fill alt="Materials" className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="100vw" loading="lazy" />
             </div>
             <div
               ref={mobileImg2Ref}
               className="relative w-full aspect-[3/2] rounded-3xl overflow-hidden cursor-pointer shadow-premium transition-all duration-500 ease-out hover:-translate-y-3 group"
             >
-              <Image src="/image/homepage/Builtbyhand-2.webp" fill alt="Solar Panel" className="object-cover transition-transform duration-700 group-hover:scale-105"/>
+              <Image src="/image/homepage/Builtbyhand-2.webp" fill alt="Solar Panel" className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="100vw" loading="lazy" />
             </div>
           </div>
 

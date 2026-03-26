@@ -208,6 +208,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
                   className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   quality={80}
+                  loading="lazy"
                 />
                 
                 {/* Gradient overlay for text contrast (like bungalow-card) if there are badges */}

@@ -35,7 +35,7 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
     {
       name: 'Sunset Bungalow',
       description: "Our soul went into creating Floating's first stand-alone bungalow — offering expansive sea views and sunset views along the bay.",
-      image: '/image/homepage/Sunset-.webp',
+      image: '/image/homepage/Sunset-home.webp',
     },
     {
       name: 'Bayside Bungalow',
@@ -217,6 +217,8 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
                     alt={bungalow.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/10" />
                 </div>

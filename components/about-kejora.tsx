@@ -19,6 +19,8 @@ export default function AboutKejora() {
             alt="Kejora Karimunjawa Community Giving"
             fill
             className="object-cover"
+            sizes="(max-width: 768px) 100vw, 55vw"
+            loading="lazy"
           />
         </div>
       </div>

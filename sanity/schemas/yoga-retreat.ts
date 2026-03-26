@@ -37,6 +37,13 @@ export const yogaRetreatType = defineType({
       of: [{ type: 'block' }],
       group: 'hero',
     }),
+    defineField({
+      name: 'overview_id',
+      title: 'Retreat Overview Text (Indonesian)',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'hero',
+    }),
 
     // ── Schedule & Themes ───────────────────────────
     defineField({
@@ -71,6 +78,13 @@ export const yogaRetreatType = defineType({
       of: [{ type: 'block' }],
       group: 'facilitator',
     }),
+    defineField({
+      name: 'astridBio_id',
+      title: 'Instructor Bio (Astrid) (Indonesian)',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'facilitator',
+    }),
 
     // ── Pricing & Policy ────────────────────────────
     defineField({
@@ -92,6 +106,13 @@ export const yogaRetreatType = defineType({
     defineField({
       name: 'cancellationPolicy',
       title: 'Cancellation Policy',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'pricing',
+    }),
+    defineField({
+      name: 'cancellationPolicy_id',
+      title: 'Cancellation Policy (Indonesian)',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'pricing',

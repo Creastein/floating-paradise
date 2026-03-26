@@ -7,12 +7,15 @@ import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
+import LanguageSwitcher from './language-switcher'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const { scrollY } = useScroll()
+  const { t } = useLanguage()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (typeof window !== 'undefined') {
@@ -25,13 +28,13 @@ export default function Navigation() {
   })
 
   const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/bungalows', label: 'Bungalows' },
-    { href: '/explore', label: 'Explore' },
-    { href: '/yoga-retreat', label: 'Yoga Retreat' },
-    { href: '/getting-here', label: 'Getting Here' },
-    { href: '/about', label: 'About Us' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/', label: t.nav.home },
+    { href: '/bungalows', label: t.nav.bungalows },
+    { href: '/explore', label: t.nav.explore },
+    { href: '/yoga-retreat', label: t.nav.yogaRetreat },
+    { href: '/getting-here', label: t.nav.gettingHere },
+    { href: '/about', label: t.nav.aboutUs },
+    { href: '/contact', label: t.nav.contact },
   ]
 
   const isSolid = isScrolled || isOpen
@@ -105,6 +108,7 @@ export default function Navigation() {
                   </Link>
                 )
               })}
+              <LanguageSwitcher isSolid={isSolid} className="mr-2" />
               
               <Button 
                 asChild
@@ -115,16 +119,19 @@ export default function Navigation() {
                     : 'bg-white/15 backdrop-blur-md text-white border-white/30 hover:border-transparent hover:text-primary'
                 }`}
               >
-                <Link href="/bungalows"><span className="relative z-10">Book Now</span></Link>
+                <Link href="/bungalows"><span className="relative z-10">{t.nav.bookNow}</span></Link>
               </Button>
             </div>
 
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={`md:hidden focus:outline-none transition-colors duration-300 ${iconColor}`}
-            >
-              {isOpen ? <X size={26} /> : <Menu size={26} />}
-            </button>
+            <div className="flex md:hidden items-center gap-4">
+              <LanguageSwitcher isSolid={isSolid} />
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={`focus:outline-none transition-colors duration-300 ${iconColor}`}
+              >
+                {isOpen ? <X size={26} /> : <Menu size={26} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -179,7 +186,7 @@ export default function Navigation() {
                   asChild 
                   onClick={() => setIsOpen(false)}
                 >
-                  <Link href="/bungalows"><span className="relative z-10">Book Now</span></Link>
+                  <Link href="/bungalows"><span className="relative z-10">{t.nav.bookNow}</span></Link>
                 </Button>
               </motion.div>
             </div>

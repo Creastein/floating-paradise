@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function YogaRetreatSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -12,6 +13,8 @@ export default function YogaRetreatSection() {
   const headingRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const yogaRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const { t } = useLanguage()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -109,32 +112,32 @@ export default function YogaRetreatSection() {
             {/* Subtitle */}
             <div ref={headingRef} className="yoga-scrub-text">
               <p className="text-sm tracking-widest text-primary uppercase font-bold mb-4">
-                New Experience
+                {t.yoga.newExperience}
               </p>
               {/* Title — Mixed serif with italic */}
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-foreground font-medium leading-tight">
-                The Art of<br />
-                <span className="italic text-primary/80">Floating</span>
-              </h2>
+              <h2 
+                className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-foreground font-medium leading-tight"
+                dangerouslySetInnerHTML={{ __html: t.yoga.artOfFloating }}
+              />
             </div>
 
             {/* Date */}
             <div className="yoga-scrub-text">
               <p className="font-serif italic text-lg md:text-xl text-foreground/60">
-                8–14 June 2026
+                {t.yoga.date}
               </p>
             </div>
 
             {/* Body */}
             <div className="text-foreground/80 space-y-4 text-lg leading-relaxed">
               <p className="yoga-scrub-text">
-                Join us for a 7-day immersive yoga retreat. Reconnect with yourself through daily practice, mindful living, and the healing power of the ocean.
+                {t.yoga.desc1}
               </p>
               
               {/* Blockquote accent */}
               <p className="yoga-scrub-text italic font-serif text-xl md:text-2xl text-foreground/90 border-l-[3px] border-primary/40 pl-6 my-3 md:my-4 relative">
                 <span className="absolute -left-3 -top-2 text-primary/30 text-4xl">"</span>
-                This is yoga as a way of being. Come float with us.
+                {t.yoga.desc2}
               </p>
             </div>
 
@@ -144,7 +147,7 @@ export default function YogaRetreatSection() {
                 href="/yoga-retreat"
                 className="inline-block px-10 py-4 bg-primary text-primary-foreground rounded-full hover:bg-[#3a7350] transition-all duration-300 hover:scale-105 font-medium text-sm uppercase tracking-widest shadow-lg"
               >
-                Discover the Retreat
+                {t.yoga.discoverRetreat}
               </Link>
             </div>
           </div>

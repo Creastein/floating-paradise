@@ -8,21 +8,23 @@ import { useRef, useEffect } from 'react'
 import { gsap, ScrollTrigger } from '@/lib/gsap-init'
 import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 import { urlFor } from '@/lib/sanity.image'
+import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 
 type HeroSectionProps = {
-  title?: string;
-  subtitle?: string;
-  image?: any;
+  homepage?: any;
 }
 
-export default function HeroSection({ 
-  title = "Floating Paradise", 
-  subtitle = "for the relaxed adventurer", 
-  image 
-}: HeroSectionProps) {
+export default function HeroSection({ homepage }: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+
+  const { t } = useLanguage()
+  const { getCmsValue } = useCmsTranslation()
+
+  const title = getCmsValue(homepage, 'heroTitle', t.hero.defaultTitle)
+  const subtitle = getCmsValue(homepage, 'heroSubtitle', t.hero.defaultSubtitle)
+  const image = homepage?.heroImage
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -110,7 +112,7 @@ export default function HeroSection({
               rel="noopener noreferrer"
               className="btn-skew inline-block text-base font-medium px-10 py-4 rounded-full bg-[#2d5a3d] text-white hover:text-[#2d5a3d] transition-colors duration-300 drop-shadow-xl border border-transparent hover:border-[#2d5a3d]"
             >
-              <span className="relative z-10">Check Availability</span>
+              <span className="relative z-10">{t.hero.checkAvailability}</span>
             </a>
           </motion.div>
         </div>

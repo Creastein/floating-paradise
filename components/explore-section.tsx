@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function ExploreSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -12,6 +13,8 @@ export default function ExploreSection() {
   const mobileImg1Ref = useRef<HTMLDivElement>(null)
   const mobileImg2Ref = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLDivElement>(null)
+
+  const { t } = useLanguage()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -140,9 +143,10 @@ export default function ExploreSection() {
       
       {/* Title & Line */}
       <div ref={headingRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left mb-16 lg:mb-24">
-        <h2 className="scrub-text font-serif text-3xl md:text-5xl lg:text-6xl text-foreground font-medium mb-8 tracking-wide">
-          Built by Hand,<br className="hidden md:block"/> Powered by Sun
-        </h2>
+        <h2 
+          className="scrub-text font-serif text-3xl md:text-5xl lg:text-6xl text-foreground font-medium mb-8 tracking-wide"
+          dangerouslySetInnerHTML={{ __html: t.explore.title }}
+        />
         {/* GSAP Decorative Line */}
         <div 
           ref={lineRef} 
@@ -202,36 +206,36 @@ export default function ExploreSection() {
           <div className="w-full md:w-1/2 pb-24 md:pb-32">
             <div className="md:max-w-xl md:border-l-[2px] md:border-primary/20 md:pl-10 text-foreground/80 space-y-1 md:space-y-2 text-lg text-justify leading-relaxed">
               <p className="scrub-text">
-                <strong className="text-foreground font-semibold">At first glance</strong>, Floating may appear simple. Natural materials. Open air. Timber, thatch, weave, salt air. Nothing polished to perfection. Not entirely sealed away from the elements.
+                <span dangerouslySetInnerHTML={{ __html: t.explore.p1.replace('At first glance', '<strong class="text-foreground font-semibold">At first glance</strong>').replace('Pada pandangan pertama', '<strong class="text-foreground font-semibold">Pada pandangan pertama</strong>') }} />
               </p>
               
               <p className="scrub-text">
-                And that is exactly the point. Every structure at Floating Paradise is built from natural materials that live in relationship with the sea, the sun, the wind and the rain, they fade and weather. They require care. They need replacing. The roof is renewed. The wood is tended. The details are revisited again and again.
+                {t.explore.p2}
               </p>
               
               <p className="scrub-text italic font-serif text-xl md:text-2xl text-foreground border-l-[3px] border-primary/40 pl-6 my-8 md:my-12 relative text-left">
                 <span className="absolute -left-3 -top-2 text-primary/30 text-5xl">"</span>
-                We do not build to resist nature. We build to exist within it.
+                {t.explore.quote}
               </p>
               
               <p className="scrub-text">
-                Choosing natural materials means choosing maintenance over permanence. It means accepting cycles rather than chasing &ldquo;forever.&rdquo; What may look simple is, in truth, ongoing care, for this bay, for Karimunjawa, for our planet.
+                {t.explore.p3}
               </p>
               
               <p className="scrub-text">
-                Just as intentionally, Floating runs entirely on solar power. There is no mainland grid supporting us. Every light, every fan, every system relies on a carefully built, hand-crafted solar network.
+                {t.explore.p4}
               </p>
               
               <p className="scrub-text">
-                Tono, self-taught and deeply committed, designed and built this system himself. It is safe, reliable and entirely powered by the sun, but it requires constant attention, monitoring, learning and upgrading. Living off-grid is not a shortcut. It is daily devotion.
+                {t.explore.p5}
               </p>
 
               <p className="scrub-text">
-                When you stay here, you are not paying for luxury in the conventional sense. You are supporting craftsmanship. Renewable energy. Natural materials. Cyclical rebuilding. Human hands. Long-term care.
+                {t.explore.p6}
               </p>
               
               <p className="scrub-text text-foreground font-medium pt-5 mt-8 md:mt-12 border-t border-border">
-                Floating is simple by design. Yet simplicity, when created with intention and responsibility, carries depth and value. It is cared for, again and again.
+                {t.explore.p7}
               </p>
             </div>
           </div>

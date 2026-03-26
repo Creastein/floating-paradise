@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "home": "Home",
+    "bungalows": "Bungalows",
+    "explore": "Explore",
+    "yogaRetreat": "Yoga Retreat",
+    "gettingHere": "Getting Here",
+    "aboutUs": "About Us",
+    "contact": "Contact",
+    "bookNow": "Book Now"
+  },
+  "hero": {
+    "checkAvailability": "Check Availability",
+    "defaultTitle": "Floating Paradise",
+    "defaultSubtitle": "for the relaxed adventurer"
+  },
+  "about": {
+    "welcomeTitle": "Welcome to Floating",
+    "defaultTitle": "A sea-based guesthouse,<br/>sheltered in a mangrove bay.",
+    "defaultText1": "Floating Paradise is proudly solar-powered. Built consciously above the water, it invites a slower rhythm of living, where mornings begin gazing out to the horizon, days unfold barefoot, and life follows the tides more than the clock.",
+    "defaultText2": "With just three cosy rooms, all locally crafted using wood and bamboo, with direct jetty access to deep water, and the reef at your doorstep, it's a unique, secluded, nature escape.",
+    "defaultText3": "Swim, snorkel, kayak, fish, explore nearby beaches, or practice yoga on our open decks overlooking the horizon.",
+    "defaultText4": "At night, watch phosphorescent plankton glow beneath you or spot shooting stars above, not forgetting our fresh, abundant meals too. Immerse yourself in this unique tropical island space; slow down, reconnect, contribute sustainably, and connect to nature, all at Floating Paradise.",
+    "defaultText5": "Comfort, exploration, and rejuvenation await in this tropical island paradise. We can't wait to welcome you!"
+  },
+  "bungalows": {
+    "defaultTitle": "Our Floating <br/> Bungalows",
+    "defaultText1": "Suspended above the reef, our three handcrafted bamboo bungalows invite you to live between sea and sky.",
+    "defaultText2": "Built by hand and shaped by the elements, each bungalow has its own personality; no two are the same. Wake with the sunrise shimmering across the water, watch the tide shift beneath your feet, and fall asleep to the quiet rhythm of the waves.",
+    "defaultText3": "Inside, natural textures and open design create a space that feels both grounded and free. Each bungalow features a queen bed (or larger), a private ensuite with fresh water shower, sink, and flushing toilet, and a generous balcony with comfortable seating; your front-row seat to panoramic views of the sea and mangroves.",
+    "defaultText4": "These are not just rooms, they're a place to exhale, to soften, and to float.",
+    "bookRoom": "Book This Room"
+  },
+  "footer": {
+    "description": "A handcrafted guesthouse above the sea. Solar-powered. Intentional. Karimunjawa.",
+    "explore": "Explore",
+    "connect": "Connect",
+    "rights": "Floating Paradise. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "backToTop": "BACK TO TOP ^"
+  },
+  "yoga": {
+    "newExperience": "New Experience",
+    "artOfFloating": "The Art of<br /><span class=\"italic text-primary/80\">Floating</span>",
+    "date": "8–14 June 2026",
+    "desc1": "Join us for a 7-day immersive yoga retreat. Reconnect with yourself through daily practice, mindful living, and the healing power of the ocean.",
+    "desc2": "This is yoga as a way of being. Come float with us.",
+    "discoverRetreat": "Discover the Retreat"
+  },
+  "explore": {
+    "title": "Built by Hand,<br class=\"hidden md:block\"/> Powered by Sun",
+    "p1": "At first glance, Floating may appear simple. Natural materials. Open air. Timber, thatch, weave, salt air. Nothing polished to perfection. Not entirely sealed away from the elements.",
+    "p2": "And that is exactly the point. Every structure at Floating Paradise is built from natural materials that live in relationship with the sea, the sun, the wind and the rain, they fade and weather. They require care. They need replacing. The roof is renewed. The wood is tended. The details are revisited again and again.",
+    "quote": "We do not build to resist nature. We build to exist within it.",
+    "p3": "Choosing natural materials means choosing maintenance over permanence. It means accepting cycles rather than chasing \"forever.\" What may look simple is, in truth, ongoing care, for this bay, for Karimunjawa, for our planet.",
+    "p4": "Just as intentionally, Floating runs entirely on solar power. There is no mainland grid supporting us. Every light, every fan, every system relies on a carefully built, hand-crafted solar network.",
+    "p5": "Tono, self-taught and deeply committed, designed and built this system himself. It is safe, reliable and entirely powered by the sun, but it requires constant attention, monitoring, learning and upgrading. Living off-grid is not a shortcut. It is daily devotion.",
+    "p6": "When you stay here, you are not paying for luxury in the conventional sense. You are supporting craftsmanship. Renewable energy. Natural materials. Cyclical rebuilding. Human hands. Long-term care.",
+    "p7": "Floating is simple by design. Yet simplicity, when created with intention and responsibility, carries depth and value. It is cared for, again and again."
+  }
+}

@@ -1,17 +1,38 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { X, Check } from 'lucide-react'
+// LOKAL10 — local guest discount, distributed via offline/WhatsApp only
+import { PROMO_CODE_LOCAL, PROMO_DISCOUNT_PERCENT } from '@/lib/tripla'
 
 interface BookingModalProps {
   isOpen: boolean
   onClose: () => void
 }
 
-
 export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const mountRef = useRef<HTMLDivElement>(null)
+  const [promoInput, setPromoInput] = useState('')
+  const [promoStatus, setPromoStatus] = useState<'idle' | 'valid' | 'invalid'>('idle')
+
+  // LOKAL10 — local guest discount, distributed via offline/WhatsApp only
+  const validatePromo = useCallback(() => {
+    const code = promoInput.trim().toUpperCase()
+    if (!code) {
+      setPromoStatus('idle')
+      return
+    }
+    setPromoStatus(code === PROMO_CODE_LOCAL ? 'valid' : 'invalid')
+  }, [promoInput])
+
+  // Reset promo state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setPromoInput('')
+      setPromoStatus('idle')
+    }
+  }, [isOpen])
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -103,6 +124,64 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               <p className="text-center text-sm text-gray-500 mt-4">
                 Loading booking system...
               </p>
+
+              {/* ── Promo code input ─────────────────────────────── */}
+              {/* LOKAL10 — local guest discount, distributed via offline/WhatsApp only */}
+              {/* NOTE: If Tripla confirms native conditional discount by payment method, */}
+              {/*        this promo code field will be removed and replaced with native config. */}
+              <div className="mt-6 pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={promoInput}
+                    onChange={(e) => {
+                      setPromoInput(e.target.value)
+                      if (promoStatus !== 'idle') setPromoStatus('idle')
+                    }}
+                    onBlur={validatePromo}
+                    onKeyDown={(e) => { if (e.key === 'Enter') validatePromo() }}
+                    placeholder="Kode khusus"
+                    className="flex-1 text-xs px-3 py-2 rounded border border-gray-200 bg-gray-50/50 text-gray-500 placeholder:text-[#999] focus:outline-none focus:border-[#2F4A3F]/30 transition-colors"
+                    style={{ fontSize: '12px' }}
+                    aria-label="Kode khusus"
+                    autoComplete="off"
+                    spellCheck={false}
+                  />
+                  <button
+                    type="button"
+                    onClick={validatePromo}
+                    className="text-xs px-3 py-2 rounded border border-gray-200 text-[#999] hover:text-[#2F4A3F] hover:border-[#2F4A3F]/30 transition-colors"
+                    style={{ fontSize: '12px' }}
+                  >
+                    Apply
+                  </button>
+                </div>
+
+                {/* Validation feedback — minimal */}
+                <AnimatePresence mode="wait">
+                  {promoStatus === 'valid' && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center gap-1.5 mt-2 text-[11px] text-[#2F4A3F]"
+                    >
+                      <Check className="w-3 h-3" />
+                      {PROMO_DISCOUNT_PERCENT}% discount — mention this code when confirming via WhatsApp
+                    </motion.p>
+                  )}
+                  {promoStatus === 'invalid' && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="mt-2 text-[11px] text-[#999]"
+                    >
+                      Code not recognised
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         </motion.div>

@@ -6,6 +6,7 @@ import { FadeIn } from '@/components/ui/fade-in'
 import Link from 'next/link'
 import Image from 'next/image'
 import WhatsAppIcon from '@/components/icons/whatsapp-icon'
+import BoatTicketForm from '@/components/boat-ticket-form'
 import {
   CAR_HIRE_OPTIONS,
   BOAT_PRICES,
@@ -146,35 +147,9 @@ export default function GettingHerePage() {
                   />
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-foreground">Express Bahari Fast Boat</h3>
-                <p className="text-sm tracking-widest uppercase font-semibold text-primary">2 Hours • Departs Jepara</p>
-                <p className="text-foreground/80 font-light leading-relaxed">
-                  The most reliable route is via the Express Bahari fast boat from Jepara Harbour.
-                </p>
-
-                {/* Prices — data-driven */}
-                <div className="bg-background/60 p-4 rounded-xl space-y-2">
-                  {BOAT_PRICES.map((tier) => (
-                    <div key={tier.label} className="flex justify-between items-center">
-                      <span className="font-medium text-foreground">{tier.label}</span>
-                      <span className="font-semibold text-primary">{tier.price}</span>
-                    </div>
-                  ))}
-                  <p className="text-xs text-foreground/60 pt-1">per person, one way</p>
+                <div className="text-foreground/80 font-light leading-relaxed space-y-4 pt-2">
+                  <p>Express Bahari operates daily between Jepara and Karimunjawa. Schedules vary by month and season &mdash; some days offer two departures. We recommend booking your tickets through us for the most up-to-date availability.</p>
                 </div>
-
-                {/* Schedule — data-driven */}
-                <ul className="space-y-2 py-4 border-y border-primary/20 text-foreground/80 font-light">
-                  {BOAT_SCHEDULE.map((entry) => (
-                    <li key={entry.day} className="flex justify-between">
-                      <span>{entry.day}</span>
-                      <span>{entry.time}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-destructive font-medium">There are NO boats departing Jepara on Sundays.</p>
-                <p className="text-sm italic text-primary/80">
-                  *From mid-December to March (rainy season), the crossing can occasionally be delayed or cancelled due to high waves.
-                </p>
               </div>
             </FadeIn>
 
@@ -232,83 +207,32 @@ export default function GettingHerePage() {
           <JourneyStep 
             step={3} 
             title="Arrive on the Island" 
-            subtitle="Welcome to Karimunjawa. Our team is waiting for you at the pier."
+            subtitle="Welcome to Karimunjawa. Your island journey continues."
           >
-            {/* We Pick You Up */}
+            {/* Arrival Transfer */}
             <FadeIn direction="up" distance={40} delay={0.2}>
               <div className="bg-[#e8efe9] p-8 rounded-2xl space-y-4">
-                <h3 className="font-serif text-2xl font-bold text-foreground">We Pick You Up</h3>
-                <p className="text-foreground/80 font-light leading-relaxed">
-                  Once you arrive at Karimunjawa harbour, your journey ends and your rest begins. Our team will be waiting at the pier with a sign to collect you and your luggage. The transfer to Floating Paradise takes less than five minutes. <strong>Free of charge.</strong>
-                </p>
+                <h3 className="font-serif text-2xl font-bold text-foreground">Taxi / Transfer</h3>
+                <ul className="text-foreground/80 font-light leading-relaxed space-y-2 list-disc list-inside">
+                  <li>Taxi from harbour to Floating Paradise: Rp 150,000 (paid directly to driver, cash)</li>
+                  <li>Journey time: ~15 minutes</li>
+                  <li>Scooter rental: Rp 100,000/day, helmets included</li>
+                </ul>
               </div>
             </FadeIn>
-
-            {/* Getting Around */}
-            <div className="space-y-4 pt-4">
-              <FadeIn direction="up" distance={30}>
-                <h3 className="font-serif text-xl font-bold text-foreground text-foreground/60">Getting Around the Island</h3>
-                <p className="text-foreground/70 font-light leading-relaxed">
-                  Karimunjawa is small and relaxed. Life here moves at a slower pace, and transport options are simple. From the harbour, Floating is about 15–20 minutes by road.
-                </p>
-              </FadeIn>
-            </div>
-
-            {/* Transport Options — data-driven */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-              {TRANSPORT_OPTIONS.map((option, i) => (
-                <FadeIn key={option.title} direction="up" distance={30} delay={(i + 1) * 0.1} className="h-full">
-                  <div className="bg-muted h-full p-8 rounded-2xl border border-primary/5 space-y-4 overflow-hidden flex flex-col">
-                    <div className="relative h-48 -mt-8 -mx-8 mb-2 shrink-0">
-                      <Image 
-                        src={option.image}
-                        alt={option.imageAlt}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <h4 className="font-serif text-xl font-bold text-foreground">{option.title}</h4>
-                    <div className="text-foreground/80 font-light leading-relaxed space-y-3 flex-1">
-                      {option.details.map((detail) => (
-                        <p key={detail.slice(0, 30)} dangerouslySetInnerHTML={{ __html: detail }} />
-                      ))}
-                      {option.note && (
-                        <p className="text-sm italic text-foreground/60">{option.note}</p>
-                      )}
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
           </JourneyStep>
 
           {/* ④ REACH FLOATING */}
           <JourneyStep 
             step={4} 
-            title="Reach Floating" 
-            subtitle="The last stretch — from road to reef, from land to sea."
+            title="Access to Floating Paradise" 
+            subtitle="The final stretch — arriving at the property."
           >
             <FadeIn direction="up" distance={30} delay={0.2}>
-              <div className="text-foreground/80 font-light leading-relaxed">
-                <p>Floating is located in a quiet bay outside the main village area. The road leading east across the island is narrow, hilly and not lit at night. It then turns onto a dirt track that passes through an old shrimp farm before reaching our parking area. The track can become muddy during the rainy season.</p>
-              </div>
-            </FadeIn>
-
-            {/* Boat Pickup */}
-            <FadeIn direction="up" distance={40} delay={0.1}>
-              <div className="bg-[#e8efe9] p-8 sm:p-10 rounded-2xl border border-primary/10 space-y-6 relative overflow-hidden mt-6">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/3" />
-                <div className="relative h-56 sm:h-80 -mt-8 sm:-mt-10 -mx-8 sm:-mx-10 mb-6 shrink-0 rounded-b-2xl overflow-hidden shadow-sm">
-                  <Image 
-                    src="/image/getting-here/gh6.webp"
-                    alt="Motorised boat pickup"
-                    fill
-                    className="object-cover object-[center_20%]"
-                  />
-                </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-foreground relative z-10">The Final Step — By Boat</h3>
-                <p className="text-lg text-foreground/80 font-light leading-relaxed relative z-10">
-                  We pick up guests with a small motorised boat from the bay. This short ride across the water is your final transition — from road to reef, from land to sea. It&apos;s the moment the outside world fades and Floating begins.
+              <div className="bg-muted p-8 rounded-2xl border border-primary/10">
+                <h3 className="font-serif text-2xl font-bold text-foreground mb-4">Finding Us</h3>
+                <p className="text-lg text-foreground/80 font-light leading-relaxed">
+                  There is direct road access and parking on site. Follow the path past Bobi Beach &mdash; once the brick road ends, turn right onto the dirt track. Continue along the beach, cross the small wooden bridge, and drive through the old shrimp farm to reach the Floating Paradise parking area.
                 </p>
               </div>
             </FadeIn>
@@ -344,6 +268,38 @@ export default function GettingHerePage() {
             </div>
           </JourneyStep>
 
+        </div>
+      </section>
+
+      {/* ── BOAT TICKET BOOKING ──────────────────────────────────── */}
+      <section className="py-24 bg-[#F5EFE4]">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up" distance={30}>
+            <div className="text-center space-y-4 mb-12">
+              <p className="text-sm tracking-widest uppercase font-semibold text-primary">
+                Boat Ticket Service
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
+                Book Your Boat Ticket
+              </h2>
+              <p className="text-lg text-foreground/70 font-light leading-relaxed max-w-lg mx-auto">
+                We handle your ticket so you don&apos;t have to queue.
+                Available to everyone travelling to Karimunjawa.
+              </p>
+              <div className="inline-flex items-center gap-2 bg-white/80 px-5 py-2.5 rounded-xl border border-primary/10">
+                <span className="text-sm text-foreground/60">Express Bahari</span>
+                <span className="text-foreground/30">•</span>
+                <span className="font-serif text-lg font-bold text-primary">Rp 300,000</span>
+                <span className="text-sm text-foreground/60">/ ticket</span>
+              </div>
+            </div>
+          </FadeIn>
+
+          <FadeIn direction="up" distance={40} delay={0.15}>
+            <div className="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-primary/5">
+              <BoatTicketForm />
+            </div>
+          </FadeIn>
         </div>
       </section>
 

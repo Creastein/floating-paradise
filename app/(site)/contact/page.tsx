@@ -153,24 +153,22 @@ export default function ContactPage() {
                 </div>
               </FadeIn>
 
+              {/* Relocated Map Embed */}
+              <FadeIn direction="up" distance={40} delay={0.5} className="pt-8">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.123!2d110.4456!3d-5.8672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sFloating+Paradise+Karimunjawa!5e0!3m2!1sen!2sid"
+                  width="100%"
+                  height={300}
+                  style={{ border: 0, borderRadius: '16px' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Floating Paradise Karimunjawa Location"
+                  className="shadow-md border border-primary/10"
+                />
+              </FadeIn>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Google Maps Embed */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.123!2d110.4456!3d-5.8672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sFloating+Paradise+Karimunjawa!5e0!3m2!1sen!2sid"
-            width="100%"
-            height={400}
-            style={{ border: 0, borderRadius: '12px' }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Floating Paradise Karimunjawa Location"
-          />
         </div>
       </section>
 

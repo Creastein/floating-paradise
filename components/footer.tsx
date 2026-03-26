@@ -6,10 +6,13 @@ import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
 import { Instagram, Facebook, Mail, MapPin } from 'lucide-react'
 import { useSiteSettings } from './site-settings-provider'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function Footer() {
   const settings = useSiteSettings()
   const footerRef = useRef<HTMLElement>(null)
+  
+  const { t } = useLanguage()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,7 +60,7 @@ export default function Footer() {
               />
             </Link>
             <p className="footer-text text-primary-foreground/70 text-lg leading-relaxed max-w-sm">
-              A handcrafted guesthouse above the sea. Solar-powered. Intentional. Karimunjawa.
+              {t.footer.description}
             </p>
             <div className="pt-4 space-y-3">
               <div className="footer-text">
@@ -79,15 +82,22 @@ export default function Footer() {
 
           {/* Column 2: Quick Links (Span 3) */}
           <div className="lg:col-span-3 lg:col-start-7 text-center md:text-left">
-            <h4 className="footer-text font-serif text-xl mb-6 text-[#e8e4db] w-fit mx-auto md:mx-0">Explore</h4>
+            <h4 className="footer-text font-serif text-xl mb-6 text-[#e8e4db] w-fit mx-auto md:mx-0">{t.footer.explore}</h4>
             <ul className="space-y-4">
-              {['Home', 'Bungalows', 'Explore', 'Yoga Retreat', 'Getting Here', 'About Us'].map((item) => (
-                <li key={item} className="footer-text">
+              {[
+                { label: t.nav.home, href: '/' },
+                { label: t.nav.bungalows, href: '/bungalows' },
+                { label: t.nav.explore, href: '/explore' },
+                { label: t.nav.yogaRetreat, href: '/yoga-retreat' },
+                { label: t.nav.gettingHere, href: '/getting-here' },
+                { label: t.nav.aboutUs, href: '/about-us' }
+              ].map((item) => (
+                <li key={item.href} className="footer-text">
                   <Link 
-                    href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`} 
+                    href={item.href} 
                     className="text-primary-foreground/70 hover:text-white transition-colors text-lg relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full inline-block"
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -96,7 +106,7 @@ export default function Footer() {
 
           {/* Column 3: Social & Newsletter (Span 3) */}
           <div className="lg:col-span-3 text-center md:text-left">
-            <h4 className="footer-text font-serif text-xl mb-6 text-[#e8e4db] w-fit mx-auto md:mx-0">Connect</h4>
+            <h4 className="footer-text font-serif text-xl mb-6 text-[#e8e4db] w-fit mx-auto md:mx-0">{t.footer.connect}</h4>
             <div className="flex justify-center md:justify-start gap-5 mb-10">
               {settings?.socialLinks ? (
                 settings.socialLinks.map((link: any, i: number) => {
@@ -127,10 +137,10 @@ export default function Footer() {
         {/* Divider & Copyright */}
         <div className="border-t border-white/10 pt-8 mt-12 w-full overflow-hidden">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary-foreground/50 gap-4">
-            <p className="footer-text">&copy; {new Date().getFullYear()} Floating Paradise. All rights reserved.</p>
+            <p className="footer-text">&copy; {new Date().getFullYear()} {t.footer.rights}</p>
             <div className="flex flex-wrap justify-center gap-6 md:gap-8 items-center">
-              <Link href="#" className="footer-text hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="#" className="footer-text hover:text-white transition-colors">Terms of Service</Link>
+              <Link href="#" className="footer-text hover:text-white transition-colors">{t.footer.privacy}</Link>
+              <Link href="#" className="footer-text hover:text-white transition-colors">{t.footer.terms}</Link>
               <div className="w-[1px] h-4 bg-white/20 hidden md:block"></div>
               <button 
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -139,7 +149,7 @@ export default function Footer() {
                 }} 
                 className="footer-text hover:text-white transition-colors text-[11px] tracking-[0.2em] font-mono uppercase"
               >
-                BACK TO TOP ^
+                {t.footer.backToTop}
               </button>
             </div>
           </div>

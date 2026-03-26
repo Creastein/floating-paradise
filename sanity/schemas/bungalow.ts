@@ -25,6 +25,12 @@ export const bungalowType = defineType({
       of: [{ type: 'block' }]
     }),
     defineField({
+      name: 'description_id',
+      title: 'Description (Indonesian)',
+      type: 'array',
+      of: [{ type: 'block' }]
+    }),
+    defineField({
       name: 'gallery',
       title: 'Photo Gallery',
       type: 'array',
@@ -54,6 +60,12 @@ export const bungalowType = defineType({
     defineField({
       name: 'features',
       title: 'Features List',
+      type: 'array',
+      of: [{ type: 'string' }]
+    }),
+    defineField({
+      name: 'features_id',
+      title: 'Features List (Indonesian)',
       type: 'array',
       of: [{ type: 'string' }]
     }),

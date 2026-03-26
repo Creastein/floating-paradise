@@ -12,7 +12,20 @@ import { gsap } from '@/lib/gsap-init'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
 
-const ROOMS = [
+interface DisplayRoom {
+  name: string
+  description: string | any
+  image: string
+  reverse: boolean
+  guests: string
+  size: string
+  price: string
+  gallery: string[]
+  triplaUrl?: string
+  features?: string[]
+}
+
+const ROOMS: DisplayRoom[] = [
   {
       name: 'Sunrise Bungalow',
       description: 'Our most private and sought-after bungalow, offering expansive sea views and soft ocean breezes right from your king-sized bed.',
@@ -83,7 +96,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
   const introQuoteRef = useRef<HTMLParagraphElement>(null)
   const introSubRef = useRef<HTMLParagraphElement>(null)
 
-  const displayRooms = initialBungalows && initialBungalows.length > 0
+  const displayRooms: DisplayRoom[] = initialBungalows && initialBungalows.length > 0
     ? initialBungalows.map((b, index) => ({
         name: b.name,
         description: b.description,

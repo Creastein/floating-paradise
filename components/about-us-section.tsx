@@ -5,20 +5,27 @@ import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
 import { urlFor } from '@/lib/sanity.image'
 import { PortableText } from '@/components/portable-text'
+import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 
 type AboutUsSectionProps = {
-  title?: string;
-  text?: any;
-  image1?: any;
-  image2?: any;
-  image3?: any;
+  homepage?: any;
 }
 
-export default function AboutUsSection({ title, text, image1, image2, image3 }: AboutUsSectionProps) {
+export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const galleryRef = useRef<HTMLDivElement>(null)
   const textColumnRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLDivElement>(null)
+
+  const { t } = useLanguage()
+  const { getCmsValue } = useCmsTranslation()
+
+  const title = getCmsValue(homepage, 'welcomeTitle', null)
+  const text = getCmsValue(homepage, 'welcomeText', null)
+
+  const image1 = homepage?.welcomeImage1
+  const image2 = homepage?.welcomeImage2
+  const image3 = homepage?.welcomeImage3
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -139,11 +146,11 @@ export default function AboutUsSection({ title, text, image1, image2, image3 }: 
             {/* Header Titles */}
             <div ref={headingRef} className="scrub-text">
               <h2 className="text-sm tracking-widest text-primary uppercase font-bold mb-3">
-                Welcome to Floating
+                {t.about.welcomeTitle}
               </h2>
               <h3 className="font-serif text-3xl md:text-5xl text-foreground font-medium leading-tight">
                 {title || (
-                  <>A sea-based guesthouse,<br className="hidden md:block"/> sheltered in a mangrove bay.</>
+                  <span dangerouslySetInnerHTML={{ __html: t.about.defaultTitle }} />
                 )}
               </h3>
             </div>
@@ -167,30 +174,25 @@ export default function AboutUsSection({ title, text, image1, image2, image3 }: 
                 />
               ) : (
                 <>
-                  {/* Fallback Paragraf 1 */}
-                  <p className="scrub-text">
-                    <strong className="text-foreground font-semibold">Floating Paradise</strong> is proudly solar-powered. Built consciously above the water, it invites a slower rhythm of living, where mornings begin gazing out to the horizon, days unfold barefoot, and life follows the tides more than the clock.
+                  <p className="scrub-text flex flex-col gap-4">
+                    <span dangerouslySetInnerHTML={{ __html: t.about.defaultText1.replace('Floating Paradise', '<strong class="text-foreground font-semibold">Floating Paradise</strong>') }} />
                   </p>
 
-                  {/* Fallback Paragraf 2 */}
                   <p className="scrub-text">
-                    With just three cosy rooms, all locally crafted using wood and bamboo, with direct jetty access to deep water, and the reef at your doorstep, it's a unique, secluded, nature escape.
+                    {t.about.defaultText2}
                   </p>
 
-                  {/* Fallback Paragraf 3 - Gentle Break */}
                   <p className="scrub-text italic font-serif text-xl md:text-2xl text-foreground/90 border-l-[3px] border-primary/40 pl-6 my-3 md:my-4 relative">
                     <span className="absolute -left-3 -top-2 text-primary/30 text-4xl">"</span>
-                    Swim, snorkel, kayak, fish, explore nearby beaches, or practice yoga on our open decks overlooking the horizon.
+                    {t.about.defaultText3}
                   </p>
 
-                  {/* Fallback Paragraf 4 */}
                   <p className="scrub-text">
-                    At night, watch phosphorescent plankton glow beneath you or spot shooting stars above, not forgetting our fresh, abundant meals too. Immerse yourself in this unique tropical island space; slow down, reconnect, contribute sustainably, and connect to nature, all at Floating Paradise.
+                    {t.about.defaultText4}
                   </p>
 
-                  {/* Fallback Paragraf 5 - Final */}
                   <p className="scrub-text text-foreground font-medium pt-3 mt-4 md:mt-5 border-t border-border">
-                    Comfort, exploration, and rejuvenation await in this tropical island paradise. We can't wait to welcome you!
+                    {t.about.defaultText5}
                   </p>
                 </>
               )}

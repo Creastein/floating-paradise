@@ -7,18 +7,24 @@ import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
 import { urlFor } from '@/lib/sanity.image'
 import { PortableText } from '@/components/portable-text'
+import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 
 type BungalowsSectionProps = {
-  title?: string;
-  text?: any;
+  homepage?: any;
   bungalows?: any[];
 }
 
-export default function BungalowsSection({ title, text, bungalows: cmsBungalows }: BungalowsSectionProps) {
+export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: BungalowsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const cardImageRefs = useRef<(HTMLDivElement | null)[]>([])
   const cardsGridRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLDivElement>(null)
+
+  const { t } = useLanguage()
+  const { getCmsValue } = useCmsTranslation()
+
+  const title = getCmsValue(homepage, 'builtByHandTitle', null)
+  const text = getCmsValue(homepage, 'builtByHandText', null)
 
   const defaultBungalows = [
     {
@@ -155,7 +161,7 @@ export default function BungalowsSection({ title, text, bungalows: cmsBungalows 
           <div className="w-full md:w-1/3">
             <h2 ref={headingRef} className="scrub-text font-serif text-3xl md:text-5xl lg:text-5xl text-foreground font-medium tracking-wide leading-tight">
               {title || (
-                <>Our Floating <br className="hidden lg:block"/> Bungalows</>
+                <span dangerouslySetInnerHTML={{ __html: t.bungalows.defaultTitle }} />
               )}
             </h2>
           </div>
@@ -173,16 +179,16 @@ export default function BungalowsSection({ title, text, bungalows: cmsBungalows 
             ) : (
               <>
                 <p className="scrub-text">
-                  <strong className="text-foreground font-semibold">Suspended above the reef</strong>, our three handcrafted bamboo bungalows invite you to live between sea and sky.
+                  <span dangerouslySetInnerHTML={{ __html: t.bungalows.defaultText1.replace('Suspended above the reef', '<strong class="text-foreground font-semibold">Suspended above the reef</strong>').replace('Tergantung di atas terumbu karang', '<strong class="text-foreground font-semibold">Tergantung di atas terumbu karang</strong>') }} />
                 </p>
                 <p className="scrub-text">
-                  Built by hand and shaped by the elements, each bungalow has its own personality; no two are the same. Wake with the sunrise shimmering across the water, watch the tide shift beneath your feet, and fall asleep to the quiet rhythm of the waves.
+                  {t.bungalows.defaultText2}
                 </p>
                 <p className="scrub-text">
-                  Inside, natural textures and open design create a space that feels both grounded and free. Each bungalow features a queen bed (or larger), a private ensuite with fresh water shower, sink, and flushing toilet, and a generous balcony with comfortable seating; your front-row seat to panoramic views of the sea and mangroves.
+                  {t.bungalows.defaultText3}
                 </p>
                 <p className="scrub-text font-medium text-foreground pt-3 mt-5 border-t border-border">
-                  These are not just rooms, they're a place to exhale, to soften, and to float.
+                  {t.bungalows.defaultText4}
                 </p>
               </>
             )}
@@ -220,18 +226,21 @@ export default function BungalowsSection({ title, text, bungalows: cmsBungalows 
                   {bungalow.name}
                 </h3>
                 <div className="text-foreground/70 text-base mb-8 flex-grow leading-relaxed flex flex-col items-center">
-                  {typeof bungalow.description === 'string' ? (
-                    <p>{bungalow.description}</p>
-                  ) : bungalow.description ? (
-                    <PortableText 
-                      value={bungalow.description} 
-                      components={{
-                        block: {
-                          normal: ({ children }: any) => <p className="mb-2 last:mb-0 max-w-sm">{children}</p>
-                        }
-                      }}
-                    />
-                  ) : null}
+                  {(() => {
+                    const desc = getCmsValue(bungalow, 'description', bungalow.description);
+                    return typeof desc === 'string' ? (
+                      <p>{desc}</p>
+                    ) : desc ? (
+                      <PortableText 
+                        value={desc} 
+                        components={{
+                          block: {
+                            normal: ({ children }: any) => <p className="mb-2 last:mb-0 max-w-sm">{children}</p>
+                          }
+                        }}
+                      />
+                    ) : null;
+                  })()}
                 </div>
                 <div className="mt-6 pt-5 border-t border-primary/20">
                   <a 
@@ -240,7 +249,7 @@ export default function BungalowsSection({ title, text, bungalows: cmsBungalows 
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-xs font-bold text-primary hover:text-foreground transition-colors duration-700 w-full"
                   >
-                    Book This Room <span className="text-lg opacity-80">&rarr;</span>
+                    {t.bungalows.bookRoom} <span className="text-lg opacity-80">&rarr;</span>
                   </a>
                 </div>
               </div>

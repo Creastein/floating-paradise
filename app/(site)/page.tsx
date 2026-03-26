@@ -16,16 +16,10 @@ export default async function Home() {
     <main className="min-h-screen">
       <Navigation />
       <HeroSection 
-        title={homepage?.heroTitle} 
-        subtitle={homepage?.heroSubtitle}
-        image={homepage?.heroImage}
+        homepage={homepage}
       />
       <AboutUsSection 
-        title={homepage?.welcomeTitle}
-        text={homepage?.welcomeText}
-        image1={homepage?.welcomeImage1}
-        image2={homepage?.welcomeImage2}
-        image3={homepage?.welcomeImage3}
+        homepage={homepage}
       />
       {/* Smooth transition: white → beige */}
       <div className="h-24 md:h-32 bg-gradient-to-b from-background to-[#f5efe6]" />
@@ -33,8 +27,7 @@ export default async function Home() {
       {/* Smooth transition: beige → white */}
       <div className="h-24 md:h-32 bg-gradient-to-b from-[#f5efe6] to-background" />
       <BungalowsSection 
-        title={homepage?.builtByHandTitle}
-        text={homepage?.builtByHandText}
+        homepage={homepage}
         bungalows={bungalows}
       />
       <YogaRetreatSection />

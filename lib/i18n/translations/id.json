@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "bungalows": "Bungalow",
+    "explore": "Eksplorasi",
+    "yogaRetreat": "Retret Yoga",
+    "gettingHere": "Cara ke Sini",
+    "aboutUs": "Tentang Kami",
+    "contact": "Kontak",
+    "bookNow": "Pesan"
+  },
+  "hero": {
+    "checkAvailability": "Cek Ketersediaan",
+    "defaultTitle": "Floating Paradise",
+    "defaultSubtitle": "untuk petualang yang santai"
+  },
+  "about": {
+    "welcomeTitle": "Selamat Datang di Floating",
+    "defaultTitle": "Penginapan di atas laut,<br/>terlindung di teluk mangrove.",
+    "defaultText1": "Floating Paradise dengan bangga menggunakan tenaga surya. Dibangun secara sadar di atas air, mengundang ritme hidup yang lebih lambat, di mana pagi dimulai dengan menatap rasi langit, hari berjalan tanpa alas kaki, dan hidup mengikuti pasang surut lebih dari sekadar jam bergulir.",
+    "defaultText2": "Dengan hanya tiga kamar yang nyaman, semuanya dibuat dengan kayu dan bambu lokal, akses jet langsung ke perairan dalam, dan terumbu karang tepat di depan pintu Anda, ini adalah tempat pelarian alam yang unik dan terpencil.",
+    "defaultText3": "Berenang, snorkeling, kayak, memancing, menjelajahi pantai terdekat, atau berlatih yoga di dek terbuka kami dengan pemandangan ufuk.",
+    "defaultText4": "Di malam hari, saksikan plankton berpendar menyala di bawah Anda atau lihat bintang jatuh di atas, dan jangan lupakan hidangan kami yang segar dan berlimpah. Benamkan diri Anda dalam ruang pulau tropis yang unik ini; melambat sesaat, terhubung kembali, berkontribusi secara berkelanjutan, dan membaur dengan alam, semua di Floating Paradise.",
+    "defaultText5": "Kenyamanan, eksplorasi, dan peremajaan menanti di surga pulau tropis ini. Kami tidak sabar menyambut Anda!"
+  },
+  "bungalows": {
+    "defaultTitle": "Bungalow Mengapung <br/> Kami",
+    "defaultText1": "Tergantung di atas terumbu karang, ketiga bungalow bambu buatan tangan kami mengundang Anda untuk hidup di antara laut dan langit.",
+    "defaultText2": "Dibangun dengan tangan dan dibentuk oleh elemen alam, setiap bungalow memiliki kepribadiannya sendiri; tak satupun yang sama. Bangun dengan matahari terbit yang berkilauan melintasi air, lihat air laut beranjak surut di bawah kaki Anda, dan tertidur mengikuti ritme ombak yang tenang.",
+    "defaultText3": "Di dalam, tekstur alami dan desain terbuka menciptakan ruang yang terasa menjejak sekaligus bebas. Setiap bungalow dilengkapi tempat tidur queen (atau lebih besar), kamar mandi pribadi dengan shower air tawar, wastafel, dan toilet, serta balkon luas dengan tempat duduk yang nyaman; kursi baris depan Anda ke pemandangan laut dan hutan mangrove yang indah.",
+    "defaultText4": "Ini bukan sekadar kamar, melainkan tempat untuk menghembuskan napas lega, melembutkan diri, dan mengapung dengan bebas.",
+    "bookRoom": "Pesan Kamar Ini"
+  },
+  "footer": {
+    "description": "Penginapan buatan tangan di atas laut. Tenaga surya. Penuh Kesadaran. Karimunjawa.",
+    "explore": "Eksplorasi",
+    "connect": "Terhubung",
+    "rights": "Floating Paradise. Hak cipta dilindungi undang-undang.",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Syarat Layanan",
+    "backToTop": "KEMBALI KE ATAS ^"
+  },
+  "yoga": {
+    "newExperience": "Pengalaman Baru",
+    "artOfFloating": "Seni<br /><span class=\"italic text-primary/80\">Mengapung (Floating)</span>",
+    "date": "8–14 Juni 2026",
+    "desc1": "Bergabunglah dengan kami dalam retret yoga imersif selama 7 hari. Temukan kembali diri Anda melalui latihan harian, kesadaran hidup, dan kekuatan penyembuhan dari lautan.",
+    "desc2": "Ini adalah yoga sebagai cara hidup. Datang dan mengapung bersama kami.",
+    "discoverRetreat": "Temukan Retret"
+  },
+  "explore": {
+    "title": "Dibangun dengan Tangan,<br class=\"hidden md:block\"/>Ditenagai oleh Matahari",
+    "p1": "Pada pandangan pertama, Floating mungkin terlihat sederhana. Bahan alami. Ruang terbuka. Kayu, atap rumbia, anyaman, udara laut. Tidak ada yang dipoles sempurna. Tidak sepenuhnya tertutup dari elemen alam.",
+    "p2": "Dan itulah poin utamanya. Setiap struktur di Floating Paradise dibangun dari bahan alami yang hidup dalam hubungan dengan laut, matahari, angin, dan hujan, bahan-bahan ini memudar dan melapuk. Semua membutuhkan perawatan dan perlu diganti. Atap diperbarui. Kayu dirawat. Detail-detail kecil diperhatikan berulang kali.",
+    "quote": "Kami tidak membangun untuk melawan alam. Kami membangun untuk hidup di dalamnya.",
+    "p3": "Memilih bahan alam berarti memilih perawatan daripada keabadian. Ini berarti menerima siklus alih-alih mengejar ilusi kenyamanan abadi. Apa yang terlihat sederhana sejatinya adalah perawatan berkelanjutan, untuk teluk ini, Karimunjawa, dan planet kita.",
+    "p4": "Sama disengajanya, Floating berjalan sepenuhnya dengan tenaga surya. Tidak ada jaringan listrik darat yang mendukung kami. Setiap lampu, kipas, dan sistem bergantung pada jaringan panel surya yang dirakit secara mandiri.",
+    "p5": "Tono, belajar secara otodidak dan sangat berdedikasi, merancang dan membangun sistem ini sendiri. Aman, andal, dan sepenuhnya ditenagai matahari, tetapi membutuhkan perhatian yang terus-menerus, pemantauan, pembelajaran, dan peningkatan. Hidup di luar jaringan bukanlah jalan pintas. Ini adalah pengabdian harian.",
+    "p6": "Saat Anda menginap di sini, Anda tidak membayar kemewahan dalam arti konvensional. Anda mendukung keterampilan tangan. Energi terbarukan. Bahan alami. Pembangunan siklikal. Pekerjaan manusia. Perawatan jangka panjang.",
+    "p7": "Floating sederhana secara desain. Namun kesederhanaan, saat diciptakan dengan niat dan tanggung jawab, membawa kedalaman dan nilai. Selalu dirawat, terurus rapi, lagi dan lagi."
+  }
+}

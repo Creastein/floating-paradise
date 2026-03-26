@@ -8,6 +8,8 @@ import { SiteSettingsProvider } from '@/components/site-settings-provider'
 import { urlFor } from '@/lib/sanity.image'
 import '../globals.css'
 
+import { LanguageProvider } from '@/lib/i18n/language-context'
+
 const cormorant = Cormorant_Garamond({ 
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"]
@@ -57,14 +59,16 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
         <SiteSettingsProvider settings={settings}>
-          {children}
-          <FloatingWhatsapp />
-          <Analytics />
-          <Script 
-            src="https://tripla.jp/sdk/javascript/tripla.min.js" 
-            strategy="afterInteractive"
-            data-triplabot-code="019c5054-aa76-72af-8207-e3dd1c280fa3"
-          />
+          <LanguageProvider>
+            {children}
+            <FloatingWhatsapp />
+            <Analytics />
+            <Script 
+              src="https://tripla.jp/sdk/javascript/tripla.min.js" 
+              strategy="afterInteractive"
+              data-triplabot-code="019c5054-aa76-72af-8207-e3dd1c280fa3"
+            />
+          </LanguageProvider>
         </SiteSettingsProvider>
       </body>
     </html>

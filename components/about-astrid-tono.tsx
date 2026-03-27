@@ -22,14 +22,26 @@ export default function AboutAstridTono({ cmsData }: AboutAstridTonoProps) {
     <div ref={sectionRef} className="flex flex-col md:flex-row items-center gap-16">
       <div className="w-full md:w-1/2 relative aspect-[4/5] sm:aspect-[3/4]">
         <div ref={imageRef} className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden">
-          <Image
-            src="/image/about-us/astrid&tono.webp"
-            alt="Astrid & Tono"
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            loading="lazy"
-          />
+          {cmsData?.foundersPhoto ? (
+            <Image
+              src={cmsData.foundersPhoto}
+              alt="Astrid & Tono"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              loading="lazy"
+              unoptimized
+            />
+          ) : (
+            <Image
+              src="/image/about-us/astrid&tono.webp"
+              alt="Astrid & Tono"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              loading="lazy"
+            />
+          )}
         </div>
       </div>
       

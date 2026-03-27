@@ -11,8 +11,10 @@ import {
 // Types for better inference handling
 type FetchResult<T> = { source: 'cms' | 'local', data: T | null }
 
-// Global fetch options for ISR (revalidate every 60 seconds)
-const fetchOptions = { next: { revalidate: 60 } }
+// Global fetch options: Instant refresh in development, ISR in production
+const fetchOptions = process.env.NODE_ENV === 'development' 
+  ? { cache: 'no-store' as RequestCache } 
+  : { next: { revalidate: 60 } }
 
 export async function getSiteSettings(): Promise<FetchResult<any>> {
   try {

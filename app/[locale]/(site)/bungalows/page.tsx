@@ -1,10 +1,14 @@
 import { getBungalows } from "@/lib/sanity.fetch"
-import BungalowsClient from "./bungalows-client"
+import BungalowsClient from "@/app/(site)/bungalows/bungalows-client"
 import { getSeoValue } from "@/lib/i18n/seo"
 
-export async function generateMetadata() {
-  const title = getSeoValue("en", "seo.bungalows.title")
-  const description = getSeoValue("en", "seo.bungalows.description")
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string }
+}) {
+  const title = getSeoValue(params.locale, "seo.bungalows.title")
+  const description = getSeoValue(params.locale, "seo.bungalows.description")
 
   return {
     title,

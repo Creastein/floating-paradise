@@ -5,34 +5,19 @@ export const yogaRetreatType = defineType({
   title: 'Yoga Retreat',
   type: 'document',
   groups: [
-    { name: 'hero', title: '🧘 Hero & Overview' },
+    { name: 'hero', title: '🧘 Overview' },
     { name: 'schedule', title: '📅 Schedule & Themes' },
     { name: 'facilitator', title: '👩 Facilitator (Astrid)' },
-    { name: 'pricing', title: '💰 Pricing & Policy' },
+    { name: 'policy', title: '📋 Policy' },
     { name: 'gallery', title: '🖼️ Gallery' },
   ],
   fields: [
-    // ── Hero & Overview ─────────────────────────────
-    defineField({
-      name: 'heroImage',
-      title: 'Hero Background Image',
-      type: 'image',
-      options: { hotspot: true },
-      group: 'hero',
-    }),
-    defineField({
-      name: 'dates',
-      title: 'Retreat Dates',
-      type: 'object',
-      group: 'hero',
-      fields: [
-        { name: 'start', type: 'date', title: 'Start Date' },
-        { name: 'end', type: 'date', title: 'End Date' },
-      ],
-    }),
+    // ── Overview ────────────────────────────────────
+
     defineField({
       name: 'overview',
       title: 'Retreat Overview Text (English)',
+      description: 'Introductory paragraphs describing the retreat experience.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'hero',
@@ -40,6 +25,7 @@ export const yogaRetreatType = defineType({
     defineField({
       name: 'overview_id',
       title: 'Retreat Overview Text (Indonesian)',
+      description: 'Paragraf pengantar yang menjelaskan pengalaman retreat.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'hero',
@@ -49,7 +35,7 @@ export const yogaRetreatType = defineType({
     defineField({
       name: 'dailySchedule',
       title: 'Daily Schedule',
-      description: 'Each item has a time slot and activity description in both languages.',
+      description: 'List of daily activities with time slots and descriptions in both languages.',
       type: 'array',
       group: 'schedule',
       of: [
@@ -86,16 +72,9 @@ export const yogaRetreatType = defineType({
 
     // ── Facilitator ─────────────────────────────────
     defineField({
-      name: 'facilitatorPhoto',
-      title: 'Facilitator Photo (Astrid)',
-      description: 'The circular portrait photo of Astrid',
-      type: 'image',
-      options: { hotspot: true },
-      group: 'facilitator',
-    }),
-    defineField({
       name: 'astridBio',
       title: 'Instructor Bio — English (Astrid)',
+      description: 'Biography text for Astrid.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'facilitator',
@@ -103,48 +82,35 @@ export const yogaRetreatType = defineType({
     defineField({
       name: 'astridBio_id',
       title: 'Instructor Bio — Indonesian (Astrid)',
+      description: 'Teks biografi untuk Astrid dalam bahasa Indonesia.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'facilitator',
     }),
 
-    // ── Pricing & Policy ────────────────────────────
-    defineField({
-      name: 'pricing',
-      title: 'Pricing Packages',
-      type: 'array',
-      group: 'pricing',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'packageName', type: 'string', title: 'Package Name' },
-            { name: 'price', type: 'number', title: 'Price (IDR)' },
-            { name: 'description', type: 'text', title: 'Description' },
-          ],
-        },
-      ],
-    }),
+    // ── Policy ───────────────────────────────────────
     defineField({
       name: 'cancellationPolicy',
       title: 'Cancellation Policy (English)',
+      description: 'Rules and terms regarding cancellations.',
       type: 'array',
       of: [{ type: 'block' }],
-      group: 'pricing',
+      group: 'policy',
     }),
     defineField({
       name: 'cancellationPolicy_id',
       title: 'Cancellation Policy (Indonesian)',
+      description: 'Kebijakan pembatalan dalam bahasa Indonesia.',
       type: 'array',
       of: [{ type: 'block' }],
-      group: 'pricing',
+      group: 'policy',
     }),
 
     // ── Gallery ─────────────────────────────────────
     defineField({
       name: 'images',
       title: 'Retreat Gallery (Slideshow)',
-      description: 'These images appear in the auto-slideshow in the Nature & Contribution section.',
+      description: 'These images appear in the auto-slideshow at the bottom of the page. If removed, the website will use the default gallery images.',
       type: 'array',
       of: [{ type: 'image', options: { hotspot: true } }],
       group: 'gallery',

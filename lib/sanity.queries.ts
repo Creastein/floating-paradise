@@ -26,7 +26,6 @@ export const yogaRetreatQuery = defineQuery(`
 export const aboutPageQuery = defineQuery(`
   *[_type == "aboutPage"][0] {
     ...,
-    "foundersPhoto": foundersPhoto.asset->url,
-    "images": images[].asset->url
+    "foundersPhoto": foundersPhoto.asset->url
   }
 `)

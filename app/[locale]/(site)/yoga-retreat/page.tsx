@@ -1,10 +1,14 @@
 import { getYogaRetreat } from "@/lib/sanity.fetch"
-import YogaClient from "./yoga-client"
+import YogaClient from "@/app/(site)/yoga-retreat/yoga-client"
 import { getSeoValue } from "@/lib/i18n/seo"
 
-export async function generateMetadata() {
-  const title = getSeoValue("en", "seo.yoga.title")
-  const description = getSeoValue("en", "seo.yoga.description")
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string }
+}) {
+  const title = getSeoValue(params.locale, "seo.yoga.title")
+  const description = getSeoValue(params.locale, "seo.yoga.description")
 
   return {
     title,
@@ -20,9 +24,14 @@ export async function generateMetadata() {
   }
 }
 
-export default async function YogaRetreatPage() {
+export default async function YogaRetreatPage({
+  params,
+}: {
+  params: { locale: string }
+}) {
   const retreatResult = await getYogaRetreat()
   const cmsData = retreatResult?.data
+  const retreatUrl = `https://floatingparadise.id/${params.locale}/yoga-retreat`
 
   const retreatJsonLd = {
     "@context": "https://schema.org",
@@ -53,7 +62,7 @@ export default async function YogaRetreatPage() {
       price: "16000000",
       priceCurrency: "IDR",
       availability: "https://schema.org/LimitedAvailability",
-      url: "https://floatingparadise.id/en/yoga-retreat",
+      url: retreatUrl,
     },
   }
 

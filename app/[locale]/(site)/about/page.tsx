@@ -1,10 +1,14 @@
 import { getAboutPage } from "@/lib/sanity.fetch"
-import AboutClient from "./about-client"
+import AboutClient from "@/app/(site)/about/about-client"
 import { getSeoValue } from "@/lib/i18n/seo"
 
-export async function generateMetadata() {
-  const title = getSeoValue("en", "seo.about.title")
-  const description = getSeoValue("en", "seo.about.description")
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string }
+}) {
+  const title = getSeoValue(params.locale, "seo.about.title")
+  const description = getSeoValue(params.locale, "seo.about.description")
 
   return {
     title,

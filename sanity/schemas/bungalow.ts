@@ -15,21 +15,25 @@ export const bungalowType = defineType({
     defineField({
       name: 'name',
       title: 'Bungalow Name',
+      description: 'The display name of the bungalow.',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error('Bungalow name is required.'),
       group: 'content',
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
+      description: 'URL identifier. Locked to prevent breaking website navigation.',
       type: 'slug',
       options: { source: 'name' },
+      readOnly: true,
       validation: (Rule) => Rule.required(),
       group: 'content',
     }),
     defineField({
       name: 'description',
       title: 'Description (English)',
+      description: 'Main promotional text for this bungalow.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'content',
@@ -37,6 +41,7 @@ export const bungalowType = defineType({
     defineField({
       name: 'description_id',
       title: 'Description (Indonesian)',
+      description: 'Deskripsi utama dalam bahasa Indonesia.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'content',
@@ -62,27 +67,17 @@ export const bungalowType = defineType({
     defineField({
       name: 'priceIDR',
       title: 'Price per night (IDR)',
+      description: 'Example: 650000 (do not include commas or dots).',
       type: 'number',
       group: 'pricing',
     }),
-    defineField({
-      name: 'priceGBP',
-      title: 'Price per night (GBP)',
-      type: 'number',
-      group: 'pricing',
-    }),
-    defineField({
-      name: 'priceEUR',
-      title: 'Price per night (EUR)',
-      type: 'number',
-      group: 'pricing',
-    }),
+
 
     // ── Gallery ───────────────────────────────────────
     defineField({
       name: 'gallery',
       title: 'Photo Gallery',
-      description: 'Photos shown in the bungalow slideshow.',
+      description: 'High quality photos shown in the bungalow slideshow (landscape format recommended). If removed, the website will use the default images.',
       type: 'array',
       of: [{ type: 'image', options: { hotspot: true } }],
       group: 'media',
@@ -92,6 +87,7 @@ export const bungalowType = defineType({
     defineField({
       name: 'maxGuests',
       title: 'Maximum Guests Allowed',
+      description: 'Used for occupancy clarity on the website.',
       type: 'number',
       group: 'booking',
     }),
@@ -99,7 +95,7 @@ export const bungalowType = defineType({
       name: 'triplaUrl',
       title: 'Tripla Booking URL',
       type: 'url',
-      description: 'Used for predefined room checkout flow.',
+      description: 'Direct link to book this specific room on the Tripla platform.',
       group: 'booking',
     }),
   ],

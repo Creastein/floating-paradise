@@ -7,26 +7,13 @@ export const aboutPageType = defineType({
   groups: [
     { name: 'founders', title: '👫 Founders Story' },
     { name: 'mission', title: '🎯 Mission Statement' },
-    { name: 'gallery', title: '🖼️ Gallery' },
   ],
   fields: [
     // ── Founders Story ──────────────────────────────
     defineField({
-      name: 'storyTitle',
-      title: 'Story Title (English)',
-      type: 'string',
-      group: 'founders',
-    }),
-    defineField({
-      name: 'storyTitle_id',
-      title: 'Story Title (Indonesian)',
-      type: 'string',
-      group: 'founders',
-    }),
-    defineField({
       name: 'storyContent',
       title: 'Story Content (English)',
-      description: 'The Astrid & Tono founder story paragraphs',
+      description: 'The Astrid & Tono founder story paragraphs.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'founders',
@@ -34,7 +21,7 @@ export const aboutPageType = defineType({
     defineField({
       name: 'storyContent_id',
       title: 'Story Content (Indonesian)',
-      description: 'Kisah pendiri Astrid & Tono dalam bahasa Indonesia',
+      description: 'Kisah pendiri Astrid & Tono dalam bahasa Indonesia.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'founders',
@@ -42,7 +29,7 @@ export const aboutPageType = defineType({
     defineField({
       name: 'foundersPhoto',
       title: 'Founders Photo (Astrid & Tono)',
-      description: 'The photo shown next to the founder story',
+      description: 'The photo shown next to the founder story. If removed, the website will use the default photo.',
       type: 'image',
       options: { hotspot: true },
       group: 'founders',
@@ -52,7 +39,7 @@ export const aboutPageType = defineType({
     defineField({
       name: 'missionStatement',
       title: 'Mission Statement (English)',
-      description: 'The italic quote displayed in the mission section',
+      description: 'The italic quote displayed large in the mission section.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'mission',
@@ -60,20 +47,11 @@ export const aboutPageType = defineType({
     defineField({
       name: 'missionStatement_id',
       title: 'Mission Statement (Indonesian)',
-      description: 'Kutipan misi dalam bahasa Indonesia',
+      description: 'Kutipan misi dalam bahasa Indonesia (ditampilkan besar/miring).',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'mission',
     }),
 
-    // ── Gallery ─────────────────────────────────────
-    defineField({
-      name: 'images',
-      title: 'Gallery / Past Build Photos',
-      description: 'Photos shown in the About page gallery section.',
-      type: 'array',
-      of: [{ type: 'image', options: { hotspot: true } }],
-      group: 'gallery',
-    }),
   ],
 })

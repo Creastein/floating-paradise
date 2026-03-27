@@ -14,6 +14,7 @@ export const homepageType = defineType({
     defineField({
       name: 'heroImage',
       title: 'Hero Background Image',
+      description: 'The large background image at the very top of the homepage (high-quality landscape recommended). If removed, the website will use the default image.',
       type: 'image',
       options: { hotspot: true },
       group: 'hero',
@@ -21,24 +22,28 @@ export const homepageType = defineType({
     defineField({
       name: 'heroTitle',
       title: 'Hero Title (English)',
+      description: 'Main large heading text over the background image.',
       type: 'string',
       group: 'hero',
     }),
     defineField({
       name: 'heroTitle_id',
       title: 'Hero Title (Indonesian)',
+      description: 'Judul utama di atas gambar latar belakang.',
       type: 'string',
       group: 'hero',
     }),
     defineField({
       name: 'heroSubtitle',
       title: 'Hero Subtitle (English)',
+      description: 'Short phrase below the main heading.',
       type: 'string',
       group: 'hero',
     }),
     defineField({
       name: 'heroSubtitle_id',
       title: 'Hero Subtitle (Indonesian)',
+      description: 'Sub-judul di bawah heading utama.',
       type: 'string',
       group: 'hero',
     }),
@@ -47,18 +52,21 @@ export const homepageType = defineType({
     defineField({
       name: 'welcomeTitle',
       title: 'Welcome Section Title (English)',
+      description: 'The heading for the welcome text area.',
       type: 'string',
       group: 'welcome',
     }),
     defineField({
       name: 'welcomeTitle_id',
       title: 'Welcome Section Title (Indonesian)',
+      description: 'Judul bagian selamat datang.',
       type: 'string',
       group: 'welcome',
     }),
     defineField({
       name: 'welcomeText',
       title: 'Welcome Section Text (English)',
+      description: 'The main introductory paragraphs.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'welcome',
@@ -66,6 +74,7 @@ export const homepageType = defineType({
     defineField({
       name: 'welcomeText_id',
       title: 'Welcome Section Text (Indonesian)',
+      description: 'Paragraf pengantar utama.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'welcome',
@@ -73,7 +82,7 @@ export const homepageType = defineType({
     defineField({
       name: 'welcomeImage1',
       title: 'Welcome Image 1 (Large Left)',
-      description: 'The big image on the left side of the gallery wall',
+      description: 'The big image on the left side of the gallery wall. If removed, the website will use the default image.',
       type: 'image',
       options: { hotspot: true },
       group: 'welcome',
@@ -81,7 +90,7 @@ export const homepageType = defineType({
     defineField({
       name: 'welcomeImage2',
       title: 'Welcome Image 2 (Top Right)',
-      description: 'The smaller image on the top-right of the gallery wall',
+      description: 'The smaller image on the top-right of the gallery wall. If removed, the website will use the default image.',
       type: 'image',
       options: { hotspot: true },
       group: 'welcome',
@@ -89,7 +98,7 @@ export const homepageType = defineType({
     defineField({
       name: 'welcomeImage3',
       title: 'Welcome Image 3 (Bottom Right)',
-      description: 'The smaller image on the bottom-right of the gallery wall',
+      description: 'The smaller image on the bottom-right of the gallery wall. If removed, the website will use the default image.',
       type: 'image',
       options: { hotspot: true },
       group: 'welcome',
@@ -99,18 +108,21 @@ export const homepageType = defineType({
     defineField({
       name: 'builtByHandTitle',
       title: 'Built by Hand Section Title (English)',
+      description: 'Heading for the middle storytelling section.',
       type: 'string',
       group: 'builtByHand',
     }),
     defineField({
       name: 'builtByHandTitle_id',
       title: 'Built by Hand Section Title (Indonesian)',
+      description: 'Judul untuk bagian cerita di tengah halaman.',
       type: 'string',
       group: 'builtByHand',
     }),
     defineField({
       name: 'builtByHandText',
       title: 'Built by Hand Section Text (English)',
+      description: 'Story paragraphs about building Floating Paradise.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'builtByHand',
@@ -118,6 +130,7 @@ export const homepageType = defineType({
     defineField({
       name: 'builtByHandText_id',
       title: 'Built by Hand Section Text (Indonesian)',
+      description: 'Cerita tentang pembangunan Floating Paradise.',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'builtByHand',

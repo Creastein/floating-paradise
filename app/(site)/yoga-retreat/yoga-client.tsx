@@ -331,12 +331,42 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
       {/* 9. Investment & Terms */}
       <section id="book" className="py-24 md:py-32 px-4 bg-muted">
         <div className="max-w-5xl mx-auto">
-          <FadeIn className="text-center mb-16 md:mb-20">
-            <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-6">{y.investmentTitle}</h2>
-            <p className="text-xl text-foreground/60 font-light">{y.investmentSubtitle}</p>
-          </FadeIn>
+          {/* Section: Our Floating Rooms */}
           <FadeIn direction="up" distance={40} className="mb-20">
             <div className="bg-background rounded-3xl overflow-hidden shadow-xl border border-[#D8C3A5]/30">
+              <div className="p-8 md:p-16 lg:px-24 text-center">
+                <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-4 tracking-wide">
+                  {language === 'id' ? 'BUNGALOW APUNG KAMI' : 'OUR FLOATING ROOMS'}
+                </h3>
+                <p className="text-[#2F4A3F] tracking-[0.2em] md:tracking-[0.3em] font-semibold text-sm md:text-base uppercase opacity-80 mb-10">
+                  {language === 'id'
+                    ? <>Butik &middot; Intim &middot; Transformatif</>
+                    : <>Boutique &middot; Intimate &middot; Transformative</>}
+                </p>
+                
+                <div className="space-y-6 text-foreground/75 font-light leading-relaxed text-sm md:text-base max-w-3xl mx-auto">
+                  <p>
+                    {language === 'id'
+                      ? 'Bertengger lembut di atas laut dan dibingkai hutan mangrove, bungalow buatan tangan kami bukan sekadar kamar - melainkan bagian dari latihan. Setiap unit berdiri di atas tiang kayu, dengan dinding anyaman bambu dan atap daun kelapa yang dibentuk oleh tangan-tangan lokal terampil. Dirancang dengan ventilasi alami dan ditenagai energi surya, bungalow ini merayakan kesederhanaan, keberlanjutan, dan hidup yang selaras dengan elemen.'
+                      : 'Perched gently above the sea and framed by mangroves, our hand-crafted bungalows are more than rooms, they are part of the practice. Each one stands on wooden pillars, with bamboo-woven walls and palm-leaf roofs shaped by skilled local hands. Built with natural ventilation in mind and powered by solar energy, they honour simplicity, sustainability, and a life lived in rhythm with the elements.'}
+                  </p>
+                  <p>
+                    {language === 'id'
+                      ? 'Bungalow menghadirkan kenyamanan seperti di rumah sekaligus mengundang cara hidup yang otentik - selaras, hadir, dan indah dalam kesederhanaannya. Di sini, dituntun aliran alami laut, angin, dan cahaya matahari, Anda perlahan kembali ke ritme alami diri - terasa lebih hidup, lebih berakar, dan sepenuhnya tenang.'
+                      : 'The bungalows offer the comfort of home while inviting an authentic way of living, attuned, present, and beautifully simple. Here, supported by the natural flow of sea, breeze, and sunlight, you are gently guided back to your own natural rhythm, feeling more alive, more grounded, and deeply at peace.'}
+                  </p>
+                  <p className="font-medium text-foreground py-4 border-y border-[#D8C3A5]/20 my-6">
+                    {language === 'id'
+                      ? <>Semua harga per orang dan sudah termasuk pengalaman retreat penuh 7 hari<br className="hidden md:block" /> (7 hari / 6 malam, termasuk hari kedatangan dan kepulangan).</>
+                      : <>All prices are per person and include the full 7-day retreat experience<br className="hidden md:block" /> (7 days / 6 nights, including arrival and departure days).</>}
+                  </p>
+                  <p>
+                    {language === 'id'
+                      ? 'Dengan total maksimal 8 tamu, tiap pilihan menawarkan keseimbangan berbeda antara privasi, kenyamanan, dan pengalaman berbagi.'
+                      : 'With a maximum of 8 guests in total, each option offers a different balance of privacy, comfort, and shared experience.'}
+                  </p>
+                </div>
+              </div>
               <div className="relative h-64 md:h-[500px] w-full">
                 <Image
                   src="/image/bungalows/home-bungalows.webp"
@@ -345,30 +375,13 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                   className="object-cover"
                 />
               </div>
-              <div className="p-8 md:p-16 lg:px-24 text-center">
-                <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-4 tracking-wide">
-                  OUR FLOATING ROOMS
-                </h3>
-                <p className="text-[#2F4A3F] tracking-[0.2em] md:tracking-[0.3em] font-semibold text-sm md:text-base uppercase opacity-80 mb-10">
-                  Boutique &middot; Intimate &middot; Transformative
-                </p>
-                
-                <div className="space-y-6 text-foreground/75 font-light leading-relaxed text-sm md:text-base max-w-3xl mx-auto">
-                  <p>
-                    Perched gently above the sea and framed by mangroves, our hand-crafted bungalows are more than rooms, they are part of the practice. Each one stands on wooden pillars, with bamboo-woven walls and palm-leaf roofs shaped by skilled local hands. Built with natural ventilation in mind and powered by solar energy, they honour simplicity, sustainability, and a life lived in rhythm with the elements.
-                  </p>
-                  <p>
-                    The bungalows offer the comfort of home while inviting an authentic way of living, attuned, present, and beautifully simple. Here, supported by the natural flow of sea, breeze, and sunlight, you are gently guided back to your own natural rhythm, feeling more alive, more grounded, and deeply at peace.
-                  </p>
-                  <p className="font-medium text-foreground py-4 border-y border-[#D8C3A5]/20 my-6">
-                    All prices are per person and include the full 7-day retreat experience<br className="hidden md:block" /> (7 days / 6 nights, including arrival and departure days).
-                  </p>
-                  <p>
-                    With a maximum of 8 guests in total, each option offers a different balance of privacy, comfort, and shared experience.
-                  </p>
-                </div>
-              </div>
             </div>
+          </FadeIn>
+
+          {/* Section: Pricing Title */}
+          <FadeIn className="text-center mb-16 md:mb-20">
+            <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-6">{y.investmentTitle}</h2>
+            <p className="text-xl text-foreground/60 font-light">{y.investmentSubtitle}</p>
           </FadeIn>
           
           {/* Bungalow-grouped packages */}
@@ -450,7 +463,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
             <FadeIn direction="up" distance={40} delay={0.1}>
               <div className="rounded-3xl overflow-hidden border border-[#D8C3A5]/30 shadow-lg">
                 {/* Main room photo */}
-                <div className="relative h-64 md:h-80 w-full overflow-hidden">
+                <div className="relative h-80 md:h-[32rem] w-full overflow-hidden">
                   <Image
                     src="/image/bungalows/sunset/Sunset1.webp"
                     alt="Sunset Bungalow"
@@ -522,7 +535,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
             <FadeIn direction="up" distance={40} delay={0.2}>
               <div className="rounded-3xl overflow-hidden border border-[#D8C3A5]/30 shadow-lg">
                 {/* Main room photo */}
-                <div className="relative h-64 md:h-80 w-full overflow-hidden">
+                <div className="relative h-80 md:h-[32rem] w-full overflow-hidden">
                   <Image
                     src="/image/bungalows/bayside/bayside1.webp"
                     alt="Bayside Bungalow"
@@ -662,23 +675,23 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
             </FadeIn>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <FadeIn direction="up" distance={40}>
-                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <FadeIn direction="up" distance={40} className="h-full">
+                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4 h-full flex flex-col justify-start">
                     <p className="text-sm uppercase tracking-widest text-primary font-semibold">{y.cancelMore60}</p>
                     <div className="w-12 h-px bg-primary/30 mx-auto" />
                     <p className="text-lg text-foreground font-light">{y.cancelMore60Desc}</p>
                   </div>
                 </FadeIn>
-                <FadeIn direction="up" distance={40} delay={0.15}>
-                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
+                <FadeIn direction="up" distance={40} delay={0.15} className="h-full">
+                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4 h-full flex flex-col justify-start">
                     <p className="text-sm uppercase tracking-widest text-primary font-semibold">{y.cancel30to59}</p>
                     <div className="w-12 h-px bg-primary/30 mx-auto" />
                     <p className="text-lg text-foreground font-light">{y.cancel30to59Desc}</p>
                   </div>
                 </FadeIn>
-                <FadeIn direction="up" distance={40} delay={0.3}>
-                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4">
+                <FadeIn direction="up" distance={40} delay={0.3} className="h-full">
+                  <div className="bg-muted rounded-2xl p-8 text-center space-y-4 h-full flex flex-col justify-start">
                     <p className="text-sm uppercase tracking-widest text-primary font-semibold">{y.cancelLess30}</p>
                     <div className="w-12 h-px bg-primary/30 mx-auto" />
                     <p className="text-lg text-foreground font-light">{y.cancelLess30Desc}</p>

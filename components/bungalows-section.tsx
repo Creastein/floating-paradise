@@ -29,17 +29,17 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
   const defaultBungalows = [
     {
       name: 'Sunrise Bungalow',
-      description: 'Our most private and sought-after bungalow, offering expansive sea views and soft ocean breezes right from your king-sized bed.',
+      description: t.bungalowsPage.rooms.sunrise.description,
       image: '/image/homepage/Sunrise-home.webp',
     },
     {
       name: 'Sunset Bungalow',
-      description: "Our soul went into creating Floating's first stand-alone bungalow — offering expansive sea views and sunset views along the bay.",
+      description: t.bungalowsPage.rooms.sunset.description,
       image: '/image/homepage/Sunset-home.webp',
     },
     {
       name: 'Bayside Bungalow',
-      description: 'Originally our private family space, Bayside has evolved into a spacious two-bedroom bungalow where you can shower with a view and take in the mangrove forest to the East and the sea flowing gently into the bay in the West.',
+      description: t.bungalowsPage.rooms.bayside.description,
       image: '/image/homepage/Bayside-home.webp',
     },
   ]

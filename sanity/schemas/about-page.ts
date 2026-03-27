@@ -13,7 +13,7 @@ export const aboutPageType = defineType({
     // ── Founders Story ──────────────────────────────
     defineField({
       name: 'storyTitle',
-      title: 'Story Title',
+      title: 'Story Title (English)',
       type: 'string',
       group: 'founders',
     }),
@@ -25,7 +25,7 @@ export const aboutPageType = defineType({
     }),
     defineField({
       name: 'storyContent',
-      title: 'Story Content',
+      title: 'Story Content (English)',
       description: 'The Astrid & Tono founder story paragraphs',
       type: 'array',
       of: [{ type: 'block' }],
@@ -34,7 +34,7 @@ export const aboutPageType = defineType({
     defineField({
       name: 'storyContent_id',
       title: 'Story Content (Indonesian)',
-      description: 'The Astrid & Tono founder story paragraphs (Indonesian)',
+      description: 'Kisah pendiri Astrid & Tono dalam bahasa Indonesia',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'founders',
@@ -51,7 +51,7 @@ export const aboutPageType = defineType({
     // ── Mission Statement ───────────────────────────
     defineField({
       name: 'missionStatement',
-      title: 'Mission Statement',
+      title: 'Mission Statement (English)',
       description: 'The italic quote displayed in the mission section',
       type: 'array',
       of: [{ type: 'block' }],
@@ -60,7 +60,7 @@ export const aboutPageType = defineType({
     defineField({
       name: 'missionStatement_id',
       title: 'Mission Statement (Indonesian)',
-      description: 'The italic quote displayed in the mission section (Indonesian)',
+      description: 'Kutipan misi dalam bahasa Indonesia',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'mission',
@@ -70,10 +70,10 @@ export const aboutPageType = defineType({
     defineField({
       name: 'images',
       title: 'Gallery / Past Build Photos',
+      description: 'Photos shown in the About page gallery section.',
       type: 'array',
       of: [{ type: 'image', options: { hotspot: true } }],
       group: 'gallery',
-    })
-  ]
+    }),
+  ],
 })
-

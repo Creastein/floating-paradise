@@ -3,16 +3,20 @@
 import Image from 'next/image'
 import { useEditorialScroll } from '@/hooks/use-editorial-scroll'
 import { PortableText } from '@/components/portable-text'
-import { useLanguage } from '@/lib/i18n/language-context'
+import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 
 interface AboutAstridTonoProps {
-  initialStory?: any[] | null
+  cmsData?: any | null
 }
 
-export default function AboutAstridTono({ initialStory }: AboutAstridTonoProps) {
+export default function AboutAstridTono({ cmsData }: AboutAstridTonoProps) {
   const { t } = useLanguage()
+  const { getCmsValue } = useCmsTranslation()
   const { sectionRef, imageRef, textColumnRef, headingRef } =
     useEditorialScroll({ headingDirection: 'left' })
+
+  // Picks storyContent or storyContent_id depending on active language
+  const storyContent = getCmsValue(cmsData, 'storyContent')
 
   return (
     <div ref={sectionRef} className="flex flex-col md:flex-row items-center gap-16">
@@ -39,9 +43,9 @@ export default function AboutAstridTono({ initialStory }: AboutAstridTonoProps) 
           </h3>
         </div>
         
-        {initialStory ? (
+        {storyContent ? (
           <div className="text-foreground/80 space-y-4 md:space-y-6 text-lg text-justify leading-relaxed">
-            <PortableText value={initialStory} />
+            <PortableText value={storyContent} />
           </div>
         ) : (
           <div className="text-foreground/80 space-y-4 md:space-y-6 text-lg text-justify leading-relaxed">
@@ -51,16 +55,17 @@ export default function AboutAstridTono({ initialStory }: AboutAstridTonoProps) 
             <p className="scrub-text">
               {t.aboutPage.astridTonoP2}
             </p>
-            <p className="scrub-text border-l-[3px] border-primary/40 pl-6 my-6 italic text-foreground/90 font-medium">
+            <p className="scrub-text">
               {t.aboutPage.astridTonoP3}
             </p>
-            <p className="scrub-text">
-              {t.aboutPage.astridTonoP4}
-            </p>
+            {t.aboutPage.astridTonoP4 && (
+              <p className="scrub-text">
+                {t.aboutPage.astridTonoP4}
+              </p>
+            )}
           </div>
         )}
       </div>
     </div>
   )
 }
-

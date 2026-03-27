@@ -27,12 +27,12 @@ export const yogaRetreatType = defineType({
       group: 'hero',
       fields: [
         { name: 'start', type: 'date', title: 'Start Date' },
-        { name: 'end', type: 'date', title: 'End Date' }
-      ]
+        { name: 'end', type: 'date', title: 'End Date' },
+      ],
     }),
     defineField({
       name: 'overview',
-      title: 'Retreat Overview Text',
+      title: 'Retreat Overview Text (English)',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'hero',
@@ -49,17 +49,39 @@ export const yogaRetreatType = defineType({
     defineField({
       name: 'dailySchedule',
       title: 'Daily Schedule',
+      description: 'Each item has a time slot and activity description in both languages.',
       type: 'array',
       group: 'schedule',
       of: [
         {
           type: 'object',
+          title: 'Schedule Item',
+          preview: {
+            select: {
+              title: 'time',
+              subtitle: 'activity',
+            },
+          },
           fields: [
-            { name: 'time', type: 'string', title: 'Time (e.g. Dawn, Morning)' },
-            { name: 'activity', type: 'string', title: 'Activity Description' }
-          ]
-        }
-      ]
+            {
+              name: 'time',
+              type: 'string',
+              title: 'Time Slot (English) — e.g. "Dawn", "Morning"',
+            },
+            {
+              name: 'activity',
+              type: 'string',
+              title: 'Activity Description (English)',
+            },
+            {
+              name: 'activity_id',
+              type: 'string',
+              title: 'Activity Description (Indonesian)',
+              description: 'Versi bahasa Indonesia dari deskripsi aktivitas ini.',
+            },
+          ],
+        },
+      ],
     }),
 
     // ── Facilitator ─────────────────────────────────
@@ -73,14 +95,14 @@ export const yogaRetreatType = defineType({
     }),
     defineField({
       name: 'astridBio',
-      title: 'Instructor Bio (Astrid)',
+      title: 'Instructor Bio — English (Astrid)',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'facilitator',
     }),
     defineField({
       name: 'astridBio_id',
-      title: 'Instructor Bio (Astrid) (Indonesian)',
+      title: 'Instructor Bio — Indonesian (Astrid)',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'facilitator',
@@ -98,14 +120,14 @@ export const yogaRetreatType = defineType({
           fields: [
             { name: 'packageName', type: 'string', title: 'Package Name' },
             { name: 'price', type: 'number', title: 'Price (IDR)' },
-            { name: 'description', type: 'text', title: 'Description' }
-          ]
-        }
-      ]
+            { name: 'description', type: 'text', title: 'Description' },
+          ],
+        },
+      ],
     }),
     defineField({
       name: 'cancellationPolicy',
-      title: 'Cancellation Policy',
+      title: 'Cancellation Policy (English)',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'pricing',
@@ -122,11 +144,10 @@ export const yogaRetreatType = defineType({
     defineField({
       name: 'images',
       title: 'Retreat Gallery (Slideshow)',
-      description: 'These images appear in the auto-slideshow in the Nature & Contribution section',
+      description: 'These images appear in the auto-slideshow in the Nature & Contribution section.',
       type: 'array',
       of: [{ type: 'image', options: { hotspot: true } }],
       group: 'gallery',
-    })
-  ]
+    }),
+  ],
 })
-

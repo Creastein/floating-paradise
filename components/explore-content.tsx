@@ -8,12 +8,17 @@ import { Camera } from 'lucide-react'
 import { TRIPLA_EXTRAS_URL } from '@/lib/tripla'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
+import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 
-const FALLBACK_ACTIVITIES = [
-  {
-      title: 'Private Eco Boat Tour',
-      description:
-        'A full-day private boat trip departing from our pier to explore the most breathtaking corners of the archipelago. Guided by an English-speaking crew, discover vibrant reefs and untouched islands — sustainably.',
+export default function ExploreContent({ initialActivities }: { initialActivities?: any[] }) {
+  const { t, language } = useLanguage()
+  const { getCmsValue } = useCmsTranslation()
+  const gridRef = useRef<HTMLDivElement>(null)
+
+  const FALLBACK_ACTIVITIES = [
+    {
+      title: t.explorePage.activities.boatTour.title,
+      description: t.explorePage.activities.boatTour.description,
       gallery: [
         '/image/Explore/Private Eco Boat Tour/PB1.webp',
         '/image/Explore/Private Eco Boat Tour/PB2.webp',
@@ -24,14 +29,13 @@ const FALLBACK_ACTIVITIES = [
         '/image/Explore/Private Eco Boat Tour/PB7.webp',
         '/image/Explore/Private Eco Boat Tour/PB8.webp',
       ],
-      ctaText: 'Book Now',
+      ctaText: t.explorePage.bookNow,
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
-      title: 'Open Air Sunset Yoga',
-      description:
-        'A 75-minute Hatha Flow practice at the end of our jetty as the sun sets over the bay. Led by Astrid, Floating\u2019s resident teacher — mats provided, just bring an open mind.',
+      title: t.explorePage.activities.yoga.title,
+      description: t.explorePage.activities.yoga.description,
       gallery: [
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga6.webp',
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga1.JPG',
@@ -42,14 +46,13 @@ const FALLBACK_ACTIVITIES = [
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga7.webp',
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga8.webp',
       ],
-      ctaText: 'Learn More',
+      ctaText: t.explorePage.learnMore,
       ctaLink: '/yoga-retreat',
       ctaExternal: false,
     },
     {
-      title: 'Kayak, Lunch & Chill',
-      description:
-        'Paddle through crystal-clear water, discover secluded beaches, and glide above vibrant coral reef at your own pace. Includes welcome drink, kayak, snorkel gear, and a fresh seafood lunch.',
+      title: t.explorePage.activities.kayaking.title,
+      description: t.explorePage.activities.kayaking.description,
       gallery: [
         '/image/Explore/Kayak, Lunch & Chill/kayak2.webp',
         '/image/Explore/Kayak, Lunch & Chill/kayak1.webp',
@@ -58,14 +61,13 @@ const FALLBACK_ACTIVITIES = [
         '/image/Explore/Kayak, Lunch & Chill/kayak5.webp',
         '/image/Explore/Kayak, Lunch & Chill/kayak6.webp',
       ],
-      ctaText: 'Book Now',
+      ctaText: t.explorePage.bookNow,
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
-      title: 'Trekking Nyamplungan',
-      description:
-        'A half-day hike to the island\u2019s second-highest peak through tropical forest, rewarded with sweeping views of the archipelago. Plant a sapling at the summit and give something back.',
+      title: t.explorePage.activities.trekking.title,
+      description: t.explorePage.activities.trekking.description,
       gallery: [
         '/image/Explore/Trekking Nyamplungan/Trekking1.webp',
         '/image/Explore/Trekking Nyamplungan/Trekking2.webp',
@@ -73,28 +75,26 @@ const FALLBACK_ACTIVITIES = [
         '/image/Explore/Trekking Nyamplungan/Trekking4.webp',
         '/image/Explore/Trekking Nyamplungan/Trekking5.webp',
       ],
-      ctaText: 'Book Now',
+      ctaText: t.explorePage.bookNow,
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
-      title: 'Turtle Sanctuary',
-      description:
-        'Visit the sea turtle conservation sanctuary in our bay, led by the national park authority. Join the afternoon release of baby turtles — a meaningful way to support the reef\u2019s future.',
+      title: t.explorePage.activities.turtles.title,
+      description: t.explorePage.activities.turtles.description,
       gallery: [
         '/image/Explore/Turtle Sanctuary/TS1.webp',
         '/image/Explore/Turtle Sanctuary/TS2.webp',
         '/image/Explore/Turtle Sanctuary/TS3.webp',
         '/image/Explore/Turtle Sanctuary/TS4.webp',
       ],
-      ctaText: 'Book Now',
+      ctaText: t.explorePage.bookNow,
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
-      title: 'Tastes of Paradise',
-      description:
-        'Slow, fresh, and deeply local meals shaped by the sea and the seasons. Fragrant Indonesian classics, freshly caught fish, plant-based options, and good coffee at the bar.',
+      title: t.explorePage.activities.cuisine.title,
+      description: t.explorePage.activities.cuisine.description,
       gallery: [
         '/image/Explore/Tastes of Paradise/TP1.webp',
         '/image/Explore/Tastes of Paradise/TP2.webp',
@@ -102,35 +102,33 @@ const FALLBACK_ACTIVITIES = [
         '/image/Explore/Tastes of Paradise/TP4.webp',
         '/image/Explore/Tastes of Paradise/TP5.webp',
       ],
-      ctaText: 'Book Now',
+      ctaText: t.explorePage.bookNow,
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
     },
     {
       title: 'Floating Merchandise',
-      description:
-        'Bamboo cotton t-shirts — soft, eco-friendly, and antibacterial. Each design handmade by Astrid herself.',
+      description: language === 'id' 
+        ? 'Kaos katun bambu — lembut, ramah lingkungan, dan antibakteri. Setiap desain dibuat secara lansung oleh Astrid.'
+        : 'Bamboo cotton t-shirts — soft, eco-friendly, and antibacterial. Each design handmade by Astrid herself.',
       gallery: ['/image/Explore/floating-merchandise/floating-merchandise.png'],
-      detail: 'Rp 180,000 · Sizes S–XXL',
-      label: 'Pre-order',
-      ctaText: 'Pre-Order',
+      detail: language === 'id' ? 'Rp 180,000 · Ukuran S–XXL' : 'Rp 180,000 · Sizes S–XXL',
+      label: t.explorePage.preOrder,
+      ctaText: t.explorePage.preOrder,
       ctaLink: TRIPLA_EXTRAS_URL,
       ctaExternal: true,
-  },
-]
-
-export default function ExploreContent({ initialActivities }: { initialActivities?: any[] }) {
-  const gridRef = useRef<HTMLDivElement>(null)
+    },
+  ]
 
   // Use CMS data if available, fallback to defaults
   const displayActivities = initialActivities && initialActivities.length > 0
     ? initialActivities.map((a, index) => ({
         title: a.name,
-        description: a.description,
+        description: getCmsValue(a, 'description', FALLBACK_ACTIVITIES[index]?.description),
         gallery: a.heroImage ? [urlFor(a.heroImage).url()] : FALLBACK_ACTIVITIES[index]?.gallery || ['/image/Explore/explore-hero.webp'],
-        detail: a.price ? `Starts from Rp ${a.price.toLocaleString('en-US')}${a.duration ? ` · ${a.duration}` : ''}` : FALLBACK_ACTIVITIES[index]?.detail,
+        detail: a.price ? `${language === 'id' ? 'Mulai dari' : 'Starts from'} Rp ${a.price.toLocaleString('en-US')}${a.duration ? ` · ${a.duration}` : ''}` : FALLBACK_ACTIVITIES[index]?.detail,
         label: FALLBACK_ACTIVITIES[index]?.label,
-        ctaText: a.triplaExtrasLink ? 'Book Now' : FALLBACK_ACTIVITIES[index]?.ctaText || 'Learn More',
+        ctaText: a.triplaExtrasLink ? t.explorePage.bookNow : FALLBACK_ACTIVITIES[index]?.ctaText || t.explorePage.learnMore,
         ctaLink: a.triplaExtrasLink || FALLBACK_ACTIVITIES[index]?.ctaLink || TRIPLA_EXTRAS_URL,
         ctaExternal: a.triplaExtrasLink ? true : FALLBACK_ACTIVITIES[index]?.ctaExternal ?? true,
       }))
@@ -227,7 +225,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
                 {activity.gallery.length > 1 && (
                   <div className="absolute bottom-4 right-4 z-10 flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm px-3 md:px-4 py-1.5 md:py-2 rounded-full shadow-lg transition-all duration-300 group-hover:bg-white/25 group-hover:scale-105">
                     <Camera className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    <span className="font-medium tracking-wide">View Gallery</span>
+                    <span className="font-medium tracking-wide">{t.explorePage.viewGallery}</span>
                   </div>
                 )}
               </div>

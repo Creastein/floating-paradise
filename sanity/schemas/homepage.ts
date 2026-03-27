@@ -20,7 +20,7 @@ export const homepageType = defineType({
     }),
     defineField({
       name: 'heroTitle',
-      title: 'Hero Title',
+      title: 'Hero Title (English)',
       type: 'string',
       group: 'hero',
     }),
@@ -32,7 +32,7 @@ export const homepageType = defineType({
     }),
     defineField({
       name: 'heroSubtitle',
-      title: 'Hero Subtitle',
+      title: 'Hero Subtitle (English)',
       type: 'string',
       group: 'hero',
     }),
@@ -46,7 +46,7 @@ export const homepageType = defineType({
     // ── Welcome Section ───────────────────────────────
     defineField({
       name: 'welcomeTitle',
-      title: 'Welcome Section Title',
+      title: 'Welcome Section Title (English)',
       type: 'string',
       group: 'welcome',
     }),
@@ -58,7 +58,7 @@ export const homepageType = defineType({
     }),
     defineField({
       name: 'welcomeText',
-      title: 'Welcome Section Text',
+      title: 'Welcome Section Text (English)',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'welcome',
@@ -98,7 +98,7 @@ export const homepageType = defineType({
     // ── Built by Hand Section ─────────────────────────
     defineField({
       name: 'builtByHandTitle',
-      title: 'Built by Hand Section Title',
+      title: 'Built by Hand Section Title (English)',
       type: 'string',
       group: 'builtByHand',
     }),
@@ -110,7 +110,7 @@ export const homepageType = defineType({
     }),
     defineField({
       name: 'builtByHandText',
-      title: 'Built by Hand Section Text',
+      title: 'Built by Hand Section Text (English)',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'builtByHand',
@@ -122,6 +122,5 @@ export const homepageType = defineType({
       of: [{ type: 'block' }],
       group: 'builtByHand',
     }),
-  ]
+  ],
 })
-

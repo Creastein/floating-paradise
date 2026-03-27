@@ -26,70 +26,35 @@ interface DisplayRoom {
   features?: string[]
 }
 
-const ROOMS: DisplayRoom[] = [
-  {
-      name: 'Sunrise Bungalow',
-      description: 'Our most private and sought-after bungalow, offering expansive sea views and soft ocean breezes right from your king-sized bed.',
-      image: '/image/homepage/Sunrise-home.webp',
-      reverse: false,
-      guests: '2',
-      size: '4 x 8 m',
-      price: 'Rp 950,000 / Night',
-      gallery: [
-        '/image/bungalows/sunrise/Sunrise1.webp',
-        '/image/bungalows/sunrise/Sunrise2.webp',
-        '/image/bungalows/sunrise/Sunrise3.webp',
-        '/image/bungalows/sunrise/Sunrise4.webp',
-        '/image/bungalows/sunrise/Sunrise5.webp',
-        '/image/bungalows/sunrise/Sunrise6.webp',
-      ],
-    },
-    {
-      name: 'Sunset Bungalow',
-      description: "Our soul went into creating Floating's first stand-alone bungalow — offering expansive sea views and sunset views along the bay.",
-      image: '/image/homepage/Sunset-.webp',
-      reverse: true,
-      guests: '2',
-      size: '4 x 8 m',
-      price: 'Rp 750,000 / Night',
-      gallery: [
-        '/image/bungalows/sunset/Sunset1.webp',
-        '/image/bungalows/sunset/Sunset2.webp',
-        '/image/bungalows/sunset/Sunset3.webp',
-        '/image/bungalows/sunset/Sunset4.webp',
-        '/image/bungalows/sunset/Sunset5.webp',
-        '/image/bungalows/sunset/Sunset6.webp',
-        '/image/bungalows/sunset/Sunset7.webp',
-      ],
-    },
-    {
-      name: 'Bayside Bungalow',
-      description: 'Originally our private family space, Bayside has evolved into a spacious two-bedroom bungalow where you can shower with a view and take in the mangrove forest to the East and the sea flowing gently into the bay in the West.',
-      image: '/image/homepage/Bayside-home.webp',
-      reverse: false,
-      guests: '4',
-      size: '5.5 x 10 m',
-      price: 'Rp 1,300,000 / Night',
-      gallery: [
-        '/image/bungalows/bayside/bayside1.webp',
-        '/image/bungalows/bayside/bayside2.webp',
-        '/image/bungalows/bayside/bayside3.webp',
-        '/image/bungalows/bayside/bayside4.webp',
-        '/image/bungalows/bayside/bayside5.webp',
-        '/image/bungalows/bayside/bayside6.webp',
-        '/image/bungalows/bayside/bayside7.webp',
-        '/image/bungalows/bayside/bayside8.webp',
-      ],
-    },
-  ];
-
-const ROOM_FACILITIES = [
-    'Entire Bungalow',
-    'En-suite Bathroom with toiletries & toilet paper',
-    'Private Terrace',
-    'Sea View',
-  'Tea, Coffee & Drinking Water',
-];
+const ROOM_GALLERIES = {
+  sunrise: [
+    '/image/bungalows/sunrise/Sunrise1.webp',
+    '/image/bungalows/sunrise/Sunrise2.webp',
+    '/image/bungalows/sunrise/Sunrise3.webp',
+    '/image/bungalows/sunrise/Sunrise4.webp',
+    '/image/bungalows/sunrise/Sunrise5.webp',
+    '/image/bungalows/sunrise/Sunrise6.webp',
+  ],
+  sunset: [
+    '/image/bungalows/sunset/Sunset1.webp',
+    '/image/bungalows/sunset/Sunset2.webp',
+    '/image/bungalows/sunset/Sunset3.webp',
+    '/image/bungalows/sunset/Sunset4.webp',
+    '/image/bungalows/sunset/Sunset5.webp',
+    '/image/bungalows/sunset/Sunset6.webp',
+    '/image/bungalows/sunset/Sunset7.webp',
+  ],
+  bayside: [
+    '/image/bungalows/bayside/bayside1.webp',
+    '/image/bungalows/bayside/bayside2.webp',
+    '/image/bungalows/bayside/bayside3.webp',
+    '/image/bungalows/bayside/bayside9.webp',
+    '/image/bungalows/bayside/bayside5.webp',
+    '/image/bungalows/bayside/bayside6.webp',
+    '/image/bungalows/bayside/bayside7.webp',
+    '/image/bungalows/bayside/bayside8.webp',
+  ],
+}
 
 export default function BungalowsClient({ initialBungalows }: { initialBungalows?: any[] }) {
   const { t, language } = useLanguage()
@@ -99,6 +64,42 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
   const introQuoteRef = useRef<HTMLParagraphElement>(null)
   const introSubRef = useRef<HTMLParagraphElement>(null)
 
+  // Build ROOMS using translated content, so it's reactive to language changes
+  const ROOMS: DisplayRoom[] = [
+    {
+      name: 'Sunrise Bungalow',
+      description: t.bungalowsPage.rooms.sunrise.description,
+      image: '/image/homepage/Sunrise-home.webp',
+      reverse: false,
+      guests: '2',
+      size: '4 x 8 m',
+      price: `${t.bungalowsPage.from} Rp 1,125,000 / ${t.bungalowsPage.night}`,
+      gallery: ROOM_GALLERIES.sunrise,
+    },
+    {
+      name: 'Sunset Bungalow',
+      description: t.bungalowsPage.rooms.sunset.description,
+      image: '/image/homepage/Sunset-home.webp',
+      reverse: true,
+      guests: '2',
+      size: '4 x 8 m',
+      price: `${t.bungalowsPage.from} Rp 990,000 / ${t.bungalowsPage.night}`,
+      gallery: ROOM_GALLERIES.sunset,
+    },
+    {
+      name: 'Bayside Bungalow',
+      description: t.bungalowsPage.rooms.bayside.description,
+      image: '/image/homepage/Bayside-home.webp',
+      reverse: false,
+      guests: '4',
+      size: '5.5 x 10 m',
+      price: `${t.bungalowsPage.from} Rp 1,900,000 / ${t.bungalowsPage.night}`,
+      gallery: ROOM_GALLERIES.bayside,
+    },
+  ]
+
+  const ROOM_FACILITIES = t.bungalowsPage.facilities
+
   const displayRooms: DisplayRoom[] = initialBungalows && initialBungalows.length > 0
     ? initialBungalows.map((b, index) => ({
         name: b.name,
@@ -106,8 +107,8 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
         image: b.gallery?.[0] ? urlFor(b.gallery[0]).url() : ROOMS[index]?.image || '/image/homepage/Sunrise-home.webp',
         reverse: index % 2 !== 0,
         guests: b.maxGuests?.toString() || ROOMS[index]?.guests || '2',
-        size: ROOMS[index]?.size || 'N/A', 
-        price: b.priceIDR ? `Rp ${b.priceIDR.toLocaleString('en-US')} / ${t.bungalowsPage.night}` : ROOMS[index]?.price || 'Check Rates',
+        size: ROOMS[index]?.size || 'N/A',
+        price: b.priceIDR ? `${t.bungalowsPage.from} Rp ${b.priceIDR.toLocaleString('en-US')} / ${t.bungalowsPage.night}` : ROOMS[index]?.price || 'Check Rates',
         gallery: b.gallery ? b.gallery.map((img: any) => urlFor(img).url()) : ROOMS[index]?.gallery || [],
         triplaUrl: b.triplaUrl || TRIPLA_BOOKING_URL,
         features: b.features || ROOM_FACILITIES,
@@ -289,7 +290,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                   {/* Explore badge */}
                   <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/25 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300 group-hover:bg-white/25 group-hover:scale-105">
                     <Camera className="w-4 h-4" />
-                    <span className="font-medium tracking-wide">{language === 'id' ? 'Lihat Kamar' : 'Explore Room'}</span>
+                    <span className="font-medium tracking-wide">{t.bungalowsPage.exploreRoom}</span>
                   </div>
                 </div>
               </div>
@@ -308,11 +309,11 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                       <span className="text-white font-medium">{room.guests}</span>
                     </div>
                     <div className="flex flex-col border-l-2 border-[#D8C3A5] pl-4">
-                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{language === 'id' ? 'Ukuran' : 'Size'}</span>
+                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{t.bungalowsPage.size}</span>
                       <span className="text-white font-medium">{room.size}</span>
                     </div>
                     <div className="flex flex-col border-l-2 border-[#D8C3A5] pl-4">
-                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{language === 'id' ? 'Harga/Malam' : 'Price/Night'}</span>
+                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{t.bungalowsPage.priceNight}</span>
                       <span className="text-white font-medium">{room.price}</span>
                     </div>
                   </div>
@@ -323,7 +324,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                     rel="noopener noreferrer"
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"
                   >
-                    {language === 'id' ? 'Pesan Sekarang' : 'Book Now'}
+                    {t.bungalowsPage.bookNow}
                   </a>
                 </div>
 

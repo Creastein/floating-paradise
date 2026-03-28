@@ -66,8 +66,15 @@ export const bungalowType = defineType({
     // ── Pricing ───────────────────────────────────────
     defineField({
       name: 'priceIDR',
-      title: 'Price per night (IDR)',
-      description: 'Example: 650000 (do not include commas or dots).',
+      title: 'Starting Price per night (IDR)',
+      description: 'Lowest rate. Example: 990000 (do not include commas or dots).',
+      type: 'number',
+      group: 'pricing',
+    }),
+    defineField({
+      name: 'priceIDRMax',
+      title: 'Maximum Price per night (IDR)',
+      description: 'Highest rate. Example: 1620000 (do not include commas or dots).',
       type: 'number',
       group: 'pricing',
     }),

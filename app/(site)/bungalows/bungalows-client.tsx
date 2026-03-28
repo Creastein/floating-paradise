@@ -74,7 +74,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
       reverse: false,
       guests: '2',
       size: '4 x 8 m',
-      price: `${t.bungalowsPage.from} Rp 1,125,000 / ${t.bungalowsPage.night}`,
+      price: `Rp 1,125,000 – 1,850,000 / ${t.bungalowsPage.night}`,
       gallery: ROOM_GALLERIES.sunrise,
     },
     {
@@ -84,7 +84,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
       reverse: true,
       guests: '2',
       size: '4 x 8 m',
-      price: `${t.bungalowsPage.from} Rp 990,000 / ${t.bungalowsPage.night}`,
+      price: `Rp 990,000 – 1,620,000 / ${t.bungalowsPage.night}`,
       gallery: ROOM_GALLERIES.sunset,
     },
     {
@@ -94,7 +94,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
       reverse: false,
       guests: '4',
       size: '5.5 x 10 m',
-      price: `${t.bungalowsPage.from} Rp 1,900,000 / ${t.bungalowsPage.night}`,
+      price: `Rp 1,900,000 – 2,600,000 / ${t.bungalowsPage.night}`,
       gallery: ROOM_GALLERIES.bayside,
     },
   ]
@@ -102,18 +102,26 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
   const ROOM_FACILITIES = t.bungalowsPage.facilities
 
   const displayRooms: DisplayRoom[] = initialBungalows && initialBungalows.length > 0
-    ? initialBungalows.map((b, index) => ({
-        name: b.name,
-        description: getCmsValue(b, 'description', ROOMS[index]?.description),
-        image: b.gallery?.[0] ? urlFor(b.gallery[0]).url() : ROOMS[index]?.image || '/image/homepage/Sunrise-home.webp',
-        reverse: index % 2 !== 0,
-        guests: b.maxGuests?.toString() || ROOMS[index]?.guests || '2',
-        size: ROOMS[index]?.size || 'N/A',
-        price: b.priceIDR ? `${t.bungalowsPage.from} Rp ${b.priceIDR.toLocaleString('en-US')} / ${t.bungalowsPage.night}` : ROOMS[index]?.price || 'Check Rates',
-        gallery: b.gallery ? b.gallery.map((img: any) => urlFor(img).url()) : ROOMS[index]?.gallery || [],
-        triplaUrl: b.triplaUrl || TRIPLA_BOOKING_URL,
-        features: b.features || ROOM_FACILITIES,
-      }))
+    ? initialBungalows.map((b, index) => {
+        let price = ROOMS[index]?.price || 'Check Rates';
+        if (b.priceIDR) {
+          const min = `Rp ${b.priceIDR.toLocaleString('en-US')}`;
+          const max = b.priceIDRMax ? ` – ${b.priceIDRMax.toLocaleString('en-US')}` : '';
+          price = `${min}${max} / ${t.bungalowsPage.night}`;
+        }
+        return {
+          name: b.name,
+          description: getCmsValue(b, 'description', ROOMS[index]?.description),
+          image: b.gallery?.[0] ? urlFor(b.gallery[0]).url() : ROOMS[index]?.image || '/image/homepage/Sunrise-home.webp',
+          reverse: index % 2 !== 0,
+          guests: b.maxGuests?.toString() || ROOMS[index]?.guests || '2',
+          size: ROOMS[index]?.size || 'N/A',
+          price,
+          gallery: b.gallery ? b.gallery.map((img: any) => urlFor(img).url()) : ROOMS[index]?.gallery || [],
+          triplaUrl: b.triplaUrl || TRIPLA_BOOKING_URL,
+          features: b.features || ROOM_FACILITIES,
+        };
+      })
     : ROOMS;
 
   const roomCardRefs = useRef<(HTMLDivElement | null)[]>([])

@@ -12,7 +12,7 @@ export default function Footer() {
   const settings = useSiteSettings()
   const footerRef = useRef<HTMLElement>(null)
   
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -50,7 +50,7 @@ export default function Footer() {
           
           {/* Column 1: Brand & Contact (Span 4) */}
           <div className="lg:col-span-5 space-y-6">
-            <Link href="/" className="footer-text flex items-center mb-6 w-fit">
+            <Link href={`/${language}`} className="footer-text flex items-center mb-6 w-fit">
               <Image
                 src="/logo.png"
                 alt="Floating Paradise"
@@ -85,12 +85,12 @@ export default function Footer() {
             <h4 className="footer-text font-serif text-xl mb-6 text-[#e8e4db] w-fit mx-auto md:mx-0">{t.footer.explore}</h4>
             <ul className="space-y-4">
               {[
-                { label: t.nav.home, href: '/' },
-                { label: t.nav.bungalows, href: '/bungalows' },
-                { label: t.nav.explore, href: '/explore' },
-                { label: t.nav.yogaRetreat, href: '/yoga-retreat' },
-                { label: t.nav.gettingHere, href: '/getting-here' },
-                { label: t.nav.aboutUs, href: '/about-us' }
+                { label: t.nav.home, href: `/${language}` },
+                { label: t.nav.bungalows, href: `/${language}/bungalows` },
+                { label: t.nav.explore, href: `/${language}/explore` },
+                { label: t.nav.yogaRetreat, href: `/${language}/yoga-retreat` },
+                { label: t.nav.gettingHere, href: `/${language}/getting-here` },
+                { label: t.nav.aboutUs, href: `/${language}/about` }
               ].map((item) => (
                 <li key={item.href} className="footer-text">
                   <Link 

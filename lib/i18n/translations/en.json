@@ -394,6 +394,12 @@
     "preOrder": "Pre Order",
     "preOrderNow": "Pre-Order Now"
   },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for seems to have drifted away with the tide. Let's get you back to calmer waters.",
+    "backHome": "Back to Homepage",
+    "contactUs": "Contact Us"
+  },
   "seo.home.title": "Floating Paradise — Sea-Based Guesthouse in Karimunjawa",
   "seo.home.description": "A handcrafted, solar-powered guesthouse above the sea in Karimunjawa, Indonesia.",
   "seo.home.keywords": "Karimunjawa, eco-luxury, yoga retreat, guesthouse, bungalows, solar-powered, floating paradise, island escape",

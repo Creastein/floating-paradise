@@ -17,24 +17,24 @@ const translations = { en, id }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>("en")
+export function LanguageProvider({ children, initialLocale = "en" }: { children: React.ReactNode, initialLocale?: Language }) {
+  const [language, setLanguage] = useState<Language>(initialLocale)
   const [isMounted, setIsMounted] = useState(false)
 
-  // Initialization: check local storage or browser default
   useEffect(() => {
     setIsMounted(true)
-    const stored = localStorage.getItem("fp-language") as Language | null
-    if (stored === "en" || stored === "id") {
-      setLanguage(stored)
-    } else {
-      // Auto-detect browser language if Indonesian
-      const browserLang = navigator.language.toLowerCase()
-      if (browserLang.startsWith("id")) {
-        setLanguage("id")
-      }
+    // Synchronize state if URL gives a different locale
+    if (initialLocale !== language) {
+      setLanguage(initialLocale)
     }
-  }, [])
+    
+    // Auto-detect is handled by Next.js middleware / proxy.ts for the root path
+    // We just ensure localStorage is updated if missing
+    const stored = localStorage.getItem("fp-language") as Language | null
+    if (!stored || stored !== initialLocale) {
+      localStorage.setItem("fp-language", initialLocale)
+    }
+  }, [initialLocale, language])
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang)

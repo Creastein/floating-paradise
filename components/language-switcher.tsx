@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n/language-context"
 import { motion } from "framer-motion"
+import { useRouter, usePathname } from "next/navigation"
 
 interface LanguageSwitcherProps {
   className?: string
@@ -11,8 +12,23 @@ interface LanguageSwitcherProps {
 export default function LanguageSwitcher({ className = "", isSolid = true }: LanguageSwitcherProps) {
   const { language, setLanguage } = useLanguage()
 
+  const router = useRouter()
+  const pathname = usePathname()
+
   const toggleLanguage = () => {
-    setLanguage(language === "en" ? "id" : "en")
+    const newLang = language === "en" ? "id" : "en"
+    setLanguage(newLang)
+    
+    if (pathname) {
+      // Replace the first URL segment which represents the locale
+      const parts = pathname.split('/')
+      if (parts[1] === 'en' || parts[1] === 'id') {
+        parts[1] = newLang
+        router.push(parts.join('/'))
+      } else {
+        router.push(`/${newLang}${pathname}`)
+      }
+    }
   }
 
   // Adaptive styling based on nav state

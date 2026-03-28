@@ -394,6 +394,12 @@
     "preOrder": "Pesan Di Muka",
     "preOrderNow": "Pre-Order Sekarang"
   },
+  "notFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang Anda cari tampaknya telah hanyut terbawa arus. Mari kita bawa Anda kembali ke perairan yang lebih tenang.",
+    "backHome": "Kembali ke Beranda",
+    "contactUs": "Hubungi Kami"
+  },
   "seo.home.title": "Floating Paradise — Penginapan di Atas Laut Karimunjawa",
   "seo.home.description": "Penginapan handcrafted di atas laut. Bertenaga surya, 3 kamar, akses langsung ke terumbu karang. Pesan langsung dan hemat.",
   "seo.home.keywords": "Karimunjawa, penginapan ramah lingkungan, yoga retreat, guesthouse, bungalow, tenaga surya, floating paradise, liburan pulau",

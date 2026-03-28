@@ -81,7 +81,7 @@ export default async function RootLayout({
     <html lang={params.locale}>
       <body className={`${lato.className} antialiased`}>
         <SiteSettingsProvider settings={settings}>
-          <LanguageProvider>
+          <LanguageProvider initialLocale={params.locale as "en" | "id"}>
             {children}
             <FloatingWhatsapp />
             <Analytics />

@@ -16,7 +16,7 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const { scrollY } = useScroll()
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (typeof window !== 'undefined') {
@@ -29,13 +29,13 @@ export default function Navigation() {
   })
 
   const navItems = [
-    { href: '/', label: t.nav.home },
-    { href: '/bungalows', label: t.nav.bungalows },
-    { href: '/explore', label: t.nav.explore },
-    { href: '/yoga-retreat', label: t.nav.yogaRetreat },
-    { href: '/getting-here', label: t.nav.gettingHere },
-    { href: '/about', label: t.nav.aboutUs },
-    { href: '/contact', label: t.nav.contact },
+    { href: `/${language}`, label: t.nav.home },
+    { href: `/${language}/bungalows`, label: t.nav.bungalows },
+    { href: `/${language}/explore`, label: t.nav.explore },
+    { href: `/${language}/yoga-retreat`, label: t.nav.yogaRetreat },
+    { href: `/${language}/getting-here`, label: t.nav.gettingHere },
+    { href: `/${language}/about`, label: t.nav.aboutUs },
+    { href: `/${language}/contact`, label: t.nav.contact },
   ]
 
   const isSolid = isScrolled || isOpen
@@ -63,7 +63,7 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             <Link 
-              href="/" 
+              href={`/${language}`} 
               onClick={() => setIsOpen(false)}
               className="flex items-center transition-all duration-300"
             >
@@ -81,8 +81,8 @@ export default function Navigation() {
 
             <div className="hidden md:flex items-center gap-8">
               {navItems.map((item) => {
-                const isActive = item.href === '/' 
-                  ? pathname === '/' 
+                const isActive = item.href === `/${language}` 
+                  ? pathname === `/${language}` || pathname === `/${language}/`
                   : pathname.startsWith(item.href)
                 return (
                   <Link
@@ -150,8 +150,8 @@ export default function Navigation() {
             <div className="flex flex-col min-h-screen px-6 pt-24 pb-8">
               <div className="flex flex-col gap-6 flex-grow">
                 {navItems.map((item, i) => {
-                  const isActive = item.href === '/' 
-                    ? pathname === '/' 
+                  const isActive = item.href === `/${language}` 
+                    ? pathname === `/${language}` || pathname === `/${language}/`
                     : pathname.startsWith(item.href)
                   return (
                     <motion.div

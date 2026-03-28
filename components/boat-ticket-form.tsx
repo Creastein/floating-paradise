@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, FormEvent } from 'react'
+import { WA_GENERAL } from '@/lib/constants'
 import { FadeIn } from '@/components/ui/fade-in'
 import { useLanguage } from '@/lib/i18n/language-context'
 
@@ -34,7 +35,7 @@ const DIRECTION_LABELS: Record<Direction, string> = {
   'karimunjawa-jepara': 'Karimunjawa → Jepara',
 }
 
-const WHATSAPP_NUMBER = '6282226945510'
+
 
 // ── Component ──────────────────────────────────────────────────────
 
@@ -68,7 +69,7 @@ export default function BoatTicketForm() {
     lines.push(``, `Total: Rp ${(300000 * form.tickets).toLocaleString('id-ID')}`)
 
     const message = encodeURIComponent(lines.join('\n'))
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank')
+    window.open(`https://wa.me/${WA_GENERAL}?text=${message}`, '_blank')
     setSubmitted(true)
   }
 

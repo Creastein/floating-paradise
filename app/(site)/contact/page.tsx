@@ -1,6 +1,7 @@
 import ContactClient from './contact-client'
 
 import { generatePageSeo } from '@/lib/i18n/seo'
+import { WA_GENERAL } from '@/lib/constants'
 
 export async function generateMetadata() {
   return generatePageSeo("en", "contact", "/contact")
@@ -17,7 +18,7 @@ export default function ContactPage() {
       "@type": "LocalBusiness",
       "name": "Floating Paradise",
       "image": "https://floatingparadise.id/logo.png",
-      "telephone": "+6282226945510",
+      "telephone": `+${WA_GENERAL}`,
       "email": "floatingparadise.legonlele@gmail.com",
       "address": {
         "@type": "PostalAddress",

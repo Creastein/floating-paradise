@@ -8,6 +8,7 @@ import ReviewBadges from '@/components/review-badges'
 import Footer from '@/components/footer'
 import { getHomepage, getBungalows } from '@/lib/sanity.fetch'
 import { generatePageSeo } from '@/lib/i18n/seo'
+import { WA_GENERAL } from '@/lib/constants'
 
 export async function generateMetadata() {
   return generatePageSeo('en', 'home', '/')
@@ -20,7 +21,7 @@ const lodgingJsonLd = {
   description:
     "A handcrafted, solar-powered guesthouse above the sea in Karimunjawa, Indonesia.",
   url: "https://floatingparadise.id",
-  telephone: "+6282226945510",
+  telephone: `+${WA_GENERAL}`,
   email: "floatingparadise.legonlele@gmail.com",
   address: {
     "@type": "PostalAddress",

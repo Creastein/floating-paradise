@@ -9,6 +9,7 @@ import Image from 'next/image'
 import WhatsAppIcon from '@/components/icons/whatsapp-icon'
 import BoatTicketForm from '@/components/boat-ticket-form'
 import { useLanguage } from '@/lib/i18n/language-context'
+import { WA_GENERAL } from '@/lib/constants'
 import {
   CAR_HIRE_OPTIONS,
 } from '@/data/getting-here-data'
@@ -118,7 +119,7 @@ export default function GettingHereClient() {
 
               <FadeIn direction="up" distance={20} delay={0.4} className="pt-4">
                 <a
-                  href={`https://wa.me/6282226945510?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan penjemputan mobil pribadi ke Pelabuhan Jepara. Bisa share detail dan ketersediaan? Terima kasih!' : "Hi, I'd like to book a private car transfer to Jepara Harbour. Could you share details and availability? Thank you!")}`}
+                  href={`https://wa.me/${WA_GENERAL}?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan penjemputan mobil pribadi ke Pelabuhan Jepara. Bisa share detail dan ketersediaan? Terima kasih!' : "Hi, I'd like to book a private car transfer to Jepara Harbour. Could you share details and availability? Thank you!")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"
@@ -166,7 +167,7 @@ export default function GettingHereClient() {
                   <div className="bg-background/60 p-4 rounded-xl">
                     <p className="text-sm font-medium text-foreground mb-2">{language === 'id' ? 'Hubungi kami langsung:' : 'Contact us directly:'}</p>
                     <a 
-                      href="https://wa.me/6282226945510"
+                      href={`https://wa.me/${WA_GENERAL}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-primary font-medium hover:underline underline-offset-4"
@@ -183,9 +184,11 @@ export default function GettingHereClient() {
                   </div>
                 </div>
                 <a
-                  href={`https://wa.me/6282226945510?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan tiket kapal melalui Floating Paradise. Bisa share jadwal dan ketersediaan? Terima kasih!' : "Hi, I'd like to book boat tickets through Floating Paradise. Could you share the schedule and availability? Thank you!")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#boat-ticket-section"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('boat-ticket-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"
                 >
                   {language === 'id' ? 'Pesan Melalui Floating' : 'Book Through Floating'}
@@ -287,7 +290,7 @@ export default function GettingHereClient() {
       </section>
 
       {/* ── BOAT TICKET BOOKING ──────────────────────────────────── */}
-      <section className="py-24 bg-[#F5EFE4]">
+      <section id="boat-ticket-section" className="py-24 bg-[#F5EFE4]">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn direction="up" distance={30}>
             <div className="text-center space-y-4 mb-12">

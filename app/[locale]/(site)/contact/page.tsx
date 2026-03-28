@@ -1,5 +1,6 @@
 import ContactClient from '@/app/(site)/contact/contact-client'
 import { generatePageSeo } from '@/lib/i18n/seo'
+import { WA_GENERAL } from '@/lib/constants'
 
 interface LocalePageProps {
   params: { locale: string }
@@ -22,7 +23,7 @@ export default function ContactPage({ params: { locale } }: LocalePageProps) {
       "@type": "LocalBusiness",
       "name": "Floating Paradise",
       "image": "https://floatingparadise.id/logo.png",
-      "telephone": "+6282226945510",
+      "telephone": `+${WA_GENERAL}`,
       "email": "floatingparadise.legonlele@gmail.com",
       "address": {
         "@type": "PostalAddress",

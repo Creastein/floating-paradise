@@ -11,10 +11,11 @@ import { generatePageSeo } from "@/lib/i18n/seo"
 import { WA_GENERAL } from "@/lib/constants"
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   return generatePageSeo(params.locale, "home", "/")
 }
 

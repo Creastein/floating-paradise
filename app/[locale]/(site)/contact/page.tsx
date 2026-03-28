@@ -3,14 +3,16 @@ import { generatePageSeo } from '@/lib/i18n/seo'
 import { WA_GENERAL } from '@/lib/constants'
 
 interface LocalePageProps {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
-export async function generateMetadata({ params: { locale } }: LocalePageProps) {
+export async function generateMetadata({ params: paramsPromise }: LocalePageProps) {
+  const { locale } = await paramsPromise
   return generatePageSeo(locale, "contact", "/contact")
 }
 
-export default function ContactPage({ params: { locale } }: LocalePageProps) {
+export default async function ContactPage({ params: paramsPromise }: LocalePageProps) {
+  const { locale } = await paramsPromise
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",

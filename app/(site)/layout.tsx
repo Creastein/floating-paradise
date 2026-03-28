@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Lato } from 'next/font/google'
+import { Lato } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import FloatingWhatsapp from '@/components/floating-whatsapp'
@@ -11,10 +11,6 @@ import '../globals.css'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { LanguageProvider } from '@/lib/i18n/language-context'
 
-const cormorant = Cormorant_Garamond({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"]
-});
 const lato = Lato({ 
   subsets: ["latin"],
   weight: ["400", "700"]

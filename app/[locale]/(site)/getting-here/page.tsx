@@ -2,18 +2,20 @@ import GettingHereClient from "@/app/(site)/getting-here/getting-here-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   return generatePageSeo(params.locale, "getting-here", "/getting-here")
 }
 
-export default function GettingHerePage({
-  params,
+export default async function GettingHerePage({
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   const isId = params.locale === "id";
   const jsonLd = {
     "@context": "https://schema.org",

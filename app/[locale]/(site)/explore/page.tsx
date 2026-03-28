@@ -3,18 +3,20 @@ import { getActivities } from "@/lib/sanity.fetch"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   return generatePageSeo(params.locale, "explore", "/explore")
 }
 
 export default async function ExplorePage({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   const { data: activities } = await getActivities()
 
   const jsonLd = {

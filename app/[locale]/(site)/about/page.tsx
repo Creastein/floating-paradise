@@ -3,18 +3,20 @@ import AboutClient from "@/app/(site)/about/about-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   return generatePageSeo(params.locale, "about", "/about")
 }
 
 export default async function AboutPage({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   const aboutResult = await getAboutPage()
   const cmsData = aboutResult?.data
 

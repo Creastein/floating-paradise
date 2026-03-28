@@ -3,18 +3,20 @@ import YogaClient from "@/app/(site)/yoga-retreat/yoga-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   return generatePageSeo(params.locale, "yoga", "/yoga-retreat")
 }
 
 export default async function YogaRetreatPage({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   const retreatResult = await getYogaRetreat()
   const cmsData = retreatResult?.data
   const retreatUrl = `https://floatingparadise.id/${params.locale}/yoga-retreat`

@@ -3,18 +3,20 @@ import BungalowsClient from "@/app/(site)/bungalows/bungalows-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   return generatePageSeo(params.locale, "bungalows", "/bungalows")
 }
 
 export default async function BungalowsPage({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const params = await paramsPromise
   const { data: bungalows } = await getBungalows()
 
   const jsonLd = {

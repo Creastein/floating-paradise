@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Cormorant_Garamond, Lato } from "next/font/google"
+import { Lato } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script"
 import FloatingWhatsapp from "@/components/floating-whatsapp"
@@ -11,20 +11,17 @@ import "../../globals.css"
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { LanguageProvider } from "@/lib/i18n/language-context"
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-})
 const lato = Lato({
   subsets: ["latin"],
   weight: ["400", "700"],
 })
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  const params = await paramsPromise
   const { data: settings } = await getSiteSettings()
 
   const defaultTitle = "Floating Paradise | Solar-Powered Eco-Luxury Retreat"
@@ -68,11 +65,12 @@ export async function generateMetadata({
 
 export default async function RootLayout({
   children,
-  params,
+  params: paramsPromise,
 }: Readonly<{
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }>) {
+  const params = await paramsPromise
   const { data: settings } = await getSiteSettings()
 
   return (

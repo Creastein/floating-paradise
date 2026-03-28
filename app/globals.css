@@ -133,11 +133,10 @@
 
 /* ============================================
    TRIPLA SDK — ACTIVE
-   Hide auto-rendered booking bar only.
-   Chatbot + data-tripla-booking-widget triggers remain active.
+   Mount point hidden; auto-rendered search bar is hidden via JS MutationObserver.
+   Chatbot + CTA-triggered popups remain active.
    ============================================ */
-.tripla-booking-bar,
-div[class*="triplabot-booking"] {
+#tripla-widget-mount {
   display: none !important;
 }
 

@@ -355,38 +355,44 @@
     "ctaButton": "Pesan Tempat Sekarang"
   },
   "explorePage": {
-    "heroTitle": "Eksplorasi",
-    "heroSubtitle": "Setiap petualangan bermula dari dermaga kami.",
+    "heroTitle": "Jelajahi Karimunjawa",
+    "heroSubtitle": "Kami menawarkan berbagai aktivitas di lokasi, atau yang berangkat langsung dari Floating.",
     "activities": {
       "boatTour": {
-        "title": "Wisata Perahu Ramah Lingkungan",
-        "description": "Jelajahi kepulauan menggunakan perahu kayu buatan khusus kami, dipandu oleh kapten lokal yang ahli."
+        "title": "Private Eco Boat Tour",
+        "description": "Layanan kami yang paling populer dan eksklusif adalah perjalanan kapal privat seharian penuh yang berangkat langsung dari dermaga Floating Paradise. Dalam tur ini, Anda dapat menjelajahi area terindah dan kurang ramai turis di kepulauan. Dipandu oleh pemandu berpengalaman yang berbahasa Inggris dan kapten yang ramah, Anda akan menemukan terumbu karang yang semarak dan pulau-pulau tropis yang belum terjamah sambil menikmati hari yang benar-benar tak terlupakan.\n\nSejalan dengan prinsip ramah lingkungan kami, kami memastikan semua perjalanan seramah mungkin terhadap alam: tidak ada plastik sekali pakai, sampah dikumpulkan dan dibawa kembali, dan kami memprioritaskan pelestarian terumbu karang dengan menghindari praktik berbahaya seperti memberi makan ikan atau mengonsumsi ikan kakatua.\n\nDestinasi bervariasi tergantung cuaca, demi keselamatan dan meminimalkan dampak lingkungan."
       },
       "yoga": {
-        "title": "Yoga Saat Matahari Terbenam",
-        "description": "Temukan keseimbangan Anda di atas dermaga kayu kami di bawah matahari terbenam, dipandu oleh Astrid."
+        "title": "Open Air Sunset Yoga",
+        "description": "Saat panas mulai mereda dan langit mulai bercahaya, kami berkumpul di ujung dermaga Floating untuk praktik Hatha Flow yang mantap dan membumi. Praktik 75 menit ini memadukan olah napas, meditasi, filosofi yoga, dan rangkaian gerakan penuh kesadaran. Bersiaplah untuk aliran yang seimbang, cukup lembut untuk pemula, dengan opsi untuk memperdalam bagi praktisi berpengalaman. Kami berfokus pada keselarasan, pernapasan sadar, dan menggerakkan tubuh dengan ritme yang memungkinkan Anda benar-benar merasakan setiap postur.\n\nBerlatih di atas air saat matahari terbenam di atas teluk menciptakan suasana yang secara alami menenangkan. Ritme laut dan cahaya yang berubah menjadi bagian dari pengalaman, mendukung regulasi sistem saraf dan relaksasi yang mendalam.\n\nKelas dipandu oleh Astrid, guru yoga tetap di Floating dengan pengalaman lima tahun. Matras disediakan, cukup bawa pakaian nyaman dan pikiran terbuka.\n\nAkhiri hari Anda dengan tenang, terenggang, dan mantap."
       },
       "kayaking": {
-        "title": "Mendayung Kayak di Mangrove",
-        "description": "Mendayung dengan tenang melewati hutan bakau kuno langsung dari penginapan."
+        "title": "Kayak, Lunch & Chill",
+        "description": "Jelajahi terumbu karang dan mangrove Karimunjawa dengan ritme Anda sendiri. Kayak dua orang baru kami mengajak Anda mendayung melintasi air jernih, menemukan pantai-pantai tersembunyi, dan meluncur tenang di atas terumbu karang yang semarak. Ikuti garis pantai, jelajahi hutan bakau, atau cukup mengapung dan menikmati ketenangan kehidupan pulau.\n\nUntuk Tamu Floating — Penggunaan kayak gratis selama menginap, cukup keluar saat pasang tepat dan laut memanggil.\n\nUntuk Tamu Luar – Kayak Day Experience — Bergabunglah dari pukul 10.00–15.00 untuk petualangan off-grid: Minuman selamat datang & handuk pantai, penggunaan kayak dua orang (dengan dry bag), pinjaman gratis masker & snorkel, makan siang seafood segar (dengan sayuran & buah), akses shower air tawar, dermaga & area bar, diskon 10% untuk semua pesanan bar.\n\nRp350.000 per orang · Wajib reservasi · Maksimal 4 tamu luar per hari\n\nMendayung. Berenang. Makan. Istirahat. Hari yang sederhana dan indah di atas laut."
       },
       "trekking": {
-        "title": "Trekking Jelajah Hutan",
-        "description": "Temukan ekosistem darat yang tersembunyi dan sudut pandang pemandangan di seluruh pulau."
-      },
-      "turtles": {
-        "title": "Penangkaran Penyu",
-        "description": "Kunjungi upaya konservasi berkelanjutan yang mendukung kehidupan biota laut lokal."
+        "title": "Trekking Nyamplungan",
+        "description": "Bagi yang mendambakan gerakan dan hadiah pemandangan, Trekking Nyamplungan adalah salah satu pendakian paling ikonik di Karimunjawa.\n\nPetualangan setengah hari ini membawa Anda ke puncak tertinggi kedua di pulau, mendaki melewati hutan tropis di jalur yang cukup curam namun bisa ditempuh. Sepanjang jalan, Anda akan melewati pohon-pohon asli, mendengar suara rimba, dan merasakan peralihan dari angin laut ke udara pegunungan.\n\nDi puncak, Anda disambut pemandangan luas melintasi kepulauan dan garis pantai utara yang liar, perspektif yang jarang dialami pengunjung.\n\nSebagai bagian dari perjalanan, Anda akan memiliki kesempatan untuk menanam bibit pohon di atas, berkontribusi langsung pada upaya penghijauan pulau. Ini bukan sekadar pendakian, ini adalah cara untuk meninggalkan jejak kehidupan.\n\nTantang tubuh Anda. Perluas pandangan. Berikan sesuatu kembali."
       },
       "cuisine": {
-        "title": "Kuliner Lokal",
-        "description": "Nikmati cita rasa asli pulau yang disiapkan setiap hari dari hasil laut dan panen segar."
+        "title": "Tastes of Paradise",
+        "description": "Di Floating, hidangan disajikan pelan, segar, dan sangat lokal; dibentuk oleh laut, musim, dan apa yang disediakan pulau hari itu.\n\nDapur kami merayakan cita rasa Karimunjawa dengan klasik Indonesia yang harum, ikan segar tangkapan hari itu, cumi empuk, hidangan sayur yang semarak, dan pilihan nabati yang bergizi. Setiap piring disiapkan sesuai pesanan menggunakan bahan lokal, disajikan dengan nasi, sayuran musiman, dan buah segar.\n\nKami tidak terburu-buru soal makanan. Bahan baku dicari setiap hari dan hidangan disiapkan segar, itulah mengapa kami mohon tamu untuk memesan makan siang dan makan malam terlebih dahulu.\n\nDi bar, Anda akan menemukan minuman dingin, bir segar, jus buah, kelapa, dan kopi yang nikmat; teman sederhana dan menyegarkan untuk kehidupan pulau."
+      },
+      "turtles": {
+        "title": "Turtle Sanctuary",
+        "description": "Di teluk yang sama dengan Floating Paradise, Turtle Sanctuary adalah inisiatif yang dipimpin oleh Balai Taman Nasional Karimunjawa (BTN), otoritas yang bertanggung jawab melindungi ekosistem laut Karimunjawa.\n\nSantuari ini mendukung konservasi penyu laut dengan melindungi telur dari predator, memantau tukik, dan meningkatkan peluang kelangsungan hidup mereka selama tahap awal kehidupan yang paling rentan. Dengan melindungi sarang dan mengoordinasikan pelepasan yang aman, program ini membantu memperkuat populasi penyu yang menurun di wilayah ini.\n\nTamu dipersilakan mengunjungi santuari dan berpartisipasi dalam pelepasan tukik, yang biasanya berlangsung pada sore hari. Menyaksikan tukik-tukik melakukan perjalanan pertama mereka ke laut adalah pengalaman yang sederhana namun sangat bermakna.\n\nKunjungan seharga Rp150.000 per orang (termasuk transportasi). Jangan lupa membawa tiket masuk Taman Nasional dan sedikit uang kecil jika Anda ingin berkontribusi langsung pada upaya konservasi.\n\nCara yang bermakna untuk menyaksikan — dan mendukung — masa depan terumbu karang."
       }
     },
     "learnMore": "Pelajari Lebih Lanjut",
     "viewGallery": "Lihat Galeri",
     "bookNow": "Pesan Sekarang",
-    "preOrder": "Pesan Di Muka"
+    "preBookNow": "Pre-Book",
+    "reserveNow": "Reservasi",
+    "retreatInfo": "Info Retret",
+    "seeOurMenu": "Lihat Menu Kami",
+    "enquireNow": "Tanya Sekarang",
+    "preOrder": "Pesan Di Muka",
+    "preOrderNow": "Pre-Order Sekarang"
   },
   "seo.home.title": "Floating Paradise — Penginapan di Atas Laut Karimunjawa",
   "seo.home.description": "Penginapan handcrafted di atas laut. Bertenaga surya, 3 kamar, akses langsung ke terumbu karang. Pesan langsung dan hemat.",

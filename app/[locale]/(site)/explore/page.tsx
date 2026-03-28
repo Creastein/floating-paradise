@@ -28,8 +28,8 @@ export default async function ExplorePage({
       const lang = params.locale === "id" ? "id" : "en";
       return {
         "@type": "TouristAttraction",
-        "name": activity.title[lang],
-        "description": activity.description[lang],
+        "name": activity.title?.[lang] || activity.name || activity.title?.en || "",
+        "description": activity.description?.[lang] || activity.description?.en || "",
         "image": activity.mainImage || "https://floatingparadise.id/og-image.jpg"
       }
     }) || []

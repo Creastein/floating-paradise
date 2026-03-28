@@ -4,9 +4,7 @@ import React from 'react'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 import PageHero from '@/components/page-hero'
-import { TRIPLA_EXTRAS_URL } from '@/lib/tripla'
 import { FadeIn } from '@/components/ui/fade-in'
-import Link from 'next/link'
 import Image from 'next/image'
 import WhatsAppIcon from '@/components/icons/whatsapp-icon'
 import BoatTicketForm from '@/components/boat-ticket-form'
@@ -119,13 +117,14 @@ export default function GettingHereClient() {
               </div>
 
               <FadeIn direction="up" distance={20} delay={0.4} className="pt-4">
-                <button
-                  type="button"
-                  data-tripla-booking-widget="extras"
-                  className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md"
+                <a
+                  href={`https://wa.me/6282226945510?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan penjemputan mobil pribadi ke Pelabuhan Jepara. Bisa share detail dan ketersediaan? Terima kasih!' : "Hi, I'd like to book a private car transfer to Jepara Harbour. Could you share details and availability? Thank you!")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"
                 >
                   {language === 'id' ? 'Pesan Penjemputan' : 'Book a Transfer'}
-                </button>
+                </a>
               </FadeIn>
             </div>
           </JourneyStep>
@@ -183,13 +182,14 @@ export default function GettingHereClient() {
                     </p>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  data-tripla-booking-widget="extras"
-                  className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md"
+                <a
+                  href={`https://wa.me/6282226945510?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan tiket kapal melalui Floating Paradise. Bisa share jadwal dan ketersediaan? Terima kasih!' : "Hi, I'd like to book boat tickets through Floating Paradise. Could you share the schedule and availability? Thank you!")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"
                 >
                   {language === 'id' ? 'Pesan Melalui Floating' : 'Book Through Floating'}
-                </button>
+                </a>
               </div>
             </FadeIn>
 
@@ -275,7 +275,7 @@ export default function GettingHereClient() {
                 <button
                   type="button"
                   data-tripla-booking-widget="search"
-                  className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium tracking-wide hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium tracking-wide hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                 >
                   {language === 'id' ? 'Cek Ketersediaan' : 'Check Availability'}
                 </button>

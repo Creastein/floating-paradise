@@ -5,7 +5,8 @@ import { useRef, useEffect, useState } from 'react'
 import { gsap, ScrollTrigger } from '@/lib/gsap-init'
 import Lightbox from '@/components/lightbox'
 import { Camera } from 'lucide-react'
-import { TRIPLA_EXTRAS_URL } from '@/lib/tripla'
+const WA_NUMBER = '6282226945510'
+const waLink = (msg: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
@@ -29,8 +30,10 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Private Eco Boat Tour/PB7.webp',
         '/image/Explore/Private Eco Boat Tour/PB8.webp',
       ],
-      ctaText: t.explorePage.bookNow,
-      ctaLink: TRIPLA_EXTRAS_URL,
+      ctaText: t.explorePage.preBookNow,
+      ctaLink: waLink(language === 'id'
+        ? 'Halo, saya ingin memesan Private Eco Boat Tour di Floating Paradise. Bisa share ketersediaan dan detailnya? Terima kasih!'
+        : "Hi, I'd like to pre-book the Private Eco Boat Tour at Floating Paradise. Could you share availability and details? Thank you!"),
       ctaExternal: true,
     },
     {
@@ -46,9 +49,11 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga7.webp',
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga8.webp',
       ],
-      ctaText: t.explorePage.learnMore,
-      ctaLink: '/yoga-retreat',
-      ctaExternal: false,
+      ctaText: t.explorePage.bookNow,
+      ctaLink: waLink(language === 'id'
+        ? 'Halo, saya ingin booking sesi Open Air Sunset Yoga di Floating Paradise. Bisa share jadwal dan harganya? Terima kasih!'
+        : "Hi, I'd like to book the Open Air Sunset Yoga session at Floating Paradise. Could you share availability and pricing? Thank you!"),
+      ctaExternal: true,
     },
     {
       title: t.explorePage.activities.kayaking.title,
@@ -61,8 +66,10 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Kayak, Lunch & Chill/kayak5.webp',
         '/image/Explore/Kayak, Lunch & Chill/kayak6.webp',
       ],
-      ctaText: t.explorePage.bookNow,
-      ctaLink: TRIPLA_EXTRAS_URL,
+      ctaText: t.explorePage.reserveNow,
+      ctaLink: waLink(language === 'id'
+        ? 'Halo, saya ingin reservasi Kayak, Lunch & Chill di Floating Paradise. Bisa share ketersediaan? Terima kasih!'
+        : "Hi, I'd like to reserve Kayak, Lunch & Chill at Floating Paradise. Could you share availability? Thank you!"),
       ctaExternal: true,
     },
     {
@@ -76,20 +83,9 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Trekking Nyamplungan/Trekking5.webp',
       ],
       ctaText: t.explorePage.bookNow,
-      ctaLink: TRIPLA_EXTRAS_URL,
-      ctaExternal: true,
-    },
-    {
-      title: t.explorePage.activities.turtles.title,
-      description: t.explorePage.activities.turtles.description,
-      gallery: [
-        '/image/Explore/Turtle Sanctuary/TS1.webp',
-        '/image/Explore/Turtle Sanctuary/TS2.webp',
-        '/image/Explore/Turtle Sanctuary/TS3.webp',
-        '/image/Explore/Turtle Sanctuary/TS4.webp',
-      ],
-      ctaText: t.explorePage.bookNow,
-      ctaLink: TRIPLA_EXTRAS_URL,
+      ctaLink: waLink(language === 'id'
+        ? 'Halo, saya ingin booking Trekking Nyamplungan di Floating Paradise. Bisa share detail dan ketersediaan? Terima kasih!'
+        : "Hi, I'd like to book the Nyamplungan Trek at Floating Paradise. Could you share details and availability? Thank you!"),
       ctaExternal: true,
     },
     {
@@ -102,37 +98,53 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Tastes of Paradise/TP4.webp',
         '/image/Explore/Tastes of Paradise/TP5.webp',
       ],
+      ctaText: t.explorePage.enquireNow,
+      ctaLink: waLink(language === 'id'
+        ? 'Halo, saya ingin tanya tentang pengalaman makan Tastes of Paradise di Floating Paradise. Terima kasih!'
+        : "Hi, I'd like to enquire about the Tastes of Paradise dining experience at Floating Paradise. Thank you!"),
+      ctaExternal: true,
+    },
+    {
+      title: t.explorePage.activities.turtles.title,
+      description: t.explorePage.activities.turtles.description,
+      gallery: [
+        '/image/Explore/Turtle Sanctuary/TS1.webp',
+        '/image/Explore/Turtle Sanctuary/TS2.webp',
+        '/image/Explore/Turtle Sanctuary/TS3.webp',
+        '/image/Explore/Turtle Sanctuary/TS4.webp',
+      ],
       ctaText: t.explorePage.bookNow,
-      ctaLink: TRIPLA_EXTRAS_URL,
+      ctaLink: waLink(language === 'id'
+        ? 'Halo, saya ingin mengunjungi Turtle Sanctuary bersama Floating Paradise. Bisa share ketersediaan? Terima kasih!'
+        : "Hi, I'd like to visit the Turtle Sanctuary with Floating Paradise. Could you share availability? Thank you!"),
       ctaExternal: true,
     },
     {
       title: 'Floating Merchandise',
       description: language === 'id' 
-        ? 'Kaos katun bambu — lembut, ramah lingkungan, dan antibakteri. Setiap desain dibuat secara lansung oleh Astrid.'
+        ? 'Kaos katun bambu — lembut, ramah lingkungan, dan antibakteri. Setiap desain dibuat secara langsung oleh Astrid.'
         : 'Bamboo cotton t-shirts — soft, eco-friendly, and antibacterial. Each design handmade by Astrid herself.',
       gallery: ['/image/Explore/floating-merchandise/floating-merchandise.png'],
       detail: language === 'id' ? 'Rp 180,000 · Ukuran S–XXL' : 'Rp 180,000 · Sizes S–XXL',
       label: t.explorePage.preOrder,
-      ctaText: t.explorePage.preOrder,
-      ctaLink: TRIPLA_EXTRAS_URL,
+      ctaText: t.explorePage.preOrderNow,
+      ctaLink: waLink(language === 'id'
+        ? 'Halo, saya ingin pre-order merchandise Floating Paradise. Bisa share pilihan yang tersedia? Terima kasih!'
+        : "Hi, I'd like to pre-order Floating Paradise merchandise. Could you share the available options? Thank you!"),
       ctaExternal: true,
     },
   ]
 
-  // Use CMS data if available, fallback to defaults
-  const displayActivities = initialActivities && initialActivities.length > 0
-    ? initialActivities.map((a, index) => ({
-        title: a.name,
-        description: getCmsValue(a, 'description', FALLBACK_ACTIVITIES[index]?.description),
-        gallery: a.heroImage ? [urlFor(a.heroImage).url()] : FALLBACK_ACTIVITIES[index]?.gallery || ['/image/Explore/explore-hero.webp'],
-        detail: a.price ? `${language === 'id' ? 'Mulai dari' : 'Starts from'} Rp ${a.price.toLocaleString('en-US')}${a.duration ? ` · ${a.duration}` : ''}` : FALLBACK_ACTIVITIES[index]?.detail,
-        label: FALLBACK_ACTIVITIES[index]?.label,
-        ctaText: a.triplaExtrasLink ? t.explorePage.bookNow : FALLBACK_ACTIVITIES[index]?.ctaText || t.explorePage.learnMore,
-        ctaLink: a.triplaExtrasLink || FALLBACK_ACTIVITIES[index]?.ctaLink || TRIPLA_EXTRAS_URL,
-        ctaExternal: a.triplaExtrasLink ? true : FALLBACK_ACTIVITIES[index]?.ctaExternal ?? true,
-      }))
-    : FALLBACK_ACTIVITIES;
+  // Always use FALLBACK_ACTIVITIES as base (content from WebEdit2026 translations)
+  // CMS data only supplements images when available
+  const displayActivities = FALLBACK_ACTIVITIES.map((fallback, index) => {
+    const cmsActivity = initialActivities?.[index]
+    return {
+      ...fallback,
+      // Only override gallery with CMS image if available
+      gallery: cmsActivity?.heroImage ? [urlFor(cmsActivity.heroImage).url(), ...fallback.gallery.slice(1)] : fallback.gallery,
+    }
+  });
 
   // Lightbox state
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number; alt: string } | null>(null)
@@ -237,9 +249,15 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
                 {activity.title}
               </h2>
 
-              <div className="text-gray-500 text-sm md:text-base leading-relaxed mb-4 flex-grow">
+              <div className="text-gray-500 text-sm md:text-base leading-relaxed mb-4 flex-grow text-justify">
                 {typeof activity.description === 'string' ? (
-                  <p>{activity.description}</p>
+                  activity.description.includes('\n') ? (
+                    activity.description.split('\n').filter((p: string) => p.trim()).map((paragraph: string, pIdx: number) => (
+                      <p key={pIdx} className="mb-3 last:mb-0">{paragraph}</p>
+                    ))
+                  ) : (
+                    <p>{activity.description}</p>
+                  )
                 ) : activity.description && (
                   <PortableText 
                     value={activity.description} 
@@ -260,13 +278,14 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
 
               <div>
                 {activity.ctaExternal ? (
-                  <button
-                    type="button"
-                    data-tripla-booking-widget="extras"
+                  <a
+                    href={activity.ctaLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-block bg-[#2F4A3F] text-white px-7 py-3 rounded-full text-sm font-medium tracking-wide transition-opacity duration-300 hover:opacity-90"
                   >
                     {activity.ctaText}
-                  </button>
+                  </a>
                 ) : (
                   <a
                     href={activity.ctaLink}

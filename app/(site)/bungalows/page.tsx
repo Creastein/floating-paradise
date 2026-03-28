@@ -19,7 +19,7 @@ export default async function BungalowsPage() {
         "@type": "HotelRoom",
         "name": bungalow.title?.en || bungalow.name || "",
         "description": bungalow.description?.en || "",
-        "image": bungalow.mainImage || "https://floatingparadise.id/og-image.jpg"
+        "image": bungalow.mainImage || "https://floatingparadise.id/og-image.png"
       }
     })) || []
   }

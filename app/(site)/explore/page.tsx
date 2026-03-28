@@ -18,7 +18,7 @@ export default async function ExplorePage() {
       "@type": "TouristAttraction",
       "name": activity.title?.en || activity.name || "",
       "description": activity.description?.en || "",
-      "image": activity.mainImage || "https://floatingparadise.id/og-image.jpg"
+      "image": activity.mainImage || "https://floatingparadise.id/og-image.png"
     })) || []
   }
 

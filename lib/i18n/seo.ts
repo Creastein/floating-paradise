@@ -47,11 +47,20 @@ export function generatePageSeo(
       type: 'website',
       url: locale === 'en' ? enUrl : idUrl,
       siteName: 'Floating Paradise',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: ['/og-image.png'],
     },
   }
 }

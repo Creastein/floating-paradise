@@ -33,7 +33,13 @@ const lodgingJsonLd = {
     streetAddress: "Jl. Kapuran, Legon Lele",
     addressLocality: "Karimunjawa",
     addressRegion: "Jawa Tengah",
+    postalCode: "59455",
     addressCountry: "ID",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -5.8024,
+    longitude: 110.4473,
   },
   numberOfRooms: 3,
   amenityFeature: [
@@ -43,8 +49,10 @@ const lodgingJsonLd = {
     "Private bungalows",
     "Natural ventilation",
   ],
+  checkinTime: "14:00",
+  checkoutTime: "11:00",
   priceRange: "Rp 990,000 - Rp 2,600,000",
-  image: "https://floatingparadise.id/og-image.jpg",
+  image: "https://floatingparadise.id/og-image.png",
   sameAs: [
     "https://www.instagram.com/floatingparadise",
     "https://www.booking.com/hotel/id/floating-paradise.id.html",

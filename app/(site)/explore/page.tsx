@@ -1,27 +1,34 @@
 import ExploreClient from "./explore-client"
 import { getActivities } from "@/lib/sanity.fetch"
-import { getSeoValue } from "@/lib/i18n/seo"
+import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata() {
-  const title = getSeoValue("en", "seo.explore.title")
-  const description = getSeoValue("en", "seo.explore.description")
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-    },
-    twitter: {
-      title,
-      description,
-    },
-  }
+  return generatePageSeo("en", "explore", "/explore")
 }
 
 export default async function ExplorePage() {
   const { data: activities } = await getActivities()
 
-  return <ExploreClient initialActivities={activities} />
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristDestination",
+    "name": "Karimunjawa Islands",
+    "description": "Explore the pristine beauty of Karimunjawa with Floating Paradise. We offer diving, snorkeling, and trekking adventures.",
+    "includesAttraction": activities?.map((activity: any) => ({
+      "@type": "TouristAttraction",
+      "name": activity.title?.en || activity.name || "",
+      "description": activity.description?.en || "",
+      "image": activity.mainImage || "https://floatingparadise.id/og-image.jpg"
+    })) || []
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ExploreClient initialActivities={activities} />
+    </>
+  )
 }

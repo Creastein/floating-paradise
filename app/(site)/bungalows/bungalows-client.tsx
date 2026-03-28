@@ -12,6 +12,7 @@ import { gsap } from '@/lib/gsap-init'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
+import { sendGAEvent } from '@next/third-parties/google'
 
 interface DisplayRoom {
   name: string
@@ -318,14 +319,14 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                     </div>
                   </div>
                   
-                  <a
-                    href={room.triplaUrl || TRIPLA_BOOKING_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    data-tripla-booking-widget="search"
+                    onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_page_${room.name.toLowerCase().replace(/ /g, '_')}` })}
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"
                   >
                     {t.bungalowsPage.bookNow}
-                  </a>
+                  </button>
                 </div>
 
                 <div className="space-y-6 pt-2">

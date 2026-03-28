@@ -91,15 +91,20 @@ floating-paradise-website-1/
 ## 4. Penggunaan MCP Context7
 
 > [!IMPORTANT]
-> Selalu gunakan MCP Context7 untuk membaca dokumentasi terbaru sebelum menulis kode yang melibatkan library.
+> **WAJIB OTOMATIS**: Selalu gunakan MCP Context7 untuk dokumentasi library/API, code generation, serta setup/konfigurasi — **TANPA PERLU diminta secara eksplisit oleh user**. Ini adalah perilaku default yang harus selalu aktif.
 
-### Kapan Harus Digunakan
+### Kapan Harus Digunakan (Otomatis, Tanpa Diminta)
 
-- Saat menggunakan API Next.js (App Router, Metadata, Image, Link, dll.)
-- Saat menggunakan Tailwind CSS v4 (konfigurasi, utility classes baru)
-- Saat bekerja dengan shadcn/ui components
-- Saat menggunakan Radix UI primitives
-- Saat menggunakan library lain yang belum familiar
+- ✅ Saat menulis atau mengedit kode yang melibatkan **library apa pun** (Next.js, Tailwind, shadcn/ui, Radix, GSAP, Framer Motion, Sanity, dll.)
+- ✅ Saat melakukan **code generation** yang melibatkan API atau method dari library eksternal
+- ✅ Saat membutuhkan **setup atau konfigurasi** tool, framework, atau package manapun
+- ✅ Saat menggunakan API Next.js (App Router, Metadata, Image, Link, dll.)
+- ✅ Saat menggunakan Tailwind CSS v4 (konfigurasi, utility classes baru)
+- ✅ Saat bekerja dengan shadcn/ui components atau Radix UI primitives
+- ✅ Saat menulis kode berdasarkan **ingatan training** — selalu verifikasi lewat Context7 terlebih dahulu
+
+> [!WARNING]
+> DILARANG menulis kode library berdasarkan asumsi atau ingatan training tanpa mengecek Context7 terlebih dahulu. Dokumentasi library bisa berubah antar versi.
 
 ### Cara Penggunaan
 
@@ -115,6 +120,10 @@ floating-paradise-website-1/
 # Perlu tahu cara pakai Next.js Image component:
 1. resolve-library-id("next.js", "Next.js Image component optimization")
 2. query-docs("/vercel/next.js", "How to use Image component with optimization")
+
+# Perlu setup Sanity client:
+1. resolve-library-id("sanity", "Sanity client setup and configuration")
+2. query-docs("/sanity-io/sanity", "How to configure and use Sanity client")
 ```
 
 ---
@@ -310,7 +319,7 @@ Sebelum menyelesaikan setiap task, pastikan:
 - [ ] File yang dimodifikasi sudah dibaca terlebih dahulu
 - [ ] Semua import valid dan file yang diimport ada
 - [ ] Tidak ada dependensi baru tanpa persetujuan user
-- [ ] Dokumentasi library dicek via Context7 jika ragu
+- [ ] Dokumentasi library dicek via Context7 **secara otomatis** (bukan hanya jika ragu)
 - [ ] Responsive design sudah dipertimbangkan
 - [ ] Tidak ada hardcoded values (gunakan CSS variables/constants)
 - [ ] Kode bersih, tanpa comment yang tidak perlu

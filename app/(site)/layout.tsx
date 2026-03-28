@@ -8,6 +8,7 @@ import { SiteSettingsProvider } from '@/components/site-settings-provider'
 import { urlFor } from '@/lib/sanity.image'
 import '../globals.css'
 
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { LanguageProvider } from '@/lib/i18n/language-context'
 
 const cormorant = Cormorant_Garamond({ 
@@ -32,9 +33,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const ogImageUrl = settings?.seoImage ? urlFor(settings.seoImage).width(1200).height(630).url() : null
 
   return {
+    metadataBase: new URL('https://floatingparadise.id'),
     title,
     description,
     keywords: 'Karimunjawa, eco-luxury, yoga retreat, guesthouse, bungalows, solar-powered, island paradise',
+    alternates: {
+      canonical: '/',
+      languages: {
+        'en': '/en',
+        'id': '/id',
+      },
+    },
     openGraph: {
       title,
       description,
@@ -63,6 +72,7 @@ export default async function RootLayout({
             {children}
             <FloatingWhatsapp />
             <Analytics />
+            <GoogleAnalytics gaId="G-7JZWJ5455X" />
             <Script 
               src="https://tripla.jp/sdk/javascript/tripla.min.js" 
               strategy="afterInteractive"

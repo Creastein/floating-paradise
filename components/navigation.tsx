@@ -9,6 +9,7 @@ import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-
 import { Button } from '@/components/ui/button'
 import LanguageSwitcher from './language-switcher'
 import { useLanguage } from '@/lib/i18n/language-context'
+import { sendGAEvent } from '@next/third-parties/google'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -110,17 +111,18 @@ export default function Navigation() {
               })}
               <LanguageSwitcher isSolid={isSolid} className="mr-2" />
               
-              <Button 
-                asChild
-                variant={isSolid ? "default" : "secondary"} 
+              <button
+                type="button"
+                data-tripla-booking-widget="search"
+                onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'navbar_desktop' })}
                 className={`btn-skew font-semibold rounded-full px-6 transition-colors duration-300 border ${
                   isSolid 
-                    ? 'border-transparent text-primary-foreground hover:text-primary hover:border-primary' 
-                    : 'bg-white/15 backdrop-blur-md text-white border-white/30 hover:border-transparent hover:text-primary'
+                    ? 'border-transparent text-primary bg-primary text-primary-foreground hover:text-primary hover:border-primary hover:bg-transparent' 
+                    : 'bg-white/15 backdrop-blur-md text-white border-white/30 hover:border-transparent hover:text-primary hover:bg-white'
                 }`}
               >
-                <Link href="/bungalows"><span className="relative z-10">{t.nav.bookNow}</span></Link>
-              </Button>
+                <span className="relative z-10">{t.nav.bookNow}</span>
+              </button>
             </div>
 
             <div className="flex md:hidden items-center gap-4">
@@ -180,14 +182,14 @@ export default function Navigation() {
                 transition={{ delay: 0.3 }}
                 className="mt-8 mb-safe pb-8"
               >
-                <Button 
-                  size="lg" 
-                  className="btn-skew w-full text-lg rounded-xl h-14 border border-transparent hover:border-primary text-primary-foreground hover:text-primary transition-colors duration-300" 
-                  asChild 
-                  onClick={() => setIsOpen(false)}
+                <button
+                  type="button"
+                  data-tripla-booking-widget="search"
+                  onClick={() => { setIsOpen(false); sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'navbar_mobile' }); }}
+                  className="btn-skew w-full text-lg rounded-xl h-14 border border-transparent hover:border-primary bg-primary text-primary-foreground hover:text-primary hover:bg-transparent transition-colors duration-300"
                 >
-                  <Link href="/bungalows"><span className="relative z-10">{t.nav.bookNow}</span></Link>
-                </Button>
+                  <span className="relative z-10">{t.nav.bookNow}</span>
+                </button>
               </motion.div>
             </div>
           </motion.div>

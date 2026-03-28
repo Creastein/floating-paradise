@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
-import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
+import { sendGAEvent } from '@next/third-parties/google'
 
 interface BungalowCardProps {
   title: string
@@ -47,14 +47,14 @@ export default function BungalowCard({
             </div>
           ))}
         </div>
-        <a
-          href={TRIPLA_BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          data-tripla-booking-widget="search"
+          onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalow_card_${title.toLowerCase().replace(/ /g, '_')}` })}
           className="block w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all font-semibold text-center"
         >
           Check Availability
-        </a>
+        </button>
       </div>
     </div>
   )

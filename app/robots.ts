@@ -5,7 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: "/studio/",
     },
     sitemap: "https://floatingparadise.id/sitemap.xml",
+    host: "https://floatingparadise.id",
   }
 }

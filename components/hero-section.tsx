@@ -6,9 +6,9 @@ import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { useRef, useEffect } from 'react'
 import { gsap, ScrollTrigger } from '@/lib/gsap-init'
-import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 import { urlFor } from '@/lib/sanity.image'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
+import { sendGAEvent } from '@next/third-parties/google'
 
 type HeroSectionProps = {
   homepage?: any;
@@ -107,14 +107,14 @@ export default function HeroSection({ homepage }: HeroSectionProps) {
             transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
             className="flex flex-col sm:flex-row gap-4 justify-center pt-6"
           >
-            <a 
-              href={TRIPLA_BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button 
+              type="button"
+              data-tripla-booking-widget="search"
+              onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'hero_section' })}
               className="btn-skew inline-block text-base font-medium px-10 py-4 rounded-full bg-[#2d5a3d] text-white hover:text-[#2d5a3d] transition-colors duration-300 drop-shadow-xl border border-transparent hover:border-[#2d5a3d]"
             >
               <span className="relative z-10">{t.hero.checkAvailability}</span>
-            </a>
+            </button>
           </motion.div>
         </div>
 

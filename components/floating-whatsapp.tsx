@@ -1,6 +1,7 @@
 "use client"
 
 import { useSiteSettings } from './site-settings-provider'
+import { sendGAEvent } from '@next/third-parties/google'
 
 export default function FloatingWhatsapp() {
   const settings = useSiteSettings()
@@ -16,6 +17,7 @@ export default function FloatingWhatsapp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
+      onClick={() => sendGAEvent('event', 'whatsapp_click', { action: 'clicked', label: 'floating_widget' })}
       className="group fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center sm:bottom-8 sm:right-8 rounded-full"
     >
       {/* Outer Pulse/Ping Ring */}

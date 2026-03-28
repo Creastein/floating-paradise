@@ -2,12 +2,12 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
 import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
 import { urlFor } from '@/lib/sanity.image'
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
+import { sendGAEvent } from '@next/third-parties/google'
 
 type BungalowsSectionProps = {
   homepage?: any;
@@ -245,14 +245,14 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
                   })()}
                 </div>
                 <div className="mt-6 pt-5 border-t border-primary/20">
-                  <a 
-                    href={bungalow.triplaUrl || TRIPLA_BOOKING_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <button 
+                    type="button"
+                    data-tripla-booking-widget="search"
+                    onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_section_${bungalow.name.toLowerCase().replace(/ /g, '_')}` })}
                     className="inline-flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-xs font-bold text-primary hover:text-foreground transition-colors duration-700 w-full"
                   >
                     {t.bungalows.bookRoom} <span className="text-lg opacity-80">&rarr;</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

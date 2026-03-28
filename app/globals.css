@@ -132,11 +132,12 @@
 }
 
 /* ============================================
-   TRIPLA SDK — TEMPORARILY HIDDEN
+   TRIPLA SDK — ACTIVE
+   Hide auto-rendered booking bar only.
+   Chatbot + data-tripla-booking-widget triggers remain active.
    ============================================ */
-[class*="tripla"],
-[id*="tripla"],
-.tripla-booking-bar {
+.tripla-booking-bar,
+div[class*="triplabot-booking"] {
   display: none !important;
 }
 

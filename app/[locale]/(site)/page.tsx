@@ -7,28 +7,14 @@ import YogaRetreatSection from "@/components/yoga-retreat-section"
 import ReviewBadges from "@/components/review-badges"
 import Footer from "@/components/footer"
 import { getHomepage, getBungalows } from "@/lib/sanity.fetch"
-import { getSeoValue } from "@/lib/i18n/seo"
+import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({
   params,
 }: {
   params: { locale: string }
 }) {
-  const title = getSeoValue(params.locale, "seo.home.title")
-  const description = getSeoValue(params.locale, "seo.home.description")
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-    },
-    twitter: {
-      title,
-      description,
-    },
-  }
+  return generatePageSeo(params.locale, "home", "/")
 }
 
 const lodgingJsonLd = {

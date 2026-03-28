@@ -1,18 +1,23 @@
-import ContactClient from './contact-client'
-
+import ContactClient from '@/app/(site)/contact/contact-client'
 import { generatePageSeo } from '@/lib/i18n/seo'
 
-export async function generateMetadata() {
-  return generatePageSeo("en", "contact", "/contact")
+interface LocalePageProps {
+  params: { locale: string }
 }
 
-export default function ContactPage() {
+export async function generateMetadata({ params: { locale } }: LocalePageProps) {
+  return generatePageSeo(locale, "contact", "/contact")
+}
+
+export default function ContactPage({ params: { locale } }: LocalePageProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "name": "Contact Floating Paradise",
-    "description": "Get in touch with Floating Paradise Karimunjawa. Book your stay, yoga retreat, or island activities.",
-    "url": "https://floatingparadise.id/contact",
+    "name": locale === "id" ? "Hubungi Floating Paradise" : "Contact Floating Paradise",
+    "description": locale === "id" 
+      ? "Hubungi Floating Paradise Karimunjawa. Pesan penginapan, yoga retreat, atau aktivitas pulau Anda."
+      : "Get in touch with Floating Paradise Karimunjawa. Book your stay, yoga retreat, or island activities.",
+    "url": `https://floatingparadise.id/${locale}/contact`,
     "mainEntity": {
       "@type": "LocalBusiness",
       "name": "Floating Paradise",

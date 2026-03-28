@@ -1,28 +1,48 @@
 import { getAboutPage } from "@/lib/sanity.fetch"
 import AboutClient from "./about-client"
-import { getSeoValue } from "@/lib/i18n/seo"
+import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata() {
-  const title = getSeoValue("en", "seo.about.title")
-  const description = getSeoValue("en", "seo.about.description")
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-    },
-    twitter: {
-      title,
-      description,
-    },
-  }
+  return generatePageSeo("en", "about", "/about")
 }
 
 export default async function AboutPage() {
   const aboutResult = await getAboutPage()
   const cmsData = aboutResult?.data
 
-  return <AboutClient cmsData={cmsData} />
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Floating Paradise",
+    "description": "An eco-friendly guesthouse handbuilt above the sea in Karimunjawa.",
+    "url": "https://floatingparadise.id/about",
+    "logo": "https://floatingparadise.id/logo.png",
+    "foundingDate": "2018",
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Astrid"
+      },
+      {
+        "@type": "Person",
+        "name": "Tono"
+      }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Karimunjawa",
+      "addressRegion": "Jawa Tengah",
+      "addressCountry": "ID"
+    }
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <AboutClient cmsData={cmsData} />
+    </>
+  )
 }

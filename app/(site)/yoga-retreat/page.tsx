@@ -1,23 +1,9 @@
 import { getYogaRetreat } from "@/lib/sanity.fetch"
 import YogaClient from "./yoga-client"
-import { getSeoValue } from "@/lib/i18n/seo"
+import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata() {
-  const title = getSeoValue("en", "seo.yoga.title")
-  const description = getSeoValue("en", "seo.yoga.description")
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-    },
-    twitter: {
-      title,
-      description,
-    },
-  }
+  return generatePageSeo("en", "yoga", "/yoga-retreat")
 }
 
 export default async function YogaRetreatPage() {

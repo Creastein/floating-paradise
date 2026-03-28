@@ -109,7 +109,7 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
             >
               <Image
                 src={image1 ? urlFor(image1).url() : "/image/homepage/Welcome-to-Floating1.webp"}
-                alt="Floating Paradise Exterior"
+                alt="Exterior view of Floating Paradise wooden bungalows over the ocean in Karimunjawa"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -123,7 +123,7 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
             >
               <Image
                 src={image2 ? urlFor(image2).url() : "/image/homepage/Welcome-to-Floating2.webp"}
-                alt="Floating Paradise Interior"
+                alt="Interior of a rustic oceanfront room at Floating Paradise"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 50vw, 20vw"
@@ -137,7 +137,7 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
             >
               <Image
                 src={image3 ? urlFor(image3).url() : "/image/homepage/Welcome-to-Floating3.webp"}
-                alt="Moonrise over Floating Paradise"
+                alt="Stunning moonrise viewed from the jetty at Floating Paradise Karimunjawa"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 50vw, 20vw"

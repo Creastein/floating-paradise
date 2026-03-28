@@ -259,15 +259,22 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
               )}
 
               <div>
-                <a
-                  href={activity.ctaLink}
-                  {...(activity.ctaExternal
-                    ? { target: '_blank', rel: 'noopener noreferrer' }
-                    : {})}
-                  className="inline-block bg-[#2F4A3F] text-white px-7 py-3 rounded-full text-sm font-medium tracking-wide transition-opacity duration-300 hover:opacity-90"
-                >
-                  {activity.ctaText}
-                </a>
+                {activity.ctaExternal ? (
+                  <button
+                    type="button"
+                    data-tripla-booking-widget="extras"
+                    className="inline-block bg-[#2F4A3F] text-white px-7 py-3 rounded-full text-sm font-medium tracking-wide transition-opacity duration-300 hover:opacity-90"
+                  >
+                    {activity.ctaText}
+                  </button>
+                ) : (
+                  <a
+                    href={activity.ctaLink}
+                    className="inline-block bg-[#2F4A3F] text-white px-7 py-3 rounded-full text-sm font-medium tracking-wide transition-opacity duration-300 hover:opacity-90"
+                  >
+                    {activity.ctaText}
+                  </a>
+                )}
               </div>
             </div>
           </article>

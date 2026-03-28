@@ -1,26 +1,36 @@
 import { getBungalows } from "@/lib/sanity.fetch"
 import BungalowsClient from "./bungalows-client"
-import { getSeoValue } from "@/lib/i18n/seo"
+import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata() {
-  const title = getSeoValue("en", "seo.bungalows.title")
-  const description = getSeoValue("en", "seo.bungalows.description")
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-    },
-    twitter: {
-      title,
-      description,
-    },
-  }
+  return generatePageSeo("en", "bungalows", "/bungalows")
 }
 
 export default async function BungalowsPage() {
   const { data: bungalows } = await getBungalows()
-  return <BungalowsClient initialBungalows={bungalows} />
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": bungalows?.map((bungalow: any, index: number) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "HotelRoom",
+        "name": bungalow.title?.en || bungalow.name || "",
+        "description": bungalow.description?.en || "",
+        "image": bungalow.mainImage || "https://floatingparadise.id/og-image.jpg"
+      }
+    })) || []
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BungalowsClient initialBungalows={bungalows} />
+    </>
+  )
 }

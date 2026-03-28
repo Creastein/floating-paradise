@@ -119,14 +119,13 @@ export default function GettingHereClient() {
               </div>
 
               <FadeIn direction="up" distance={20} delay={0.4} className="pt-4">
-                <a 
-                  href={TRIPLA_EXTRAS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  data-tripla-booking-widget="extras"
                   className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md"
                 >
                   {language === 'id' ? 'Pesan Penjemputan' : 'Book a Transfer'}
-                </a>
+                </button>
               </FadeIn>
             </div>
           </JourneyStep>
@@ -184,14 +183,13 @@ export default function GettingHereClient() {
                     </p>
                   </div>
                 </div>
-                <a 
-                  href={TRIPLA_EXTRAS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  data-tripla-booking-widget="extras"
                   className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md"
                 >
                   {language === 'id' ? 'Pesan Melalui Floating' : 'Book Through Floating'}
-                </a>
+                </button>
               </div>
             </FadeIn>
 
@@ -274,12 +272,13 @@ export default function GettingHereClient() {
                 </p>
               </FadeIn>
               <FadeIn direction="up" distance={20} delay={0.3}>
-                <Link 
-                  href="https://tripla.ai" 
+                <button
+                  type="button"
+                  data-tripla-booking-widget="search"
                   className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium tracking-wide hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
                 >
                   {language === 'id' ? 'Cek Ketersediaan' : 'Check Availability'}
-                </Link>
+                </button>
               </FadeIn>
             </div>
           </JourneyStep>

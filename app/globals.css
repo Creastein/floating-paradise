@@ -140,14 +140,17 @@
   display: none !important;
 }
 
-/* Hide Tripla auto-rendered search bar globally via CSS (more reliable than JS timer) */
+/* Hide the auto-rendered Tripla search bar overlay */
 tripla-search-bar,
-[data-tripla-booking-widget-search-bar] {
+[class*="tripla-search"],
+[id*="tripla-search"],
+.triplaSearchBar,
+[class*="triplabot-search"] {
   display: none !important;
+  visibility: hidden !important;
   height: 0 !important;
   overflow: hidden !important;
   pointer-events: none !important;
-  opacity: 0 !important;
 }
 
 /* ============================================

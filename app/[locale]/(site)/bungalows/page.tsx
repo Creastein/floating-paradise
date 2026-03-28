@@ -29,8 +29,8 @@ export default async function BungalowsPage({
         "position": index + 1,
         "item": {
           "@type": "HotelRoom",
-          "name": bungalow.title[lang],
-          "description": bungalow.description[lang],
+          "name": bungalow.title?.[lang] || bungalow.name || "",
+          "description": bungalow.description?.[lang] || "",
           "image": bungalow.mainImage || "https://floatingparadise.id/og-image.png"
         }
       }

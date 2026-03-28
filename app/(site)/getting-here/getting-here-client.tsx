@@ -7,7 +7,7 @@ import PageHero from '@/components/page-hero'
 import { FadeIn } from '@/components/ui/fade-in'
 import Image from 'next/image'
 import WhatsAppIcon from '@/components/icons/whatsapp-icon'
-import BoatTicketForm from '@/components/boat-ticket-form'
+
 import { useLanguage } from '@/lib/i18n/language-context'
 import { WA_GENERAL } from '@/lib/constants'
 import {
@@ -184,14 +184,13 @@ export default function GettingHereClient() {
                   </div>
                 </div>
                 <a
-                  href="#boat-ticket-section"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('boat-ticket-section')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"
+                  href={`https://wa.me/${WA_GENERAL}?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan tiket kapal ke Karimunjawa. Bisa bantu? Terima kasih!' : "Hi, I'd like to book a boat ticket to Karimunjawa. Could you help? Thank you!")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"
                 >
-                  {language === 'id' ? 'Pesan Melalui Floating' : 'Book Through Floating'}
+                  <WhatsAppIcon />
+                  {language === 'id' ? 'Pesan via WhatsApp' : 'Book via WhatsApp'}
                 </a>
               </div>
             </FadeIn>
@@ -289,36 +288,7 @@ export default function GettingHereClient() {
         </div>
       </section>
 
-      {/* ── BOAT TICKET BOOKING ──────────────────────────────────── */}
-      <section id="boat-ticket-section" className="py-24 bg-[#F5EFE4]">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn direction="up" distance={30}>
-            <div className="text-center space-y-4 mb-12">
-              <p className="text-sm tracking-widest uppercase font-semibold text-primary">
-                {language === 'id' ? 'Layanan Tiket Kapal' : 'Boat Ticket Service'}
-              </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
-                {language === 'id' ? 'Pesan Tiket Kapal Anda' : 'Book Your Boat Ticket'}
-              </h2>
-              <p className="text-lg text-foreground/70 font-light leading-relaxed max-w-lg mx-auto">
-                {language === 'id' ? 'Kami yang mengurus tiket Anda supaya Anda tak perlu antre. Tersedia untuk semua penyeberang ke Karimunjawa.' : 'We handle your ticket so you don\'t have to queue. Available to everyone travelling to Karimunjawa.'}
-              </p>
-              <div className="inline-flex items-center gap-2 bg-white/80 px-5 py-2.5 rounded-xl border border-primary/10">
-                <span className="text-sm text-foreground/60">Express Bahari</span>
-                <span className="text-foreground/30">•</span>
-                <span className="font-serif text-lg font-bold text-primary">Rp 300,000</span>
-                <span className="text-sm text-foreground/60">{language === 'id' ? '/ tiket' : '/ ticket'}</span>
-              </div>
-            </div>
-          </FadeIn>
 
-          <FadeIn direction="up" distance={40} delay={0.15}>
-            <div className="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-primary/5">
-              <BoatTicketForm />
-            </div>
-          </FadeIn>
-        </div>
-      </section>
 
       <Footer />
     </main>

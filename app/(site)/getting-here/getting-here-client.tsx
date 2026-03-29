@@ -9,7 +9,7 @@ import Image from 'next/image'
 import WhatsAppIcon from '@/components/icons/whatsapp-icon'
 
 import { useLanguage } from '@/lib/i18n/language-context'
-import { WA_GENERAL } from '@/lib/constants'
+import { useWhatsAppNumbers } from '@/components/site-settings-provider'
 import {
   CAR_HIRE_OPTIONS,
 } from '@/data/getting-here-data'
@@ -59,6 +59,7 @@ function JourneyStep({ step, title, subtitle, isLast = false, children, stepLabe
 
 export default function GettingHereClient() {
   const { language } = useLanguage()
+  const { general: waGeneral, generalDisplay: waDisplay } = useWhatsAppNumbers()
 
   return (
     <main className="min-h-screen">
@@ -119,7 +120,7 @@ export default function GettingHereClient() {
 
               <FadeIn direction="up" distance={20} delay={0.4} className="pt-4">
                 <a
-                  href={`https://wa.me/${WA_GENERAL}?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan penjemputan mobil pribadi ke Pelabuhan Jepara. Bisa share detail dan ketersediaan? Terima kasih!' : "Hi, I'd like to book a private car transfer to Jepara Harbour. Could you share details and availability? Thank you!")}`}
+                  href={`https://wa.me/${waGeneral}?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan penjemputan mobil pribadi ke Pelabuhan Jepara. Bisa share detail dan ketersediaan? Terima kasih!' : "Hi, I'd like to book a private car transfer to Jepara Harbour. Could you share details and availability? Thank you!")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"
@@ -167,13 +168,13 @@ export default function GettingHereClient() {
                   <div className="bg-background/60 p-4 rounded-xl">
                     <p className="text-sm font-medium text-foreground mb-2">{language === 'id' ? 'Hubungi kami langsung:' : 'Contact us directly:'}</p>
                     <a 
-                      href={`https://wa.me/${WA_GENERAL}`}
+                      href={`https://wa.me/${waGeneral}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-primary font-medium hover:underline underline-offset-4"
                     >
                       <WhatsAppIcon />
-                      +62 822 2694 5510
+                      {waDisplay}
                     </a>
                   </div>
 
@@ -184,7 +185,7 @@ export default function GettingHereClient() {
                   </div>
                 </div>
                 <a
-                  href={`https://wa.me/${WA_GENERAL}?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan tiket kapal ke Karimunjawa. Bisa bantu? Terima kasih!' : "Hi, I'd like to book a boat ticket to Karimunjawa. Could you help? Thank you!")}`}
+                  href={`https://wa.me/${waGeneral}?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan tiket kapal ke Karimunjawa. Bisa bantu? Terima kasih!' : "Hi, I'd like to book a boat ticket to Karimunjawa. Could you help? Thank you!")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"

@@ -1,15 +1,10 @@
 "use client"
 
-import { useSiteSettings } from './site-settings-provider'
+import { useWhatsAppNumbers } from './site-settings-provider'
 import { sendGAEvent } from '@next/third-parties/google'
 
 export default function FloatingWhatsapp() {
-  const settings = useSiteSettings()
-  
-  // Format number for WhatsApp URL (remove all non-digit characters)
-  const defaultNumber = "6289682381293"
-  const rawNumber = settings?.whatsappNumber || defaultNumber
-  const waNumber = rawNumber.replace(/\D/g, '')
+  const { general: waNumber } = useWhatsAppNumbers()
 
   return (
     <a

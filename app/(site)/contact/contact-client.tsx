@@ -5,10 +5,11 @@ import Footer from '@/components/footer'
 import { FadeIn } from '@/components/ui/fade-in'
 import { MapPin, WhatsappLogo, EnvelopeSimple, InstagramLogo } from '@phosphor-icons/react'
 import { useLanguage } from '@/lib/i18n/language-context'
-import { WA_GENERAL, WA_GENERAL_DISPLAY } from '@/lib/constants'
+import { useWhatsAppNumbers } from '@/components/site-settings-provider'
 
 export default function ContactClient() {
   const { t, language } = useLanguage()
+  const { general: waGeneral, generalDisplay: waDisplay } = useWhatsAppNumbers()
 
   return (
     <main className="min-h-screen flex flex-col bg-background">
@@ -86,7 +87,7 @@ export default function ContactClient() {
                     <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{t.contact.whatsapp}</h3>
                     <div className="text-foreground text-lg space-y-4 pt-1">
                       <a 
-                        href={`https://wa.me/${WA_GENERAL}`} 
+                        href={`https://wa.me/${waGeneral}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="flex items-center justify-between w-full hover:text-primary transition-colors group/link p-3 -mx-3 rounded-lg hover:bg-white/50"
@@ -94,7 +95,7 @@ export default function ContactClient() {
                         <span className="flex items-center gap-3">
                           <span className="text-2xl" aria-label="English">🇬🇧</span> English
                         </span>
-                        <span className="font-medium">{WA_GENERAL_DISPLAY}</span>
+                        <span className="font-medium">{waDisplay}</span>
                       </a>
                       <a 
                         href="https://wa.me/+6281326008111" 

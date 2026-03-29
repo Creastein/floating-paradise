@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, FormEvent } from 'react'
-import { WA_GENERAL } from '@/lib/constants'
+import { useWhatsAppNumbers } from './site-settings-provider'
 import { FadeIn } from '@/components/ui/fade-in'
 import { useLanguage } from '@/lib/i18n/language-context'
 
@@ -41,6 +41,7 @@ const DIRECTION_LABELS: Record<Direction, string> = {
 
 export default function BoatTicketForm() {
   const { t, language } = useLanguage()
+  const { general: waGeneral } = useWhatsAppNumbers()
   const [form, setForm] = useState<FormData>(INITIAL_FORM)
   const [submitted, setSubmitted] = useState(false)
 
@@ -69,7 +70,7 @@ export default function BoatTicketForm() {
     lines.push(``, `Total: Rp ${(300000 * form.tickets).toLocaleString('id-ID')}`)
 
     const message = encodeURIComponent(lines.join('\n'))
-    window.open(`https://wa.me/${WA_GENERAL}?text=${message}`, '_blank')
+    window.open(`https://wa.me/${waGeneral}?text=${message}`, '_blank')
     setSubmitted(true)
   }
 

@@ -24,8 +24,15 @@ export const siteSettingsType = defineType({
     // ── Contact ───────────────────────────────────────
     defineField({
       name: 'whatsappNumber',
-      title: 'WhatsApp Contact Number',
-      description: 'Format with country code: +62 8xx xxxx xxxx. Used for direct message links.',
+      title: 'WhatsApp Contact Number (Main)',
+      description: 'Main business WhatsApp number used for all general inquiries, bookings, and activities. Format: 6282226945510 (country code + number, no spaces or symbols).',
+      type: 'string',
+      group: 'contact',
+    }),
+    defineField({
+      name: 'yogaRetreatWhatsapp',
+      title: 'WhatsApp for Yoga Retreat',
+      description: 'Separate WhatsApp number for yoga retreat inquiries (e.g. Astrid\'s personal number). If empty, falls back to the main number above. Format: 6282226945510.',
       type: 'string',
       group: 'contact',
     }),

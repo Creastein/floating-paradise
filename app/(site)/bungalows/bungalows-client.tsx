@@ -101,23 +101,30 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
 
   const ROOM_FACILITIES = t.bungalowsPage.facilities
 
-  const displayRooms: DisplayRoom[] = initialBungalows && initialBungalows.length > 0
-    ? initialBungalows.map((b, index) => {
-        let price = ROOMS[index]?.price || 'Check Rates';
-        return {
-          name: b.name,
-          description: getCmsValue(b, 'description', ROOMS[index]?.description),
-          image: b.gallery?.[0] ? urlFor(b.gallery[0]).url() : ROOMS[index]?.image || '/image/homepage/Sunrise-home.webp',
-          reverse: index % 2 !== 0,
-          guests: b.maxGuests?.toString() || ROOMS[index]?.guests || '2',
-          size: ROOMS[index]?.size || 'N/A',
-          price,
-          gallery: b.gallery ? b.gallery.map((img: any) => urlFor(img).url()) : ROOMS[index]?.gallery || [],
-          triplaUrl: b.triplaUrl || TRIPLA_BOOKING_URL,
-          features: b.features || ROOM_FACILITIES,
-        };
-      })
-    : ROOMS;
+  // Match CMS data to ROOMS by name (not by index) to avoid ordering issues
+  const findCmsBungalow = (roomName: string) => {
+    if (!initialBungalows?.length) return null
+    return initialBungalows.find((b: any) => 
+      b.name?.toLowerCase().includes(roomName.toLowerCase())
+    ) || null
+  }
+
+  const displayRooms: DisplayRoom[] = ROOMS.map((room) => {
+    const cmsBungalow = findCmsBungalow(room.name.split(' ')[0]) // Match by "Sunrise", "Sunset", "Bayside"
+    if (!cmsBungalow) return room
+
+    return {
+      ...room,
+      name: cmsBungalow.name || room.name,
+      description: getCmsValue(cmsBungalow, 'description', room.description),
+      // Always use hardcoded image & gallery for consistent layout across languages
+      image: room.image,
+      guests: cmsBungalow.maxGuests?.toString() || room.guests,
+      gallery: room.gallery,
+      triplaUrl: cmsBungalow.triplaUrl || TRIPLA_BOOKING_URL,
+      features: cmsBungalow.features || ROOM_FACILITIES,
+    }
+  });
 
   const roomCardRefs = useRef<(HTMLDivElement | null)[]>([])
   const roomImageRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -265,7 +272,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
               className={`flex flex-col ${room.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 items-center`}
             >
               <div
-                className="w-full lg:w-1/2 overflow-hidden rounded-t-[40%] rounded-b-2xl shadow-xl will-change-transform group cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl"
+                className="w-full lg:w-1/2 overflow-hidden rounded-2xl shadow-xl will-change-transform group cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl"
                 onClick={() => {
                   if (room.gallery && room.gallery.length > 0) {
                     setLightboxImages(room.gallery)

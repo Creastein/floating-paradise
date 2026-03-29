@@ -272,7 +272,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
               className={`flex flex-col ${room.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 items-center`}
             >
               <div
-                className="w-full lg:w-1/2 overflow-hidden rounded-2xl shadow-xl will-change-transform group cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl"
+                className="w-full lg:w-1/2 overflow-hidden rounded-2xl will-change-transform group cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2"
                 onClick={() => {
                   if (room.gallery && room.gallery.length > 0) {
                     setLightboxImages(room.gallery)

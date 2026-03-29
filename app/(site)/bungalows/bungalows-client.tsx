@@ -104,11 +104,6 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
   const displayRooms: DisplayRoom[] = initialBungalows && initialBungalows.length > 0
     ? initialBungalows.map((b, index) => {
         let price = ROOMS[index]?.price || 'Check Rates';
-        if (b.priceIDR) {
-          const min = `Rp ${b.priceIDR.toLocaleString('en-US')}`;
-          const max = b.priceIDRMax ? ` – ${b.priceIDRMax.toLocaleString('en-US')}` : '';
-          price = `${min}${max} / ${t.bungalowsPage.night}`;
-        }
         return {
           name: b.name,
           description: getCmsValue(b, 'description', ROOMS[index]?.description),

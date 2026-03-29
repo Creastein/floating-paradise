@@ -93,29 +93,11 @@ export default async function RootLayout({
             />
             <Script id="tripla-hide-searchbar" strategy="afterInteractive">{`
               (function(){
-                var userClicked = false;
-                // Track user clicks on Tripla trigger buttons
-                document.addEventListener('click', function(e) {
-                  var target = e.target.closest('[data-tripla-booking-widget]');
-                  if (target) {
-                    userClicked = true;
-                    // Reset after 60s to re-enable auto-hide
-                    setTimeout(function() { userClicked = false; }, 60000);
-                  }
-                }, true);
-
                 function hideTriplaSearchBar(){
-                  // Don't hide if user just clicked a Tripla trigger
-                  if (userClicked) return;
-
-                  // Hide the persistent auto-rendered search bar only
                   var el = document.querySelector('tripla-search-bar');
                   if(el){
-                    el.style.cssText = 'display:none !important;height:0 !important;overflow:hidden !important;position:absolute !important;pointer-events:none !important;opacity:0 !important;';
+                    el.style.cssText = 'display:none !important;height:0 !important;overflow:hidden !important;';
                   }
-                  document.querySelectorAll('[data-tripla-booking-widget-search-bar]').forEach(function(e){
-                    e.style.cssText = 'display:none !important;height:0 !important;overflow:hidden !important;';
-                  });
                 }
                 var observer = new MutationObserver(function(){ hideTriplaSearchBar(); });
                 observer.observe(document.body,{childList:true,subtree:true});

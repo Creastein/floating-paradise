@@ -140,17 +140,12 @@
   display: none !important;
 }
 
-/* Hide the auto-rendered Tripla search bar overlay */
-tripla-search-bar,
-[class*="tripla-search"],
-[id*="tripla-search"],
-.triplaSearchBar,
-[class*="triplabot-search"] {
+/* Hide ONLY the auto-rendered Tripla search bar overlay.
+   Do NOT hide Tripla popups/modals — they must render when CTA is clicked. */
+tripla-search-bar {
   display: none !important;
-  visibility: hidden !important;
   height: 0 !important;
   overflow: hidden !important;
-  pointer-events: none !important;
 }
 
 /* ============================================

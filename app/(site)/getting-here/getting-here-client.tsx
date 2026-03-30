@@ -223,13 +223,33 @@ export default function GettingHereClient() {
                     <>
                       <li>Taksi dari pelabuhan ke Floating Paradise: Rp 150.000 (dibayar langsung ke sopir, tunai)</li>
                       <li>Waktu tempuh: ~15 menit</li>
-                      <li>Sewa skuter: Rp 100.000/hari, termasuk helm</li>
+                      <li>
+                        Sewa skuter: Rp 100.000/hari, termasuk helm. Kami sangat menyarankan para tamu untuk menyewa dari
+                        Floating setelah menurunkan barang bawaan dan melihat kondisi jalan. Jika Anda mahir dan membawa
+                        barang bawaan yang cukup kecil untuk dibawa ke atas kapal, kami dapat menyiapkan skuter untuk Anda
+                        di pelabuhan.
+                      </li>
+                      <li>
+                        Harap diperhatikan bahwa ada biaya masuk Taman Nasional sebesar Rp200.000 yang harus dibayar tunai
+                        saat Anda tiba. Tiket ini akan memberi Anda akses gratis ke Suaka Penyu, Trekking Hutan Bakau, dan
+                        jalur pendakian Taman Nasional lainnya, jadi pastikan Anda menyimpannya.
+                      </li>
                     </>
                   ) : (
                     <>
                       <li>Taxi from harbour to Floating Paradise: Rp 150,000 (paid directly to driver, cash)</li>
                       <li>Journey time: ~15 minutes</li>
-                      <li>Scooter rental: Rp 100,000/day, helmets included</li>
+                      <li>
+                        Scooter rental: Rp 100,000/day, helmets included. We strongly recommend renting through Floating
+                        after you’ve dropped your bags and seen the road conditions. If you’re confident on a scooter and
+                        travelling light (small enough to take your luggage on the boat), we can arrange a scooter for you
+                        at the harbour.
+                      </li>
+                      <li>
+                        National Park entrance fee: Rp 200,000 (cash, paid on arrival). This ticket gives you free access
+                        to the Turtle Sanctuary, Mangrove Forest Trek, and other National Park hiking trails, so please keep
+                        it.
+                      </li>
                     </>
                   )}
                 </ul>

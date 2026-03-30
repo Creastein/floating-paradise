@@ -68,7 +68,7 @@ export default function GettingHereClient() {
       <PageHero 
         title={language === 'id' ? "Perjalanan Anda ke Floating" : "Your Journey to Floating"}
         subtitle={language === 'id' ? "Floating Paradise terletak di Karimunjawa, sebuah kepulauan yang dilindungi dengan 27 pulau di Laut Jawa. Perjalanan ke sini adalah bagian dari petualangan — izinkan kami memandu Anda langkah demi langkah." : "Floating Paradise is located in Karimunjawa, a protected archipelago of 27 islands in the Java Sea. Getting here is part of the adventure — let us guide you step by step."}
-        backgroundImage="/image/getting-here/gh2.webp"
+        backgroundImage="/image/getting-here/gh-hero.webp"
         fullHeight
       />
 

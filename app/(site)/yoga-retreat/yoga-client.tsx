@@ -538,7 +538,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                 {/* Main room photo */}
                 <div className="relative h-80 md:h-[32rem] w-full overflow-hidden">
                   <Image
-                    src="/image/bungalows/bayside/bayside1.webp"
+                    src="/image/bungalows/bayside/Bayside1.jpg"
                     alt="Bayside Bungalow"
                     fill
                     className="object-cover"
@@ -555,9 +555,9 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                   {/* Detail photo column */}
                   <div className="flex flex-row md:flex-col items-center justify-center gap-4 p-6 bg-muted/20 border-b md:border-b-0 md:border-r border-[#D8C3A5]/20">
                     {[
-                      "/image/bungalows/bayside/bayside2.webp",
-                      "/image/bungalows/bayside/bayside5.webp",
-                      "/image/bungalows/bayside/bayside8.webp",
+                      "/image/bungalows/bayside/Bayside2.jpg",
+                      "/image/bungalows/bayside/Bayside5.jpg",
+                      "/image/bungalows/bayside/Bayside8.jpg",
                     ].map((src, i) => (
                       <div key={i} className="relative w-32 h-32 md:w-[9rem] md:h-[9rem] rounded-full overflow-hidden shrink-0 border-2 border-[#D8C3A5]/50 shadow-sm">
                         <Image src={src} alt={`Bayside detail ${i + 1}`} fill className="object-cover" sizes="112px" />

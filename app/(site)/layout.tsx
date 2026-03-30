@@ -123,12 +123,29 @@ export default async function RootLayout({
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
                 }, true);
 
-                window.__openTriplaBooking = function(){
+                window.__openTriplaBooking = function(roomId){
                   bookingActive = true;
                   var el = document.querySelector('tripla-search-bar');
                   unhideEl(el);
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
+
+                  if(roomId){
+                    var attempts = 0;
+                    var patchInterval = setInterval(function(){
+                      attempts++;
+                      var iframe = document.getElementById('tripla-booking-widget-window');
+                      if(iframe && iframe.src && iframe.src.indexOf('bw.tripla.ai') !== -1){
+                        clearInterval(patchInterval);
+                        var url = new URL(iframe.src);
+                        if(!url.searchParams.has('room_type_ids[]')){
+                          url.searchParams.set('room_type_ids[]', roomId);
+                          iframe.src = url.toString();
+                        }
+                      }
+                      if(attempts > 50) clearInterval(patchInterval);
+                    }, 200);
+                  }
                 };
 
                 var bodyObs = new MutationObserver(function(){ hideAll(); });

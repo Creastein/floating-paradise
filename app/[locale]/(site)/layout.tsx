@@ -143,12 +143,30 @@ export default async function RootLayout({
                 }, true);
 
                 // Also expose global helper for programmatic triggers
-                window.__openTriplaBooking = function(){
+                window.__openTriplaBooking = function(roomId){
                   bookingActive = true;
                   var el = document.querySelector('tripla-search-bar');
                   unhideEl(el);
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
+
+                  // If a roomId is provided, watch for the Tripla iframe and inject room_type_ids
+                  if(roomId){
+                    var attempts = 0;
+                    var patchInterval = setInterval(function(){
+                      attempts++;
+                      var iframe = document.getElementById('tripla-booking-widget-window');
+                      if(iframe && iframe.src && iframe.src.indexOf('bw.tripla.ai') !== -1){
+                        clearInterval(patchInterval);
+                        var url = new URL(iframe.src);
+                        if(!url.searchParams.has('room_type_ids[]')){
+                          url.searchParams.set('room_type_ids[]', roomId);
+                          iframe.src = url.toString();
+                        }
+                      }
+                      if(attempts > 50) clearInterval(patchInterval);
+                    }, 200);
+                  }
                 };
 
                 var bodyObs = new MutationObserver(function(){ hideAll(); });

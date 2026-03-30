@@ -7,7 +7,7 @@ import PageHero from '@/components/page-hero'
 import Lightbox from '@/components/lightbox'
 import Image from 'next/image'
 import { Check, Camera } from 'lucide-react'
-import { getTriplaRoomUrl, type RoomKey } from '@/lib/tripla'
+import { TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
 import { gsap } from '@/lib/gsap-init'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
@@ -46,14 +46,14 @@ const ROOM_GALLERIES = {
     '/image/bungalows/sunset/Sunset7.webp',
   ],
   bayside: [
-    '/image/bungalows/bayside/bayside1.webp',
-    '/image/bungalows/bayside/bayside2.webp',
-    '/image/bungalows/bayside/bayside3.webp',
-    '/image/bungalows/bayside/bayside9.webp',
-    '/image/bungalows/bayside/bayside5.webp',
-    '/image/bungalows/bayside/bayside6.webp',
-    '/image/bungalows/bayside/bayside7.webp',
-    '/image/bungalows/bayside/bayside8.webp',
+    '/image/bungalows/bayside/Bayside1.jpg',
+    '/image/bungalows/bayside/Bayside2.jpg',
+    '/image/bungalows/bayside/Bayside3.jpg',
+    '/image/bungalows/bayside/Bayside9.jpg',
+    '/image/bungalows/bayside/Bayside5.jpg',
+    '/image/bungalows/bayside/Bayside6.jpg',
+    '/image/bungalows/bayside/Bayside7.jpg',
+    '/image/bungalows/bayside/Bayside8.jpg',
   ],
 }
 
@@ -330,9 +330,10 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                     type="button"
                     data-tripla-booking-widget="search"
                     onClick={() => {
+                      const roomId = TRIPLA_ROOM_IDS[room.roomKey]
                       sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_page_${room.name.toLowerCase().replace(/ /g, '_')}` })
                       if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
-                        (window as any).__openTriplaBooking()
+                        (window as any).__openTriplaBooking(roomId)
                       }
                     }}
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"

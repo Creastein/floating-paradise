@@ -28,7 +28,7 @@ export default function PageHero({
           sizes="100vw"
           quality={80}
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
       </div>
 
       {/* Content with fade-up entrance */}

@@ -230,7 +230,7 @@ export default async function RootLayout({
                 var iv = setInterval(function(){
                   hideAll();
                   c++;
-                  if(c > 60){ clearInterval(iv); bodyObs.disconnect(); }
+                  if(c > 60){ clearInterval(iv); }
                 }, 500);
               })();
             `}</Script>

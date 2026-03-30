@@ -137,7 +137,11 @@
    Using visibility+opacity instead of display:none to keep it in the DOM
    (prevents Tripla SDK errors). Position off-screen as extra safety.
    The :not(.tripla-active) allows JS to unhide by adding the class. */
-tripla-search-bar:not(.tripla-active) {
+tripla-search-bar:not(.tripla-active),
+div[class*="tripla-search"]:not(.tripla-active),
+div[id*="tripla-search"]:not(.tripla-active),
+div[class*="triplaSearchBar"]:not(.tripla-active),
+div[class*="tripla_search"]:not(.tripla-active) {
   visibility: hidden !important;
   opacity: 0 !important;
   height: 0 !important;
@@ -148,9 +152,14 @@ tripla-search-bar:not(.tripla-active) {
   left: -9999px !important;
   pointer-events: none !important;
   z-index: -1 !important;
+  clip-path: inset(100%) !important;
 }
 
-tripla-search-bar.tripla-active {
+tripla-search-bar.tripla-active,
+div[class*="tripla-search"].tripla-active,
+div[id*="tripla-search"].tripla-active,
+div[class*="triplaSearchBar"].tripla-active,
+div[class*="tripla_search"].tripla-active {
   visibility: visible !important;
   opacity: 1 !important;
   height: auto !important;
@@ -161,6 +170,7 @@ tripla-search-bar.tripla-active {
   left: auto !important;
   pointer-events: auto !important;
   z-index: 99999 !important;
+  clip-path: none !important;
 }
 
 /* ============================================

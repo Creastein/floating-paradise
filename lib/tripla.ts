@@ -25,8 +25,25 @@
 
 export const TRIPLA_CODE = '019c5054-aa76-72af-8207-e3dd1c280fa3'
 
-/** Main room booking page */
+export const TRIPLA_FACILITY_ID = '8558'
+
+/** Room Type IDs — must match Tripla dashboard configuration */
+export const TRIPLA_ROOM_IDS = {
+  sunrise: '36939',
+  sunset:  '36940',
+  bayside: '36941',
+} as const
+
+export type RoomKey = keyof typeof TRIPLA_ROOM_IDS
+
+/** Main room booking page (generic — shows all rooms) */
 export const TRIPLA_BOOKING_URL = `https://triplabot-production.tripla.ai/booking/result?code=${TRIPLA_CODE}`
+
+/** Generate a room-specific Tripla booking URL */
+export function getTriplaRoomUrl(roomKey: RoomKey): string {
+  const roomId = TRIPLA_ROOM_IDS[roomKey]
+  return `${TRIPLA_BOOKING_URL}&room_type_ids[]=${roomId}`
+}
 
 /** Extras / add-on services page (boat tickets, kayak, trekking, etc.) */
 export const TRIPLA_EXTRAS_URL = `${TRIPLA_BOOKING_URL}&type=extra_services`
@@ -34,3 +51,4 @@ export const TRIPLA_EXTRAS_URL = `${TRIPLA_BOOKING_URL}&type=extra_services`
 // LOKAL10 — local guest discount, distributed via offline/WhatsApp only
 export const PROMO_CODE_LOCAL = 'LOKAL10'
 export const PROMO_DISCOUNT_PERCENT = 10
+

@@ -76,16 +76,45 @@ export default async function RootLayout({
             />
             <Script id="tripla-hide-searchbar" strategy="afterInteractive">{`
               (function(){
-                function hideTriplaSearchBar(){
-                  var el = document.querySelector('tripla-search-bar');
-                  if(el){
-                    el.style.cssText = 'display:none !important;height:0 !important;overflow:hidden !important;';
+                var HIDE_CSS = 'visibility:hidden !important;opacity:0 !important;height:0 !important;max-height:0 !important;width:0 !important;overflow:hidden !important;position:fixed !important;top:-9999px !important;left:-9999px !important;pointer-events:none !important;z-index:-1 !important;clip-path:inset(100%) !important;';
+                function hideEl(el){
+                  if(el && el.style.cssText !== HIDE_CSS){
+                    el.style.cssText = HIDE_CSS;
+                    el.setAttribute('aria-hidden','true');
+                  }
+                  if(el && el.shadowRoot){
+                    var sid = 'tripla-hide-injected';
+                    if(!el.shadowRoot.getElementById(sid)){
+                      var s = document.createElement('style');
+                      s.id = sid;
+                      s.textContent = ':host{visibility:hidden!important;opacity:0!important;height:0!important;width:0!important;overflow:hidden!important;position:fixed!important;top:-9999px!important;pointer-events:none!important;clip-path:inset(100%)!important} *{visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;pointer-events:none!important}';
+                      el.shadowRoot.prepend(s);
+                    }
                   }
                 }
-                var observer = new MutationObserver(function(){ hideTriplaSearchBar(); });
-                observer.observe(document.body,{childList:true,subtree:true});
-                hideTriplaSearchBar();
-                setTimeout(function(){ observer.disconnect(); },15000);
+                function hideAll(){
+                  var el = document.querySelector('tripla-search-bar');
+                  if(el) hideEl(el);
+                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(hideEl);
+                }
+                var bodyObs = new MutationObserver(function(){ hideAll(); });
+                bodyObs.observe(document.body,{childList:true,subtree:true});
+                function watchElement(){
+                  var el = document.querySelector('tripla-search-bar');
+                  if(el){
+                    hideEl(el);
+                    var attrObs = new MutationObserver(function(){ hideEl(el); });
+                    attrObs.observe(el,{attributes:true,attributeFilter:['style','class']});
+                  }
+                }
+                hideAll();
+                var c = 0;
+                var iv = setInterval(function(){
+                  hideAll();
+                  watchElement();
+                  c++;
+                  if(c > 60){ clearInterval(iv); bodyObs.disconnect(); }
+                }, 500);
               })();
             `}</Script>
           </LanguageProvider>

@@ -162,7 +162,7 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
             </div>
             
             {/* Body Paragraphs */}
-            <div className="text-foreground/80 space-y-1 md:space-y-2 text-lg text-justify md:text-left leading-relaxed">
+            <div className="text-foreground/80 space-y-1 md:space-y-2 text-lg text-justify leading-relaxed">
               {text ? (
                 <PortableText 
                   value={text} 

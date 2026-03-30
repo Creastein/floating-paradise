@@ -38,7 +38,6 @@ const lodgingJsonLd = {
     "Private bungalows",
     "Natural ventilation",
   ],
-  priceRange: "Rp 990,000 - Rp 2,600,000",
   image: "https://floatingparadise.id/og-image.png",
   sameAs: [
     "https://www.instagram.com/floatingparadise",

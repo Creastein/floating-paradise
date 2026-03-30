@@ -133,7 +133,8 @@
 
 /* ============================================
    TRIPLA SDK — ACTIVE
-   Mount point hidden; auto-rendered search bar is hidden via JS MutationObserver.
+   Mount point hidden; search bar visually hidden but kept in DOM
+   so Tripla booking logic continues to work.
    Chatbot + CTA-triggered popups remain active.
    ============================================ */
 #tripla-widget-mount {
@@ -141,11 +142,19 @@
 }
 
 /* Hide ONLY the auto-rendered Tripla search bar overlay.
-   Do NOT hide Tripla popups/modals — they must render when CTA is clicked. */
+   Using visibility+opacity instead of display:none to keep it in the DOM
+   (prevents Tripla SDK errors). Position off-screen as extra safety. */
 tripla-search-bar {
-  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
   height: 0 !important;
+  width: 0 !important;
   overflow: hidden !important;
+  position: fixed !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
 }
 
 /* ============================================

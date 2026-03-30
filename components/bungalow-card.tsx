@@ -1,13 +1,14 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { sendGAEvent } from '@next/third-parties/google'
+import { getTriplaRoomUrl, type RoomKey } from '@/lib/tripla'
 
 interface BungalowCardProps {
   title: string
   image: string
   description: string
   features: string[]
-  price: string
+  roomKey: RoomKey
 }
 
 export default function BungalowCard({
@@ -15,7 +16,7 @@ export default function BungalowCard({
   image,
   description,
   features,
-  price,
+  roomKey,
 }: BungalowCardProps) {
   return (
     <div className="bg-background rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
@@ -30,12 +31,9 @@ export default function BungalowCard({
         />
       </div>
       <div className="p-8">
-        <h3 className="font-serif text-2xl font-bold text-foreground mb-2">
+        <h3 className="font-serif text-2xl font-bold text-foreground mb-4">
           {title}
         </h3>
-        <p className="text-sm text-accent font-semibold mb-3">
-          From {price} per night
-        </p>
         <p className="text-foreground/70 text-sm leading-relaxed mb-6">
           {description}
         </p>
@@ -49,8 +47,10 @@ export default function BungalowCard({
         </div>
         <button
           type="button"
-          data-tripla-booking-widget="search"
-          onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalow_card_${title.toLowerCase().replace(/ /g, '_')}` })}
+          onClick={() => {
+            sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalow_card_${title.toLowerCase().replace(/ /g, '_')}` })
+            window.open(getTriplaRoomUrl(roomKey), '_blank', 'noopener,noreferrer')
+          }}
           className="block w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all font-semibold text-center"
         >
           Check Availability

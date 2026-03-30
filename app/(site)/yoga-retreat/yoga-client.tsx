@@ -11,6 +11,7 @@ import { AutoSlideshow } from "@/components/ui/auto-slideshow"
 import { AnimatedTimeline } from "@/components/ui/animated-timeline"
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
+import { YOGA_RETREAT_NAME } from '@/lib/constants'
 
 interface YogaClientProps {
   cmsData: any
@@ -43,7 +44,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
             {y.heroSubtitle}
           </p>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold animate-hero-text-reveal text-primary-foreground">
-            {y.heroTitle}
+            {YOGA_RETREAT_NAME}
           </h1>
           <p className="text-xl md:text-2xl font-light tracking-wide text-primary-foreground/90 animate-hero-subtitle-reveal">
             {y.heroDate}

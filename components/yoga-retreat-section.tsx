@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRef, useEffect } from 'react'
 import { gsap } from '@/lib/gsap-init'
 import { useLanguage } from '@/lib/i18n/language-context'
+import { YOGA_RETREAT_NAME } from '@/lib/constants'
 
 export default function YogaRetreatSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -15,6 +16,9 @@ export default function YogaRetreatSection() {
   const yogaRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const { t } = useLanguage()
+  const retreatWords = YOGA_RETREAT_NAME.split(' ')
+  const retreatLead = retreatWords.slice(0, -1).join(' ')
+  const retreatEmphasis = retreatWords.at(-1) || ''
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -117,8 +121,11 @@ export default function YogaRetreatSection() {
               {/* Title — Mixed serif with italic */}
               <h2 
                 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-foreground font-medium leading-tight"
-                dangerouslySetInnerHTML={{ __html: t.yoga.artOfFloating }}
-              />
+              >
+                {retreatLead}
+                <br />
+                <span className="italic text-primary/80">{retreatEmphasis}</span>
+              </h2>
             </div>
 
             {/* Date */}

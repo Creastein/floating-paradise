@@ -6,7 +6,6 @@ export const bungalowType = defineType({
   type: 'document',
   groups: [
     { name: 'content', title: '📝 Content & Description' },
-    { name: 'pricing', title: '💰 Pricing' },
     { name: 'media', title: '🖼️ Gallery' },
     { name: 'booking', title: '📋 Booking & Capacity' },
   ],
@@ -61,22 +60,6 @@ export const bungalowType = defineType({
       type: 'array',
       of: [{ type: 'string' }],
       group: 'content',
-    }),
-
-    // ── Pricing ───────────────────────────────────────
-    defineField({
-      name: 'priceIDR',
-      title: 'Starting Price per night (IDR)',
-      description: 'Lowest rate. Example: 990000 (do not include commas or dots).',
-      type: 'number',
-      group: 'pricing',
-    }),
-    defineField({
-      name: 'priceIDRMax',
-      title: 'Maximum Price per night (IDR)',
-      description: 'Highest rate. Example: 1620000 (do not include commas or dots).',
-      type: 'number',
-      group: 'pricing',
     }),
 
 

@@ -9,7 +9,7 @@ export const homepageQuery = defineQuery(`
 `)
 
 export const bungalowsQuery = defineQuery(`
-  *[_type == "bungalow"] | order(priceIDR asc)
+  *[_type == "bungalow"] | order(name asc)
 `)
 
 export const activitiesQuery = defineQuery(`

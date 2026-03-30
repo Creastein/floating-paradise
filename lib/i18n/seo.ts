@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import en from "./translations/en.json"
 import id from "./translations/id.json"
+import { YOGA_RETREAT_NAME } from "../constants"
 
 const translations = { en, id }
 
@@ -17,7 +18,11 @@ export function generatePageSeo(
   pageKey: string, 
   path: string = ""
 ): Metadata {
-  const title = getSeoValue(locale, `seo.${pageKey}.title`)
+  const rawTitle = getSeoValue(locale, `seo.${pageKey}.title`)
+  const title =
+    pageKey === "yoga"
+      ? [YOGA_RETREAT_NAME, rawTitle].filter(Boolean).join(" — ")
+      : rawTitle
   const description = getSeoValue(locale, `seo.${pageKey}.description`)
   const keywords = getSeoValue(locale, `seo.${pageKey}.keywords`)
   

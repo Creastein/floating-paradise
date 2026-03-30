@@ -7,6 +7,7 @@ import { gsap } from '@/lib/gsap-init'
 import { urlFor } from '@/lib/sanity.image'
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
+import { getTriplaRoomUrl, type RoomKey } from '@/lib/tripla'
 import { sendGAEvent } from '@next/third-parties/google'
 
 type BungalowsSectionProps = {
@@ -46,6 +47,14 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
 
   // Use CMS data if available, fallback to defaults
   const displayBungalows = cmsBungalows && cmsBungalows.length > 0 ? cmsBungalows.slice(0, 3) : defaultBungalows
+
+  /** Map bungalow name to RoomKey for Tripla URL */
+  const getRoomKey = (name: string): RoomKey => {
+    const lower = name.toLowerCase()
+    if (lower.includes('sunrise')) return 'sunrise'
+    if (lower.includes('sunset')) return 'sunset'
+    return 'bayside'
+  }
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -200,9 +209,17 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {displayBungalows.map((bungalow, index) => {
+            // Name-based fallback so each card always gets the correct photo
+            const fallbackByName: Record<string, string> = {
+              'Bayside Bungalow': '/image/homepage/Bayside-home.webp',
+              'Sunrise Bungalow': '/image/homepage/Sunrise-home.webp',
+              'Sunset Bungalow':  '/image/homepage/Sunset-home.webp',
+            }
+            const localFallback = fallbackByName[bungalow.name] || '/image/homepage/Sunrise-home.webp'
+
             const imgSrc = bungalow.gallery?.[0] ? urlFor(bungalow.gallery[0]).url() 
                          : bungalow.mainImage ? urlFor(bungalow.mainImage).url() 
-                         : bungalow.image;
+                         : bungalow.image || localFallback;
             
             return (
             <div key={index} className="bungalow-card group cursor-pointer flex flex-col h-full bg-[#f5efe6] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-700">
@@ -247,8 +264,10 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
                 <div className="mt-6 pt-5 border-t border-primary/20">
                 <button 
                     type="button"
-                    data-tripla-booking-widget="search"
-                    onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_section_${bungalow.name.toLowerCase().replace(/ /g, '_')}` })}
+                    onClick={() => {
+                      sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_section_${bungalow.name.toLowerCase().replace(/ /g, '_')}` })
+                      window.open(getTriplaRoomUrl(getRoomKey(bungalow.name)), '_blank', 'noopener,noreferrer')
+                    }}
                     className="inline-flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-xs font-bold text-primary hover:text-foreground transition-colors duration-700 w-full"
                   >
                     {t.bungalows.bookRoom} <span className="text-lg opacity-80">&rarr;</span>

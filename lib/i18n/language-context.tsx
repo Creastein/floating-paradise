@@ -23,18 +23,12 @@ export function LanguageProvider({ children, initialLocale = "en" }: { children:
 
   useEffect(() => {
     setIsMounted(true)
-    // Synchronize state if URL gives a different locale
-    if (initialLocale !== language) {
-      setLanguage(initialLocale)
-    }
+    // Synchronize state from URL locale (e.g. after navigation completes)
+    setLanguage(initialLocale)
     
-    // Auto-detect is handled by Next.js middleware / proxy.ts for the root path
-    // We just ensure localStorage is updated if missing
-    const stored = localStorage.getItem("fp-language") as Language | null
-    if (!stored || stored !== initialLocale) {
-      localStorage.setItem("fp-language", initialLocale)
-    }
-  }, [initialLocale, language])
+    // Sync localStorage
+    localStorage.setItem("fp-language", initialLocale)
+  }, [initialLocale])
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang)

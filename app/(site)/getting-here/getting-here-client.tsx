@@ -161,7 +161,7 @@ export default function GettingHereClient() {
               <div className="bg-[#e8efe9] p-8 rounded-2xl space-y-6 mt-8">
                 <h3 className="font-serif text-2xl font-bold text-foreground">{language === 'id' ? 'Pesan Melalui Floating' : 'Book Through Floating'}</h3>
                 <div className="text-foreground/80 font-light leading-relaxed space-y-4">
-                  <p>{language === 'id' ? 'Kami menawarkan layanan pemesanan tiket gratis untuk semua tamu kami. Biarkan kami yang mengurus logistik sehingga Anda tidak perlu repot mencari situs pemesanan lokal atau mengantre di pelabuhan.' : 'We offer a complimentary ticketing service for all our guests. Let us handle the logistics so you don\'t have to navigate local booking sites or harbour queues.'}</p>
+                  <p>{language === 'id' ? 'Kami menawarkan layanan pemesanan tiket berbayar (dengan biaya tambahan) untuk tamu kami. Biarkan kami yang mengurus logistik sehingga Anda tidak perlu repot mencari situs pemesanan lokal atau mengantre di pelabuhan.' : 'We offer a ticketing service for our guests with a surcharge. Let us handle the logistics so you don\'t have to navigate local booking sites or harbour queues.'}</p>
                   <p className="font-medium text-foreground">{language === 'id' ? 'Cukup kirimkan tanggal perjalanan, email, dan salinan paspor/KTP Anda — kami akan mengamankan kursi Anda dengan tiket boarding QR. Tanpa antre.' : 'Simply send us your travel dates, email, and passport copies — we\'ll secure your seats with a QR boarding card. No queuing required.'}</p>
                   
                   {/* WhatsApp Contact */}
@@ -180,12 +180,12 @@ export default function GettingHereClient() {
 
                   <div className="bg-background/50 p-4 rounded-lg">
                     <p className="text-sm italic text-foreground/70">
-                      {language === 'id' ? 'Kami hanya memesankan tiket untuk tamu dengan reservasi terkonfirmasi di Floating Paradise.' : 'We only book tickets for guests with confirmed reservations at Floating Paradise.'}
+                      {language === 'id' ? 'Kami dapat membantu mengatur tiket untuk siapa pun.' : 'We can help arrange tickets for anyone.'}
                     </p>
                   </div>
                 </div>
                 <a
-                  href={`https://wa.me/${waGeneral}?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan tiket kapal ke Karimunjawa. Bisa bantu? Terima kasih!' : "Hi, I'd like to book a boat ticket to Karimunjawa. Could you help? Thank you!")}`}
+                  href={`https://wa.me/${waGeneral}?text=${encodeURIComponent(language === 'id' ? 'Halo, saya ingin memesan tiket kapal ke Karimunjawa melalui Floating. Mohon info ketersediaan dan biaya tambahannya ya. Terima kasih!' : "Hi, I'd like to book a boat ticket to Karimunjawa through Floating. Could you confirm availability and the surcharge? Thank you!")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-md cursor-pointer"

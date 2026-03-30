@@ -7,7 +7,7 @@ import PageHero from '@/components/page-hero'
 import Lightbox from '@/components/lightbox'
 import Image from 'next/image'
 import { Check, Camera } from 'lucide-react'
-import { TRIPLA_BOOKING_URL } from '@/lib/tripla'
+import { getTriplaRoomUrl, type RoomKey } from '@/lib/tripla'
 import { gsap } from '@/lib/gsap-init'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
@@ -16,12 +16,12 @@ import { sendGAEvent } from '@next/third-parties/google'
 
 interface DisplayRoom {
   name: string
+  roomKey: RoomKey
   description: string | any
   image: string
   reverse: boolean
   guests: string
   size: string
-  price: string
   gallery: string[]
   triplaUrl?: string
   features?: string[]
@@ -69,32 +69,32 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
   const ROOMS: DisplayRoom[] = [
     {
       name: 'Sunrise Bungalow',
+      roomKey: 'sunrise',
       description: t.bungalowsPage.rooms.sunrise.description,
       image: '/image/homepage/Sunrise-home.webp',
       reverse: false,
       guests: '2',
       size: '4 x 8 m',
-      price: `Rp 1,125,000 – 1,850,000 / ${t.bungalowsPage.night}`,
       gallery: ROOM_GALLERIES.sunrise,
     },
     {
       name: 'Sunset Bungalow',
+      roomKey: 'sunset',
       description: t.bungalowsPage.rooms.sunset.description,
       image: '/image/homepage/Sunset-home.webp',
       reverse: true,
       guests: '2',
       size: '4 x 8 m',
-      price: `Rp 990,000 – 1,620,000 / ${t.bungalowsPage.night}`,
       gallery: ROOM_GALLERIES.sunset,
     },
     {
       name: 'Bayside Bungalow',
+      roomKey: 'bayside',
       description: t.bungalowsPage.rooms.bayside.description,
       image: '/image/homepage/Bayside-home.webp',
       reverse: false,
       guests: '4',
       size: '5.5 x 10 m',
-      price: `Rp 1,900,000 – 2,600,000 / ${t.bungalowsPage.night}`,
       gallery: ROOM_GALLERIES.bayside,
     },
   ]
@@ -116,12 +116,13 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
     return {
       ...room,
       name: cmsBungalow.name || room.name,
+      roomKey: room.roomKey,
       description: getCmsValue(cmsBungalow, 'description', room.description),
       // Always use hardcoded image & gallery for consistent layout across languages
       image: room.image,
       guests: cmsBungalow.maxGuests?.toString() || room.guests,
       gallery: room.gallery,
-      triplaUrl: cmsBungalow.triplaUrl || TRIPLA_BOOKING_URL,
+      triplaUrl: cmsBungalow.triplaUrl || getTriplaRoomUrl(room.roomKey),
       features: cmsBungalow.features || ROOM_FACILITIES,
     }
   });
@@ -323,16 +324,14 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                       <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{t.bungalowsPage.size}</span>
                       <span className="text-white font-medium">{room.size}</span>
                     </div>
-                    <div className="flex flex-col border-l-2 border-[#D8C3A5] pl-4">
-                      <span className="text-[#D8C3A5] text-xs uppercase tracking-wider mb-1">{t.bungalowsPage.priceNight}</span>
-                      <span className="text-white font-medium">{room.price}</span>
-                    </div>
                   </div>
                   
                   <button
                     type="button"
-                    data-tripla-booking-widget="search"
-                    onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_page_${room.name.toLowerCase().replace(/ /g, '_')}` })}
+                    onClick={() => {
+                      sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_page_${room.name.toLowerCase().replace(/ /g, '_')}` })
+                      window.open(getTriplaRoomUrl(room.roomKey), '_blank', 'noopener,noreferrer')
+                    }}
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"
                   >
                     {t.bungalowsPage.bookNow}

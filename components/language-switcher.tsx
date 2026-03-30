@@ -3,6 +3,7 @@
 import { useLanguage } from "@/lib/i18n/language-context"
 import { motion } from "framer-motion"
 import { useRouter, usePathname } from "next/navigation"
+import { useTransition } from "react"
 
 interface LanguageSwitcherProps {
   className?: string
@@ -11,23 +12,33 @@ interface LanguageSwitcherProps {
 
 export default function LanguageSwitcher({ className = "", isSolid = true }: LanguageSwitcherProps) {
   const { language, setLanguage } = useLanguage()
+  const [isPending, startTransition] = useTransition()
 
   const router = useRouter()
   const pathname = usePathname()
 
   const toggleLanguage = () => {
     const newLang = language === "en" ? "id" : "en"
+    
+    // Update context immediately for instant UI feedback (pill animation, text change)
     setLanguage(newLang)
     
     if (pathname) {
-      // Replace the first URL segment which represents the locale
+      // Build the new path
       const parts = pathname.split('/')
+      let newPath: string
       if (parts[1] === 'en' || parts[1] === 'id') {
         parts[1] = newLang
-        router.push(parts.join('/'))
+        newPath = parts.join('/')
       } else {
-        router.push(`/${newLang}${pathname}`)
+        newPath = `/${newLang}${pathname}`
       }
+      
+      // Use startTransition so the route change doesn't block the UI
+      // Use replace instead of push to avoid cluttering browser history
+      startTransition(() => {
+        router.replace(newPath, { scroll: false })
+      })
     }
   }
 

@@ -428,7 +428,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                   {/* Description + Pricing */}
                   <div className="p-7 md:p-8 space-y-6">
                     <p className="text-foreground/65 font-light text-sm leading-relaxed">
-                      Bungalow paling privat dan paling dicari, dengan panorama laut luas dan semilir angin laut yang bisa Anda nikmati langsung dari ranjang king-size. Kamar double yang berdiri sendiri ini dilengkapi kipas angin plafon, kelambu, dan jendela yang dapat dibuka untuk sirkulasi alami. Kamar mandi pribadi memiliki shower air tawar bertekanan, toilet flush, dan wastafel. Balkon pribadi dengan meja dan kursi melengkapi ruang ini.
+                      {y.packageSunriseDesc}
                     </p>
 
                     <div className="space-y-3 border-t border-[#D8C3A5]/30 pt-5">
@@ -500,7 +500,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                   {/* Description + Pricing */}
                   <div className="p-7 md:p-8 space-y-6">
                     <p className="text-foreground/65 font-light text-sm leading-relaxed">
-                      Seluruh hati kami tercurah untuk menghadirkan bungalow mandiri pertama Floating, dan kami berharap Anda merasakan pesonanya seperti kami. Bungalow ini menawarkan panorama laut yang luas sekaligus pemandangan matahari terbenam di sepanjang teluk. Kamar double yang berdiri sendiri ini dilengkapi kipas angin plafon, kelambu, dan jendela yang dapat dibuka untuk sirkulasi alami. Kamar mandi pribadi memiliki shower air tawar bertekanan, toilet flush, dan wastafel. Balkon pribadi dengan meja dan kursi melengkapi ruang ini.
+                      {y.packageSunsetDesc}
                     </p>
 
                     <div className="space-y-3 border-t border-[#D8C3A5]/30 pt-5">
@@ -572,7 +572,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                   {/* Description + Pricing */}
                   <div className="p-7 md:p-8 space-y-6">
                     <p className="text-foreground/65 font-light text-sm leading-relaxed">
-                      Awalnya merupakan ruang privat keluarga kami, Bayside kini berkembang menjadi bungalow dua kamar yang lapang, tempat Anda dapat mandi dengan pemandangan hutan mangrove di timur dan laut yang mengalir lembut ke teluk di barat. Bayside memiliki pintu geser yang terbuka ke teras luas, kipas angin plafon, kelambu, serta kamar mandi lengkap - ideal untuk kelompok kecil 2-4 orang yang ingin berbagi pengalaman bersama.
+                      {y.packageBaysideDesc}
                     </p>
 
                     <div className="space-y-3 border-t border-[#D8C3A5]/30 pt-5">

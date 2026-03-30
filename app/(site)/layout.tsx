@@ -131,22 +131,91 @@ export default async function RootLayout({
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
 
                   if(roomId){
-                    var attempts = 0;
-                    var patchInterval = setInterval(function(){
-                      attempts++;
-                      var iframe = document.getElementById('tripla-booking-widget-window');
-                      if(iframe && iframe.src && iframe.src.indexOf('bw.tripla.ai') !== -1){
-                        clearInterval(patchInterval);
-                        var url = new URL(iframe.src);
-                        if(!url.searchParams.has('room_type_ids[]')){
-                          url.searchParams.set('room_type_ids[]', roomId);
-                          iframe.src = url.toString();
+                    window.__triplaDesiredRoomId = roomId;
+
+                    if(window.__triplaRoomObserver){
+                      window.__triplaRoomObserver.disconnect();
+                      window.__triplaRoomObserver = null;
+                    }
+
+                    function findTriplaIframe(){
+                      var iframe = document.querySelector('iframe[src*="tripla"]')
+                                || document.getElementById('tripla-booking-widget-window');
+                      if(iframe) return iframe;
+                      var hosts = document.querySelectorAll('tripla-search-bar, tripla-booking, [class*="tripla"]');
+                      for(var i = 0; i < hosts.length; i++){
+                        if(hosts[i].shadowRoot){
+                          iframe = hosts[i].shadowRoot.querySelector('iframe');
+                          if(iframe) return iframe;
+                          var nested = hosts[i].shadowRoot.querySelectorAll('*');
+                          for(var j = 0; j < nested.length; j++){
+                            if(nested[j].shadowRoot){
+                              iframe = nested[j].shadowRoot.querySelector('iframe');
+                              if(iframe) return iframe;
+                            }
+                          }
                         }
                       }
-                      if(attempts > 50) clearInterval(patchInterval);
-                    }, 200);
+                      return null;
+                    }
+
+                    function patchIframe(){
+                      var iframe = findTriplaIframe();
+                      if(!iframe || !iframe.src) return false;
+                      try {
+                        var url = new URL(iframe.src);
+                        if(url.searchParams.get('room_type_ids[]') === roomId) return true;
+                        url.searchParams.delete('room_type_ids[]');
+                        url.searchParams.set('room_type_ids[]', roomId);
+                        iframe.src = url.toString();
+                        return true;
+                      } catch(e){ return false; }
+                    }
+
+                    if(!patchIframe()){
+                      var observer = new MutationObserver(function(){
+                        if(patchIframe()){
+                          observer.disconnect();
+                          window.__triplaRoomObserver = null;
+                        }
+                      });
+                      observer.observe(document.body, {
+                        childList: true,
+                        subtree: true,
+                        attributes: true,
+                        attributeFilter: ['src']
+                      });
+                      window.__triplaRoomObserver = observer;
+                      setTimeout(function(){
+                        observer.disconnect();
+                        window.__triplaRoomObserver = null;
+                      }, 120000);
+                    }
                   }
                 };
+
+                (function(){
+                  var origDesc = Object.getOwnPropertyDescriptor(HTMLIFrameElement.prototype, 'src');
+                  if(!origDesc || !origDesc.set) return;
+                  Object.defineProperty(HTMLIFrameElement.prototype, 'src', {
+                    set: function(val){
+                      if(window.__triplaDesiredRoomId && val){
+                        try {
+                          var u = new URL(val, location.origin);
+                          if(u.hostname.indexOf('tripla') !== -1){
+                            u.searchParams.delete('room_type_ids[]');
+                            u.searchParams.set('room_type_ids[]', window.__triplaDesiredRoomId);
+                            val = u.toString();
+                            window.__triplaDesiredRoomId = null;
+                          }
+                        } catch(e){}
+                      }
+                      origDesc.set.call(this, val);
+                    },
+                    get: origDesc.get,
+                    configurable: true
+                  });
+                })();
 
                 var bodyObs = new MutationObserver(function(){ hideAll(); });
                 bodyObs.observe(document.body,{childList:true,subtree:true});

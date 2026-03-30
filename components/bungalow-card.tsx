@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { sendGAEvent } from '@next/third-parties/google'
-import { getTriplaRoomUrl, type RoomKey } from '@/lib/tripla'
+import { getTriplaRoomUrl, TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
 
 interface BungalowCardProps {
   title: string
@@ -47,9 +47,12 @@ export default function BungalowCard({
         </div>
         <button
           type="button"
+          data-tripla-booking-widget="search"
           onClick={() => {
             sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalow_card_${title.toLowerCase().replace(/ /g, '_')}` })
-            window.open(getTriplaRoomUrl(roomKey), '_blank', 'noopener,noreferrer')
+            if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
+              (window as any).__openTriplaBooking(TRIPLA_ROOM_IDS[roomKey])
+            }
           }}
           className="block w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all font-semibold text-center"
         >

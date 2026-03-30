@@ -7,7 +7,7 @@ import { gsap } from '@/lib/gsap-init'
 import { urlFor } from '@/lib/sanity.image'
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
-import { TRIPLA_ROOM_IDS, getTriplaRoomUrl, type RoomKey } from '@/lib/tripla'
+import { TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
 import { sendGAEvent } from '@next/third-parties/google'
 
 type BungalowsSectionProps = {
@@ -274,10 +274,14 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
                 <div className="mt-6 pt-5 border-t border-primary/20">
                 <button 
                     type="button"
+                    data-tripla-booking-widget="search"
                     onClick={() => {
                       const roomKey = getRoomKey(bungalow.name)
+                      const roomId = TRIPLA_ROOM_IDS[roomKey]
                       sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_section_${bungalow.name.toLowerCase().replace(/ /g, '_')}` })
-                      window.open(getTriplaRoomUrl(roomKey), '_blank', 'noopener,noreferrer')
+                      if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
+                        (window as any).__openTriplaBooking(roomId)
+                      }
                     }}
                     className="inline-flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-xs font-bold text-primary hover:text-foreground transition-colors duration-700 w-full"
                   >

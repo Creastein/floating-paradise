@@ -7,7 +7,7 @@ import PageHero from '@/components/page-hero'
 import Lightbox from '@/components/lightbox'
 import Image from 'next/image'
 import { Check, Camera } from 'lucide-react'
-import { TRIPLA_ROOM_IDS, getTriplaRoomUrl, type RoomKey } from '@/lib/tripla'
+import { TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
 import { gsap } from '@/lib/gsap-init'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
@@ -338,9 +338,13 @@ export default function BungalowsClient({
                   
                   <button
                     type="button"
+                    data-tripla-booking-widget="search"
                     onClick={() => {
+                      const roomId = TRIPLA_ROOM_IDS[room.roomKey]
                       sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_page_${room.name.toLowerCase().replace(/ /g, '_')}` })
-                      window.open(getTriplaRoomUrl(room.roomKey), '_blank', 'noopener,noreferrer')
+                      if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
+                        (window as any).__openTriplaBooking(roomId)
+                      }
                     }}
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"
                   >

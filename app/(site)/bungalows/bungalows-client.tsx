@@ -328,9 +328,12 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                   
                   <button
                     type="button"
+                    data-tripla-booking-widget="search"
                     onClick={() => {
                       sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_page_${room.name.toLowerCase().replace(/ /g, '_')}` })
-                      window.open(getTriplaRoomUrl(room.roomKey), '_blank', 'noopener,noreferrer')
+                      if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
+                        (window as any).__openTriplaBooking()
+                      }
                     }}
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"
                   >

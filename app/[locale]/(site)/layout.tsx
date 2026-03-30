@@ -93,13 +93,25 @@ export default async function RootLayout({
             />
             <Script id="tripla-hide-searchbar" strategy="afterInteractive">{`
               (function(){
+                var bookingActive = false;
                 var HIDE_CSS = 'visibility:hidden !important;opacity:0 !important;height:0 !important;max-height:0 !important;width:0 !important;overflow:hidden !important;position:fixed !important;top:-9999px !important;left:-9999px !important;pointer-events:none !important;z-index:-1 !important;clip-path:inset(100%) !important;';
+
+                function unhideEl(el){
+                  if(!el) return;
+                  el.style.cssText = '';
+                  el.removeAttribute('aria-hidden');
+                  if(el.shadowRoot){
+                    var s = el.shadowRoot.getElementById('tripla-hide-injected');
+                    if(s) s.remove();
+                  }
+                }
+
                 function hideEl(el){
+                  if(bookingActive) return;
                   if(el && el.style.cssText !== HIDE_CSS){
                     el.style.cssText = HIDE_CSS;
                     el.setAttribute('aria-hidden','true');
                   }
-                  // Try Shadow DOM (open)
                   if(el && el.shadowRoot){
                     var sid = 'tripla-hide-injected';
                     if(!el.shadowRoot.getElementById(sid)){
@@ -110,25 +122,48 @@ export default async function RootLayout({
                     }
                   }
                 }
+
                 function hideAll(){
+                  if(bookingActive) return;
                   var el = document.querySelector('tripla-search-bar');
                   if(el) hideEl(el);
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(hideEl);
                 }
-                // Watch for any DOM changes
+
+                // Listen for booking button clicks — temporarily allow search bar to show
+                document.addEventListener('click', function(e){
+                  var btn = e.target.closest ? e.target.closest('[data-tripla-booking-widget]') : null;
+                  if(!btn) return;
+                  bookingActive = true;
+                  var el = document.querySelector('tripla-search-bar');
+                  unhideEl(el);
+                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
+                  // Re-enable hiding after 60s (user closes booking or navigates away)
+                  setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
+                }, true);
+
+                // Also expose global helper for programmatic triggers
+                window.__openTriplaBooking = function(){
+                  bookingActive = true;
+                  var el = document.querySelector('tripla-search-bar');
+                  unhideEl(el);
+                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
+                  setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
+                };
+
                 var bodyObs = new MutationObserver(function(){ hideAll(); });
                 bodyObs.observe(document.body,{childList:true,subtree:true});
-                // Watch for Tripla resetting styles on the search bar element
+
                 function watchElement(){
                   var el = document.querySelector('tripla-search-bar');
-                  if(el){
+                  if(el && !bookingActive){
                     hideEl(el);
-                    var attrObs = new MutationObserver(function(){ hideEl(el); });
+                    var attrObs = new MutationObserver(function(){ if(!bookingActive) hideEl(el); });
                     attrObs.observe(el,{attributes:true,attributeFilter:['style','class']});
                   }
                 }
+
                 hideAll();
-                // Periodic check for late-loading + re-watch
                 var c = 0;
                 var iv = setInterval(function(){
                   hideAll();

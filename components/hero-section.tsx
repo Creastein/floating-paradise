@@ -110,7 +110,7 @@ export default function HeroSection({ homepage }: HeroSectionProps) {
             <button 
               type="button"
               data-tripla-booking-widget="search"
-              onClick={() => sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'hero_section' })}
+              onClick={() => { sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'hero_section' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
               className="btn-skew inline-block text-base font-medium px-10 py-4 rounded-full bg-[#2d5a3d] text-white hover:text-[#2d5a3d] transition-colors duration-300 drop-shadow-xl border border-transparent hover:border-[#2d5a3d]"
             >
               <span className="relative z-10">{t.hero.checkAvailability}</span>

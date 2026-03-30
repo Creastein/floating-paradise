@@ -29,12 +29,17 @@ interface DisplayRoom {
 
 const ROOM_GALLERIES = {
   sunrise: [
-    '/image/bungalows/sunrise/Sunrise1.webp',
-    '/image/bungalows/sunrise/Sunrise2.webp',
-    '/image/bungalows/sunrise/Sunrise3.webp',
-    '/image/bungalows/sunrise/Sunrise4.webp',
-    '/image/bungalows/sunrise/Sunrise5.webp',
-    '/image/bungalows/sunrise/Sunrise6.webp',
+    '/image/bungalows/sunrise/Sunrise-1.webp',
+    '/image/bungalows/sunrise/Sunrise-2.webp',
+    '/image/bungalows/sunrise/Sunrise-3.webp',
+    '/image/bungalows/sunrise/Sunrise-4.webp',
+    '/image/bungalows/sunrise/Sunrise-5.webp',
+    '/image/bungalows/sunrise/Sunrise-6.webp',
+    '/image/bungalows/sunrise/Sunrise-7.webp',
+    '/image/bungalows/sunrise/Sunrise-8.webp',
+    '/image/bungalows/sunrise/Sunrise-9.webp',
+    '/image/bungalows/sunrise/Sunrise-10.webp',
+    '/image/bungalows/sunrise/Sunrise-11.webp',
   ],
   sunset: [
     '/image/bungalows/sunset/Sunset1.webp',
@@ -44,6 +49,8 @@ const ROOM_GALLERIES = {
     '/image/bungalows/sunset/Sunset5.webp',
     '/image/bungalows/sunset/Sunset6.webp',
     '/image/bungalows/sunset/Sunset7.webp',
+    '/image/bungalows/sunset/Sunset8.webp',
+    '/image/bungalows/sunset/Sunset9.webp',
   ],
   bayside: [
     '/image/bungalows/bayside/Bayside1.jpg',

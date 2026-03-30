@@ -86,6 +86,7 @@ export default async function RootLayout({
             <FloatingWhatsapp />
             <Analytics />
             <GoogleAnalytics gaId="G-7JZWJ5455X" />
+            <button id="hidden-tripla-trigger" data-tripla-booking-widget="search" style={{ display: 'none' }} aria-hidden="true" />
             <Script
               src="https://tripla.jp/sdk/javascript/tripla.min.js"
               strategy="afterInteractive"
@@ -130,7 +131,6 @@ export default async function RootLayout({
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(hideEl);
                 }
 
-                // Listen for booking button clicks — temporarily allow search bar to show
                 document.addEventListener('click', function(e){
                   var btn = e.target.closest ? e.target.closest('[data-tripla-booking-widget]') : null;
                   if(!btn) return;
@@ -138,11 +138,9 @@ export default async function RootLayout({
                   var el = document.querySelector('tripla-search-bar');
                   unhideEl(el);
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
-                  // Re-enable hiding after 60s (user closes booking or navigates away)
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
                 }, true);
 
-                // Also expose global helper for programmatic triggers
                 window.__openTriplaBooking = function(roomId){
                   bookingActive = true;
                   var el = document.querySelector('tripla-search-bar');
@@ -150,7 +148,10 @@ export default async function RootLayout({
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
 
-                  if(roomId){
+                  if(!roomId){
+                    var hiddenBtn = document.getElementById('hidden-tripla-trigger');
+                    if(hiddenBtn) hiddenBtn.click();
+                  } else {
                     window.__triplaDesiredRoomId = roomId;
 
                     if(window.__triplaRoomObserver){

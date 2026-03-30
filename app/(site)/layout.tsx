@@ -69,6 +69,7 @@ export default async function RootLayout({
             <FloatingWhatsapp />
             <Analytics />
             <GoogleAnalytics gaId="G-7JZWJ5455X" />
+            <button id="hidden-tripla-trigger" data-tripla-booking-widget="search" style={{ display: 'none' }} aria-hidden="true" />
             <Script 
               src="https://tripla.jp/sdk/javascript/tripla.min.js" 
               strategy="afterInteractive"
@@ -130,7 +131,10 @@ export default async function RootLayout({
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
 
-                  if(roomId){
+                  if(!roomId){
+                    var hiddenBtn = document.getElementById('hidden-tripla-trigger');
+                    if(hiddenBtn) hiddenBtn.click();
+                  } else {
                     window.__triplaDesiredRoomId = roomId;
 
                     if(window.__triplaRoomObserver){

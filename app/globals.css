@@ -135,8 +135,9 @@
 
 /* Hide ONLY the auto-rendered Tripla search bar overlay.
    Using visibility+opacity instead of display:none to keep it in the DOM
-   (prevents Tripla SDK errors). Position off-screen as extra safety. */
-tripla-search-bar {
+   (prevents Tripla SDK errors). Position off-screen as extra safety.
+   The :not(.tripla-active) allows JS to unhide by adding the class. */
+tripla-search-bar:not(.tripla-active) {
   visibility: hidden !important;
   opacity: 0 !important;
   height: 0 !important;
@@ -147,6 +148,19 @@ tripla-search-bar {
   left: -9999px !important;
   pointer-events: none !important;
   z-index: -1 !important;
+}
+
+tripla-search-bar.tripla-active {
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  width: auto !important;
+  overflow: visible !important;
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  pointer-events: auto !important;
+  z-index: 99999 !important;
 }
 
 /* ============================================

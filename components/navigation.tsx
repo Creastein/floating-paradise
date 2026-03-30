@@ -113,7 +113,6 @@ export default function Navigation() {
               
               <button
                 type="button"
-                data-tripla-booking-widget="search"
                 onClick={() => { sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'navbar_desktop' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
                 className={`btn-skew font-semibold rounded-full px-6 transition-colors duration-300 border ${
                   isSolid 
@@ -184,7 +183,6 @@ export default function Navigation() {
               >
                 <button
                   type="button"
-                  data-tripla-booking-widget="search"
                   onClick={() => { setIsOpen(false); sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'navbar_mobile' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
                   className="btn-skew w-full text-lg rounded-xl h-14 border border-transparent hover:border-primary bg-primary text-primary-foreground hover:text-primary hover:bg-transparent transition-colors duration-300"
                 >

@@ -78,11 +78,10 @@ export default async function RootLayout({
             <Script id="tripla-hide-searchbar" strategy="afterInteractive">{`
               (function(){
                 var bookingActive = false;
-                var HIDE_CSS = 'visibility:hidden !important;opacity:0 !important;height:0 !important;max-height:0 !important;width:0 !important;overflow:hidden !important;position:fixed !important;top:-9999px !important;left:-9999px !important;pointer-events:none !important;z-index:-1 !important;clip-path:inset(100%) !important;';
 
                 function unhideEl(el){
                   if(!el) return;
-                  el.style.cssText = '';
+                  el.classList.add('tripla-active');
                   el.removeAttribute('aria-hidden');
                   if(el.shadowRoot){
                     var s = el.shadowRoot.getElementById('tripla-hide-injected');
@@ -92,8 +91,8 @@ export default async function RootLayout({
 
                 function hideEl(el){
                   if(bookingActive) return;
-                  if(el && el.style.cssText !== HIDE_CSS){
-                    el.style.cssText = HIDE_CSS;
+                  if(el){
+                    el.classList.remove('tripla-active');
                     el.setAttribute('aria-hidden','true');
                   }
                   if(el && el.shadowRoot){
@@ -101,7 +100,7 @@ export default async function RootLayout({
                     if(!el.shadowRoot.getElementById(sid)){
                       var s = document.createElement('style');
                       s.id = sid;
-                      s.textContent = ':host{visibility:hidden!important;opacity:0!important;height:0!important;width:0!important;overflow:hidden!important;position:fixed!important;top:-9999px!important;pointer-events:none!important;clip-path:inset(100%)!important} *{visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;pointer-events:none!important}';
+                      s.textContent = ':host:not(.tripla-active){visibility:hidden!important;opacity:0!important;height:0!important;width:0!important;overflow:hidden!important;position:fixed!important;top:-9999px!important;pointer-events:none!important;clip-path:inset(100%)!important} :host:not(.tripla-active) *{visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;pointer-events:none!important}';
                       el.shadowRoot.prepend(s);
                     }
                   }
@@ -114,21 +113,23 @@ export default async function RootLayout({
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(hideEl);
                 }
 
+                function unhideAll(){
+                  var el = document.querySelector('tripla-search-bar');
+                  unhideEl(el);
+                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
+                }
+
                 document.addEventListener('click', function(e){
                   var btn = e.target.closest ? e.target.closest('[data-tripla-booking-widget]') : null;
                   if(!btn) return;
                   bookingActive = true;
-                  var el = document.querySelector('tripla-search-bar');
-                  unhideEl(el);
-                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
+                  unhideAll();
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
                 }, true);
 
                 window.__openTriplaBooking = function(roomId){
                   bookingActive = true;
-                  var el = document.querySelector('tripla-search-bar');
-                  unhideEl(el);
-                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
+                  unhideAll();
                   setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
 
                   if(!roomId){
@@ -224,20 +225,10 @@ export default async function RootLayout({
                 var bodyObs = new MutationObserver(function(){ hideAll(); });
                 bodyObs.observe(document.body,{childList:true,subtree:true});
 
-                function watchElement(){
-                  var el = document.querySelector('tripla-search-bar');
-                  if(el && !bookingActive){
-                    hideEl(el);
-                    var attrObs = new MutationObserver(function(){ if(!bookingActive) hideEl(el); });
-                    attrObs.observe(el,{attributes:true,attributeFilter:['style','class']});
-                  }
-                }
-
                 hideAll();
                 var c = 0;
                 var iv = setInterval(function(){
                   hideAll();
-                  watchElement();
                   c++;
                   if(c > 60){ clearInterval(iv); bodyObs.disconnect(); }
                 }, 500);

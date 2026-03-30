@@ -217,7 +217,12 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
             }
             const localFallback = fallbackByName[bungalow.name] || '/image/homepage/Sunrise-home.webp'
 
-            const imgSrc = bungalow.gallery?.[0] ? urlFor(bungalow.gallery[0]).url() 
+            // Priority: 1) Homepage CMS image  2) Bungalow gallery/mainImage  3) Hardcoded default
+            const homepageBungalowImageFields = ['bungalowImage1', 'bungalowImage2', 'bungalowImage3'] as const
+            const homepageImg = homepage?.[homepageBungalowImageFields[index]]
+
+            const imgSrc = homepageImg ? urlFor(homepageImg).url()
+                         : bungalow.gallery?.[0] ? urlFor(bungalow.gallery[0]).url() 
                          : bungalow.mainImage ? urlFor(bungalow.mainImage).url() 
                          : bungalow.image || localFallback;
             

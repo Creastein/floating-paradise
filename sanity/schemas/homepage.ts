@@ -7,6 +7,7 @@ export const homepageType = defineType({
   groups: [
     { name: 'hero', title: '🏠 Hero Section' },
     { name: 'welcome', title: '👋 Welcome Section' },
+    { name: 'bungalows', title: '🛖 Bungalow Section' },
     { name: 'builtByHand', title: '🔨 Built by Hand Section' },
   ],
   fields: [
@@ -134,6 +135,32 @@ export const homepageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'builtByHand',
+    }),
+
+    // ── Bungalow Section ──────────────────────────────
+    defineField({
+      name: 'bungalowImage1',
+      title: 'Bungalow Card Image 1 — Sunrise Bungalow',
+      description: 'Image shown on the Sunrise Bungalow card on the homepage. If removed, the website will use the default image.',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'bungalows',
+    }),
+    defineField({
+      name: 'bungalowImage2',
+      title: 'Bungalow Card Image 2 — Sunset Bungalow',
+      description: 'Image shown on the Sunset Bungalow card on the homepage. If removed, the website will use the default image.',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'bungalows',
+    }),
+    defineField({
+      name: 'bungalowImage3',
+      title: 'Bungalow Card Image 3 — Bayside Bungalow',
+      description: 'Image shown on the Bayside Bungalow card on the homepage. If removed, the website will use the default image.',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'bungalows',
     }),
   ],
 })

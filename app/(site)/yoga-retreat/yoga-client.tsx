@@ -12,6 +12,7 @@ import { AnimatedTimeline } from "@/components/ui/animated-timeline"
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 import { YOGA_RETREAT_NAME } from '@/lib/constants'
+import { urlFor } from '@/lib/sanity.image'
 
 interface YogaClientProps {
   cmsData: any
@@ -22,6 +23,9 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
   const { getCmsValue, language } = useCmsTranslation()
   const y = t.yogaRetreatPage
 
+  const heroImageUrl =
+    cmsData?.heroImage ? urlFor(cmsData.heroImage).width(2400).height(1350).url() : undefined
+
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
@@ -30,7 +34,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
       <section className="relative h-[calc(100vh+4rem)] min-h-[calc(600px+4rem)] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 animate-hero-zoom">
           <Image
-            src="/image/Yoga-retreat/hero-yoga.png"
+            src={heroImageUrl || "/image/Yoga-retreat/hero-yoga.png"}
             alt="Sunrise Yoga on the Jetty"
             fill
             className="object-cover"

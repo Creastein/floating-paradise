@@ -15,6 +15,7 @@ import AboutKejora from '@/components/about-kejora'
 import { FadeIn } from '@/components/ui/fade-in'
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
+import { urlFor } from '@/lib/sanity.image'
 
 interface AboutClientProps {
   cmsData: any
@@ -24,6 +25,9 @@ export default function AboutClient({ cmsData }: AboutClientProps) {
   const { t } = useLanguage()
   const { getCmsValue } = useCmsTranslation()
   const a = t.aboutPage
+
+  const heroImageUrl =
+    cmsData?.heroImage ? urlFor(cmsData.heroImage).width(2400).height(1350).url() : undefined
 
   const GREEN_PRACTICES = [
     { icon: Sun,      title: a.practices.solar.title,      desc: a.practices.solar.desc },
@@ -50,7 +54,7 @@ export default function AboutClient({ cmsData }: AboutClientProps) {
       <PageHero 
         title={a.heroTitle}
         subtitle={a.heroSubtitle}
-        backgroundImage="/image/about-us/about-hero.jpg"
+        backgroundImage={heroImageUrl || "/image/about-us/about-hero.jpg"}
         fullHeight
       />
 

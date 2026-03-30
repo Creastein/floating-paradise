@@ -5,10 +5,22 @@ export const aboutPageType = defineType({
   title: 'About Page',
   type: 'document',
   groups: [
+    { name: 'hero', title: '🏠 Hero Section' },
     { name: 'founders', title: '👫 Founders Story' },
     { name: 'mission', title: '🎯 Mission Statement' },
   ],
   fields: [
+    // ── Hero Section ─────────────────────────────────
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Background Image',
+      description:
+        'The large background image at the very top of the About Us page (high-quality landscape recommended). If removed, the website will use the default image.',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'hero',
+    }),
+
     // ── Founders Story ──────────────────────────────
     defineField({
       name: 'storyContent',

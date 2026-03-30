@@ -1,11 +1,13 @@
 import GettingHereClient from "./getting-here-client"
+import { getGettingHerePage } from "@/lib/sanity.fetch"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata() {
   return generatePageSeo("en", "getting-here", "/getting-here")
 }
 
-export default function GettingHerePage() {
+export default async function GettingHerePage() {
+  const { data: pageData } = await getGettingHerePage()
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "HowTo",
@@ -36,7 +38,7 @@ export default function GettingHerePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <GettingHereClient />
+      <GettingHereClient pageData={pageData} />
     </>
   )
 }

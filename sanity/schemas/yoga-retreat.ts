@@ -15,6 +15,16 @@ export const yogaRetreatType = defineType({
     // ── Overview ────────────────────────────────────
 
     defineField({
+      name: 'heroImage',
+      title: 'Hero Background Image',
+      description:
+        'The large background image at the very top of the Yoga Retreat page (high-quality landscape recommended). If removed, the website will use the default image.',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'hero',
+    }),
+
+    defineField({
       name: 'overview',
       title: 'Retreat Overview Text (English)',
       description: 'Introductory paragraphs describing the retreat experience.',

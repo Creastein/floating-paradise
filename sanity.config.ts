@@ -36,6 +36,11 @@ export default defineConfig({
               .child(S.document().schemaType('homepage').documentId('homepage')),
 
             S.listItem()
+              .title('🧭 Explore')
+              .id('explorePage')
+              .child(S.document().schemaType('explorePage').documentId('explorePage')),
+
+            S.listItem()
               .title('📖 About Us')
               .id('aboutPage')
               .child(S.document().schemaType('aboutPage').documentId('aboutPage')),
@@ -52,16 +57,38 @@ export default defineConfig({
               .title('🌿 Rooms & Bungalows')
               .id('bungalowList')
               .child(
-                S.documentTypeList('bungalow')
+                S.list()
                   .title('Rooms & Bungalows')
+                  .items([
+                    S.listItem()
+                      .title('🛖 Bungalows Page (Hero)')
+                      .id('bungalowsPage')
+                      .child(S.document().schemaType('bungalowsPage').documentId('bungalowsPage')),
+
+                    S.divider(),
+
+                    S.documentTypeListItem('bungalow')
+                      .title('Rooms & Bungalows'),
+                  ])
               ),
 
             S.listItem()
               .title('🛶 Activities & Extras')
               .id('activityList')
               .child(
-                S.documentTypeList('activity')
+                S.list()
                   .title('Activities & Extras')
+                  .items([
+                    S.listItem()
+                      .title('🧭 Getting Here (Hero)')
+                      .id('gettingHerePage')
+                      .child(S.document().schemaType('gettingHerePage').documentId('gettingHerePage')),
+
+                    S.divider(),
+
+                    S.documentTypeListItem('activity')
+                      .title('Activities & Extras'),
+                  ])
               ),
           ]),
     }),

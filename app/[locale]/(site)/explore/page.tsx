@@ -1,5 +1,5 @@
 import ExploreClient from "@/app/(site)/explore/explore-client"
-import { getActivities } from "@/lib/sanity.fetch"
+import { getActivities, getExplorePage } from "@/lib/sanity.fetch"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({
@@ -18,6 +18,7 @@ export default async function ExplorePage({
 }) {
   const params = await paramsPromise
   const { data: activities } = await getActivities()
+  const { data: pageData } = await getExplorePage()
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -43,7 +44,7 @@ export default async function ExplorePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ExploreClient initialActivities={activities} />
+      <ExploreClient initialActivities={activities} pageData={pageData} />
     </>
   )
 }

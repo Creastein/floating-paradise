@@ -7,7 +7,7 @@ import PageHero from '@/components/page-hero'
 import Lightbox from '@/components/lightbox'
 import Image from 'next/image'
 import { Check, Camera } from 'lucide-react'
-import { TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
+import { TRIPLA_ROOM_IDS, getTriplaRoomUrl, type RoomKey } from '@/lib/tripla'
 import { gsap } from '@/lib/gsap-init'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
@@ -57,7 +57,13 @@ const ROOM_GALLERIES = {
   ],
 }
 
-export default function BungalowsClient({ initialBungalows }: { initialBungalows?: any[] }) {
+export default function BungalowsClient({
+  initialBungalows,
+  pageData,
+}: {
+  initialBungalows?: any[]
+  pageData?: any
+}) {
   const { t, language } = useLanguage()
   const { getCmsValue } = useCmsTranslation()
   const mainRef = useRef<HTMLDivElement>(null)
@@ -122,7 +128,7 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
       image: room.image,
       guests: cmsBungalow.maxGuests?.toString() || room.guests,
       gallery: room.gallery,
-      triplaUrl: cmsBungalow.triplaUrl || getTriplaRoomUrl(room.roomKey),
+      triplaUrl: cmsBungalow.triplaUrl || TRIPLA_ROOM_IDS[room.roomKey],
       features: cmsBungalow.features || ROOM_FACILITIES,
     }
   });
@@ -243,7 +249,11 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
       <PageHero
         title={t.bungalowsPage.title}
         subtitle={t.bungalowsPage.subtitle}
-        backgroundImage="/image/bungalows/home-bungalows.webp"
+        backgroundImage={
+          pageData?.heroImage
+            ? urlFor(pageData.heroImage).width(2400).height(1350).url()
+            : "/image/bungalows/home-bungalows.webp"
+        }
         fullHeight
       />
 
@@ -328,13 +338,9 @@ export default function BungalowsClient({ initialBungalows }: { initialBungalows
                   
                   <button
                     type="button"
-                    data-tripla-booking-widget="search"
                     onClick={() => {
-                      const roomId = TRIPLA_ROOM_IDS[room.roomKey]
                       sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_page_${room.name.toLowerCase().replace(/ /g, '_')}` })
-                      if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
-                        (window as any).__openTriplaBooking(roomId)
-                      }
+                      window.open(getTriplaRoomUrl(room.roomKey), '_blank', 'noopener,noreferrer')
                     }}
                     className="w-full md:w-auto bg-[#D8C3A5] text-[#2F4A3F] px-8 py-3 rounded hover:bg-white transition-colors duration-300 font-semibold text-center whitespace-nowrap"
                   >

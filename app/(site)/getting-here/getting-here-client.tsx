@@ -10,6 +10,7 @@ import WhatsAppIcon from '@/components/icons/whatsapp-icon'
 
 import { useLanguage } from '@/lib/i18n/language-context'
 import { useWhatsAppNumbers } from '@/components/site-settings-provider'
+import { urlFor } from '@/lib/sanity.image'
 import {
   CAR_HIRE_OPTIONS,
 } from '@/data/getting-here-data'
@@ -57,9 +58,12 @@ function JourneyStep({ step, title, subtitle, isLast = false, children, stepLabe
 
 // ── Page ────────────────────────────────────────────────────────────
 
-export default function GettingHereClient() {
+export default function GettingHereClient({ pageData }: { pageData?: any }) {
   const { language } = useLanguage()
   const { general: waGeneral, generalDisplay: waDisplay } = useWhatsAppNumbers()
+
+  const heroImageUrl =
+    pageData?.heroImage ? urlFor(pageData.heroImage).width(2400).height(1350).url() : undefined
 
   return (
     <main className="min-h-screen">
@@ -68,7 +72,7 @@ export default function GettingHereClient() {
       <PageHero 
         title={language === 'id' ? "Perjalanan Anda ke Floating" : "Your Journey to Floating"}
         subtitle={language === 'id' ? "Floating Paradise terletak di Karimunjawa, sebuah kepulauan yang dilindungi dengan 27 pulau di Laut Jawa. Perjalanan ke sini adalah bagian dari petualangan — izinkan kami memandu Anda langkah demi langkah." : "Floating Paradise is located in Karimunjawa, a protected archipelago of 27 islands in the Java Sea. Getting here is part of the adventure — let us guide you step by step."}
-        backgroundImage="/image/getting-here/gh-hero.webp"
+        backgroundImage={heroImageUrl || "/image/getting-here/gh-hero.webp"}
         fullHeight
       />
 

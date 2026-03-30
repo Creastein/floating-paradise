@@ -1,4 +1,5 @@
 import GettingHereClient from "@/app/(site)/getting-here/getting-here-client"
+import { getGettingHerePage } from "@/lib/sanity.fetch"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({
@@ -16,6 +17,7 @@ export default async function GettingHerePage({
   params: Promise<{ locale: string }>
 }) {
   const params = await paramsPromise
+  const { data: pageData } = await getGettingHerePage()
   const isId = params.locale === "id";
   const jsonLd = {
     "@context": "https://schema.org",
@@ -49,7 +51,7 @@ export default async function GettingHerePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <GettingHereClient />
+      <GettingHereClient pageData={pageData} />
     </>
   )
 }

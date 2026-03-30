@@ -5,9 +5,18 @@ import Footer from '@/components/footer'
 import PageHero from '@/components/page-hero'
 import ExploreContent from '@/components/explore-content'
 import { useLanguage } from '@/lib/i18n/language-context'
+import { urlFor } from '@/lib/sanity.image'
 
-export default function ExploreClient({ initialActivities }: { initialActivities?: any[] }) {
+export default function ExploreClient({
+  initialActivities,
+  pageData,
+}: {
+  initialActivities?: any[]
+  pageData?: any
+}) {
   const { t } = useLanguage()
+  const heroImage =
+    pageData?.heroImage ? urlFor(pageData.heroImage).width(2400).height(1350).url() : undefined
 
   return (
     <main className="min-h-screen">
@@ -16,7 +25,7 @@ export default function ExploreClient({ initialActivities }: { initialActivities
       <PageHero
         title={t.explorePage.heroTitle}
         subtitle={t.explorePage.heroSubtitle}
-        backgroundImage="/image/Explore/explore-hero.webp"
+        backgroundImage={heroImage || "/image/Explore/explore-hero.webp"}
         fullHeight
       />
 

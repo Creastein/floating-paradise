@@ -47,12 +47,9 @@ export default function BungalowCard({
         </div>
         <button
           type="button"
-          data-tripla-booking-widget="search"
           onClick={() => {
             sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalow_card_${title.toLowerCase().replace(/ /g, '_')}` })
-            if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
-              (window as any).__openTriplaBooking()
-            }
+            window.open(getTriplaRoomUrl(roomKey), '_blank', 'noopener,noreferrer')
           }}
           className="block w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all font-semibold text-center"
         >

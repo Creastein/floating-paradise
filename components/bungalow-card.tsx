@@ -1,7 +1,10 @@
+"use client"
+
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { sendGAEvent } from '@next/third-parties/google'
 import { getTriplaRoomUrl, TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 interface BungalowCardProps {
   title: string
@@ -18,6 +21,8 @@ export default function BungalowCard({
   features,
   roomKey,
 }: BungalowCardProps) {
+  const { t } = useLanguage()
+
   return (
     <div className="bg-background rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
       <div className="relative h-64 w-full overflow-hidden">
@@ -56,7 +61,7 @@ export default function BungalowCard({
           }}
           className="block w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all font-semibold text-center"
         >
-          Check Availability
+          {t.bungalowsPage.bookNow}
         </button>
       </div>
     </div>

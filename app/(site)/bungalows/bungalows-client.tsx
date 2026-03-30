@@ -49,11 +49,15 @@ const ROOM_GALLERIES = {
     '/image/bungalows/bayside/Bayside1.jpg',
     '/image/bungalows/bayside/Bayside2.jpg',
     '/image/bungalows/bayside/Bayside3.jpg',
-    '/image/bungalows/bayside/Bayside9.jpg',
+    '/image/bungalows/bayside/Bayside4.jpg',
     '/image/bungalows/bayside/Bayside5.jpg',
     '/image/bungalows/bayside/Bayside6.jpg',
     '/image/bungalows/bayside/Bayside7.jpg',
     '/image/bungalows/bayside/Bayside8.jpg',
+    '/image/bungalows/bayside/Bayside9.jpg',
+    '/image/bungalows/bayside/Bayside10.jpg',
+    '/image/bungalows/bayside/Bayside11.jpg',
+    '/image/bungalows/bayside/Bayside12.jpg',
   ],
 }
 

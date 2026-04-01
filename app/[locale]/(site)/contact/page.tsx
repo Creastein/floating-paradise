@@ -37,11 +37,34 @@ export default async function ContactPage({ params: paramsPromise }: LocalePageP
     }
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://floatingparadise.id/${locale}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": locale === "id" ? "Hubungi Kami" : "Contact",
+        "item": `https://floatingparadise.id/${locale}/contact`
+      }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ContactClient />
     </>

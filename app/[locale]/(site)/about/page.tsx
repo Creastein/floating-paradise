@@ -48,11 +48,34 @@ export default async function AboutPage({
     }
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://floatingparadise.id/${params.locale}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": params.locale === "id" ? "Tentang Kami" : "About Us",
+        "item": `https://floatingparadise.id/${params.locale}/about`
+      }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <AboutClient cmsData={cmsData} />
     </>

@@ -51,7 +51,16 @@ const lodgingJsonLd = {
   ],
   checkinTime: "14:00",
   checkoutTime: "11:00",
+  priceRange: "$$",
   image: "https://floatingparadise.id/og-image.png",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "9.4",
+    bestRating: "10",
+    worstRating: "1",
+    ratingCount: "156",
+    reviewCount: "156",
+  },
   sameAs: [
     "https://www.instagram.com/floatingparadise",
     "https://www.booking.com/hotel/id/floating-paradise.id.html",

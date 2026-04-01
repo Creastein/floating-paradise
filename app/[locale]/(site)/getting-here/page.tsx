@@ -45,11 +45,85 @@ export default async function GettingHerePage({
     ]
   }
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": isId ? "Bagaimana cara ke Karimunjawa dari Semarang?" : "How do I get to Karimunjawa from Semarang?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": isId
+            ? "Terbang ke Bandara Semarang (SRG), lalu naik taksi atau shuttle DayTrans ke Jepara (sekitar 2 jam). Dari Jepara, naik kapal cepat Express Bahari (2 jam) ke Karimunjawa."
+            : "Fly into Semarang (SRG) airport, then take a private taxi or DayTrans shuttle to Jepara (approximately 2 hours). From Jepara, board the Express Bahari fast boat (2 hours) to Karimunjawa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": isId ? "Berapa lama perjalanan kapal ke Karimunjawa?" : "How long is the boat ride to Karimunjawa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": isId
+            ? "Kapal cepat Express Bahari memakan waktu sekitar 2 jam, sedangkan kapal feri KMP Siginjai memakan waktu sekitar 4,5 jam dari Pelabuhan Kartini, Jepara."
+            : "The Express Bahari fast boat takes approximately 2 hours, while the KMP Siginjai car ferry takes approximately 4.5 hours from Kartini Harbour in Jepara."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": isId ? "Bagaimana cara dari pelabuhan Karimunjawa ke Floating Paradise?" : "How do I get from Karimunjawa port to Floating Paradise?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": isId
+            ? "Floating Paradise terletak di Legon Lele, sekitar 15 menit dari pelabuhan. Taksi tersedia dengan harga Rp 150.000. Kami juga dapat mengatur penjemputan untuk Anda."
+            : "Floating Paradise is located in Legon Lele, about a 15-minute ride from the port. Taxis are available for Rp 150,000. We can also arrange a pickup for you."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": isId ? "Apakah ada jadwal harian kapal ke Karimunjawa?" : "Is there a daily boat schedule to Karimunjawa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": isId
+            ? "Express Bahari beroperasi setiap hari dengan jadwal yang bervariasi tergantung musim. KMP Siginjai berangkat setiap dua hari sekali. Kami menyarankan memesan tiket melalui kami untuk informasi jadwal terkini."
+            : "Express Bahari operates daily with schedules varying by season. KMP Siginjai departs every other day. We recommend booking tickets through us for the most up-to-date availability."
+        }
+      }
+    ]
+  }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://floatingparadise.id/${params.locale}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": isId ? "Cara ke Sini" : "Getting Here",
+        "item": `https://floatingparadise.id/${params.locale}/getting-here`
+      }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <GettingHereClient pageData={pageData} />
     </>

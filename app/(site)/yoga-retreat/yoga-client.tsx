@@ -415,9 +415,9 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                   {/* Detail photo column */}
                   <div className="flex flex-row md:flex-col items-center justify-center gap-4 p-6 bg-muted/20 border-b md:border-b-0 md:border-r border-[#D8C3A5]/20">
                     {[
-                      "/image/bungalows/sunrise/Sunrise-2.webp",
-                      "/image/bungalows/sunrise/Sunrise-4.webp",
-                      "/image/bungalows/sunrise/Sunrise-5.webp",
+                      "/image/bungalows/sunrise/Sunrise-9.webp",
+                      "/image/bungalows/sunrise/Sunrise-10.webp",
+                      "/image/bungalows/sunrise/Sunrise-6.webp",
                     ].map((src, i) => (
                       <div key={i} className="relative w-32 h-32 md:w-[9rem] md:h-[9rem] rounded-full overflow-hidden shrink-0 border-2 border-[#D8C3A5]/50 shadow-sm">
                         <Image src={src} alt={`Sunrise detail ${i + 1}`} fill className="object-cover" sizes="112px" />
@@ -487,9 +487,9 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                   {/* Detail photo column */}
                   <div className="flex flex-row md:flex-col items-center justify-center gap-4 p-6 bg-muted/20 border-b md:border-b-0 md:border-r border-[#D8C3A5]/20">
                     {[
-                      "/image/bungalows/sunset/Sunset4.webp",
-                      "/image/bungalows/sunset/Sunset5.webp",
-                      "/image/bungalows/sunset/Sunset6.webp",
+                      "/image/bungalows/sunset/Sunset3.webp",
+                      "/image/bungalows/sunset/Sunset8.webp",
+                      "/image/bungalows/sunset/Sunset9.webp",
                     ].map((src, i) => (
                       <div key={i} className="relative w-32 h-32 md:w-[9rem] md:h-[9rem] rounded-full overflow-hidden shrink-0 border-2 border-[#D8C3A5]/50 shadow-sm">
                         <Image src={src} alt={`Sunset detail ${i + 1}`} fill className="object-cover" sizes="112px" />
@@ -559,9 +559,9 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                   {/* Detail photo column */}
                   <div className="flex flex-row md:flex-col items-center justify-center gap-4 p-6 bg-muted/20 border-b md:border-b-0 md:border-r border-[#D8C3A5]/20">
                     {[
-                      "/image/bungalows/bayside/Bayside2.jpg",
-                      "/image/bungalows/bayside/Bayside5.jpg",
-                      "/image/bungalows/bayside/Bayside8.jpg",
+                      "/image/bungalows/bayside/Bayside9.jpg",
+                      "/image/bungalows/bayside/Bayside10.jpg",
+                      "/image/bungalows/bayside/Bayside4.jpg",
                     ].map((src, i) => (
                       <div key={i} className="relative w-32 h-32 md:w-[9rem] md:h-[9rem] rounded-full overflow-hidden shrink-0 border-2 border-[#D8C3A5]/50 shadow-sm">
                         <Image src={src} alt={`Bayside detail ${i + 1}`} fill className="object-cover" sizes="112px" />

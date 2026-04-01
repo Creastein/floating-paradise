@@ -149,7 +149,7 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
                       { src: "/image/Yoga-retreat/yoga2.png", alt: "Yoga retreat moment 2" },
                       { src: "/image/Yoga-retreat/yoga3.png", alt: "Yoga retreat moment 3" },
                       { src: "/image/Yoga-retreat/yoga4.png", alt: "Yoga retreat moment 4" },
-                      { src: "/image/Yoga-retreat/yoga5.png", alt: "Yoga retreat moment 5" },
+                      { src: "/image/Yoga-retreat/yoga5.webp", alt: "Yoga retreat moment 5" },
                       { src: "/image/Yoga-retreat/yoga6.png", alt: "Yoga retreat moment 6" },
                     ]
               }

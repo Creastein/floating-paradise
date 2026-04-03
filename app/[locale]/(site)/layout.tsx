@@ -99,9 +99,18 @@ export default async function RootLayout({
             <GoogleAnalytics gaId="G-7JZWJ5455X" />
             <button id="hidden-tripla-trigger" data-tripla-booking-widget="search" style={{ display: 'none' }} aria-hidden="true" />
             <Script
-              src="https://tripla.jp/sdk/javascript/tripla.min.js"
+              id="tripla-sdk"
               strategy="lazyOnload"
-              data-triplabot-code="019c5054-aa76-72af-8207-e3dd1c280fa3"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  setTimeout(function() {
+                    var script = document.createElement('script');
+                    script.src = 'https://tripla.jp/sdk/javascript/tripla.min.js';
+                    script.setAttribute('data-triplabot-code', '019c5054-aa76-72af-8207-e3dd1c280fa3');
+                    document.body.appendChild(script);
+                  }, 3000); // Delay 3 detik agar main thread aman untuk LCP/TBT
+                `
+              }}
             />
             <Script
               id="tripla-hide-searchbar"

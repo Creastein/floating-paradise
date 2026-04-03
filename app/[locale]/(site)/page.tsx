@@ -1,14 +1,16 @@
 import Navigation from "@/components/navigation"
 import HeroSection from "@/components/hero-section"
 import AboutUsSection from "@/components/about-us-section"
+
+import { getHomepage, getBungalows } from "@/lib/sanity.fetch"
+import { generatePageSeo } from "@/lib/i18n/seo"
+import { WA_GENERAL } from "@/lib/constants"
+
 import ExploreSection from "@/components/explore-section"
 import BungalowsSection from "@/components/bungalows-section"
 import YogaRetreatSection from "@/components/yoga-retreat-section"
 import ReviewBadges from "@/components/review-badges"
 import Footer from "@/components/footer"
-import { getHomepage, getBungalows } from "@/lib/sanity.fetch"
-import { generatePageSeo } from "@/lib/i18n/seo"
-import { WA_GENERAL } from "@/lib/constants"
 
 export async function generateMetadata({
   params: paramsPromise,

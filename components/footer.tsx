@@ -55,7 +55,7 @@ export default function Footer() {
           <div className="lg:col-span-5 space-y-6">
             <Link href={`/${language}`} className="footer-text flex items-center mb-6 w-fit">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Floating Paradise"
                 width={200}
                 height={55}

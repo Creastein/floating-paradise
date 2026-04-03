@@ -234,6 +234,11 @@
   });
   bodyObs.observe(document.body,{childList:true,subtree:true});
 
+  // Optimize: Disconnect observer after 5s when page is loaded
+  setTimeout(function() {
+    bodyObs.disconnect();
+  }, 5000);
+
   hideSearchBar();
   var c = 0;
   var iv = setInterval(function(){

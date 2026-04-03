@@ -63,13 +63,12 @@ export default function LanguageSwitcher({ className = "", isSolid = true }: Lan
         aria-label="Toggle language"
       >
         {/* Animated indicator pill */}
-        <motion.div
+        <div
           className={`absolute h-8 w-11 rounded-full ${indicatorClass}`}
-          initial={false}
-          animate={{
-            x: language === "en" ? 0 : 42,
+          style={{ 
+            transform: `translateX(${language === "en" ? 0 : 42}px)`, 
+            transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)' 
           }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
         />
         
         {/* EN Option */}

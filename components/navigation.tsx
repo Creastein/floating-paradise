@@ -74,7 +74,7 @@ export default function Navigation() {
               className="flex items-center transition-all duration-300"
             >
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Floating Paradise"
                 width={234}
                 height={65}

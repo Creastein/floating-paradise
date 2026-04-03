@@ -17,7 +17,7 @@ type HeroSectionProps = {
 export default function HeroSection({ homepage }: HeroSectionProps) {
   const image = homepage?.heroImage
   const heroImageUrl = image
-    ? urlFor(image).width(1920).format('webp').quality(75).url()
+    ? urlFor(image).width(1200).format('webp').quality(65).url()
     : "/hero-img.webp"
 
   return (
@@ -31,8 +31,8 @@ export default function HeroSection({ homepage }: HeroSectionProps) {
           className="object-cover"
           priority
           fetchPriority="high"
-          sizes="100vw"
-          quality={75}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          quality={65}
         />
         {/* Cinematic Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />

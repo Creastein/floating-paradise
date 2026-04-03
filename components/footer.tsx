@@ -117,17 +117,17 @@ export default function Footer() {
                   const isIg = p.includes('instagram') || p.includes('ig')
                   const isFb = p.includes('facebook') || p.includes('fb')
                   return (
-                    <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
+                    <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Follow us on ${link.platform || 'social media'}`} className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
                       {isIg ? <Instagram size={20} /> : isFb ? <Facebook size={20} /> : <span className="text-sm font-semibold">{link.platform || 'Link'}</span>}
                     </a>
                   )
                 })
               ) : (
                 <>
-                  <a href="https://www.instagram.com/paradisefloating/" target="_blank" rel="noopener noreferrer" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
+                  <a href="https://www.instagram.com/paradisefloating/" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
                     <Instagram size={20} />
                   </a>
-                  <a href="#" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
+                  <a href="#" aria-label="Follow us on Facebook" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
                     <Facebook size={20} />
                   </a>
                 </>

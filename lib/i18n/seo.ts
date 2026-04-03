@@ -31,8 +31,8 @@ export function generatePageSeo(
   const enUrl = formattedPath === '/' ? '/en' : `/en${formattedPath}`
   const idUrl = formattedPath === '/' ? '/id' : `/id${formattedPath}`
   
-  // Base canonical (no locale prefix for default route)
-  const canonicalUrl = formattedPath
+  // Base canonical URL should include the locale so each variant points to itself
+  const canonicalUrl = locale === 'en' ? enUrl : idUrl
 
   return {
     title,

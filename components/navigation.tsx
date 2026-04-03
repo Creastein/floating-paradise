@@ -127,6 +127,7 @@ export default function Navigation() {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`focus:outline-none transition-colors duration-300 ${iconColor}`}
+                aria-label={isOpen ? "Close menu" : "Open menu"}
               >
                 {isOpen ? <X size={26} /> : <Menu size={26} />}
               </button>

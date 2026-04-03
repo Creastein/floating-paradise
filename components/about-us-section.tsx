@@ -154,18 +154,18 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
             
             {/* Header Titles */}
             <div ref={headingRef} className="scrub-text">
-              <h2 className="text-sm tracking-widest text-primary uppercase font-bold mb-3">
+              <p className="text-sm tracking-widest text-primary uppercase font-bold mb-3">
                 {t.about.welcomeTitle}
-              </h2>
-              <h3 className="font-serif text-3xl md:text-5xl text-foreground font-medium leading-tight">
+              </p>
+              <h2 className="font-serif text-3xl md:text-5xl text-foreground font-medium leading-tight">
                 {title || (
                   <span dangerouslySetInnerHTML={{ __html: t.about.defaultTitle }} />
                 )}
-              </h3>
+              </h2>
             </div>
             
             {/* Body Paragraphs */}
-            <div className="text-foreground/80 space-y-1 md:space-y-2 text-lg text-justify leading-relaxed">
+            <div className="text-foreground space-y-1 md:space-y-2 text-lg text-justify leading-relaxed">
               {text ? (
                 <PortableText 
                   value={text} 

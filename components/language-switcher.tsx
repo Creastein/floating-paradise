@@ -1,7 +1,6 @@
 "use client"
 
 import { useLanguage } from "@/lib/i18n/language-context"
-import { motion } from "framer-motion"
 import { useRouter, usePathname } from "next/navigation"
 import { useTransition } from "react"
 

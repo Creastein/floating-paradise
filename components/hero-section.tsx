@@ -31,7 +31,7 @@ export default function HeroSection({ homepage }: HeroSectionProps) {
           className="object-cover"
           priority
           fetchPriority="high"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
           quality={65}
         />
         {/* Cinematic Overlay */}

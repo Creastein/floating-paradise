@@ -2,8 +2,12 @@ import Image from 'next/image'
 import { urlFor } from '@/lib/sanity.image'
 import HeroAnimations from './hero-animations'
 
+import en from '@/lib/i18n/translations/en.json'
+import id from '@/lib/i18n/translations/id.json'
+
 type HeroSectionProps = {
   homepage?: any;
+  locale?: string;
 }
 
 /**
@@ -14,11 +18,20 @@ type HeroSectionProps = {
  * Client-side GSAP parallax and framer-motion text animations are isolated
  * in <HeroAnimations>, which hydrates independently.
  */
-export default function HeroSection({ homepage }: HeroSectionProps) {
+export default function HeroSection({ homepage, locale = 'en' }: HeroSectionProps) {
   const image = homepage?.heroImage
   const heroImageUrl = image
     ? urlFor(image).width(1200).format('webp').quality(65).url()
     : "/hero-img.webp"
+
+  // Get translations based on locale
+  const t = locale === 'id' ? id : en;
+  
+  // Extract text from CMS or fallback to translation
+  const titleObj = homepage?.heroTitle || {};
+  const subtitleObj = homepage?.heroSubtitle || {};
+  const title = titleObj[locale] || t.hero.defaultTitle;
+  const subtitle = subtitleObj[locale] || t.hero.defaultSubtitle;
 
   return (
     <section className="relative h-[calc(100vh+4rem)] min-h-[calc(600px+4rem)] w-full overflow-hidden">
@@ -39,7 +52,14 @@ export default function HeroSection({ homepage }: HeroSectionProps) {
       </div>
 
       {/* Client-side animations (parallax + text entrance) */}
-      <HeroAnimations homepage={homepage} heroImageUrl={heroImageUrl} />
+      <HeroAnimations heroImageUrl={heroImageUrl}>
+        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-medium text-white text-pretty leading-tight drop-shadow-lg">
+          {title}
+        </h1>
+        <p className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto leading-relaxed drop-shadow-md">
+          {subtitle}
+        </p>
+      </HeroAnimations>
     </section>
   )
 }

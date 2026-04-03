@@ -70,7 +70,9 @@ const lodgingJsonLd = {
   ],
 }
 
-export default async function Home() {
+export default async function Home({ params: paramsPromise }: { params: Promise<{ locale: string }> }) {
+  const params = await paramsPromise;
+  const locale = params.locale;
   const { data: homepage } = await getHomepage()
   const { data: bungalows } = await getBungalows()
 
@@ -81,7 +83,7 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd) }}
       />
       <Navigation />
-      <HeroSection homepage={homepage} />
+      <HeroSection homepage={homepage} locale={locale} />
       <AboutUsSection homepage={homepage} />
       <div className="h-24 md:h-32 bg-gradient-to-b from-background to-[#f5efe6]" />
       <ExploreSection />

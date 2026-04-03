@@ -6,21 +6,17 @@ import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 import { sendGAEvent } from '@next/third-parties/google'
 
 type HeroAnimationsProps = {
-  homepage?: any;
   heroImageUrl: string;
+  children: React.ReactNode;
 }
 
-export default function HeroAnimations({ homepage, heroImageUrl }: HeroAnimationsProps) {
+export default function HeroAnimations({ heroImageUrl, children }: HeroAnimationsProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [gsapReady, setGsapReady] = useState(false)
 
   const { t } = useLanguage()
-  const { getCmsValue } = useCmsTranslation()
-
-  const title = getCmsValue(homepage, 'heroTitle', t.hero.defaultTitle)
-  const subtitle = getCmsValue(homepage, 'heroSubtitle', t.hero.defaultSubtitle)
 
   // Lazy-load GSAP only after hydration to reduce TBT
   useEffect(() => {
@@ -81,18 +77,7 @@ export default function HeroAnimations({ homepage, heroImageUrl }: HeroAnimation
         className="absolute top-0 left-0 right-0 h-[100vh] min-h-[600px] flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 will-change-transform"
       >
         <div className="max-w-2xl space-y-6">
-          <h1 
-            className="font-serif text-5xl sm:text-6xl lg:text-7xl font-medium text-white text-pretty leading-tight drop-shadow-lg"
-          >
-            {title}
-          </h1>
-          
-          <p 
-            className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto leading-relaxed drop-shadow-md"
-          >
-            {subtitle}
-          </p>
-
+          {children}
           <div 
             className="flex flex-col sm:flex-row gap-4 justify-center pt-6"
           >

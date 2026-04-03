@@ -82,20 +82,19 @@ export default function HeroAnimations({ homepage, heroImageUrl }: HeroAnimation
       >
         <div className="max-w-2xl space-y-6">
           <h1 
-            className="font-serif text-5xl sm:text-6xl lg:text-7xl font-medium text-white text-pretty leading-tight drop-shadow-lg animate-hero-text-reveal"
+            className="font-serif text-5xl sm:text-6xl lg:text-7xl font-medium text-white text-pretty leading-tight drop-shadow-lg"
           >
             {title}
           </h1>
           
           <p 
-            className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto leading-relaxed drop-shadow-md animate-hero-subtitle-reveal"
+            className="text-lg sm:text-xl text-white/90 max-w-xl mx-auto leading-relaxed drop-shadow-md"
           >
             {subtitle}
           </p>
 
           <div 
-            className="flex flex-col sm:flex-row gap-4 justify-center pt-6 animate-hero-subtitle-reveal"
-            style={{ animationDelay: '1s' }}
+            className="flex flex-col sm:flex-row gap-4 justify-center pt-6"
           >
             <button 
               type="button"

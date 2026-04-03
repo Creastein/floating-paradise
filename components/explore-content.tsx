@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useRef, useEffect, useState } from 'react'
-import { gsap, ScrollTrigger } from '@/lib/gsap-init'
 import Lightbox from '@/components/lightbox'
 import { Camera } from 'lucide-react'
 import { useWhatsAppNumbers } from './site-settings-provider'
@@ -150,52 +149,55 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number; alt: string } | null>(null)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray('.explore-card') as HTMLElement[]
+    let ctx: any;
+    import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
+      ctx = gsap.context(() => {
+        const cards = gsap.utils.toArray('.explore-card') as HTMLElement[]
 
-      cards.forEach((card, index) => {
-        const isRightColumn = index % 2 === 1
-        const colDelay = isRightColumn ? 0.3 : 0
+        cards.forEach((card, index) => {
+          const isRightColumn = index % 2 === 1
+          const colDelay = isRightColumn ? 0.3 : 0
 
-        const imageEl = card.querySelector('.card-image') as HTMLElement
-        const textEl = card.querySelector('.card-text') as HTMLElement
-        const els = [imageEl, textEl].filter(Boolean)
+          const imageEl = card.querySelector('.card-image') as HTMLElement
+          const textEl = card.querySelector('.card-text') as HTMLElement
+          const els = [imageEl, textEl].filter(Boolean)
 
-        els.forEach(el => gsap.set(el, { opacity: 0, y: 25, filter: 'blur(4px)' }))
+          els.forEach(el => gsap.set(el, { opacity: 0, y: 25, filter: 'blur(4px)' }))
 
-        const animateIn = (fromY: number) => {
-          els.forEach((el, i) => {
-            gsap.fromTo(el,
-              { opacity: 0, y: fromY, filter: 'blur(4px)' },
-              {
-                opacity: 1,
-                y: 0,
-                filter: 'blur(0px)',
-                duration: 1.6,
-                delay: colDelay + (i * 0.2),
-                ease: 'power2.inOut',
-              }
-            )
+          const animateIn = (fromY: number) => {
+            els.forEach((el, i) => {
+              gsap.fromTo(el,
+                { opacity: 0, y: fromY, filter: 'blur(4px)' },
+                {
+                  opacity: 1,
+                  y: 0,
+                  filter: 'blur(0px)',
+                  duration: 1.6,
+                  delay: colDelay + (i * 0.2),
+                  ease: 'power2.inOut',
+                }
+              )
+            })
+          }
+
+          const resetEls = () => {
+            els.forEach(el => gsap.set(el, { opacity: 0, filter: 'blur(4px)' }))
+          }
+
+          ScrollTrigger.create({
+            trigger: card,
+            start: 'top 90%',
+            end: 'bottom 10%',
+            onEnter: () => animateIn(25),
+            onEnterBack: () => animateIn(-25),
+            onLeave: () => resetEls(),
+            onLeaveBack: () => resetEls(),
           })
-        }
-
-        const resetEls = () => {
-          els.forEach(el => gsap.set(el, { opacity: 0, filter: 'blur(4px)' }))
-        }
-
-        ScrollTrigger.create({
-          trigger: card,
-          start: 'top 90%',
-          end: 'bottom 10%',
-          onEnter: () => animateIn(25),
-          onEnterBack: () => animateIn(-25),
-          onLeave: () => resetEls(),
-          onLeaveBack: () => resetEls(),
         })
-      })
-    }, gridRef)
+      }, gridRef)
+    })
 
-    return () => ctx.revert()
+    return () => ctx?.revert()
   }, [])
 
   return (

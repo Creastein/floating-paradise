@@ -76,7 +76,7 @@
 
 @theme inline {
   --font-sans: 'Lato', sans-serif;
-  --font-serif: 'Cormorant Garamond', serif;
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', serif;
   --font-mono: 'Courier New', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);

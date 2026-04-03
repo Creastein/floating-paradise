@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Lato } from 'next/font/google'
+import { Lato, Cormorant_Garamond } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import FloatingWhatsapp from '@/components/floating-whatsapp'
@@ -14,6 +14,13 @@ import { LanguageProvider } from '@/lib/i18n/language-context'
 const lato = Lato({ 
   subsets: ["latin"],
   weight: ["400", "700"]
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: '--font-cormorant',
+  display: 'swap',
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -65,11 +72,13 @@ export default async function RootLayout({
       <head>
         {/* Preconnect to external domains for faster resource loading */}
         <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://tripla.jp" />
         <link rel="dns-prefetch" href="https://triplabot-production.tripla.ai" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
       </head>
-      <body className={`${lato.className} antialiased`}>
+      <body className={`${lato.className} ${cormorant.variable} antialiased`}>
         <SiteSettingsProvider settings={settings}>
           <LanguageProvider>
             {children}

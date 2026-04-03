@@ -8,13 +8,13 @@ const nextConfig = {
       ...pages.map((page) => ({
         source: `/${page}`,
         destination: `/en/${page}`,
-        permanent: false,
+        permanent: true,
       })),
       // Redirect root / to /en/
       {
         source: '/',
         destination: '/en',
-        permanent: false,
+        permanent: true,
       },
     ]
   },

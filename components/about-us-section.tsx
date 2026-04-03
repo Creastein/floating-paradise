@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useRef, useEffect } from 'react'
-import { gsap } from '@/lib/gsap-init'
 import { urlFor } from '@/lib/sanity.image'
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
@@ -28,7 +27,10 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
   const image3 = homepage?.welcomeImage3
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    let ctx: any
+    import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger)
+      ctx = gsap.context(() => {
       // 1. Gallery frames — staggered reveal entrance
       const frames = gsap.utils.toArray<HTMLElement>('.gallery-frame', galleryRef.current)
       if (frames.length) {
@@ -91,8 +93,9 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
         })
       }
     }, sectionRef)
+    })
 
-    return () => ctx.revert()
+    return () => ctx?.revert()
   }, [])
 
   return (
@@ -108,7 +111,7 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
               className="gallery-frame col-span-3 row-span-2 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
-                src={image1 ? urlFor(image1).url() : "/image/homepage/Welcome-to-Floating1.webp"}
+                src={image1 ? urlFor(image1).width(900).format('webp').quality(75).url() : "/image/homepage/Welcome-to-Floating1.webp"}
                 alt="Exterior view of Floating Paradise wooden bungalows over the ocean in Karimunjawa"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -122,7 +125,7 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
               className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
-                src={image2 ? urlFor(image2).url() : "/image/homepage/Welcome-to-Floating2.webp"}
+                src={image2 ? urlFor(image2).width(500).format('webp').quality(75).url() : "/image/homepage/Welcome-to-Floating2.webp"}
                 alt="Interior of a rustic oceanfront room at Floating Paradise"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -136,7 +139,7 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
               className="gallery-frame col-span-2 row-span-1 rounded-2xl md:rounded-3xl overflow-hidden relative group opacity-0 cursor-pointer shadow-premium hover:-translate-y-3"
             >
               <Image
-                src={image3 ? urlFor(image3).url() : "/image/homepage/Welcome-to-Floating3.webp"}
+                src={image3 ? urlFor(image3).width(500).format('webp').quality(75).url() : "/image/homepage/Welcome-to-Floating3.webp"}
                 alt="Stunning moonrise viewed from the jetty at Floating Paradise Karimunjawa"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"

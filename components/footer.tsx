@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useEffect } from 'react'
-import { gsap } from '@/lib/gsap-init'
 import { Instagram, Facebook, Mail, MapPin } from 'lucide-react'
 import { useSiteSettings } from './site-settings-provider'
 import { useLanguage } from '@/lib/i18n/language-context'
@@ -15,7 +14,10 @@ export default function Footer() {
   const { t, language } = useLanguage()
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    let ctx: any
+    import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger)
+      ctx = gsap.context(() => {
       // Staggered reveal for all granular footer text and elements
       const elements = gsap.utils.toArray('.footer-text')
       if (elements.length > 0) {
@@ -37,8 +39,9 @@ export default function Footer() {
         )
       }
     }, footerRef)
+    })
 
-    return () => ctx.revert()
+    return () => ctx?.revert()
   }, [])
 
   return (

@@ -1,9 +1,7 @@
 "use client"
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { useRef, useEffect } from 'react'
-import { gsap } from '@/lib/gsap-init'
 import { urlFor } from '@/lib/sanity.image'
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
@@ -57,7 +55,10 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
   }
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    let ctx: any
+    import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger)
+      ctx = gsap.context(() => {
       // Text scrub animation
       const scrubElements = gsap.utils.toArray('.scrub-text', sectionRef.current) as HTMLElement[];
       scrubElements.forEach((el) => {
@@ -156,8 +157,9 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
         });
       }
     }, sectionRef)
+    })
 
-    return () => ctx.revert()
+    return () => ctx?.revert()
   }, [])
 
 
@@ -226,9 +228,9 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
             const homepageImgField = homepageBungalowImageMap[bungalow.name]
             const homepageImg = homepageImgField ? homepage?.[homepageImgField] : null
 
-            const imgSrc = homepageImg ? urlFor(homepageImg).url()
-                         : bungalow.gallery?.[0] ? urlFor(bungalow.gallery[0]).url() 
-                         : bungalow.mainImage ? urlFor(bungalow.mainImage).url() 
+            const imgSrc = homepageImg ? urlFor(homepageImg).width(600).format('webp').quality(75).url()
+                         : bungalow.gallery?.[0] ? urlFor(bungalow.gallery[0]).width(600).format('webp').quality(75).url()
+                         : bungalow.mainImage ? urlFor(bungalow.mainImage).width(600).format('webp').quality(75).url()
                          : bungalow.image || localFallback;
             
             return (

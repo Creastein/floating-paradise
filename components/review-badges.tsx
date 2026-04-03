@@ -2,7 +2,6 @@
 
 import { useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { gsap } from '@/lib/gsap-init'
 
 export default function ReviewBadges() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -10,7 +9,10 @@ export default function ReviewBadges() {
   const badgesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    let ctx: any
+    import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger)
+      ctx = gsap.context(() => {
       // Header slide-in from left
       if (headerRef.current) {
         gsap.fromTo(headerRef.current,
@@ -78,8 +80,9 @@ export default function ReviewBadges() {
         });
       }
     }, sectionRef)
+    })
 
-    return () => ctx.revert()
+    return () => ctx?.revert()
   }, [])
 
   return (

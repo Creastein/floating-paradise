@@ -3,10 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
-import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/components/ui/button'
 import LanguageSwitcher from './language-switcher'
 import { useLanguage } from '@/lib/i18n/language-context'
 import { sendGAEvent } from '@next/third-parties/google'
@@ -15,18 +13,19 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
-  const { scrollY } = useScroll()
   const { t, language } = useLanguage()
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (typeof window !== 'undefined') {
+  useEffect(() => {
+    const onScroll = () => {
       const isHomePage = pathname === '/'
       const homeHeroHeight = Math.max(600, window.innerHeight)
       const subpageHeroHeight = Math.max(400, window.innerHeight * 0.6)
       const heroHeight = isHomePage ? homeHeroHeight : subpageHeroHeight
-      setIsScrolled(latest > heroHeight * 0.8)
+      setIsScrolled(window.scrollY > heroHeight * 0.8)
     }
-  })
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [pathname])
 
   const navItems = [
     { href: `/${language}`, label: t.nav.home },
@@ -52,13 +51,20 @@ export default function Navigation() {
     ? "text-foreground" 
     : "text-white [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]"
 
+  // Active link underline — pure CSS instead of framer-motion layoutId
+  const activeUnderline = (solid: boolean) => (
+    <span
+      className={`absolute left-0 right-0 -bottom-0.5 h-[2px] rounded-full ${
+        solid ? 'bg-primary' : 'bg-white'
+      }`}
+    />
+  )
+
   return (
     <>
-      <motion.nav 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${navBg}`}
+      {/* CSS animation replaces framer-motion for nav entrance */}
+      <nav 
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 animate-nav-slide-down ${navBg}`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
@@ -97,15 +103,7 @@ export default function Navigation() {
                     }`}
                   >
                     {item.label}
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-underline"
-                        className={`absolute left-0 right-0 -bottom-0.5 h-[2px] rounded-full ${
-                          isSolid ? 'bg-primary' : 'bg-white'
-                        }`}
-                        transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                      />
-                    )}
+                    {isActive && activeUnderline(isSolid)}
                   </Link>
                 )
               })}
@@ -135,64 +133,62 @@ export default function Navigation() {
             </div>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-0 left-0 right-0 bg-background/98 backdrop-blur-xl z-40 md:hidden overflow-y-auto"
-          >
-            <div className="flex flex-col min-h-screen px-6 pt-24 pb-8">
-              <div className="flex flex-col gap-6 flex-grow">
-                {navItems.map((item, i) => {
-                  const isActive = item.href === `/${language}` 
-                    ? pathname === `/${language}` || pathname === `/${language}/`
-                    : pathname.startsWith(item.href)
-                  return (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
+      {/* Mobile menu — only loads framer-motion when menu is opened */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 top-0 left-0 right-0 bg-background/98 backdrop-blur-xl z-40 md:hidden overflow-y-auto"
+          style={{ animation: 'navSlideDown 0.2s ease-out forwards' }}
+        >
+          <div className="flex flex-col min-h-screen px-6 pt-24 pb-8">
+            <div className="flex flex-col gap-6 flex-grow">
+              {navItems.map((item, i) => {
+                const isActive = item.href === `/${language}` 
+                  ? pathname === `/${language}` || pathname === `/${language}/`
+                  : pathname.startsWith(item.href)
+                return (
+                  <div
+                    key={item.href}
+                    style={{ 
+                      opacity: 0, 
+                      animation: `heroSubtitleReveal 0.3s ease-out ${i * 0.05}s forwards` 
+                    }}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`block text-3xl font-serif transition-colors py-2 border-b border-border/50 ${
+                        isActive 
+                          ? 'text-primary border-l-4 border-l-primary pl-4' 
+                          : 'text-foreground hover:text-primary'
+                      }`}
+                      onClick={() => setIsOpen(false)}
                     >
-                      <Link
-                        href={item.href}
-                        className={`block text-3xl font-serif transition-colors py-2 border-b border-border/50 ${
-                          isActive 
-                            ? 'text-primary border-l-4 border-l-primary pl-4' 
-                            : 'text-foreground hover:text-primary'
-                        }`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    </motion.div>
-                  )
-                })}
-              </div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="mt-8 mb-safe pb-8"
-              >
-                <button
-                  type="button"
-                  onClick={() => { setIsOpen(false); sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'navbar_mobile' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
-                  className="btn-skew w-full text-lg rounded-xl h-14 border border-transparent hover:border-primary bg-primary text-primary-foreground hover:text-primary hover:bg-transparent transition-colors duration-300"
-                >
-                  <span className="relative z-10">{t.nav.bookNow}</span>
-                </button>
-              </motion.div>
+                      {item.label}
+                    </Link>
+                  </div>
+                )
+              })}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            
+            <div
+              style={{ 
+                opacity: 0, 
+                animation: 'heroSubtitleReveal 0.4s ease-out 0.3s forwards' 
+              }}
+              className="mt-8 mb-safe pb-8"
+            >
+              <button
+                type="button"
+                onClick={() => { setIsOpen(false); sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'navbar_mobile' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
+                className="btn-skew w-full text-lg rounded-xl h-14 border border-transparent hover:border-primary bg-primary text-primary-foreground hover:text-primary hover:bg-transparent transition-colors duration-300"
+              >
+                <span className="relative z-10">{t.nav.bookNow}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

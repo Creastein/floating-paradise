@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useRef, useEffect } from 'react'
-import { gsap } from '@/lib/gsap-init'
 import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function ExploreSection() {
@@ -17,7 +16,10 @@ export default function ExploreSection() {
   const { t } = useLanguage()
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    let ctx: any
+    import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger)
+      ctx = gsap.context(() => {
       // Decorative line grows with scroll
       if (lineRef.current) {
         gsap.fromTo(lineRef.current, 
@@ -134,8 +136,9 @@ export default function ExploreSection() {
         )
       }
     }, sectionRef)
+    })
 
-    return () => ctx.revert()
+    return () => ctx?.revert()
   }, [])
 
   return (

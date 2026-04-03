@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRef, useEffect } from 'react'
-import { gsap } from '@/lib/gsap-init'
 import { useLanguage } from '@/lib/i18n/language-context'
 import { YOGA_RETREAT_NAME } from '@/lib/constants'
 
@@ -21,7 +20,10 @@ export default function YogaRetreatSection() {
   const retreatEmphasis = retreatWords.at(-1) || ''
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    let ctx: any
+    import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger)
+      ctx = gsap.context(() => {
       // 1. Image: smooth scale-up and slide-up with subtle rotation
       if (imageRef.current) {
         gsap.fromTo(imageRef.current,
@@ -100,8 +102,9 @@ export default function YogaRetreatSection() {
         )
       }
     }, sectionRef)
+    })
 
-    return () => ctx.revert()
+    return () => ctx?.revert()
   }, [])
 
   return (

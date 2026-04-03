@@ -124,24 +124,22 @@
 }
 
 /* ============================================
-   TRIPLA SDK — ACTIVE
-   Mount point hidden; search bar visually hidden but kept in DOM
-   so Tripla booking logic continues to work.
-   Chatbot + CTA-triggered popups remain active.
+   TRIPLA SDK — SEARCH BAR ALWAYS HIDDEN
+   The search bar is unconditionally hidden via display:none.
+   The booking popup (iframe overlay) is separate and remains active.
    ============================================ */
 #tripla-widget-mount {
   display: none !important;
 }
 
-/* Hide ONLY the auto-rendered Tripla search bar overlay.
-   Using visibility+opacity instead of display:none to keep it in the DOM
-   (prevents Tripla SDK errors). Position off-screen as extra safety.
-   The :not(.tripla-active) allows JS to unhide by adding the class. */
-tripla-search-bar:not(.tripla-active),
-div[class*="tripla-search"]:not(.tripla-active),
-div[id*="tripla-search"]:not(.tripla-active),
-div[class*="triplaSearchBar"]:not(.tripla-active),
-div[class*="tripla_search"]:not(.tripla-active) {
+/* Unconditionally hide the Tripla search bar — no toggle, no flash.
+   Using display:none prevents any brief visibility during transitions. */
+tripla-search-bar,
+div[class*="tripla-search"],
+div[id*="tripla-search"],
+div[class*="triplaSearchBar"],
+div[class*="tripla_search"] {
+  display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   height: 0 !important;
@@ -153,24 +151,6 @@ div[class*="tripla_search"]:not(.tripla-active) {
   pointer-events: none !important;
   z-index: -1 !important;
   clip-path: inset(100%) !important;
-}
-
-tripla-search-bar.tripla-active,
-div[class*="tripla-search"].tripla-active,
-div[id*="tripla-search"].tripla-active,
-div[class*="triplaSearchBar"].tripla-active,
-div[class*="tripla_search"].tripla-active {
-  visibility: visible !important;
-  opacity: 1 !important;
-  height: auto !important;
-  width: auto !important;
-  overflow: visible !important;
-  position: static !important;
-  top: auto !important;
-  left: auto !important;
-  pointer-events: auto !important;
-  z-index: 99999 !important;
-  clip-path: none !important;
 }
 
 /* ============================================

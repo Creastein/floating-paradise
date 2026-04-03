@@ -94,72 +94,133 @@ export default async function RootLayout({
             />
             <Script id="tripla-hide-searchbar" strategy="afterInteractive">{`
               (function(){
-                var bookingActive = false;
+                var activeTimers = [];
+                var closePoller = null;
 
-                function unhideEl(el){
-                  if(!el) return;
-                  el.classList.add('tripla-active');
-                  el.removeAttribute('aria-hidden');
-                  if(el.shadowRoot){
-                    var s = el.shadowRoot.getElementById('tripla-hide-injected');
-                    if(s) s.remove();
-                  }
+                function clearAllTimers(){
+                  activeTimers.forEach(function(t){ clearTimeout(t); });
+                  activeTimers = [];
+                  if(closePoller){ clearInterval(closePoller); closePoller = null; }
                 }
 
+                /* ── Force-hide search bar: display:none + shadow DOM injection ── */
                 function hideEl(el){
-                  if(bookingActive) return;
-                  if(el){
-                    el.classList.remove('tripla-active');
-                    el.setAttribute('aria-hidden','true');
-                  }
-                  if(el && el.shadowRoot){
+                  if(!el) return;
+                  el.style.setProperty('display','none','important');
+                  el.style.setProperty('visibility','hidden','important');
+                  el.style.setProperty('opacity','0','important');
+                  el.style.setProperty('height','0','important');
+                  el.style.setProperty('width','0','important');
+                  el.style.setProperty('overflow','hidden','important');
+                  el.style.setProperty('position','fixed','important');
+                  el.style.setProperty('top','-9999px','important');
+                  el.style.setProperty('pointer-events','none','important');
+                  el.setAttribute('aria-hidden','true');
+                  if(el.shadowRoot){
                     var sid = 'tripla-hide-injected';
                     if(!el.shadowRoot.getElementById(sid)){
                       var s = document.createElement('style');
                       s.id = sid;
-                      s.textContent = ':host:not(.tripla-active){visibility:hidden!important;opacity:0!important;height:0!important;width:0!important;overflow:hidden!important;position:fixed!important;top:-9999px!important;pointer-events:none!important;clip-path:inset(100%)!important} :host:not(.tripla-active) *{visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;pointer-events:none!important}';
+                      s.textContent = ':host{display:none!important;visibility:hidden!important;opacity:0!important;height:0!important;width:0!important;overflow:hidden!important;position:fixed!important;top:-9999px!important;pointer-events:none!important;clip-path:inset(100%)!important} :host *{display:none!important;visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;pointer-events:none!important}';
                       el.shadowRoot.prepend(s);
                     }
                   }
                 }
 
                 function hideAll(){
-                  if(bookingActive) return;
                   var el = document.querySelector('tripla-search-bar');
                   if(el) hideEl(el);
-                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(hideEl);
+                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"],[class*="triplaSearchBar"],[class*="tripla_search"]').forEach(hideEl);
                 }
 
-                function unhideAll(){
-                  var el = document.querySelector('tripla-search-bar');
-                  unhideEl(el);
-                  document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"]').forEach(unhideEl);
+                /* ── Use rAF to hide before browser paints ── */
+                function hideBeforePaint(){
+                  requestAnimationFrame(function(){
+                    hideAll();
+                    requestAnimationFrame(function(){ hideAll(); });
+                  });
+                }
+
+                function findTriplaModal(){
+                  var iframe = document.querySelector('iframe[src*="tripla"]')
+                            || document.getElementById('tripla-booking-widget-window');
+                  if(iframe){
+                    var r = iframe.getBoundingClientRect();
+                    if(r.width > 50 && r.height > 50) return iframe;
+                  }
+                  var hosts = document.querySelectorAll('tripla-search-bar, tripla-booking, [class*="tripla"]');
+                  for(var i = 0; i < hosts.length; i++){
+                    if(hosts[i].shadowRoot){
+                      var f = hosts[i].shadowRoot.querySelector('iframe');
+                      if(f){
+                        var r2 = f.getBoundingClientRect();
+                        if(r2.width > 50 && r2.height > 50) return f;
+                      }
+                    }
+                  }
+                  return null;
+                }
+
+                function deactivate(){
+                  clearAllTimers();
+                  hideAll();
+                  hideBeforePaint();
+                  /* Extra burst-hide for 2 seconds after modal closes */
+                  var burst = 0;
+                  var burstIv = setInterval(function(){
+                    hideAll();
+                    burst++;
+                    if(burst > 40){ clearInterval(burstIv); }
+                  }, 50);
+                  activeTimers.push(burstIv);
+                }
+
+                function activate(){
+                  clearAllTimers();
+                  activeTimers.push(setTimeout(deactivate, 120000));
+                  var waitCount = 0;
+                  var waitForOpen = setInterval(function(){
+                    hideAll();
+                    waitCount++;
+                    if(waitCount > 10){ clearInterval(waitForOpen); deactivate(); return; }
+                    var modal = findTriplaModal();
+                    if(modal){
+                      clearInterval(waitForOpen);
+                      var closePollCount = 0;
+                      closePoller = setInterval(function(){
+                        hideAll();
+                        closePollCount++;
+                        if(closePollCount > 120){ deactivate(); return; }
+                        var m = findTriplaModal();
+                        if(!m){ deactivate(); return; }
+                      }, 500);
+                    }
+                  }, 500);
+                  activeTimers.push(waitForOpen);
+                }
+
+                window.addEventListener('popstate', deactivate);
+                if(typeof window !== 'undefined' && window.navigation){
+                  window.navigation.addEventListener('navigate', function(){ deactivate(); });
                 }
 
                 document.addEventListener('click', function(e){
                   var btn = e.target.closest ? e.target.closest('[data-tripla-booking-widget]') : null;
                   if(!btn) return;
-                  bookingActive = true;
-                  unhideAll();
-                  setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
+                  activate();
                 }, true);
 
                 window.__openTriplaBooking = function(roomId){
-                  bookingActive = true;
-                  unhideAll();
-                  setTimeout(function(){ bookingActive = false; hideAll(); }, 60000);
-
+                  activate();
                   if(!roomId){
                     var hiddenBtn = document.getElementById('hidden-tripla-trigger');
                     if(hiddenBtn) hiddenBtn.click();
                   } else {
                     window.__triplaDesiredRoomId = roomId;
-
                     if(window.__triplaRoomObserver){
                       window.__triplaRoomObserver.disconnect();
                       window.__triplaRoomObserver = null;
                     }
-
                     function findTriplaIframe(){
                       var iframe = document.querySelector('iframe[src*="tripla"]')
                                 || document.getElementById('tripla-booking-widget-window');
@@ -180,7 +241,6 @@ export default async function RootLayout({
                       }
                       return null;
                     }
-
                     function patchIframe(){
                       var iframe = findTriplaIframe();
                       if(!iframe || !iframe.src) return false;
@@ -193,7 +253,6 @@ export default async function RootLayout({
                         return true;
                       } catch(e){ return false; }
                     }
-
                     if(!patchIframe()){
                       var observer = new MutationObserver(function(){
                         if(patchIframe()){
@@ -202,10 +261,8 @@ export default async function RootLayout({
                         }
                       });
                       observer.observe(document.body, {
-                        childList: true,
-                        subtree: true,
-                        attributes: true,
-                        attributeFilter: ['src']
+                        childList: true, subtree: true,
+                        attributes: true, attributeFilter: ['src']
                       });
                       window.__triplaRoomObserver = observer;
                       setTimeout(function(){
@@ -239,16 +296,20 @@ export default async function RootLayout({
                   });
                 })();
 
-                var bodyObs = new MutationObserver(function(){ hideAll(); });
-                bodyObs.observe(document.body,{childList:true,subtree:true});
+                /* MutationObserver: hide on every DOM change + rAF for pre-paint */
+                var bodyObs = new MutationObserver(function(){
+                  hideAll();
+                  hideBeforePaint();
+                });
+                bodyObs.observe(document.body,{childList:true,subtree:true,attributes:true});
 
                 hideAll();
                 var c = 0;
                 var iv = setInterval(function(){
                   hideAll();
                   c++;
-                  if(c > 60){ clearInterval(iv); }
-                }, 500);
+                  if(c > 120){ clearInterval(iv); }
+                }, 250);
               })();
             `}</Script>
           </LanguageProvider>

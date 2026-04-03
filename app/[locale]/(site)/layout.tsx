@@ -60,6 +60,9 @@ export async function generateMetadata({
       icon: "/favicon.svg",
       apple: "/logo.png",
     },
+    verification: {
+      google: 'uzqU-wJg4uZLFdlf30fzK8gDWj-umICe7BaW4X7DyOo',
+    },
   }
 }
 
@@ -79,6 +82,13 @@ export default async function RootLayout({
 
   return (
     <html lang={params.locale}>
+      <head>
+        {/* Preconnect to external domains for faster resource loading */}
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="dns-prefetch" href="https://tripla.jp" />
+        <link rel="dns-prefetch" href="https://triplabot-production.tripla.ai" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+      </head>
       <body className={`${lato.className} antialiased`}>
         <SiteSettingsProvider settings={settings}>
           <LanguageProvider initialLocale={params.locale as "en" | "id"}>
@@ -89,10 +99,10 @@ export default async function RootLayout({
             <button id="hidden-tripla-trigger" data-tripla-booking-widget="search" style={{ display: 'none' }} aria-hidden="true" />
             <Script
               src="https://tripla.jp/sdk/javascript/tripla.min.js"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
               data-triplabot-code="019c5054-aa76-72af-8207-e3dd1c280fa3"
             />
-            <Script id="tripla-hide-searchbar" strategy="afterInteractive">{`
+            <Script id="tripla-hide-searchbar" strategy="lazyOnload">{`
               (function(){
                 var activeTimers = [];
                 var closePoller = null;

@@ -17,7 +17,7 @@ type FetchResult<T> = { source: 'cms' | 'local', data: T | null }
 // Global fetch options: Instant refresh in development, ISR in production
 const fetchOptions = process.env.NODE_ENV === 'development' 
   ? { cache: 'no-store' as RequestCache } 
-  : { next: { revalidate: 60 } }
+  : { next: { revalidate: 3600 } } // Revalidate every 1 hour
 
 export async function getSiteSettings(): Promise<FetchResult<any>> {
   try {

@@ -5,8 +5,28 @@ import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { useLanguage } from "@/lib/i18n/language-context"
 
+// Safe hook wrapper — not-found can render outside LanguageProvider
+function useSafeLanguage() {
+  try {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useLanguage()
+  } catch {
+    return {
+      language: 'en' as const,
+      t: {
+        notFound: {
+          title: 'Page Not Found',
+          description: "The page you're looking for seems to have drifted away with the tide. Let's get you back to calmer waters.",
+          backHome: 'Back to Homepage',
+          contactUs: 'Contact Us',
+        }
+      }
+    }
+  }
+}
+
 export default function NotFound() {
-  const { t } = useLanguage()
+  const { t, language } = useSafeLanguage() as any
 
   return (
     <main className="min-h-screen flex flex-col">
@@ -28,7 +48,7 @@ export default function NotFound() {
               {t.notFound?.backHome || "Back to Homepage"}
             </Link>
             <Link
-              href="/contact"
+              href={`/${language || 'en'}/contact`}
               className="inline-block text-base font-medium px-8 py-3 rounded-full border border-foreground/20 text-foreground hover:bg-foreground/5 transition-colors duration-300"
             >
               {t.notFound?.contactUs || "Contact Us"}

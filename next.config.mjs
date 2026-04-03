@@ -1,6 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 
+  async redirects() {
+    const pages = ['bungalows', 'explore', 'yoga-retreat', 'getting-here', 'about', 'contact']
+    return [
+      // Redirect bare paths (without locale) to /en/
+      ...pages.map((page) => ({
+        source: `/${page}`,
+        destination: `/en/${page}`,
+        permanent: false,
+      })),
+      // Redirect root / to /en/
+      {
+        source: '/',
+        destination: '/en',
+        permanent: false,
+      },
+    ]
+  },
+
   images: {
     remotePatterns: [
       {

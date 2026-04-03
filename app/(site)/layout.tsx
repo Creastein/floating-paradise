@@ -79,6 +79,7 @@ export default async function RootLayout({
               (function(){
                 var activeTimers = [];
                 var closePoller = null;
+                var triplaActive = false;
 
                 function clearAllTimers(){
                   activeTimers.forEach(function(t){ clearTimeout(t); });
@@ -110,18 +111,34 @@ export default async function RootLayout({
                   }
                 }
 
-                function hideAll(){
+                function unhideEl(el){
+                  if(!el) return;
+                  el.style.removeProperty('display');
+                  el.style.removeProperty('visibility');
+                  el.style.removeProperty('opacity');
+                  el.style.removeProperty('height');
+                  el.style.removeProperty('width');
+                  el.style.removeProperty('overflow');
+                  el.style.removeProperty('position');
+                  el.style.removeProperty('top');
+                  el.style.removeProperty('pointer-events');
+                  el.removeAttribute('aria-hidden');
+                  if(el.shadowRoot){
+                    var sid = 'tripla-hide-injected';
+                    var injected = el.shadowRoot.getElementById(sid);
+                    if(injected) injected.remove();
+                  }
+                }
+
+                function hideSearchBar(){
                   var el = document.querySelector('tripla-search-bar');
                   if(el) hideEl(el);
                   document.querySelectorAll('[class*="tripla-search"],[id*="tripla-search"],[class*="triplaSearchBar"],[class*="tripla_search"]').forEach(hideEl);
                 }
 
-                /* ── Use rAF to hide before browser paints ── */
-                function hideBeforePaint(){
-                  requestAnimationFrame(function(){
-                    hideAll();
-                    requestAnimationFrame(function(){ hideAll(); });
-                  });
+                function hideAll(){
+                  if(triplaActive) return;
+                  hideSearchBar();
                 }
 
                 function findTriplaModal(){
@@ -145,13 +162,13 @@ export default async function RootLayout({
                 }
 
                 function deactivate(){
+                  triplaActive = false;
                   clearAllTimers();
-                  hideAll();
-                  hideBeforePaint();
+                  hideSearchBar();
                   /* Extra burst-hide for 2 seconds after modal closes */
                   var burst = 0;
                   var burstIv = setInterval(function(){
-                    hideAll();
+                    if(!triplaActive) hideSearchBar();
                     burst++;
                     if(burst > 40){ clearInterval(burstIv); }
                   }, 50);
@@ -159,11 +176,11 @@ export default async function RootLayout({
                 }
 
                 function activate(){
+                  triplaActive = true;
                   clearAllTimers();
                   activeTimers.push(setTimeout(deactivate, 120000));
                   var waitCount = 0;
                   var waitForOpen = setInterval(function(){
-                    hideAll();
                     waitCount++;
                     if(waitCount > 10){ clearInterval(waitForOpen); deactivate(); return; }
                     var modal = findTriplaModal();
@@ -171,7 +188,6 @@ export default async function RootLayout({
                       clearInterval(waitForOpen);
                       var closePollCount = 0;
                       closePoller = setInterval(function(){
-                        hideAll();
                         closePollCount++;
                         if(closePollCount > 120){ deactivate(); return; }
                         var m = findTriplaModal();
@@ -195,6 +211,10 @@ export default async function RootLayout({
 
                 window.__openTriplaBooking = function(roomId){
                   activate();
+                  /* Un-hide tripla elements so the booking modal can appear */
+                  var searchBar = document.querySelector('tripla-search-bar');
+                  if(searchBar) unhideEl(searchBar);
+
                   if(!roomId){
                     var hiddenBtn = document.getElementById('hidden-tripla-trigger');
                     if(hiddenBtn) hiddenBtn.click();
@@ -204,6 +224,10 @@ export default async function RootLayout({
                       window.__triplaRoomObserver.disconnect();
                       window.__triplaRoomObserver = null;
                     }
+                    /* Click hidden trigger first to open the widget */
+                    var hiddenBtn2 = document.getElementById('hidden-tripla-trigger');
+                    if(hiddenBtn2) hiddenBtn2.click();
+
                     function findTriplaIframe(){
                       var iframe = document.querySelector('iframe[src*="tripla"]')
                                 || document.getElementById('tripla-booking-widget-window');
@@ -279,20 +303,25 @@ export default async function RootLayout({
                   });
                 })();
 
-                /* MutationObserver: hide on every DOM change + rAF for pre-paint */
+                /* Debounced MutationObserver: only hide search bar, with debounce to prevent infinite loop */
+                var hideDebounceTimer = null;
                 var bodyObs = new MutationObserver(function(){
-                  hideAll();
-                  hideBeforePaint();
+                  if(triplaActive) return;
+                  if(hideDebounceTimer) return;
+                  hideDebounceTimer = setTimeout(function(){
+                    hideDebounceTimer = null;
+                    if(!triplaActive) hideSearchBar();
+                  }, 200);
                 });
-                bodyObs.observe(document.body,{childList:true,subtree:true,attributes:true});
+                bodyObs.observe(document.body,{childList:true,subtree:true});
 
-                hideAll();
+                hideSearchBar();
                 var c = 0;
                 var iv = setInterval(function(){
-                  hideAll();
+                  if(!triplaActive) hideSearchBar();
                   c++;
-                  if(c > 120){ clearInterval(iv); }
-                }, 250);
+                  if(c > 60){ clearInterval(iv); }
+                }, 500);
               })();
             `}</Script>
           </LanguageProvider>

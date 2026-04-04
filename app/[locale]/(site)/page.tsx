@@ -26,7 +26,7 @@ const lodgingJsonLd = {
   "@type": "LodgingBusiness",
   name: "Floating Paradise",
   description:
-    "A handcrafted, solar-powered guesthouse above the sea in Karimunjawa, Indonesia.",
+    "Stay in handcrafted overwater bungalows at Floating Paradise — a solar-powered eco-retreat in Karimunjawa, Indonesia. 3 private rooms with direct reef access.",
   url: "https://floatingparadise.id",
   telephone: `+${WA_GENERAL}`,
   email: "floatingparadise.legonlele@gmail.com",

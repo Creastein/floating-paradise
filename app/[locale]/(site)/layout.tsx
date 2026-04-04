@@ -31,9 +31,9 @@ export async function generateMetadata({
   const params = await paramsPromise
   const { data: settings } = await getSiteSettings()
 
-  const defaultTitle = "Floating Paradise | Solar-Powered Eco-Luxury Retreat"
+  const defaultTitle = "Floating Paradise — Overwater Eco-Bungalows in Karimunjawa, Indonesia"
   const defaultDesc =
-    "Experience sustainable luxury at Floating Paradise, a solar-powered guesthouse in Karimunjawa. Enjoy yoga retreats, island exploration, and eco-friendly bungalows."
+    "Stay in handcrafted overwater bungalows at Floating Paradise — a solar-powered eco-retreat in Karimunjawa. 3 private rooms, direct reef access, sunrise yoga. Book direct for best rates."
 
   const title = settings?.seoTitle || defaultTitle
   const description = settings?.seoDescription || defaultDesc
@@ -47,7 +47,7 @@ export async function generateMetadata({
     title,
     description,
     keywords:
-      "Karimunjawa, eco-luxury, yoga retreat, guesthouse, bungalows, solar-powered, island paradise",
+      "overwater bungalow Karimunjawa, eco resort Karimunjawa, floating guesthouse Indonesia, best places to stay Karimunjawa, solar-powered accommodation, sea view bungalow Karimunjawa, Karimunjawa accommodation",
     alternates: {
       canonical: `/${params.locale}`,
       languages: {

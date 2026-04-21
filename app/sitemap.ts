@@ -3,7 +3,7 @@ import { MetadataRoute } from "next"
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://floatingparadise.id"
   const locales = ["en", "id"]
-  const pages = ["", "/bungalows", "/explore", "/yoga-retreat", "/getting-here", "/about", "/contact"]
+  const pages = ["", "/bungalows", "/explore", "/yoga-retreat", "/getting-here", "/about", "/contact", "/faq"]
 
   const entries: MetadataRoute.Sitemap = []
 

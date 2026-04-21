@@ -421,5 +421,118 @@
   "seo.about.keywords": "cerita Floating Paradise, eco-guesthouse Karimunjawa, pariwisata berkelanjutan Indonesia, wisata berkelanjutan pulau Indonesia, wisata tersembunyi Indonesia, wisata alam Indonesia, penginapan off-grid pulau Indonesia, yayasan Kejora Karimunjawa, hidup mandiri tenaga surya, villa terapung handcrafted, wisata komunitas Karimunjawa",
   "seo.contact.title": "Pesan Langsung — Guest House & Eco Resort Karimunjawa | Floating Paradise",
   "seo.contact.description": "Pesan penginapan di Floating Paradise atau hubungi via WhatsApp. Booking langsung untuk harga terbaik bungalow terapung eksklusif di Karimunjawa, Jawa.",
-  "seo.contact.keywords": "pesan Floating Paradise, pesan langsung hotel Karimunjawa, booking penginapan Karimunjawa, penginapan all-inclusive Karimunjawa, WhatsApp Floating Paradise, booking langsung Karimunjawa, lokasi Legon Lele, cara pesan bungalow terapung Karimunjawa, guest house Karimunjawa"
+  "seo.contact.keywords": "pesan Floating Paradise, pesan langsung hotel Karimunjawa, booking penginapan Karimunjawa, penginapan all-inclusive Karimunjawa, WhatsApp Floating Paradise, booking langsung Karimunjawa, lokasi Legon Lele, cara pesan bungalow terapung Karimunjawa, guest house Karimunjawa",
+  "seo.faq.title": "FAQ — Floating Paradise Karimunjawa | Semua yang Perlu Anda Ketahui",
+  "seo.faq.description": "Pertanyaan yang sering diajukan tentang menginap di Floating Paradise Karimunjawa. WiFi, makanan, jam check-in, aktivitas, transportasi & lainnya — dijawab di sini.",
+  "seo.faq.keywords": "FAQ Floating Paradise, FAQ penginapan Karimunjawa, pertanyaan eco resort, tips wisata Karimunjawa, WiFi Floating Paradise, check-in Karimunjawa, boat trip Karimunjawa, kayak Karimunjawa",
+  "faq": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "subtitle": "Semua yang perlu Anda ketahui sebelum menginap",
+    "searchPlaceholder": "Cari pertanyaan...",
+    "noResults": "Tidak ada pertanyaan yang cocok. Silakan hubungi kami langsung!",
+    "stillHaveQuestions": "Masih ada pertanyaan?",
+    "stillHaveQuestionsDesc": "Kami senang membantu sebelum, selama, maupun setelah kunjungan Anda.",
+    "contactUs": "Hubungi Kami",
+    "checkFaq": "Cek FAQ kami untuk jawaban cepat →",
+    "categories": {
+      "accommodation": {
+        "title": "Akomodasi & Fasilitas",
+        "items": [
+          {
+            "q": "Apakah kamarnya ada AC?",
+            "a": "Tidak, kami menggunakan kipas angin langit-langit dan ventilasi alami untuk mendukung penginapan yang sepenuhnya bertenaga surya. Angin laut dan desain terbuka membuat bungalow tetap nyaman."
+          },
+          {
+            "q": "Apakah ada WiFi?",
+            "a": "Ya, kami menyediakan WiFi Starlink untuk semua tamu."
+          },
+          {
+            "q": "Apakah kamarnya menghadap laut?",
+            "a": "Ya, semua kamar memiliki pemandangan laut. Sunrise menghadap cakrawala terbuka, Sunset menghadap teluk, dan Bayside menjorok ke dalam teluk."
+          },
+          {
+            "q": "Berapa orang yang bisa menginap di setiap kamar?",
+            "a": "Sunrise dan Sunset menampung 2 tamu (3 dengan extra bed). Bayside untuk maksimal 4 tamu (5 dengan extra bed)."
+          },
+          {
+            "q": "Apa perbedaan antara bungalow Sunrise dan Sunset?",
+            "a": "Sunrise memiliki kasur yang lebih besar (180×200cm) dan pemandangan laut terbuka yang lebih luas. Juga sedikit lebih privat."
+          },
+          {
+            "q": "Jam berapa check-in dan check-out?",
+            "a": "Check-in pukul 12:00 siang dan check-out pukul 10:00 pagi."
+          }
+        ]
+      },
+      "food": {
+        "title": "Makanan & Minuman",
+        "items": [
+          {
+            "q": "Apakah sarapan sudah termasuk?",
+            "a": "Ya, sarapan sudah termasuk dalam setiap penginapan."
+          },
+          {
+            "q": "Bisakah memesan makan siang dan makan malam di Floating?",
+            "a": "Ya, kami menyediakan makan siang dan makan malam — cukup pesan terlebih dahulu agar kami bisa menyiapkan semuanya dengan segar."
+          }
+        ]
+      },
+      "booking": {
+        "title": "Pemesanan & Pembayaran",
+        "items": [
+          {
+            "q": "Apakah early check-in bisa dilakukan?",
+            "a": "Ya, atas permintaan kami akan berusaha menyiapkan kamar lebih awal — paling awal pukul 11:00 siang jika ada tamu sebelumnya."
+          },
+          {
+            "q": "Bisakah bayar dengan kartu?",
+            "a": "Ya, pembayaran kartu diterima dengan biaya pemrosesan 3%."
+          }
+        ]
+      },
+      "gettingHere": {
+        "title": "Cara ke Sini & Sekitar",
+        "items": [
+          {
+            "q": "Apakah ada akses langsung ke Floating?",
+            "a": "Ya, tersedia akses motor dan mobil langsung ke area parkir kami."
+          },
+          {
+            "q": "Apakah ada layanan jemput/antar dari pelabuhan?",
+            "a": "Kami membantu memesankan taksi untuk Anda. Biaya perjalanan Rp 150.000 per trip."
+          },
+          {
+            "q": "Apakah ada pantai terdekat?",
+            "a": "Ya! Pantai Bobi dan Pantai Karina bisa dijangkau dengan mudah."
+          },
+          {
+            "q": "Berapa lama jalan kaki ke kota?",
+            "a": "Sekitar 1 jam berjalan kaki dari Floating Paradise ke pusat kota."
+          },
+          {
+            "q": "Apakah jalannya ada penerangan di malam hari?",
+            "a": "Tidak, tidak ada lampu jalan di sepanjang rute dari kota ke Floating. Kami sarankan membawa senter atau menggunakan motor di malam hari."
+          }
+        ]
+      },
+      "activities": {
+        "title": "Aktivitas & Pengalaman",
+        "items": [
+          {
+            "q": "Bisakah tamu menggunakan kayak?",
+            "a": "Ya, penggunaan kayak gratis untuk semua tamu. Kami juga menyediakan masker dan snorkel secara gratis."
+          },
+          {
+            "q": "Bisakah memancing di Floating?",
+            "a": "Ya! Kami juga menyewakan peralatan memancing seharga Rp 150.000 per set per hari."
+          },
+          {
+            "q": "Aktivitas apa saja yang bisa dilakukan langsung dari Floating?",
+            "a": "Anda bisa berenang, snorkeling, kayak, ikut yoga sunset, jalan-jalan di pantai, mengunjungi penangkaran penyu, atau memesan eco boat tour privat — semua langsung dari dermaga kami."
+          }
+        ]
+      }
+    }
+  }
 }
+

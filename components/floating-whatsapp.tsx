@@ -1,22 +1,35 @@
 "use client"
 
+import Link from 'next/link'
 import { useWhatsAppNumbers } from './site-settings-provider'
 import { sendGAEvent } from '@next/third-parties/google'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function FloatingWhatsapp() {
   const { general: waNumber } = useWhatsAppNumbers()
+  const { language } = useLanguage()
 
   return (
-    <a
-      href={`https://wa.me/${waNumber}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat on WhatsApp"
-      onClick={() => sendGAEvent('event', 'whatsapp_click', { action: 'clicked', label: 'floating_widget' })}
-      className="group fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center sm:bottom-8 sm:right-8 rounded-full"
-    >
-      {/* Outer Pulse/Ping Ring */}
-      <span className="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-30 animate-ping" style={{ animationDuration: '2.5s' }}></span>
+    <div className="fixed bottom-6 right-6 z-50 sm:bottom-8 sm:right-8 flex flex-col items-end gap-2">
+      {/* FAQ mini link */}
+      <Link
+        href={`/${language}/faq`}
+        className="bg-white/95 backdrop-blur-sm text-primary text-[12px] font-semibold px-3 py-1.5 rounded-full shadow-md ring-1 ring-black/5 hover:bg-primary hover:text-white transition-colors whitespace-nowrap"
+      >
+        FAQ →
+      </Link>
+
+      {/* WhatsApp Button */}
+      <a
+        href={`https://wa.me/${waNumber}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+        onClick={() => sendGAEvent('event', 'whatsapp_click', { action: 'clicked', label: 'floating_widget' })}
+        className="group inline-flex h-14 w-14 items-center justify-center rounded-full relative"
+      >
+        {/* Outer Pulse/Ping Ring */}
+        <span className="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-30 animate-ping" style={{ animationDuration: '2.5s' }}></span>
         
         {/* Main Button */}
         <span className="relative flex h-full w-full items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 group-hover:scale-[1.15] group-hover:shadow-[0_10px_30px_rgba(37,211,102,0.4)]">
@@ -37,5 +50,7 @@ export default function FloatingWhatsapp() {
           How can I help you?
         </span>
       </a>
+    </div>
   )
 }
+

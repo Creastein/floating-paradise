@@ -421,5 +421,118 @@
   "seo.about.keywords": "Floating Paradise story, eco-guesthouse Karimunjawa, sustainable tourism Indonesia, sustainable travel Indonesia island, off-the-beaten-path Indonesia travel, nature escape Indonesia, off-grid island stay Indonesia, Kejora foundation Karimunjawa, off-grid solar living, handcrafted overwater villa, community tourism Karimunjawa",
   "seo.contact.title": "Book Direct — Guest House & Eco Resort Karimunjawa | Floating Paradise",
   "seo.contact.description": "Book your stay at Floating Paradise or get in touch via WhatsApp. Direct booking for best rates on exclusive overwater bungalows in Karimunjawa, Java.",
-  "seo.contact.keywords": "book Floating Paradise, book direct Karimunjawa hotel, Karimunjawa accommodation booking, Karimunjawa all-inclusive stay, WhatsApp Floating Paradise, direct booking Karimunjawa, Legon Lele location, how to book overwater bungalow Karimunjawa, guest house Karimunjawa"
+  "seo.contact.keywords": "book Floating Paradise, book direct Karimunjawa hotel, Karimunjawa accommodation booking, Karimunjawa all-inclusive stay, WhatsApp Floating Paradise, direct booking Karimunjawa, Legon Lele location, how to book overwater bungalow Karimunjawa, guest house Karimunjawa",
+  "seo.faq.title": "FAQ — Floating Paradise Karimunjawa | Everything You Need to Know",
+  "seo.faq.description": "Frequently asked questions about staying at Floating Paradise Karimunjawa. WiFi, meals, check-in times, activities, transport & more — all answered here.",
+  "seo.faq.keywords": "Floating Paradise FAQ, Karimunjawa accommodation FAQ, eco resort questions, Karimunjawa travel tips, Floating Paradise WiFi, Karimunjawa check-in, boat trip Karimunjawa, kayak Karimunjawa",
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know before your stay",
+    "searchPlaceholder": "Search questions...",
+    "noResults": "No matching questions found. Feel free to contact us directly!",
+    "stillHaveQuestions": "Still have questions?",
+    "stillHaveQuestionsDesc": "We're happy to help with anything before, during, or after your stay.",
+    "contactUs": "Contact Us",
+    "checkFaq": "Check our FAQ for quick answers →",
+    "categories": {
+      "accommodation": {
+        "title": "Accommodation & Facilities",
+        "items": [
+          {
+            "q": "Do the rooms have AC?",
+            "a": "No, we have ceiling fans and natural ventilation to enable a fully solar-powered guesthouse. The sea breeze and open design keep the bungalows comfortable."
+          },
+          {
+            "q": "Is there WiFi?",
+            "a": "Yes, we have Starlink WiFi available for all guests."
+          },
+          {
+            "q": "Do the rooms have a sea view?",
+            "a": "Yes, all rooms have a sea view. Sunrise faces the open horizon, Sunset looks across the bay, and Bayside looks into the bay."
+          },
+          {
+            "q": "How many people can stay in each room?",
+            "a": "Sunrise and Sunset accommodate 2 guests (3 with an extra bed). Bayside is for up to 4 guests (5 with an extra bed)."
+          },
+          {
+            "q": "What's the difference between Sunrise and Sunset bungalow?",
+            "a": "Sunrise has a larger mattress (180×200cm) and more expansive views of the open sea. It's also a little more private."
+          },
+          {
+            "q": "What time is check-in and check-out?",
+            "a": "Check-in is at 12:00 PM and check-out is at 10:00 AM."
+          }
+        ]
+      },
+      "food": {
+        "title": "Food & Dining",
+        "items": [
+          {
+            "q": "Is breakfast included?",
+            "a": "Yes, breakfast is included with every stay."
+          },
+          {
+            "q": "Can you order lunch and dinner at Floating?",
+            "a": "Yes, we serve lunch and dinner — just pre-order with us so we can prepare everything fresh."
+          }
+        ]
+      },
+      "booking": {
+        "title": "Booking & Payment",
+        "items": [
+          {
+            "q": "Is early check-in possible?",
+            "a": "Yes, on request we can try to have your room ready earlier — the earliest possible is 11:00 AM if there were previous guests in the room."
+          },
+          {
+            "q": "Can we pay by card?",
+            "a": "Yes, card payment is accepted with a 3% processing fee."
+          }
+        ]
+      },
+      "gettingHere": {
+        "title": "Getting Here & Around",
+        "items": [
+          {
+            "q": "Is there direct access to Floating?",
+            "a": "Yes, there is both bike and car access directly to our parking area."
+          },
+          {
+            "q": "Is there a pick-up/drop-off service from the harbour?",
+            "a": "We assist in ordering a taxi for you. The ride costs Rp 150,000 per trip."
+          },
+          {
+            "q": "Are there nearby beaches?",
+            "a": "Yes! Bobi Beach and Karina Beach are both within easy reach."
+          },
+          {
+            "q": "How long does it take to walk into town?",
+            "a": "It takes approximately 1 hour to walk into town from Floating Paradise."
+          },
+          {
+            "q": "Is the road lit at night?",
+            "a": "No, there are no streetlights along the road from town to Floating. We recommend bringing a flashlight or using a scooter at night."
+          }
+        ]
+      },
+      "activities": {
+        "title": "Activities & Experiences",
+        "items": [
+          {
+            "q": "Can guests use the kayaks?",
+            "a": "Yes, kayak use is free of charge for all guests. We also provide complimentary masks and snorkels."
+          },
+          {
+            "q": "Can you fish at Floating?",
+            "a": "Yes! We also rent fishing equipment at Rp 150,000 per set per day."
+          },
+          {
+            "q": "What activities can be done directly from Floating?",
+            "a": "You can swim, snorkel, kayak, join sunset yoga, take a beach walk, visit the turtle sanctuary, or book a private eco boat tour — all directly from our pier."
+          }
+        ]
+      }
+    }
+  }
 }
+

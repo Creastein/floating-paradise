@@ -93,7 +93,8 @@ export default function Footer() {
                 { label: t.nav.explore, href: `/${language}/explore` },
                 { label: t.nav.yogaRetreat, href: `/${language}/yoga-retreat` },
                 { label: t.nav.gettingHere, href: `/${language}/getting-here` },
-                { label: t.nav.aboutUs, href: `/${language}/about` }
+                { label: t.nav.aboutUs, href: `/${language}/about` },
+                { label: 'FAQ', href: `/${language}/faq` }
               ].map((item) => (
                 <li key={item.href} className="footer-text">
                   <Link 

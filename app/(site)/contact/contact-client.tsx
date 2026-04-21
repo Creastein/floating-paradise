@@ -2,6 +2,7 @@
 
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
+import Link from 'next/link'
 import { FadeIn } from '@/components/ui/fade-in'
 import { MapPin, WhatsappLogo, EnvelopeSimple, InstagramLogo } from '@phosphor-icons/react'
 import { useLanguage } from '@/lib/i18n/language-context'
@@ -47,6 +48,14 @@ export default function ContactClient() {
                 <p className="text-lg text-foreground/80 font-light leading-relaxed">
                   {t.contact.getInTouchDesc}
                 </p>
+              </FadeIn>
+              <FadeIn direction="right" distance={40} delay={0.15}>
+                <Link
+                  href={`/${language}/faq`}
+                  className="inline-flex items-center gap-2 mt-2 px-5 py-3 rounded-xl bg-[#F5EFE4] hover:bg-[#ebe5d8] text-primary font-medium transition-colors text-[15px]"
+                >
+                  💡 {t.faq?.checkFaq || 'Check our FAQ for quick answers →'}
+                </Link>
               </FadeIn>
             </div>
 

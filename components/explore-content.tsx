@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { useRef, useEffect, useState } from 'react'
 import Lightbox from '@/components/lightbox'
 import { Camera } from 'lucide-react'
-import { useWhatsAppNumbers } from './site-settings-provider'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
@@ -12,7 +11,6 @@ import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 export default function ExploreContent({ initialActivities }: { initialActivities?: any[] }) {
   const { t, language } = useLanguage()
   const { getCmsValue } = useCmsTranslation()
-  const { general: waGeneral, yogaRetreat: waYoga, getLink: getWhatsAppLink } = useWhatsAppNumbers()
   const gridRef = useRef<HTMLDivElement>(null)
 
   const FALLBACK_ACTIVITIES = [
@@ -29,11 +27,9 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Private Eco Boat Tour/PB7.webp',
         '/image/Explore/Private Eco Boat Tour/PB8.webp',
       ],
-      ctaText: t.explorePage.preBookNow,
-      ctaLink: getWhatsAppLink(waGeneral, language === 'id'
-        ? 'Halo, saya ingin memesan Private Eco Boat Tour di Floating Paradise. Bisa share ketersediaan dan detailnya? Terima kasih!'
-        : "Hi, I'd like to pre-book the Private Eco Boat Tour at Floating Paradise. Could you share availability and details? Thank you!"),
-      ctaExternal: true,
+      ctaText: t.explorePage.learnMore,
+      ctaLink: '/faq',
+      ctaExternal: false,
     },
     {
       title: t.explorePage.activities.yoga.title,
@@ -48,11 +44,9 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga7.webp',
         '/image/Explore/Open Air Sunset Yoga/sunsetyoga8.webp',
       ],
-      ctaText: t.explorePage.bookNow,
-      ctaLink: getWhatsAppLink(waYoga, language === 'id'
-        ? 'Halo, saya ingin booking sesi Open Air Sunset Yoga di Floating Paradise. Bisa share jadwal dan harganya? Terima kasih!'
-        : "Hi, I'd like to book the Open Air Sunset Yoga session at Floating Paradise. Could you share availability and pricing? Thank you!"),
-      ctaExternal: true,
+      ctaText: t.explorePage.learnMore,
+      ctaLink: '/faq',
+      ctaExternal: false,
     },
     {
       title: t.explorePage.activities.kayaking.title,
@@ -65,11 +59,9 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Kayak, Lunch & Chill/kayak5.webp',
         '/image/Explore/Kayak, Lunch & Chill/kayak6.webp',
       ],
-      ctaText: t.explorePage.reserveNow,
-      ctaLink: getWhatsAppLink(waGeneral, language === 'id'
-        ? 'Halo, saya ingin reservasi Kayak, Lunch & Chill di Floating Paradise. Bisa share ketersediaan? Terima kasih!'
-        : "Hi, I'd like to reserve Kayak, Lunch & Chill at Floating Paradise. Could you share availability? Thank you!"),
-      ctaExternal: true,
+      ctaText: t.explorePage.learnMore,
+      ctaLink: '/faq',
+      ctaExternal: false,
     },
     {
       title: t.explorePage.activities.trekking.title,
@@ -81,11 +73,9 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Trekking Nyamplungan/Trekking4.webp',
         '/image/Explore/Trekking Nyamplungan/Trekking5.webp',
       ],
-      ctaText: t.explorePage.bookNow,
-      ctaLink: getWhatsAppLink(waGeneral, language === 'id'
-        ? 'Halo, saya ingin booking Trekking Nyamplungan di Floating Paradise. Bisa share detail dan ketersediaan? Terima kasih!'
-        : "Hi, I'd like to book the Nyamplungan Trek at Floating Paradise. Could you share details and availability? Thank you!"),
-      ctaExternal: true,
+      ctaText: t.explorePage.learnMore,
+      ctaLink: '/faq',
+      ctaExternal: false,
     },
     {
       title: t.explorePage.activities.cuisine.title,
@@ -97,11 +87,9 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Tastes of Paradise/TP4.webp',
         '/image/Explore/Tastes of Paradise/TP5.webp',
       ],
-      ctaText: t.explorePage.enquireNow,
-      ctaLink: getWhatsAppLink(waGeneral, language === 'id'
-        ? 'Halo, saya ingin tanya tentang pengalaman makan Tastes of Paradise di Floating Paradise. Terima kasih!'
-        : "Hi, I'd like to enquire about the Tastes of Paradise dining experience at Floating Paradise. Thank you!"),
-      ctaExternal: true,
+      ctaText: t.explorePage.learnMore,
+      ctaLink: '/faq',
+      ctaExternal: false,
     },
     {
       title: t.explorePage.activities.turtles.title,
@@ -112,11 +100,9 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Turtle Sanctuary/TS3.webp',
         '/image/Explore/Turtle Sanctuary/TS4.webp',
       ],
-      ctaText: t.explorePage.bookNow,
-      ctaLink: getWhatsAppLink(waGeneral, language === 'id'
-        ? 'Halo, saya ingin mengunjungi Turtle Sanctuary bersama Floating Paradise. Bisa share ketersediaan? Terima kasih!'
-        : "Hi, I'd like to visit the Turtle Sanctuary with Floating Paradise. Could you share availability? Thank you!"),
-      ctaExternal: true,
+      ctaText: t.explorePage.learnMore,
+      ctaLink: '/faq',
+      ctaExternal: false,
     },
     {
       title: 'Floating Merchandise',
@@ -127,10 +113,8 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
       detail: language === 'id' ? 'Rp 180,000 · Ukuran S–XXL' : 'Rp 180,000 · Sizes S–XXL',
       label: t.explorePage.preOrder,
       ctaText: t.explorePage.preOrderNow,
-      ctaLink: getWhatsAppLink(waGeneral, language === 'id'
-        ? 'Halo, saya ingin pre-order merchandise Floating Paradise. Bisa share pilihan yang tersedia? Terima kasih!'
-        : "Hi, I'd like to pre-order Floating Paradise merchandise. Could you share the available options? Thank you!"),
-      ctaExternal: true,
+      ctaLink: '/faq',
+      ctaExternal: false,
     },
   ]
 

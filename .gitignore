@@ -13,9 +13,10 @@ next.user-config.*
 .env.vercel
 .env
 
-# Seed scripts (may contain tokens)
+# Seed/test scripts (may contain tokens)
 seed-*.js
 seed-*.ts
+test-sanity-*.js
 
 # Common ignores
 node_modules/

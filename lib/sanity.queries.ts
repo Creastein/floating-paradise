@@ -41,3 +41,13 @@ export const aboutPageQuery = defineQuery(`
     "foundersPhoto": foundersPhoto.asset->url
   }
 `)
+
+export const faqPageQuery = defineQuery(`
+  *[_type == "faqPage"][0] {
+    accommodationFaqs,
+    foodFaqs,
+    bookingFaqs,
+    gettingHereFaqs,
+    activitiesFaqs
+  }
+`)

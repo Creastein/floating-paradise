@@ -50,6 +50,11 @@ export default defineConfig({
               .id('yogaRetreat')
               .child(S.document().schemaType('yogaRetreat').documentId('yogaRetreat')),
 
+            S.listItem()
+              .title('❓ FAQ')
+              .id('faqPage')
+              .child(S.document().schemaType('faqPage').documentId('faqPage')),
+
             S.divider(),
 
             // --- COLLECTIONS ---

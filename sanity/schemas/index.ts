@@ -7,6 +7,7 @@ import { bungalowType } from './bungalow'
 import { activityType } from './activity'
 import { yogaRetreatType } from './yoga-retreat'
 import { aboutPageType } from './about-page'
+import { faqPageType } from './faq-page'
 
 export const schema = {
   types: [
@@ -18,6 +19,7 @@ export const schema = {
     bungalowType,
     activityType,
     yogaRetreatType,
-    aboutPageType
+    aboutPageType,
+    faqPageType,
   ],
 }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head><title>FAQ Migration to Sanity</title></head>
+<body>
+<h1>FAQ Migration Tool</h1>
+<pre id="log">Preparing migration...</pre>
+<script>
+const TOKEN = "sksNbkllOfBes5lL8MP4UtK67KG5svfFDPDSgKe63EWylL3tp386pA3dG2fyxFDmjmOn3Q0QFZixpZy4OuY06TlQZAKNGc1SKULgB4zMmPpzMe85b4GUHGRnxVNZ7yYvMwJ6vH8A4d95smnNyK4MJQqV1rGq06mCBpsteUbpRw3oZUE0RW7e";
+const PROJECT_ID = "aves0i7c";
+const DATASET = "production";
+const API_VERSION = "2024-01-01";
+
+const log = document.getElementById('log');
+function addLog(msg) { log.textContent += '\n' + msg; }
+
+function key() { return Math.random().toString(36).substring(2, 9); }
+
+const doc = {
+  _type: 'faqPage',
+  _id: 'faqPage',
+  accommodationFaqs: [
+    { _key: key(), question: "Do the rooms have AC?", question_id: "Apakah kamarnya ada AC?", answer: "No, we have ceiling fans and natural ventilation to enable a fully solar-powered guesthouse. The sea breeze and open design keep the bungalows comfortable.", answer_id: "Tidak, kami menggunakan kipas angin langit-langit dan ventilasi alami untuk mendukung penginapan yang sepenuhnya bertenaga surya. Angin laut dan desain terbuka membuat bungalow tetap nyaman." },
+    { _key: key(), question: "Is there WiFi?", question_id: "Apakah ada WiFi?", answer: "Yes, we have Starlink WiFi available for all guests.", answer_id: "Ya, kami menyediakan WiFi Starlink untuk semua tamu." },
+    { _key: key(), question: "Do the rooms have a sea view?", question_id: "Apakah kamarnya menghadap laut?", answer: "Yes, all rooms have a sea view. Sunrise faces the open horizon, Sunset looks across the bay, and Bayside looks into the bay.", answer_id: "Ya, semua kamar memiliki pemandangan laut. Sunrise menghadap cakrawala terbuka, Sunset menghadap teluk, dan Bayside menjorok ke dalam teluk." },
+    { _key: key(), question: "How many people can stay in each room?", question_id: "Berapa orang yang bisa menginap di setiap kamar?", answer: "Sunrise and Sunset accommodate 2 guests (3 with an extra bed). Bayside is for up to 4 guests (5 with an extra bed).", answer_id: "Sunrise dan Sunset menampung 2 tamu (3 dengan extra bed). Bayside untuk maksimal 4 tamu (5 dengan extra bed)." },
+    { _key: key(), question: "What's the difference between Sunrise and Sunset bungalow?", question_id: "Apa perbedaan antara bungalow Sunrise dan Sunset?", answer: "Sunrise has a larger mattress (180×200cm) and more expansive views of the open sea. It's also a little more private.", answer_id: "Sunrise memiliki kasur yang lebih besar (180×200cm) dan pemandangan laut terbuka yang lebih luas. Juga sedikit lebih privat." },
+    { _key: key(), question: "What time is check-in and check-out?", question_id: "Jam berapa check-in dan check-out?", answer: "Check-in is at 12:00 PM and check-out is at 10:00 AM.", answer_id: "Check-in pukul 12:00 siang dan check-out pukul 10:00 pagi." }
+  ],
+  foodFaqs: [
+    { _key: key(), question: "Is breakfast included?", question_id: "Apakah sarapan sudah termasuk?", answer: "Yes, breakfast is included with every stay.", answer_id: "Ya, sarapan sudah termasuk dalam setiap penginapan." },
+    { _key: key(), question: "Can you order lunch and dinner at Floating?", question_id: "Bisakah memesan makan siang dan makan malam di Floating?", answer: "Yes, we serve lunch and dinner — just pre-order with us so we can prepare everything fresh.", answer_id: "Ya, kami menyediakan makan siang dan makan malam — cukup pesan terlebih dahulu agar kami bisa menyiapkan semuanya dengan segar." }
+  ],
+  bookingFaqs: [
+    { _key: key(), question: "Is early check-in possible?", question_id: "Apakah early check-in bisa dilakukan?", answer: "Yes, on request we can try to have your room ready earlier — the earliest possible is 11:00 AM if there were previous guests in the room.", answer_id: "Ya, atas permintaan kami akan berusaha menyiapkan kamar lebih awal — paling awal pukul 11:00 siang jika ada tamu sebelumnya." },
+    { _key: key(), question: "Can we pay by card?", question_id: "Bisakah bayar dengan kartu?", answer: "Yes, card payment is accepted with a 3% processing fee.", answer_id: "Ya, pembayaran kartu diterima dengan biaya pemrosesan 3%." }
+  ],
+  gettingHereFaqs: [
+    { _key: key(), question: "Is there direct access to Floating?", question_id: "Apakah ada akses langsung ke Floating?", answer: "Yes, there is both bike and car access directly to our parking area.", answer_id: "Ya, tersedia akses motor dan mobil langsung ke area parkir kami." },
+    { _key: key(), question: "Is there a pick-up/drop-off service from the harbour?", question_id: "Apakah ada layanan jemput/antar dari pelabuhan?", answer: "We assist in ordering a taxi for you. The ride costs Rp 150,000 per trip.", answer_id: "Kami membantu memesankan taksi untuk Anda. Biaya perjalanan Rp 150.000 per trip." },
+    { _key: key(), question: "Are there nearby beaches?", question_id: "Apakah ada pantai terdekat?", answer: "Yes! Bobi Beach and Karina Beach are both within easy reach.", answer_id: "Ya! Pantai Bobi dan Pantai Karina bisa dijangkau dengan mudah." },
+    { _key: key(), question: "How long does it take to walk into town?", question_id: "Berapa lama jalan kaki ke kota?", answer: "It takes approximately 1 hour to walk into town from Floating Paradise.", answer_id: "Sekitar 1 jam berjalan kaki dari Floating Paradise ke pusat kota." },
+    { _key: key(), question: "Is the road lit at night?", question_id: "Apakah jalannya ada penerangan di malam hari?", answer: "No, there are no streetlights along the road from town to Floating. We recommend bringing a flashlight or using a scooter at night.", answer_id: "Tidak, tidak ada lampu jalan di sepanjang rute dari kota ke Floating. Kami sarankan membawa senter atau menggunakan motor di malam hari." }
+  ],
+  activitiesFaqs: [
+    { _key: key(), question: "Can guests use the kayaks?", question_id: "Bisakah tamu menggunakan kayak?", answer: "Yes, kayak use is free of charge for all guests. We also provide complimentary masks and snorkels.", answer_id: "Ya, penggunaan kayak gratis untuk semua tamu. Kami juga menyediakan masker dan snorkel secara gratis." },
+    { _key: key(), question: "Can you fish at Floating?", question_id: "Bisakah memancing di Floating?", answer: "Yes! We also rent fishing equipment at Rp 150,000 per set per day.", answer_id: "Ya! Kami juga menyewakan peralatan memancing seharga Rp 150.000 per set per hari." },
+    { _key: key(), question: "What activities can be done directly from Floating?", question_id: "Aktivitas apa saja yang bisa dilakukan langsung dari Floating?", answer: "You can swim, snorkel, kayak, join sunset yoga, take a beach walk, visit the turtle sanctuary, or book a private eco boat tour — all directly from our pier.", answer_id: "Anda bisa berenang, snorkeling, kayak, ikut yoga sunset, jalan-jalan di pantai, mengunjungi penangkaran penyu, atau memesan eco boat tour privat — semua langsung dari dermaga kami." }
+  ]
+};
+
+async function migrate() {
+  addLog('Starting FAQ migration to Sanity...');
+  addLog('Document: ' + JSON.stringify(doc, null, 2).substring(0, 200) + '...');
+  
+  const url = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/mutate/${DATASET}`;
+  
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${TOKEN}`
+      },
+      body: JSON.stringify({
+        mutations: [
+          { createOrReplace: doc }
+        ]
+      })
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      addLog('✅ Migration successful!');
+      addLog('Response: ' + JSON.stringify(result, null, 2));
+    } else {
+      addLog('❌ Migration failed with status: ' + response.status);
+      addLog('Error: ' + JSON.stringify(result, null, 2));
+    }
+  } catch (err) {
+    addLog('❌ Migration error: ' + err.message);
+  }
+}
+
+migrate();
+</script>
+</body>
+</html>

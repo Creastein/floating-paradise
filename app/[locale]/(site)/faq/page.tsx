@@ -1,5 +1,6 @@
 import FaqClient from '@/components/faq-client'
 import { generatePageSeo } from '@/lib/i18n/seo'
+import { getFaqPage } from '@/lib/sanity.fetch'
 
 interface LocalePageProps {
   params: Promise<{ locale: string }>
@@ -10,57 +11,57 @@ export async function generateMetadata({ params: paramsPromise }: LocalePageProp
   return generatePageSeo(locale, "faq", "/faq")
 }
 
-export default async function FaqPage({ params: paramsPromise }: LocalePageProps) {
-  const { locale } = await paramsPromise
+/** Shape of a single FAQ item from Sanity CMS */
+interface CmsFaqItem {
+  question?: string
+  question_id?: string
+  answer?: string
+  answer_id?: string
+}
 
-  const jsonLd = {
+/** Build JSON-LD FAQPage schema dynamically from CMS data */
+function buildFaqJsonLd(
+  faqData: Record<string, CmsFaqItem[] | undefined> | null,
+  locale: string
+) {
+  if (!faqData) return null
+
+  const allItems: CmsFaqItem[] = [
+    ...(faqData.accommodationFaqs || []),
+    ...(faqData.foodFaqs || []),
+    ...(faqData.bookingFaqs || []),
+    ...(faqData.gettingHereFaqs || []),
+    ...(faqData.activitiesFaqs || []),
+  ]
+
+  if (allItems.length === 0) return null
+
+  return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "name": locale === "id" ? "FAQ Floating Paradise" : "Floating Paradise FAQ",
     "url": `https://floatingparadise.id/${locale}/faq`,
-    "mainEntity": [
-      {
+    "mainEntity": allItems
+      .filter((item) => item.question && item.answer)
+      .map((item) => ({
         "@type": "Question",
-        "name": "Do the rooms have AC?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No, we have ceiling fans and natural ventilation to enable a fully solar-powered guesthouse." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there WiFi?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, we have Starlink WiFi available for all guests." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is breakfast included?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, breakfast is included with every stay." }
-      },
-      {
-        "@type": "Question",
-        "name": "Can guests use the kayaks?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, kayak use is free of charge for all guests. We also provide complimentary masks and snorkels." }
-      },
-      {
-        "@type": "Question",
-        "name": "What time is check-in and check-out?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Check-in is at 12:00 PM and check-out is at 10:00 AM." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there direct access to Floating?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, there is both bike and car access directly to our parking area." }
-      },
-      {
-        "@type": "Question",
-        "name": "Can we pay by card?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, card payment is accepted with a 3% processing fee." }
-      },
-      {
-        "@type": "Question",
-        "name": "What activities can be done directly from Floating?",
-        "acceptedAnswer": { "@type": "Answer", "text": "You can swim, snorkel, kayak, join sunset yoga, take a beach walk, visit the turtle sanctuary, or book a private eco boat tour — all directly from our pier." }
-      }
-    ]
+        "name": locale === "id" && item.question_id ? item.question_id : item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": locale === "id" && item.answer_id ? item.answer_id : item.answer,
+        },
+      })),
   }
+}
+
+export default async function FaqPage({ params: paramsPromise }: LocalePageProps) {
+  const { locale } = await paramsPromise
+
+  // Fetch FAQ data from Sanity CMS
+  const { data: faqData } = await getFaqPage()
+
+  // Build structured data dynamically from CMS content
+  const jsonLd = buildFaqJsonLd(faqData, locale)
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -83,15 +84,17 @@ export default async function FaqPage({ params: paramsPromise }: LocalePageProps
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <FaqClient />
+      <FaqClient faqData={faqData} />
     </>
   )
 }

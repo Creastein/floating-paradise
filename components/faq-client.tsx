@@ -8,32 +8,44 @@ import { useLanguage } from '@/lib/i18n/language-context'
 import { CaretDown, MagnifyingGlass, WhatsappLogo } from '@phosphor-icons/react'
 import { useWhatsAppNumbers } from '@/components/site-settings-provider'
 
-// Category icons as simple emoji-based labels
-const categoryIcons: Record<string, string> = {
-  accommodation: '🏠',
-  food: '🍽️',
-  booking: '💳',
-  gettingHere: '🚗',
-  activities: '🏄',
+// Category display config (icon + translation key for title)
+const CATEGORIES = [
+  { key: 'accommodationFaqs', icon: '🏠', titleKey: 'accommodation' },
+  { key: 'foodFaqs', icon: '🍽️', titleKey: 'food' },
+  { key: 'bookingFaqs', icon: '💳', titleKey: 'booking' },
+  { key: 'gettingHereFaqs', icon: '🚗', titleKey: 'gettingHere' },
+  { key: 'activitiesFaqs', icon: '🏄', titleKey: 'activities' },
+] as const
+
+// Category title translations (kept lightweight — no CMS needed for these labels)
+const categoryTitles: Record<string, { en: string; id: string }> = {
+  accommodation: { en: 'Accommodation & Facilities', id: 'Akomodasi & Fasilitas' },
+  food: { en: 'Food & Dining', id: 'Makanan & Restoran' },
+  booking: { en: 'Booking & Payment', id: 'Booking & Pembayaran' },
+  gettingHere: { en: 'Getting Here & Around', id: 'Menuju & Berkeliling' },
+  activities: { en: 'Activities & Experiences', id: 'Aktivitas & Pengalaman' },
 }
 
-interface FaqItem {
-  q: string
-  a: string
+interface CmsFaqItem {
+  question?: string
+  question_id?: string
+  answer?: string
+  answer_id?: string
 }
 
-interface FaqCategory {
-  title: string
-  items: FaqItem[]
+interface FaqClientProps {
+  faqData: Record<string, CmsFaqItem[]> | null
 }
 
-export default function FaqClient() {
+export default function FaqClient({ faqData }: FaqClientProps) {
   const { t, language } = useLanguage()
   const { general: waNumber } = useWhatsAppNumbers()
   const [searchQuery, setSearchQuery] = useState('')
   const [openItems, setOpenItems] = useState<Set<string>>(new Set())
 
-  const faq = t.faq as {
+  const isId = language === 'id'
+
+  const faqLabels = t.faq as {
     title: string
     subtitle: string
     searchPlaceholder: string
@@ -41,27 +53,42 @@ export default function FaqClient() {
     stillHaveQuestions: string
     stillHaveQuestionsDesc: string
     contactUs: string
-    categories: Record<string, FaqCategory>
   }
 
-  const categories = faq.categories
+  // Resolve bilingual FAQ items into display-ready format
+  const resolvedCategories = useMemo(() => {
+    if (!faqData) return []
 
-  // Filter FAQ items based on search
+    return CATEGORIES.map(({ key, icon, titleKey }) => {
+      const items = (faqData[key] || [])
+        .map((item) => ({
+          q: (isId && item.question_id ? item.question_id : item.question) || '',
+          a: (isId && item.answer_id ? item.answer_id : item.answer) || '',
+        }))
+        .filter((item) => item.q && item.a)
+
+      const title = isId
+        ? categoryTitles[titleKey]?.id
+        : categoryTitles[titleKey]?.en
+
+      return { key, icon, title: title || titleKey, items }
+    }).filter((cat) => cat.items.length > 0)
+  }, [faqData, isId])
+
+  // Filter FAQ items based on search query
   const filteredCategories = useMemo(() => {
-    if (!searchQuery.trim()) return categories
+    if (!searchQuery.trim()) return resolvedCategories
     const q = searchQuery.toLowerCase()
-    const result: Record<string, FaqCategory> = {}
-    for (const [key, cat] of Object.entries(categories)) {
-      const filtered = cat.items.filter(
-        (item) =>
-          item.q.toLowerCase().includes(q) || item.a.toLowerCase().includes(q)
-      )
-      if (filtered.length > 0) {
-        result[key] = { ...cat, items: filtered }
-      }
-    }
-    return result
-  }, [categories, searchQuery])
+    return resolvedCategories
+      .map((cat) => ({
+        ...cat,
+        items: cat.items.filter(
+          (item) =>
+            item.q.toLowerCase().includes(q) || item.a.toLowerCase().includes(q)
+        ),
+      }))
+      .filter((cat) => cat.items.length > 0)
+  }, [resolvedCategories, searchQuery])
 
   const toggleItem = (id: string) => {
     setOpenItems((prev) => {
@@ -75,7 +102,7 @@ export default function FaqClient() {
     })
   }
 
-  const totalResults = Object.values(filteredCategories).reduce(
+  const totalResults = filteredCategories.reduce(
     (sum, cat) => sum + cat.items.length,
     0
   )
@@ -88,10 +115,10 @@ export default function FaqClient() {
       <section className="bg-primary pt-48 pb-32 px-4 sm:px-6 lg:px-8 relative z-10 w-full rounded-b-[2.5rem]">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="font-serif text-5xl md:text-6xl text-white font-bold tracking-tight">
-            {faq.title}
+            {faqLabels.title}
           </h1>
           <p className="font-sans text-xl md:text-2xl text-white/90 font-light">
-            {faq.subtitle}
+            {faqLabels.subtitle}
           </p>
         </div>
       </section>
@@ -110,7 +137,7 @@ export default function FaqClient() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={faq.searchPlaceholder}
+              placeholder={faqLabels.searchPlaceholder}
               className="w-full pl-12 pr-4 py-4 rounded-2xl bg-[#F5EFE4] border-0 text-lg text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow"
             />
           </div>
@@ -118,22 +145,22 @@ export default function FaqClient() {
           {/* FAQ Categories */}
           {totalResults === 0 ? (
             <div className="text-center py-16">
-              <p className="text-lg text-muted-foreground">{faq.noResults}</p>
+              <p className="text-lg text-muted-foreground">{faqLabels.noResults}</p>
             </div>
           ) : (
             <div className="space-y-10">
-              {Object.entries(filteredCategories).map(([key, category]) => (
-                <div key={key}>
+              {filteredCategories.map((category) => (
+                <div key={category.key}>
                   {/* Category Header */}
                   <h2 className="flex items-center gap-3 font-serif text-2xl md:text-3xl text-foreground font-medium mb-5">
-                    <span className="text-2xl">{categoryIcons[key]}</span>
+                    <span className="text-2xl">{category.icon}</span>
                     {category.title}
                   </h2>
 
                   {/* Accordion Items */}
                   <div className="space-y-2">
                     {category.items.map((item, idx) => {
-                      const itemId = `${key}-${idx}`
+                      const itemId = `${category.key}-${idx}`
                       const isOpen = openItems.has(itemId)
 
                       return (
@@ -182,17 +209,17 @@ export default function FaqClient() {
           {/* CTA Section */}
           <div className="mt-20 text-center bg-[#F5EFE4] rounded-3xl py-12 px-6">
             <h3 className="font-serif text-2xl md:text-3xl text-foreground font-medium mb-3">
-              {faq.stillHaveQuestions}
+              {faqLabels.stillHaveQuestions}
             </h3>
             <p className="text-foreground/70 text-lg mb-8 max-w-md mx-auto">
-              {faq.stillHaveQuestionsDesc}
+              {faqLabels.stillHaveQuestionsDesc}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href={`/${language}/contact`}
                 className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
               >
-                {faq.contactUs}
+                {faqLabels.contactUs}
               </Link>
               <a
                 href={`https://wa.me/${waNumber}`}

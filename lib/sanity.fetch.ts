@@ -8,7 +8,8 @@ import {
   bungalowsQuery,
   activitiesQuery,
   yogaRetreatQuery,
-  aboutPageQuery
+  aboutPageQuery,
+  faqPageQuery,
 } from './sanity.queries'
 
 // Types for better inference handling
@@ -105,6 +106,16 @@ export async function getAboutPage(): Promise<FetchResult<any>> {
     if (data) return { source: 'cms', data }
   } catch (error) {
     console.error("Sanity fetch error (About Page):", error)
+  }
+  return { source: 'local', data: null }
+}
+
+export async function getFaqPage(): Promise<FetchResult<any>> {
+  try {
+    const data = await client.fetch(faqPageQuery, {}, fetchOptions)
+    if (data) return { source: 'cms', data }
+  } catch (error) {
+    console.error("Sanity fetch error (FAQ Page):", error)
   }
   return { source: 'local', data: null }
 }

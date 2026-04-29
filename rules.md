@@ -337,3 +337,43 @@ Jangan berasumsi. Tanyakan jika:
 4. Perubahan breaking pada UI/UX
 5. Tidak yakin tentang desain, warna, atau konten
 6. Membutuhkan API key, environment variable, atau credential
+
+---
+
+## 11. Keamanan: API Token & Secrets
+
+> [!CAUTION]
+> **DILARANG KERAS** meng-expose API token, secret key, atau credential apa pun di dalam source code. Pelanggaran ini bisa menyebabkan kebocoran data dan akses tidak sah.
+
+### Aturan Wajib
+
+1. **Semua token/secret HARUS disimpan di environment variables** (`.env.local`) — JANGAN PERNAH hardcode di file `.ts`, `.tsx`, `.js`, `.mjs`, `.json`, atau file apa pun yang ter-commit ke git.
+2. **File `.env*` HARUS ada di `.gitignore`** — Pastikan `.env.local`, `.env.vercel`, `.env`, dan semua varian `.env` tidak pernah masuk ke git.
+3. **Jangan pernah menulis token/secret di script migrasi, seed, atau test** — Gunakan `process.env.VARIABLE_NAME` untuk mengakses token.
+4. **Sebelum commit, selalu verifikasi** bahwa tidak ada file berisi token yang ikut ter-stage (`git status`).
+5. **Jika token bocor** — SEGERA revoke token lama, buat token baru, bersihkan git history dengan `git filter-branch` atau BFG Repo-Cleaner, lalu force push.
+
+### Pattern yang Benar
+
+```ts
+// ✅ BENAR — mengambil dari environment variable
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  token: process.env.SANITY_API_READ_TOKEN,
+})
+```
+
+```ts
+// ❌ SALAH — token hardcoded di source code
+const client = createClient({
+  token: "skXXXXXXXXXXXXXXXXXXXXXX",
+})
+```
+
+### Checklist Sebelum Push
+
+- [ ] Tidak ada file `.env*` yang ter-stage di git
+- [ ] Tidak ada string yang menyerupai token/secret di kode
+- [ ] Semua credential diakses via `process.env`
+- [ ] `.gitignore` sudah mencakup semua file env

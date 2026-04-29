@@ -2,7 +2,7 @@
 const nextConfig = {
 
   async redirects() {
-    const pages = ['bungalows', 'explore', 'yoga-retreat', 'getting-here', 'about', 'contact']
+    const pages = ['bungalows', 'explore', 'yoga-retreat', 'getting-here', 'about', 'contact', 'faq']
     return [
       // Redirect bare paths (without locale) to /en/
       ...pages.map((page) => ({

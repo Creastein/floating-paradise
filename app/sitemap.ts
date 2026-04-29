@@ -11,9 +11,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const isHome = page === ""
 
     const alternates = {
-      languages: Object.fromEntries(
-        locales.map((locale) => [locale, `${baseUrl}/${locale}${page}`])
-      ),
+      languages: {
+        ...Object.fromEntries(
+          locales.map((locale) => [locale, `${baseUrl}/${locale}${page}`])
+        ),
+        'x-default': `${baseUrl}/en${page}`,
+      },
     }
 
     // Only locale-specific entries (no duplicate non-locale root)

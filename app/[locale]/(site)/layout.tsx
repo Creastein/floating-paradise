@@ -53,6 +53,7 @@ export async function generateMetadata({
       languages: {
         'en': '/en',
         'id': '/id',
+        'x-default': '/en',
       },
     },
     openGraph: {

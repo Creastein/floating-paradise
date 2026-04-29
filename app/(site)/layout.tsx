@@ -41,10 +41,11 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     keywords: 'Karimunjawa eco resort, Karimunjawa accommodation beachfront, off-grid accommodation Indonesia, Karimunjawa island retreat, boutique eco stay Karimunjawa, sustainable stay Karimunjawa, off-grid island stay Indonesia, hidden paradise Indonesia, nature escape Indonesia island, unique stays Karimunjawa, eco resort Indonesia beach, quiet island retreat Indonesia, exclusive island stay Indonesia, guest house Karimunjawa, best place to stay Karimunjawa, overwater bungalow Karimunjawa, floating guesthouse Indonesia, solar-powered accommodation, Karimunjawa accommodation',
     alternates: {
-      canonical: '/',
+      canonical: '/en',
       languages: {
         'en': '/en',
         'id': '/id',
+        'x-default': '/en',
       },
     },
     openGraph: {

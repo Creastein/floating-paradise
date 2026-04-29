@@ -43,6 +43,7 @@ export function generatePageSeo(
       languages: {
         'en': enUrl,
         'id': idUrl,
+        'x-default': enUrl,
       },
     },
     openGraph: {

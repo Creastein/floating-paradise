@@ -55,30 +55,33 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
   }
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
     let ctx: any
     import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger)
       ctx = gsap.context(() => {
-      // Text scrub animation
-      const scrubElements = gsap.utils.toArray('.scrub-text', sectionRef.current) as HTMLElement[];
-      scrubElements.forEach((el) => {
-        gsap.fromTo(el,
-          { opacity: 0.15, filter: 'blur(2px)' },
-          {
-            opacity: 1,
-            filter: 'blur(0px)',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-              toggleActions: 'play reverse play reverse',
+      // Text scrub animation (desktop only)
+      if (isDesktop) {
+        const scrubElements = gsap.utils.toArray('.scrub-text', sectionRef.current) as HTMLElement[];
+        scrubElements.forEach((el) => {
+          gsap.fromTo(el,
+            { opacity: 0.15, filter: 'blur(2px)' },
+            {
+              opacity: 1,
+              filter: 'blur(0px)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                toggleActions: 'play reverse play reverse',
+              }
             }
-          }
-        );
-      });
+          );
+        });
+      }
 
-      // Heading slide-in from left
-      if (headingRef.current) {
+      // Heading slide-in from left (desktop only)
+      if (headingRef.current && isDesktop) {
         gsap.fromTo(headingRef.current,
           { x: -80, opacity: 0 },
           {
@@ -95,66 +98,43 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
         )
       }
 
-      // Parallax on each card's image
-      cardImageRefs.current.forEach((img) => {
-        if (img) {
-          gsap.to(img, {
-            yPercent: 15,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: img.parentElement,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          })
-        }
-      });
-
-      // Cards entrance and exit
-      if (cardsGridRef.current) {
-        let mm = gsap.matchMedia();
-        const cards = gsap.utils.toArray('.bungalow-card', cardsGridRef.current) as HTMLElement[];
-
-        // Desktop: Staggered animation based on grid
-        mm.add("(min-width: 768px)", () => {
-          gsap.fromTo(cards,
-            { opacity: 0, y: 50 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              stagger: 0.15,
-              ease: 'power2.out',
-              force3D: true,
+      // Parallax on each card's image — desktop only (forced reflow on mobile)
+      if (isDesktop) {
+        cardImageRefs.current.forEach((img) => {
+          if (img) {
+            gsap.to(img, {
+              yPercent: 15,
+              ease: 'none',
               scrollTrigger: {
-                trigger: cardsGridRef.current,
-                start: 'top 80%',
-                toggleActions: 'play reverse play reverse',
-              }
-            }
-          );
+                trigger: img.parentElement,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            })
+          }
         });
+      }
 
-        // Mobile: Individual animation per card
-        mm.add("(max-width: 767px)", () => {
-          cards.forEach((card) => {
-            gsap.fromTo(card,
-              { opacity: 0, y: 100 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: 'power3.out',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top 85%',
-                  toggleActions: 'play reverse play reverse',
-                }
-              }
-            );
-          });
-        });
+      // Cards entrance — desktop staggered only
+      if (cardsGridRef.current && isDesktop) {
+        const cards = gsap.utils.toArray('.bungalow-card', cardsGridRef.current) as HTMLElement[];
+        gsap.fromTo(cards,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power2.out',
+            force3D: true,
+            scrollTrigger: {
+              trigger: cardsGridRef.current,
+              start: 'top 80%',
+              toggleActions: 'play reverse play reverse',
+            }
+          }
+        );
       }
     }, sectionRef)
     })

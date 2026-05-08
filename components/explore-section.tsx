@@ -16,12 +16,13 @@ export default function ExploreSection() {
   const { t } = useLanguage()
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
     let ctx: any
     import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger)
       ctx = gsap.context(() => {
-      // Decorative line grows with scroll
-      if (lineRef.current) {
+      // Decorative line grows with scroll (desktop only)
+      if (lineRef.current && isDesktop) {
         gsap.fromTo(lineRef.current, 
           { scaleX: 0 },
           {
@@ -37,27 +38,29 @@ export default function ExploreSection() {
         )
       }
 
-      // Text scrub animation matching Welcome to Floating
-      const scrubElements = gsap.utils.toArray('.scrub-text') as HTMLElement[];
-      scrubElements.forEach((el) => {
-        gsap.fromTo(el,
-          { opacity: 0.15, filter: 'blur(2px)' },
-          {
-            opacity: 1,
-            filter: 'blur(0px)',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-              end: 'top 55%',
-              scrub: 1, // Smoother scrub
+      // Text scrub animation — desktop only (scrub forces reflow on mobile)
+      if (isDesktop) {
+        const scrubElements = gsap.utils.toArray('.scrub-text') as HTMLElement[];
+        scrubElements.forEach((el) => {
+          gsap.fromTo(el,
+            { opacity: 0.15, filter: 'blur(2px)' },
+            {
+              opacity: 1,
+              filter: 'blur(0px)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                end: 'top 55%',
+                scrub: 1,
+              }
             }
-          }
-        );
-      });
+          );
+        });
+      }
 
-      // Heading slide-in from left
-      if (headingRef.current) {
+      // Heading slide-in from left (desktop only)
+      if (headingRef.current && isDesktop) {
         gsap.fromTo(headingRef.current,
           { x: -80, opacity: 0 },
           {
@@ -74,66 +77,68 @@ export default function ExploreSection() {
         )
       }
 
-      // Images Entrance Timeline (Slide from right)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 60%', 
-          toggleActions: 'restart none none reverse', 
+      // Images Entrance Timeline (desktop only)
+      if (isDesktop) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 60%', 
+            toggleActions: 'restart none none reverse', 
+          }
+        });
+
+        if (img1Ref.current && img2Ref.current) {
+          gsap.set([img1Ref.current, img2Ref.current], { opacity: 0, x: 120 });
+          
+          tl.to(img1Ref.current, {
+            opacity: 1,
+            x: 0,
+            duration: 2.5,
+            ease: 'power3.out'
+          })
+          .to(img2Ref.current, {
+            opacity: 1,
+            x: 0,
+            duration: 2.5,
+            ease: 'power3.out'
+          }, "-=1.8");
         }
-      });
-
-      if (img1Ref.current && img2Ref.current) {
-        gsap.set([img1Ref.current, img2Ref.current], { opacity: 0, x: 120 });
-        
-        // Image 1
-        tl.to(img1Ref.current, {
-          opacity: 1,
-          x: 0,
-          duration: 2.5,
-          ease: 'power3.out'
-        })
-        // Image 2 slightly later
-        .to(img2Ref.current, {
-          opacity: 1,
-          x: 0,
-          duration: 2.5,
-          ease: 'power3.out'
-        }, "-=1.8");
       }
 
-      // Mobile images — fade up on scroll (same feel as desktop)
-      if (mobileImg1Ref.current) {
-        gsap.fromTo(mobileImg1Ref.current,
-          { opacity: 0, y: 80 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: mobileImg1Ref.current,
-              start: 'top 90%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        )
-      }
-      if (mobileImg2Ref.current) {
-        gsap.fromTo(mobileImg2Ref.current,
-          { opacity: 0, y: 80 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: mobileImg2Ref.current,
-              start: 'top 90%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        )
+      // Mobile images — simple fade (no scrub to reduce TBT)
+      if (!isDesktop) {
+        if (mobileImg1Ref.current) {
+          gsap.fromTo(mobileImg1Ref.current,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: mobileImg1Ref.current,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          )
+        }
+        if (mobileImg2Ref.current) {
+          gsap.fromTo(mobileImg2Ref.current,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: mobileImg2Ref.current,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          )
+        }
       }
     }, sectionRef)
     })

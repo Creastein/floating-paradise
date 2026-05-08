@@ -9,6 +9,9 @@ export default function ReviewBadges() {
   const badgesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Skip GSAP on mobile — reduces TBT significantly
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
+
     let ctx: any
     import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger)
@@ -31,53 +34,27 @@ export default function ReviewBadges() {
         )
       }
 
-      // Badge cards — specific animations for desktop and mobile
-      if (badgesRef.current) {
-        let mm = gsap.matchMedia();
+      // Badge cards — desktop only for GSAP, mobile uses CSS
+      if (badgesRef.current && isDesktop) {
         const badges = gsap.utils.toArray(badgesRef.current.children);
         
         // Desktop: Slide up sequentially
-        mm.add("(min-width: 768px)", () => {
-          gsap.fromTo(badges,
-            { y: 40, opacity: 0, x: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.8,
-              stagger: 0.15,
-              ease: 'power2.out',
-              force3D: true,
-              scrollTrigger: {
-                trigger: badgesRef.current,
-                start: 'top 85%',
-                toggleActions: 'play none none reverse',
-              },
-            }
-          )
-        });
-
-        // Mobile: Alternate slide-in from left and right
-        mm.add("(max-width: 767px)", () => {
-          gsap.fromTo(badges,
-            { 
-              x: (i: number) => i % 2 === 0 ? -80 : 80, 
-              y: 0,
-              opacity: 0 
+        gsap.fromTo(badges,
+          { y: 40, opacity: 0, x: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power2.out',
+            force3D: true,
+            scrollTrigger: {
+              trigger: badgesRef.current,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
             },
-            {
-              x: 0,
-              opacity: 1,
-              duration: 1.2,
-              stagger: 0.4,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: badgesRef.current,
-                start: 'top 95%',
-                toggleActions: 'play none none reverse',
-              },
-            }
-          )
-        });
+          }
+        )
       }
     }, sectionRef)
     })

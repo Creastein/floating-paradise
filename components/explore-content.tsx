@@ -133,6 +133,17 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number; alt: string } | null>(null)
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
+
+    // On mobile: make all cards visible immediately (no GSAP needed)
+    if (!isDesktop) {
+      document.querySelectorAll('.card-image, .card-text').forEach((el) => {
+        (el as HTMLElement).style.opacity = '1'
+        ;(el as HTMLElement).style.filter = 'none'
+      })
+      return
+    }
+
     let ctx: any;
     import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
       ctx = gsap.context(() => {

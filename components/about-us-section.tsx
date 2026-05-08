@@ -27,13 +27,14 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
   const image3 = homepage?.welcomeImage3
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
     let ctx: any
     import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger)
       ctx = gsap.context(() => {
-      // 1. Gallery frames — staggered reveal entrance
+      // 1. Gallery frames — staggered reveal entrance (desktop only)
       const frames = gsap.utils.toArray<HTMLElement>('.gallery-frame', galleryRef.current)
-      if (frames.length) {
+      if (frames.length && isDesktop) {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -54,8 +55,8 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
         })
       }
 
-      // Heading slide-in from left
-      if (headingRef.current) {
+      // Heading slide-in from left (desktop only)
+      if (headingRef.current && isDesktop) {
         gsap.fromTo(headingRef.current,
           { x: -80, opacity: 0 },
           {
@@ -72,8 +73,8 @@ export default function AboutUsSection({ homepage }: AboutUsSectionProps) {
         )
       }
 
-      // 2. Text Scrub Animation
-      if (textColumnRef.current) {
+      // 2. Text Scrub Animation (desktop only — scrub triggers forced reflow on mobile)
+      if (textColumnRef.current && isDesktop) {
         const paragraphs = gsap.utils.toArray<HTMLElement>('.scrub-text', textColumnRef.current)
         paragraphs.forEach((p) => {
           gsap.fromTo(p,

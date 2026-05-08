@@ -14,6 +14,8 @@ export default function Footer() {
   const { t, language } = useLanguage()
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
+    if (!isDesktop) return // skip GSAP entirely on mobile
     let ctx: any
     import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger)

@@ -20,12 +20,13 @@ export default function YogaRetreatSection() {
   const retreatEmphasis = retreatWords.at(-1) || ''
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
     let ctx: any
     import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger)
       ctx = gsap.context(() => {
-      // 1. Image: smooth scale-up and slide-up with subtle rotation
-      if (imageRef.current) {
+      // 1. Image: smooth scale-up (desktop only — rotation triggers layout recalc)
+      if (imageRef.current && isDesktop) {
         gsap.fromTo(imageRef.current,
           { scale: 0.8, opacity: 0, y: 150, rotation: -4 },
           {
@@ -45,28 +46,30 @@ export default function YogaRetreatSection() {
         )
       }
 
-      // 2. Text scrub animations (matching About Us style)
-      yogaRefs.current.forEach((el) => {
-        if (el) { // Ensure element exists before animating
-          gsap.fromTo(el,
-            { opacity: 0.15, filter: 'blur(2px)' },
-            {
-              opacity: 1,
-              filter: 'blur(0px)',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 85%',
-                end: 'top 55%',
-                scrub: 1,
+      // 2. Text scrub animations (desktop only)
+      if (isDesktop) {
+        yogaRefs.current.forEach((el) => {
+          if (el) {
+            gsap.fromTo(el,
+              { opacity: 0.15, filter: 'blur(2px)' },
+              {
+                opacity: 1,
+                filter: 'blur(0px)',
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: el,
+                  start: 'top 85%',
+                  end: 'top 55%',
+                  scrub: 1,
+                }
               }
-            }
-          )
-        }
-      })
+            )
+          }
+        })
+      }
 
-      // Heading slide-in from left
-      if (headingRef.current) {
+      // Heading slide-in from left (desktop only)
+      if (headingRef.current && isDesktop) {
         gsap.fromTo(headingRef.current,
           { x: -80, opacity: 0 },
           {
@@ -83,15 +86,15 @@ export default function YogaRetreatSection() {
         )
       }
 
-      // CTA Button slide-up and fade-in
-      if (ctaRef.current) {
+      // CTA Button slide-up and fade-in (desktop only)
+      if (ctaRef.current && isDesktop) {
         gsap.fromTo(ctaRef.current,
           { opacity: 0, y: 60 },
           {
             opacity: 1,
             y: 0,
             duration: 1.5,
-            delay: 0.5, // stronger delay to appear after text 
+            delay: 0.5,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: ctaRef.current,

@@ -14,6 +14,8 @@ import { LanguageProvider } from "@/lib/i18n/language-context"
 const lato = Lato({
   subsets: ["latin"],
   weight: ["400", "700"],
+  display: 'swap',
+  preload: true,
 })
 
 const cormorant = Cormorant_Garamond({
@@ -91,7 +93,10 @@ export default async function RootLayout({
   return (
     <html lang={params.locale}>
       <head>
-        {/* Preconnect to external domains for faster resource loading */}
+        {/* Preconnect: fastest possible connection to critical origins */}
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* DNS prefetch for third-party scripts loaded later */}
         <link rel="dns-prefetch" href="https://tripla.jp" />
         <link rel="dns-prefetch" href="https://triplabot-production.tripla.ai" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />

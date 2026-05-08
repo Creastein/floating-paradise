@@ -27,11 +27,14 @@ const nextConfig = {
       },
     ],
     formats: ['image/avif', 'image/webp'],
-    qualities: [50, 60, 65, 75, 80],
+    qualities: [45, 55, 65, 75, 80],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
+
+  // No source maps in production — reduces JS bytes shipped to browser
+  productionBrowserSourceMaps: false,
 
   // Tree-shake icon libraries and large UI packages to eliminate unused JS
   experimental: {
@@ -62,6 +65,11 @@ const nextConfig = {
       '@radix-ui/react-tooltip',
     ],
   },
+
+  // Turbopack is the default bundler in Next.js 16.
+  // Empty config here silences the "webpack config without turbopack config" error.
+  // Turbopack handles code splitting automatically via dynamic import().
+  turbopack: {},
 
   // Remove console.log in production to reduce JS parse/execution time
   compiler: {

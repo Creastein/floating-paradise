@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import LanguageSwitcher from './language-switcher'
 import { useLanguage } from '@/lib/i18n/language-context'
-import { sendGAEvent } from '@next/third-parties/google'
+import { trackEvent } from '@/lib/analytics'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -81,7 +81,6 @@ export default function Navigation() {
                 className={`h-[52px] md:h-[62px] w-auto transition-all duration-300 ${
                   isSolid ? '' : 'brightness-0 invert'
                 }`}
-                priority
               />
             </Link>
 
@@ -111,7 +110,7 @@ export default function Navigation() {
               
               <button
                 type="button"
-                onClick={() => { sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'navbar_desktop' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
+                onClick={() => { trackEvent('book_now_click', { action: 'clicked', label: 'navbar_desktop' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
                 className={`btn-skew font-semibold rounded-full px-6 transition-colors duration-300 border ${
                   isSolid 
                     ? 'border-transparent text-primary bg-primary text-primary-foreground hover:text-primary hover:border-primary hover:bg-transparent' 
@@ -181,7 +180,7 @@ export default function Navigation() {
             >
               <button
                 type="button"
-                onClick={() => { setIsOpen(false); sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'navbar_mobile' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
+                onClick={() => { setIsOpen(false); trackEvent('book_now_click', { action: 'clicked', label: 'navbar_mobile' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
                 className="btn-skew w-full text-lg rounded-xl h-14 border border-transparent hover:border-primary bg-primary text-primary-foreground hover:text-primary hover:bg-transparent transition-colors duration-300"
               >
                 <span className="relative z-10">{t.nav.bookNow}</span>

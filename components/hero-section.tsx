@@ -24,12 +24,12 @@ type HeroSectionProps = {
 export default function HeroSection({ homepage, locale = 'en' }: HeroSectionProps) {
   const image = homepage?.heroImage
 
-  // Mobile-optimized: smaller, lower quality to reduce LCP on mobile
+  // Mobile-optimized: 640px @ quality 45 — minimal bytes for fast LCP
   const heroImageMobile = image
-    ? urlFor(image).width(828).format('webp').quality(55).url()
+    ? urlFor(image).width(640).format('webp').quality(45).url()
     : "/hero-img.webp"
 
-  // Desktop: higher quality, full resolution
+  // Desktop: high quality, full resolution
   const heroImageDesktop = image
     ? urlFor(image).width(1920).format('webp').quality(65).url()
     : "/hero-img.webp"
@@ -54,8 +54,9 @@ export default function HeroSection({ homepage, locale = 'en' }: HeroSectionProp
           className="object-cover"
           priority
           fetchPriority="high"
-          sizes="(max-width: 828px) 100vw, (max-width: 1200px) 100vw, 100vw"
-          quality={65}
+          // Precise sizes: on mobile (<768px) exactly 100vw so browser picks 640px srcset
+          sizes="(max-width: 767px) 100vw, 100vw"
+          quality={45}
         />
         {/* Cinematic Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />

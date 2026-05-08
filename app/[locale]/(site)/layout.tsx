@@ -7,8 +7,6 @@ import { getSiteSettings } from "@/lib/sanity.fetch"
 import { SiteSettingsProvider } from "@/components/site-settings-provider"
 import { urlFor } from "@/lib/sanity.image"
 import "../../globals.css"
-
-import { GoogleAnalytics } from '@next/third-parties/google'
 import { LanguageProvider } from "@/lib/i18n/language-context"
 
 const lato = Lato({
@@ -20,9 +18,11 @@ const lato = Lato({
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  // Only load weights actually used: 400 (body serif) + 600 (headings)
+  weight: ["400", "600"],
   variable: '--font-cormorant',
   display: 'swap',
+  preload: false, // Cormorant is decorative — don't block initial render
 })
 
 export async function generateMetadata({
@@ -96,6 +96,7 @@ export default async function RootLayout({
         {/* Preconnect: fastest possible connection to critical origins */}
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         {/* DNS prefetch for third-party scripts loaded later */}
         <link rel="dns-prefetch" href="https://tripla.jp" />
         <link rel="dns-prefetch" href="https://triplabot-production.tripla.ai" />
@@ -107,7 +108,24 @@ export default async function RootLayout({
             {children}
             <FloatingWhatsapp />
             <Analytics />
-            <GoogleAnalytics gaId="G-7JZWJ5455X" />
+            {/* GA4 — lazyOnload: loads AFTER page is interactive, not blocking render */}
+            <Script
+              id="ga4-script"
+              strategy="lazyOnload"
+              src="https://www.googletagmanager.com/gtag/js?id=G-7JZWJ5455X"
+            />
+            <Script
+              id="ga4-init"
+              strategy="lazyOnload"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-7JZWJ5455X', { send_page_view: true });
+                `
+              }}
+            />
             <button id="hidden-tripla-trigger" data-tripla-booking-widget="search" style={{ display: 'none' }} aria-hidden="true" />
             <Script
               id="tripla-sdk"
@@ -134,8 +152,7 @@ export default async function RootLayout({
                       window.addEventListener(e, loadTripla, { capture: true, once: true, passive: true });
                     });
                     
-                    // Fallback to load after 8 seconds in case of no interaction, so it's not totally missing,
-                    // but passes Lighthouse's long network idle window.
+                    // Fallback: load after 8 seconds (passes Lighthouse's network idle window)
                     setTimeout(loadTripla, 8000);
                   })();
                 `

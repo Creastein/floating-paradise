@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useWhatsAppNumbers } from './site-settings-provider'
-import { sendGAEvent } from '@next/third-parties/google'
+import { trackEvent } from '@/lib/analytics'
 import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function FloatingWhatsapp() {
@@ -25,7 +25,7 @@ export default function FloatingWhatsapp() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        onClick={() => sendGAEvent('event', 'whatsapp_click', { action: 'clicked', label: 'floating_widget' })}
+        onClick={() => trackEvent('whatsapp_click', { action: 'clicked', label: 'floating_widget' })}
         className="group inline-flex h-14 w-14 items-center justify-center rounded-full relative"
       >
         {/* Outer Pulse/Ping Ring */}

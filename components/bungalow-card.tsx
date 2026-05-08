@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { Check } from 'lucide-react'
-import { sendGAEvent } from '@next/third-parties/google'
+import { trackEvent } from '@/lib/analytics'
 import { getTriplaRoomUrl, TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
 import { useLanguage } from '@/lib/i18n/language-context'
 
@@ -54,7 +54,7 @@ export default function BungalowCard({
           type="button"
           data-tripla-booking-widget="search"
           onClick={() => {
-            sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalow_card_${title.toLowerCase().replace(/ /g, '_')}` })
+            trackEvent('book_now_click', { action: 'clicked', label: `bungalow_card_${title.toLowerCase().replace(/ /g, '_')}` })
             if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
               (window as any).__openTriplaBooking(TRIPLA_ROOM_IDS[roomKey])
             }

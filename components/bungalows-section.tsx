@@ -6,7 +6,7 @@ import { urlFor } from '@/lib/sanity.image'
 import { PortableText } from '@/components/portable-text'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 import { TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
-import { sendGAEvent } from '@next/third-parties/google'
+import { trackEvent } from '@/lib/analytics'
 
 type BungalowsSectionProps = {
   homepage?: any;
@@ -260,7 +260,7 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
                     onClick={() => {
                       const roomKey = getRoomKey(bungalow.name)
                       const roomId = TRIPLA_ROOM_IDS[roomKey]
-                      sendGAEvent('event', 'book_now_click', { action: 'clicked', label: `bungalows_section_${bungalow.name.toLowerCase().replace(/ /g, '_')}` })
+                      trackEvent('book_now_click', { action: 'clicked', label: `bungalows_section_${bungalow.name.toLowerCase().replace(/ /g, '_')}` })
                       if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
                         (window as any).__openTriplaBooking(roomId)
                       }

@@ -3,36 +3,38 @@
 import { ChevronDown } from 'lucide-react'
 import { useRef, useEffect, useState } from 'react'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
-import { sendGAEvent } from '@next/third-parties/google'
 
 type HeroAnimationsProps = {
   heroImageUrl: string;
   children: React.ReactNode;
 }
 
+function trackEvent(eventName: string, params: Record<string, string>) {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', eventName, params)
+  }
+}
+
 export default function HeroAnimations({ heroImageUrl, children }: HeroAnimationsProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
-  const [gsapReady, setGsapReady] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
 
   const { t } = useLanguage()
 
   // Lazy-load GSAP only on desktop (>= 768px) to eliminate TBT on mobile.
   // Mobile devices: CSS animations in globals.css handle all effects — zero JS needed.
   useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 768px)').matches
+    setIsDesktop(desktop)
+
     // Skip GSAP entirely on mobile — prevents forced reflow & reduces TBT by ~200ms
-    const isDesktop = window.matchMedia('(min-width: 768px)').matches
-    if (!isDesktop) {
-      // On mobile, just show content immediately without JS animation
-      setGsapReady(true)
-      return
-    }
+    if (!desktop) return
 
     let ctx: any
     import('@/lib/gsap-init').then(({ gsap, ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger)
-      setGsapReady(true)
 
       const parentSection = sectionRef.current?.closest('section')
 
@@ -73,14 +75,15 @@ export default function HeroAnimations({ heroImageUrl, children }: HeroAnimation
 
   return (
     <div ref={sectionRef}>
-      {/* Parallax wrapper — overlays the server-rendered image once GSAP loads (desktop only) */}
-      <div
-        ref={imageRef}
-        className="absolute inset-0 will-change-transform pointer-events-none"
-        style={{ opacity: gsapReady ? 1 : 0 }}
-      />
+      {/* Parallax wrapper — desktop-only GSAP overlay */}
+      {isDesktop && (
+        <div
+          ref={imageRef}
+          className="absolute inset-0 will-change-transform pointer-events-none"
+        />
+      )}
 
-      {/* Animated Content */}
+      {/* Animated Content — always visible, CSS animations handle entrance */}
       <div 
         ref={contentRef}
         className="absolute top-0 left-0 right-0 h-[100vh] min-h-[600px] flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 will-change-transform"
@@ -92,7 +95,10 @@ export default function HeroAnimations({ heroImageUrl, children }: HeroAnimation
           >
             <button 
               type="button"
-              onClick={() => { sendGAEvent('event', 'book_now_click', { action: 'clicked', label: 'hero_section' }); if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking(); }}
+              onClick={() => {
+                trackEvent('book_now_click', { action: 'clicked', label: 'hero_section' })
+                if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) (window as any).__openTriplaBooking()
+              }}
               className="btn-skew inline-block text-base font-medium px-10 py-4 rounded-full bg-[#2d5a3d] text-white hover:text-[#2d5a3d] transition-colors duration-300 drop-shadow-xl border border-transparent hover:border-[#2d5a3d]"
             >
               <span className="relative z-10">{t.hero.checkAvailability}</span>

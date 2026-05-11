@@ -8,6 +8,7 @@ import { SiteSettingsProvider } from "@/components/site-settings-provider"
 import { urlFor } from "@/lib/sanity.image"
 import "../../globals.css"
 import { LanguageProvider } from "@/lib/i18n/language-context"
+import { BASE_URL } from "@/lib/constants"
 
 const lato = Lato({
   subsets: ["latin"],
@@ -51,11 +52,11 @@ export async function generateMetadata({
     keywords:
       "Karimunjawa eco resort, Karimunjawa accommodation beachfront, off-grid accommodation Indonesia, Karimunjawa island retreat, boutique eco stay Karimunjawa, sustainable stay Karimunjawa, off-grid island stay Indonesia, hidden paradise Indonesia, nature escape Indonesia island, unique stays Karimunjawa, eco resort Indonesia beach, quiet island retreat Indonesia, exclusive island stay Indonesia, guest house Karimunjawa, best place to stay Karimunjawa, overwater bungalow Karimunjawa, floating guesthouse Indonesia, solar-powered accommodation, Karimunjawa accommodation",
     alternates: {
-      canonical: `/${params.locale}`,
+      canonical: `${BASE_URL}/${params.locale}`,
       languages: {
-        'en': '/en',
-        'id': '/id',
-        'x-default': '/en',
+        'en': `${BASE_URL}/en`,
+        'id': `${BASE_URL}/id`,
+        'x-default': `${BASE_URL}/en`,
       },
     },
     openGraph: {

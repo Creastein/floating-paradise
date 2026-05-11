@@ -12,6 +12,9 @@ export const WA_ASTRID_DISPLAY = '+62 822 2694 5510'
 // Yoga retreat proper name (not translated)
 export const YOGA_RETREAT_NAME = 'The Art of Floating'
 
+// Base URL for SEO absolute paths
+export const BASE_URL = 'https://floatingparadise.id'
+
 // Helper function to generate a WhatsApp wa.me link with a pre-filled message
 export const getWhatsAppLink = (number: string, message: string = '') => {
   if (!message) return `https://wa.me/${number}`

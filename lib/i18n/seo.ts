@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import en from "./translations/en.json"
 import id from "./translations/id.json"
-import { YOGA_RETREAT_NAME } from "../constants"
+import { YOGA_RETREAT_NAME, BASE_URL } from "../constants"
 
 const translations = { en, id }
 
@@ -28,8 +28,8 @@ export function generatePageSeo(
   
   // Format the path string properly
   const formattedPath = path.startsWith('/') ? path : `/${path}`
-  const enUrl = formattedPath === '/' ? '/en' : `/en${formattedPath}`
-  const idUrl = formattedPath === '/' ? '/id' : `/id${formattedPath}`
+  const enUrl = formattedPath === '/' ? `${BASE_URL}/en` : `${BASE_URL}/en${formattedPath}`
+  const idUrl = formattedPath === '/' ? `${BASE_URL}/id` : `${BASE_URL}/id${formattedPath}`
   
   // Base canonical URL should include the locale so each variant points to itself
   const canonicalUrl = locale === 'en' ? enUrl : idUrl
@@ -55,7 +55,7 @@ export function generatePageSeo(
       siteName: 'Floating Paradise',
       images: [
         {
-          url: '/og-image.png',
+          url: `${BASE_URL}/og-image.png`,
           width: 1200,
           height: 630,
           alt: title,
@@ -66,7 +66,7 @@ export function generatePageSeo(
       card: 'summary_large_image',
       title,
       description,
-      images: ['/og-image.png'],
+      images: [`${BASE_URL}/og-image.png`],
     },
   }
 }

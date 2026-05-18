@@ -130,9 +130,6 @@ export default function Footer() {
                   <a href="https://www.instagram.com/paradisefloating/" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
                     <Instagram size={20} />
                   </a>
-                  <a href="#" aria-label="Follow us on Facebook" className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
-                    <Facebook size={20} />
-                  </a>
                 </>
               )}
             </div>
@@ -144,10 +141,7 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-8 mt-12 w-full overflow-hidden">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary-foreground/50 gap-4">
             <p className="footer-text">&copy; {new Date().getFullYear()} {t.footer.rights}</p>
-            <div className="flex flex-wrap justify-center gap-6 md:gap-8 items-center">
-              <Link href="#" className="footer-text hover:text-white transition-colors">{t.footer.privacy}</Link>
-              <Link href="#" className="footer-text hover:text-white transition-colors">{t.footer.terms}</Link>
-              <div className="w-[1px] h-4 bg-white/20 hidden md:block"></div>
+            <div className="flex flex-wrap justify-center gap-6 md:gap-8 items-center pr-16">
               <button 
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();

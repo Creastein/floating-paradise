@@ -13,7 +13,7 @@ export default function ContactPage() {
     "@type": "ContactPage",
     "name": "Contact Floating Paradise",
     "description": "Get in touch with Floating Paradise Karimunjawa. Book your stay, yoga retreat, or island activities.",
-    "url": "https://floatingparadise.id/contact",
+    "url": "https://floatingparadise.id/en/contact",
     "mainEntity": {
       "@type": "LocalBusiness",
       "name": "Floating Paradise",
@@ -30,11 +30,34 @@ export default function ContactPage() {
     }
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://floatingparadise.id/en"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Contact",
+        "item": "https://floatingparadise.id/en/contact"
+      }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ContactClient />
     </>

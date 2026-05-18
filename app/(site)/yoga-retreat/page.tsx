@@ -29,7 +29,7 @@ export default async function YogaRetreatPage() {
       },
     },
     description:
-      "A 7-day nature-based yoga retreat above the sea. Sunrise and sunset yoga on the jetty,",
+      "A 7-day nature-based yoga retreat above the sea. Sunrise and sunset yoga on the jetty, meditation sessions, and wholesome plant-based meals at Floating Paradise Karimunjawa.",
     organizer: {
       "@type": "Person",
       name: "Astrid Branum",
@@ -43,11 +43,34 @@ export default async function YogaRetreatPage() {
     },
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://floatingparadise.id/en"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Yoga Retreat",
+        "item": "https://floatingparadise.id/en/yoga-retreat"
+      }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(retreatJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <YogaClient cmsData={cmsData} />
     </>

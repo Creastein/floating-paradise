@@ -32,11 +32,34 @@ export default async function GettingHerePage() {
     ]
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://floatingparadise.id/en"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Getting Here",
+        "item": "https://floatingparadise.id/en/getting-here"
+      }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <GettingHereClient pageData={pageData} />
     </>

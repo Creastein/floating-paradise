@@ -15,7 +15,7 @@ export default async function AboutPage() {
     "@type": "Organization",
     "name": "Floating Paradise",
     "description": "An eco-friendly guesthouse handbuilt above the sea in Karimunjawa.",
-    "url": "https://floatingparadise.id/about",
+    "url": "https://floatingparadise.id/en/about",
     "logo": "https://floatingparadise.id/logo.png",
     "foundingDate": "2018",
     "founder": [
@@ -36,11 +36,34 @@ export default async function AboutPage() {
     }
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://floatingparadise.id/en"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "About Us",
+        "item": "https://floatingparadise.id/en/about"
+      }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <AboutClient cmsData={cmsData} />
     </>

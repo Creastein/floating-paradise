@@ -30,7 +30,15 @@ const lodgingJsonLd = {
     addressRegion: "Jawa Tengah",
     addressCountry: "ID",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "-5.8166",
+    longitude: "110.4500",
+  },
   numberOfRooms: 3,
+  priceRange: "$$",
+  checkinTime: "12:00",
+  checkoutTime: "10:00",
   amenityFeature: [
     "Solar powered",
     "Sea view",
@@ -38,7 +46,41 @@ const lodgingJsonLd = {
     "Private bungalows",
     "Natural ventilation",
   ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    bestRating: "5",
+    ratingCount: "36",
+    reviewCount: "36",
+  },
   image: "https://floatingparadise.id/og-image.png",
+  sameAs: [
+    "https://www.instagram.com/floatingparadise",
+    "https://www.booking.com/hotel/id/floating-paradise.id.html",
+    "https://www.airbnb.co.id/rooms/22774718",
+  ],
+}
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Floating Paradise",
+  url: "https://floatingparadise.id",
+  inLanguage: ["en", "id"],
+}
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Floating Paradise",
+  url: "https://floatingparadise.id",
+  logo: "https://floatingparadise.id/logo.webp",
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: `+${WA_GENERAL}`,
+    contactType: "reservations",
+    availableLanguage: ["English", "Indonesian"],
+  },
   sameAs: [
     "https://www.instagram.com/floatingparadise",
     "https://www.booking.com/hotel/id/floating-paradise.id.html",
@@ -55,6 +97,14 @@ export default async function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
       <Navigation />
       <HeroSection 

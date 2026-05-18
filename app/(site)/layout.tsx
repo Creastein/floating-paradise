@@ -76,6 +76,11 @@ export default async function RootLayout({
         {/* Preconnect: fastest possible connection to critical origins */}
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Geo meta tags for AI geographic relevance (GEO) */}
+        <meta name="geo.region" content="ID-JT" />
+        <meta name="geo.placename" content="Karimunjawa, Jepara, Central Java" />
+        <meta name="geo.position" content="-5.8166;110.4500" />
+        <meta name="ICBM" content="-5.8166, 110.4500" />
         {/* DNS prefetch for third-party scripts loaded later */}
         <link rel="dns-prefetch" href="https://tripla.jp" />
         <link rel="dns-prefetch" href="https://triplabot-production.tripla.ai" />

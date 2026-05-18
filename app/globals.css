@@ -65,10 +65,8 @@
   --whatsapp-ring: rgba(37, 211, 102, 0.3);
 }
 
+/* scroll-behavior: smooth removed — forces main-thread style recalc on every scroll */
 @layer base {
-  html {
-    /* scroll-behavior: smooth removed — forces main-thread style recalc on every scroll */
-  }
   body {
     line-height: 1.7;
   }

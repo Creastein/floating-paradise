@@ -1,6 +1,7 @@
-import { getBungalows, getBungalowsPage } from "@/lib/sanity.fetch"
+import { getBungalows, getBungalowsPage, getSiteSettings } from "@/lib/sanity.fetch"
 import BungalowsClient from "@/app/(site)/bungalows/bungalows-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
+import { LodgingBusinessSchema } from "@/components/schema-org"
 
 export async function generateMetadata({
   params: paramsPromise,
@@ -19,6 +20,7 @@ export default async function BungalowsPage({
   const params = await paramsPromise
   const { data: bungalows } = await getBungalows()
   const { data: pageData } = await getBungalowsPage()
+  const { data: siteSettings } = await getSiteSettings()
 
   const isId = params.locale === "id"
 
@@ -108,6 +110,7 @@ export default async function BungalowsPage({
 
   return (
     <>
+      <LodgingBusinessSchema siteSettings={siteSettings} bungalows={bungalows} locale={params.locale} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

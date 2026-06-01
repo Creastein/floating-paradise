@@ -44,6 +44,7 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=
 NEXT_PUBLIC_SANITY_DATASET="production"
 SANITY_API_READ_TOKEN=
 SANITY_API_WRITE_TOKEN=
+SANITY_REVALIDATE_SECRET=
 ```
 
 Notes:
@@ -51,6 +52,7 @@ Notes:
 - `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` are required for the website and Studio.
 - `SANITY_API_READ_TOKEN` is used when private/read-token access is needed.
 - `SANITY_API_WRITE_TOKEN` is only needed for migration or seed scripts that write to Sanity.
+- `SANITY_REVALIDATE_SECRET` protects the CMS webhook endpoint used for on-demand page refreshes.
 - Do not commit real tokens or `.env.local`.
 
 ## Local Development
@@ -118,6 +120,23 @@ node scripts\seed-getting-here-page.mjs
 ```
 
 Only run write scripts after confirming the target dataset and expected document changes.
+
+## Sanity Webhook Revalidation
+
+The production site uses cached pages for performance. To refresh pages immediately after CMS publishing, configure a Sanity webhook that calls:
+
+```text
+https://floatingparadise.id/api/revalidate?secret=<SANITY_REVALIDATE_SECRET>
+```
+
+Recommended webhook settings:
+
+- Dataset: `production`
+- Trigger: create, update, publish
+- Projection/body: include at least `_type`, `_id`, and `slug`
+- Secret: match the `SANITY_REVALIDATE_SECRET` value configured in Vercel
+
+The endpoint maps Sanity document types to affected pages and calls `revalidatePath` for those routes.
 
 ## Deployment
 

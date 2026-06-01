@@ -115,7 +115,7 @@ export default async function Home() {
       />
       {/* Smooth transition: white → beige */}
       <div className="h-24 md:h-32 bg-gradient-to-b from-background to-[#f5efe6]" />
-      <ExploreSection />
+      <ExploreSection homepage={homepage} />
       {/* Smooth transition: beige → white */}
       <div className="h-24 md:h-32 bg-gradient-to-b from-[#f5efe6] to-background" />
       <BungalowsSection 

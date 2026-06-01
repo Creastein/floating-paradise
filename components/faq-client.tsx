@@ -37,6 +37,26 @@ interface FaqClientProps {
   faqData: Record<string, CmsFaqItem[]> | null
 }
 
+type FaqCategoryKey = (typeof CATEGORIES)[number]['key']
+
+type FallbackFaqItem = {
+  q?: string
+  a?: string
+}
+
+type FallbackFaqCategory = {
+  title?: string
+  items?: FallbackFaqItem[]
+}
+
+const fallbackCategoryMap: Record<FaqCategoryKey, string> = {
+  accommodationFaqs: 'accommodation',
+  foodFaqs: 'food',
+  bookingFaqs: 'booking',
+  gettingHereFaqs: 'gettingHere',
+  activitiesFaqs: 'activities',
+}
+
 export default function FaqClient({ faqData }: FaqClientProps) {
   const { t, language } = useLanguage()
   const { general: waNumber } = useWhatsAppNumbers()
@@ -53,27 +73,39 @@ export default function FaqClient({ faqData }: FaqClientProps) {
     stillHaveQuestions: string
     stillHaveQuestionsDesc: string
     contactUs: string
+    categories?: Record<string, FallbackFaqCategory>
   }
 
   // Resolve bilingual FAQ items into display-ready format
   const resolvedCategories = useMemo(() => {
-    if (!faqData) return []
-
     return CATEGORIES.map(({ key, icon, titleKey }) => {
-      const items = (faqData[key] || [])
+      const cmsItems = faqData?.[key] || []
+      const fallbackKey = fallbackCategoryMap[key]
+      const fallbackCategory = faqLabels.categories?.[fallbackKey]
+
+      const cmsResolvedItems = cmsItems
         .map((item) => ({
           q: (isId && item.question_id ? item.question_id : item.question) || '',
           a: (isId && item.answer_id ? item.answer_id : item.answer) || '',
         }))
         .filter((item) => item.q && item.a)
 
+      const fallbackItems = (fallbackCategory?.items || [])
+        .map((item) => ({
+          q: item.q || '',
+          a: item.a || '',
+        }))
+        .filter((item) => item.q && item.a)
+
+      const items = cmsResolvedItems.length > 0 ? cmsResolvedItems : fallbackItems
+
       const title = isId
         ? categoryTitles[titleKey]?.id
         : categoryTitles[titleKey]?.en
 
-      return { key, icon, title: title || titleKey, items }
+      return { key, icon, title: title || fallbackCategory?.title || titleKey, items }
     }).filter((cat) => cat.items.length > 0)
-  }, [faqData, isId])
+  }, [faqData, faqLabels.categories, isId])
 
   // Filter FAQ items based on search query
   const filteredCategories = useMemo(() => {

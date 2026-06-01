@@ -8,6 +8,16 @@ import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 
+const hasPortableTextContent = (value: any) =>
+  Array.isArray(value) &&
+  value.some((block: any) =>
+    Array.isArray(block?.children) &&
+    block.children.some((child: any) => typeof child?.text === 'string' && child.text.trim().length > 0)
+  )
+
+const hasSanityImage = (image: any) =>
+  Boolean(image?.asset?._ref || image?.asset?._id || image?.asset?.url)
+
 export default function ExploreContent({ initialActivities }: { initialActivities?: any[] }) {
   const { t, language } = useLanguage()
   const { getCmsValue } = useCmsTranslation()
@@ -15,6 +25,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
 
   const FALLBACK_ACTIVITIES = [
     {
+      slug: 'boat-tour',
       title: t.explorePage.activities.boatTour.title,
       description: t.explorePage.activities.boatTour.description,
       gallery: [
@@ -32,6 +43,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
       ctaExternal: false,
     },
     {
+      slug: 'sunset-yoga',
       title: t.explorePage.activities.yoga.title,
       description: t.explorePage.activities.yoga.description,
       gallery: [
@@ -49,6 +61,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
       ctaExternal: false,
     },
     {
+      slug: 'kayaking',
       title: t.explorePage.activities.kayaking.title,
       description: t.explorePage.activities.kayaking.description,
       gallery: [
@@ -64,6 +77,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
       ctaExternal: false,
     },
     {
+      slug: 'trekking',
       title: t.explorePage.activities.trekking.title,
       description: t.explorePage.activities.trekking.description,
       gallery: [
@@ -78,6 +92,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
       ctaExternal: false,
     },
     {
+      slug: 'cuisine',
       title: t.explorePage.activities.cuisine.title,
       description: t.explorePage.activities.cuisine.description,
       gallery: [
@@ -92,6 +107,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
       ctaExternal: false,
     },
     {
+      slug: 'turtles',
       title: t.explorePage.activities.turtles.title,
       description: t.explorePage.activities.turtles.description,
       gallery: [
@@ -105,6 +121,7 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
       ctaExternal: false,
     },
     {
+      slug: 'merchandise',
       title: 'Floating Merchandise',
       description: language === 'id' 
         ? 'Kaos katun bambu — lembut, ramah lingkungan, dan antibakteri. Setiap desain dibuat secara langsung oleh Astrid.'
@@ -118,15 +135,126 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
     },
   ]
 
-  // Always use FALLBACK_ACTIVITIES as base (content from WebEdit2026 translations)
-  // CMS data only supplements images when available
-  const displayActivities = FALLBACK_ACTIVITIES.map((fallback, index) => {
-    const cmsActivity = initialActivities?.[index]
+  // Dynamic CMS Mapping using multi-pass prioritised matching (prevents duplicate mappings and incorrect human data entries)
+  const mappedCmsActivities: Record<string, any> = {};
+  const assignedCmsIds = new Set<string>();
+  const cmsList = (initialActivities || []).filter((act: any) => act && act._id);
+
+  // Pass 1: Exact Name Match (Highest confidence, name represents exact content)
+  FALLBACK_ACTIVITIES.forEach((fallback) => {
+    const matched = cmsList.find(
+      (act) => 
+        !assignedCmsIds.has(act._id) &&
+        act.name &&
+        fallback.title &&
+        act.name.toLowerCase().trim() === fallback.title.toLowerCase().trim()
+    );
+    if (matched) {
+      mappedCmsActivities[fallback.slug] = matched;
+      assignedCmsIds.add(matched._id);
+    }
+  });
+
+  // Pass 2: Exact Slug / ID Match
+  FALLBACK_ACTIVITIES.forEach((fallback) => {
+    if (mappedCmsActivities[fallback.slug]) return;
+
+    const matched = cmsList.find(
+      (act) => 
+        !assignedCmsIds.has(act._id) &&
+        (act.slug?.current === fallback.slug ||
+         act._id === fallback.slug ||
+         act._id === `drafts.${fallback.slug}`)
+    );
+    if (matched) {
+      mappedCmsActivities[fallback.slug] = matched;
+      assignedCmsIds.add(matched._id);
+    }
+  });
+
+  // Pass 3: Keyword/Content-Aware Match (Fail-safe for misconfigured or swapped slugs)
+  FALLBACK_ACTIVITIES.forEach((fallback) => {
+    if (mappedCmsActivities[fallback.slug]) return;
+
+    const matched = cmsList.find((act) => {
+      if (assignedCmsIds.has(act._id)) return false;
+      const cmsSlug = (act.slug?.current || '').toLowerCase();
+      const cmsName = (act.name || '').toLowerCase();
+
+      switch (fallback.slug) {
+        case 'boat-tour':
+          return cmsName.includes('boat') || cmsName.includes('tour') || cmsSlug.includes('boat') || cmsSlug.includes('tour');
+        case 'sunset-yoga':
+          return cmsName.includes('yoga') || cmsName.includes('sunset') || cmsSlug.includes('yoga') || cmsSlug.includes('sunset');
+        case 'kayaking':
+          return cmsName.includes('kayak') || cmsSlug.includes('kayak');
+        case 'trekking':
+          return cmsName.includes('trek') || cmsSlug.includes('trek');
+        case 'cuisine':
+          return cmsName.includes('taste') || cmsName.includes('cuisine') || cmsName.includes('food') || cmsSlug.includes('cuisine') || cmsSlug.includes('taste');
+        case 'turtles':
+          return cmsName.includes('turtle') || cmsName.includes('sanctuary') || cmsSlug.includes('turtle') || cmsSlug.includes('sanctuary');
+        case 'merchandise':
+          return cmsName.includes('merchandise') || cmsName.includes('kaos') || cmsName.includes('shirt') || cmsName.includes('bamboo') || cmsSlug.includes('merchandise') || cmsSlug.includes('kaos') || cmsSlug.includes('shirt');
+        default:
+          return false;
+      }
+    });
+
+    if (matched) {
+      mappedCmsActivities[fallback.slug] = matched;
+      assignedCmsIds.add(matched._id);
+    }
+  });
+
+  const displayActivities = FALLBACK_ACTIVITIES.map((fallback) => {
+    const cmsActivity = mappedCmsActivities[fallback.slug];
+
+    if (!cmsActivity) return fallback;
+
+    const isMerchandise = fallback.slug === 'merchandise';
+
+    // 1. Map dynamic title
+    const cmsTitle = typeof cmsActivity.name === 'string' ? cmsActivity.name.trim() : '';
+    const title = cmsTitle || fallback.title;
+
+    // 2. Map dynamic descriptions (handle portable text from CMS vs fallback text)
+    const cmsDescription = language === 'id' ? cmsActivity.description_id : cmsActivity.description;
+    const hasCmsDesc = hasPortableTextContent(cmsDescription);
+
+    const description = hasCmsDesc
+      ? cmsDescription
+      : fallback.description;
+
+    // 3. Map dynamic gallery slideshow
+    let gallery = fallback.gallery;
+    const cmsGallery = Array.isArray(cmsActivity.gallery)
+      ? cmsActivity.gallery.filter(hasSanityImage)
+      : [];
+
+    if (cmsGallery.length > 0) {
+      // Use full Sanity gallery if available
+      gallery = cmsGallery.map((img: any) => urlFor(img).url());
+    } else if (hasSanityImage(cmsActivity.heroImage)) {
+      // If only hero image is uploaded, use it as first slide and keep remaining fallback slides
+      gallery = [urlFor(cmsActivity.heroImage).url(), ...fallback.gallery.slice(1)];
+    }
+
+    // 4. Map starting price / detail text
+    const cmsDetail = isMerchandise
+      ? (language === 'id'
+          ? (cmsActivity.priceDetail_id || cmsActivity.priceDetail)
+          : cmsActivity.priceDetail)
+      : undefined;
+    const detail = isMerchandise ? (cmsDetail || fallback.detail) : fallback.detail;
+
     return {
       ...fallback,
-      // Only override gallery with CMS image if available
-      gallery: cmsActivity?.heroImage ? [urlFor(cmsActivity.heroImage).url(), ...fallback.gallery.slice(1)] : fallback.gallery,
-    }
+      title,
+      description,
+      gallery,
+      detail,
+    };
   });
 
   // Lightbox state
@@ -309,4 +437,3 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
     </>
   )
 }
-

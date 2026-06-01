@@ -9,6 +9,7 @@ const faqItemFields = [
     name: 'question',
     title: 'Question (English)',
     type: 'string',
+    fieldset: 'en',
     validation: (Rule) => Rule.required().error('English question is required.'),
   }),
   defineField({
@@ -16,12 +17,14 @@ const faqItemFields = [
     title: 'Question (Indonesian)',
     description: 'Pertanyaan dalam bahasa Indonesia.',
     type: 'string',
+    fieldset: 'id',
   }),
   defineField({
     name: 'answer',
     title: 'Answer (English)',
     type: 'text',
     rows: 3,
+    fieldset: 'en',
     validation: (Rule) => Rule.required().error('English answer is required.'),
   }),
   defineField({
@@ -30,6 +33,7 @@ const faqItemFields = [
     description: 'Jawaban dalam bahasa Indonesia.',
     type: 'text',
     rows: 3,
+    fieldset: 'id',
   }),
 ]
 
@@ -43,6 +47,10 @@ function faqCategoryField(name: string, title: string, group: string) {
     of: [
       {
         type: 'object',
+        fieldsets: [
+          { name: 'en', title: '🇬🇧 English', options: { collapsible: true, collapsed: false } },
+          { name: 'id', title: '🇮🇩 Indonesian', options: { collapsible: true, collapsed: true } },
+        ],
         fields: faqItemFields,
         preview: {
           select: { title: 'question', subtitle: 'answer' },
@@ -70,9 +78,9 @@ export const faqPageType = defineType({
   groups: [
     { name: 'accommodation', title: '🏠 Accommodation & Facilities' },
     { name: 'food', title: '🍽️ Food & Dining' },
-    { name: 'booking', title: '💳 Booking & Payment' },
-    { name: 'gettingHere', title: '🚗 Getting Here & Around' },
-    { name: 'activities', title: '🏄 Activities & Experiences' },
+    { name: 'booking', title: '📅 Booking & Payment' },
+    { name: 'gettingHere', title: '🛥️ Getting Here' },
+    { name: 'activities', title: '🛶 Explore' },
   ],
   preview: {
     select: {
@@ -99,7 +107,7 @@ export const faqPageType = defineType({
     faqCategoryField('accommodationFaqs', 'Accommodation & Facilities', 'accommodation'),
     faqCategoryField('foodFaqs', 'Food & Dining', 'food'),
     faqCategoryField('bookingFaqs', 'Booking & Payment', 'booking'),
-    faqCategoryField('gettingHereFaqs', 'Getting Here & Around', 'gettingHere'),
-    faqCategoryField('activitiesFaqs', 'Activities & Experiences', 'activities'),
+    faqCategoryField('gettingHereFaqs', 'Getting Here', 'gettingHere'),
+    faqCategoryField('activitiesFaqs', 'Explore', 'activities'),
   ],
 })

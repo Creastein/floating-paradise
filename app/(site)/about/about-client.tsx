@@ -4,7 +4,6 @@ import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 import PageHero from '@/components/page-hero'
 import Image from 'next/image'
-import Link from 'next/link'
 import {
   Sun, Leaf, Sprout, Droplets,
   Recycle, Trash2, Users, BookOpen,
@@ -21,6 +20,13 @@ interface AboutClientProps {
   cmsData: any
 }
 
+const hasPortableTextContent = (value: any) =>
+  Array.isArray(value) &&
+  value.some((block: any) =>
+    Array.isArray(block?.children) &&
+    block.children.some((child: any) => typeof child?.text === 'string' && child.text.trim().length > 0)
+  )
+
 export default function AboutClient({ cmsData }: AboutClientProps) {
   const { t } = useLanguage()
   const { getCmsValue } = useCmsTranslation()
@@ -28,6 +34,7 @@ export default function AboutClient({ cmsData }: AboutClientProps) {
 
   const heroImageUrl =
     cmsData?.heroImage ? urlFor(cmsData.heroImage).width(2400).height(1350).url() : undefined
+  const missionStatement = getCmsValue(cmsData, 'missionStatement')
 
   const GREEN_PRACTICES = [
     { icon: Sun,      title: a.practices.solar.title,      desc: a.practices.solar.desc },
@@ -72,9 +79,9 @@ export default function AboutClient({ cmsData }: AboutClientProps) {
                </div>
                <div className="relative z-10 max-w-4xl mx-auto space-y-8">
                   <h3 className="uppercase tracking-widest text-primary font-semibold text-sm">{a.missionStatementTitle}</h3>
-                  {getCmsValue(cmsData, 'missionStatement') ? (
+                  {hasPortableTextContent(missionStatement) ? (
                     <div className="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground font-medium leading-relaxed italic">
-                      <PortableText value={getCmsValue(cmsData, 'missionStatement')} />
+                      <PortableText value={missionStatement} />
                     </div>
                   ) : (
                     <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground font-medium leading-relaxed italic">
@@ -146,12 +153,18 @@ export default function AboutClient({ cmsData }: AboutClientProps) {
           {/* 7. CLOSING CTA */}
           <FadeIn direction="up" distance={30} className="pb-16 text-center space-y-8">
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">{a.readyToVisit}</h2>
-            <Link 
-              href="https://tripla.ai" 
+            <button
+              type="button"
+              data-tripla-booking-widget="search"
+              onClick={() => {
+                if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
+                  (window as any).__openTriplaBooking()
+                }
+              }}
               className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium tracking-wide hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
             >
               {a.checkAvailabilityCTA}
-            </Link>
+            </button>
           </FadeIn>
 
         </div>

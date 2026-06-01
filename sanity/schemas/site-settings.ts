@@ -4,11 +4,19 @@ export const siteSettingsType = defineType({
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
+  preview: {
+    select: { email: 'email' },
+    prepare({ email }) {
+      return {
+        title: 'Site Settings',
+        subtitle: email || 'Branding, contact, and social links',
+      }
+    },
+  },
   groups: [
     { name: 'branding', title: '🎨 Branding & Logo' },
     { name: 'contact', title: '📞 Contact Info' },
     { name: 'social', title: '🔗 Social Media' },
-    { name: 'seo', title: '🔍 SEO' },
   ],
   fields: [
     // ── Branding ──────────────────────────────────────
@@ -51,97 +59,62 @@ export const siteSettingsType = defineType({
       rows: 3,
       group: 'contact',
     }),
-
     // ── Social Media ──────────────────────────────────
     defineField({
       name: 'socialLinks',
       title: 'Social Media Links',
-      description: 'Links to your social media profiles (e.g. Instagram URL).',
+      description: 'Add your social media profiles here. They will appear in the Footer and Contact page.',
       type: 'array',
       group: 'social',
       of: [
         {
           type: 'object',
           fields: [
-            { name: 'platform', type: 'string', title: 'Platform Name (e.g. Instagram)' },
-            { name: 'url', type: 'url', title: 'Profile URL' },
+            {
+              name: 'platform',
+              type: 'string',
+              title: 'Platform',
+              options: {
+                list: [
+                  { title: 'Instagram', value: 'instagram' },
+                  { title: 'Facebook', value: 'facebook' },
+                  { title: 'TikTok', value: 'tiktok' },
+                  { title: 'YouTube', value: 'youtube' },
+                  { title: 'TripAdvisor', value: 'tripadvisor' },
+                ],
+                layout: 'dropdown',
+              },
+              validation: (Rule) => Rule.required(),
+            },
+            { 
+              name: 'username', 
+              type: 'string', 
+              title: 'Username / Display Text',
+              description: 'e.g. @paradisefloating or Floating Paradise',
+              validation: (Rule) => Rule.required(),
+            },
+            { 
+              name: 'url', 
+              type: 'url', 
+              title: 'Profile URL',
+              validation: (Rule) => Rule.required(),
+            },
           ],
+          preview: {
+            select: {
+              title: 'platform',
+              subtitle: 'username',
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: title ? title.charAt(0).toUpperCase() + title.slice(1) : 'Social Link',
+                subtitle: subtitle,
+              }
+            }
+          }
         },
       ],
     }),
 
-    // ── SEO ───────────────────────────────────────────
-    defineField({
-      name: 'seoTitle',
-      title: 'Default SEO Title (English)',
-      description: 'The title that appears in Google search results and browser tabs.',
-      type: 'string',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'seoTitle_id',
-      title: 'Default SEO Title (Indonesian)',
-      description: 'Judul SEO dalam bahasa Indonesia.',
-      type: 'string',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'seoDescription',
-      title: 'Default SEO Description (English)',
-      description: 'Short summary of the site for search engines.',
-      type: 'text',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'seoDescription_id',
-      title: 'Default SEO Description (Indonesian)',
-      description: 'Deskripsi singkat website dalam bahasa Indonesia.',
-      type: 'text',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'seoImage',
-      title: 'Default SEO Sharing Image',
-      description: 'The image preview shown when sharing your website on WhatsApp, Facebook, etc. If removed, the website will use the default sharing image.',
-      type: 'image',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'priceRange',
-      title: 'Price Range',
-      description: 'Price range for the business (e.g. "$$").',
-      type: 'string',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'latitude',
-      title: 'Latitude',
-      description: 'Property latitude coordinate (e.g. -5.8024).',
-      type: 'number',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'longitude',
-      title: 'Longitude',
-      description: 'Property longitude coordinate (e.g. 110.4473).',
-      type: 'number',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'amenities',
-      title: 'Amenities (English)',
-      description: 'List of property amenities in English for AI search and lodging schema.',
-      type: 'array',
-      of: [{ type: 'string' }],
-      group: 'seo',
-    }),
-    defineField({
-      name: 'amenities_id',
-      title: 'Amenities (Indonesian)',
-      description: 'Daftar fasilitas properti dalam bahasa Indonesia.',
-      type: 'array',
-      of: [{ type: 'string' }],
-      group: 'seo',
-    }),
   ],
 })

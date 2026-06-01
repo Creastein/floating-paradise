@@ -4,13 +4,14 @@ import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 import Link from 'next/link'
 import { FadeIn } from '@/components/ui/fade-in'
-import { MapPin, WhatsappLogo, EnvelopeSimple, InstagramLogo } from '@phosphor-icons/react'
+import { MapPin, WhatsappLogo, EnvelopeSimple, InstagramLogo, FacebookLogo, TiktokLogo, YoutubeLogo, Globe } from '@phosphor-icons/react'
 import { useLanguage } from '@/lib/i18n/language-context'
-import { useWhatsAppNumbers } from '@/components/site-settings-provider'
+import { useWhatsAppNumbers, useSiteSettings } from '@/components/site-settings-provider'
 
 export default function ContactClient() {
   const { t, language } = useLanguage()
   const { general: waGeneral, generalDisplay: waDisplay } = useWhatsAppNumbers()
+  const settings = useSiteSettings()
 
   return (
     <main className="min-h-screen flex flex-col bg-background">
@@ -70,9 +71,8 @@ export default function ContactClient() {
                   </div>
                   <div className="space-y-3">
                     <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{t.contact.location}</h3>
-                    <div className="text-foreground text-lg leading-relaxed">
-                      <p>Jalan Kapuran, Legon Lele,</p>
-                      <p>Karimunjawa – Jepara, Indonesia</p>
+                    <div className="text-foreground text-lg leading-relaxed whitespace-pre-line">
+                      <p>{settings?.address || "Jalan Kapuran, Legon Lele,\nKarimunjawa – Jepara, Indonesia"}</p>
                       <a 
                         href="https://maps.app.goo.gl/a4WW4EozRCwJoHeE9" 
                         target="_blank" 
@@ -132,54 +132,71 @@ export default function ContactClient() {
                     <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{t.contact.email}</h3>
                     <div className="text-foreground text-lg leading-relaxed pt-1">
                       <a 
-                        href="mailto:floatingparadise.legonlele@gmail.com" 
+                        href={`mailto:${settings?.email || 'floatingparadise.legonlele@gmail.com'}`}
                         className="hover:text-primary transition-colors inline-block break-all font-medium"
                       >
-                        floatingparadise.legonlele@gmail.com
+                        {settings?.email || 'floatingparadise.legonlele@gmail.com'}
                       </a>
                     </div>
                   </div>
                 </div>
               </FadeIn>
 
-              {/* Instagram Card */}
-              <FadeIn direction="left" distance={40} delay={0.4}>
-                <div className="bg-[#F5EFE4] py-4 px-5 rounded-2xl flex items-start gap-6 group hover:shadow-md transition-shadow duration-300">
-                  <div className="text-primary mt-1">
-                    <InstagramLogo size={32} weight="light" />
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{t.contact.instagram}</h3>
-                    <div className="text-foreground text-lg leading-relaxed pt-1">
-                      <a 
-                        href="https://www.instagram.com/paradisefloating/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors font-medium inline-block relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 hover:after:w-full after:bg-primary after:transition-all after:duration-300"
-                      >
-                        @paradisefloating
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
+              {/* Dynamic Social Links from CMS */}
+              {settings?.socialLinks && settings.socialLinks.length > 0 ? (
+                settings.socialLinks.map((link: any, i: number) => {
+                  const p = link.platform || 'globe'
+                  let Icon = Globe
+                  if (p === 'instagram') Icon = InstagramLogo
+                  if (p === 'facebook') Icon = FacebookLogo
+                  if (p === 'tiktok') Icon = TiktokLogo
+                  if (p === 'youtube') Icon = YoutubeLogo
 
-              {/* Relocated Map Embed */}
-              <FadeIn direction="up" distance={40} delay={0.5} className="pt-8">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.123!2d110.4456!3d-5.8672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sFloating+Paradise+Karimunjawa!5e0!3m2!1sen!2sid"
-                  width="100%"
-                  height={300}
-                  style={{ border: 0, borderRadius: '16px' }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Floating Paradise Karimunjawa Location"
-                  className="shadow-md border border-primary/10"
-                />
-              </FadeIn>
+                  return (
+                    <FadeIn key={`social-${i}`} direction="left" distance={40} delay={0.4 + (i * 0.1)}>
+                      <div className="bg-[#F5EFE4] py-4 px-5 rounded-2xl flex items-start gap-6 group hover:shadow-md transition-shadow duration-300">
+                        <div className="text-primary mt-1">
+                          <Icon size={32} weight="light" />
+                        </div>
+                        <div className="space-y-3">
+                          <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{p}</h3>
+                          <div className="text-foreground text-lg leading-relaxed pt-1">
+                            <a 
+                              href={link.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="hover:text-primary transition-colors font-medium inline-block relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 hover:after:w-full after:bg-primary after:transition-all after:duration-300"
+                            >
+                              {link.username || 'Follow Us'}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </FadeIn>
+                  )
+                })
+              ) : null}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="pb-24 px-4 sm:px-6 lg:px-8 w-full">
+        <div className="max-w-6xl mx-auto">
+          <FadeIn direction="up" distance={40} delay={0.5} className="w-full">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.0818228543414!2d110.4497275!3d-5.8645135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e73d1c1d8e2026f%3A0x543861d2bb5126cd!2sFloating%20Paradise!5e0!3m2!1sen!2sid!4v1716301413809!5m2!1sen!2sid"
+              width="100%"
+              height={450}
+              style={{ border: 0, borderRadius: '24px' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Floating Paradise Karimunjawa Location"
+              className="shadow-lg border border-[#F5EFE4] w-full"
+            />
+          </FadeIn>
         </div>
       </section>
 

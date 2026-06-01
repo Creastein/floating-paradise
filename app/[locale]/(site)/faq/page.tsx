@@ -1,6 +1,8 @@
 import FaqClient from '@/components/faq-client'
 import { generatePageSeo } from '@/lib/i18n/seo'
 import { getFaqPage } from '@/lib/sanity.fetch'
+import en from '@/lib/i18n/translations/en.json'
+import id from '@/lib/i18n/translations/id.json'
 
 interface LocalePageProps {
   params: Promise<{ locale: string }>
@@ -19,19 +21,31 @@ interface CmsFaqItem {
   answer_id?: string
 }
 
+function getFallbackFaqData(locale: string): Record<string, CmsFaqItem[]> {
+  const categories = (locale === 'id' ? id : en).faq.categories
+
+  return {
+    accommodationFaqs: categories.accommodation.items.map((item) => ({ question: item.q, answer: item.a })),
+    foodFaqs: categories.food.items.map((item) => ({ question: item.q, answer: item.a })),
+    bookingFaqs: categories.booking.items.map((item) => ({ question: item.q, answer: item.a })),
+    gettingHereFaqs: categories.gettingHere.items.map((item) => ({ question: item.q, answer: item.a })),
+    activitiesFaqs: categories.activities.items.map((item) => ({ question: item.q, answer: item.a })),
+  }
+}
+
 /** Build JSON-LD FAQPage schema dynamically from CMS data */
 function buildFaqJsonLd(
   faqData: Record<string, CmsFaqItem[] | undefined> | null,
   locale: string
 ) {
-  if (!faqData) return null
+  const fallbackData = getFallbackFaqData(locale)
 
   const allItems: CmsFaqItem[] = [
-    ...(faqData.accommodationFaqs || []),
-    ...(faqData.foodFaqs || []),
-    ...(faqData.bookingFaqs || []),
-    ...(faqData.gettingHereFaqs || []),
-    ...(faqData.activitiesFaqs || []),
+    ...((faqData?.accommodationFaqs?.length ? faqData.accommodationFaqs : fallbackData.accommodationFaqs) || []),
+    ...((faqData?.foodFaqs?.length ? faqData.foodFaqs : fallbackData.foodFaqs) || []),
+    ...((faqData?.bookingFaqs?.length ? faqData.bookingFaqs : fallbackData.bookingFaqs) || []),
+    ...((faqData?.gettingHereFaqs?.length ? faqData.gettingHereFaqs : fallbackData.gettingHereFaqs) || []),
+    ...((faqData?.activitiesFaqs?.length ? faqData.activitiesFaqs : fallbackData.activitiesFaqs) || []),
   ]
 
   if (allItems.length === 0) return null

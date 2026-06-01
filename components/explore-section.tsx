@@ -2,9 +2,14 @@
 
 import Image from 'next/image'
 import { useRef, useEffect } from 'react'
-import { useLanguage } from '@/lib/i18n/language-context'
+import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
+import { PortableText } from '@/components/portable-text'
 
-export default function ExploreSection() {
+type ExploreSectionProps = {
+  homepage?: any;
+}
+
+export default function ExploreSection({ homepage }: ExploreSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
   const img1Ref = useRef<HTMLDivElement>(null)
@@ -14,6 +19,17 @@ export default function ExploreSection() {
   const headingRef = useRef<HTMLDivElement>(null)
 
   const { t } = useLanguage()
+  const { getCmsValue } = useCmsTranslation()
+
+  const rawTitle = getCmsValue(homepage, 'exploreTitle', null)
+  const content = getCmsValue(homepage, 'exploreContent', null)
+
+  // Automatically insert responsive line break after comma for plain text to make it easy for the user
+  const title = rawTitle
+    ? (rawTitle.includes('<br') 
+        ? rawTitle 
+        : rawTitle.replace(/,\s*/, ',<br class="hidden md:block"/> '))
+    : t.explore.title
 
   useEffect(() => {
     const isDesktop = window.matchMedia('(min-width: 768px)').matches
@@ -153,7 +169,7 @@ export default function ExploreSection() {
       <div ref={headingRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left mb-16 lg:mb-24">
         <h2 
           className="scrub-text font-serif text-3xl md:text-5xl lg:text-6xl text-foreground font-medium mb-8 tracking-wide"
-          dangerouslySetInnerHTML={{ __html: t.explore.title }}
+          dangerouslySetInnerHTML={{ __html: title || t.explore.title }}
         />
         {/* GSAP Decorative Line */}
         <div 
@@ -217,38 +233,57 @@ export default function ExploreSection() {
           {/* Right: Scrolling Text — Narrow Column + Vertical Accent */}
           <div className="w-full md:w-1/2 pb-24 md:pb-32">
             <div className="md:max-w-xl md:border-l-[2px] md:border-primary/20 md:pl-10 text-foreground/80 space-y-1 md:space-y-2 text-lg text-justify leading-relaxed">
-              <p className="scrub-text">
-                <span dangerouslySetInnerHTML={{ __html: t.explore.p1.replace('At first glance', '<strong class="text-foreground font-semibold">At first glance</strong>').replace('Pada pandangan pertama', '<strong class="text-foreground font-semibold">Pada pandangan pertama</strong>') }} />
-              </p>
-              
-              <p className="scrub-text">
-                {t.explore.p2}
-              </p>
-              
-              <p className="scrub-text italic font-serif text-xl md:text-2xl text-foreground border-l-[3px] border-primary/40 pl-6 my-8 md:my-12 relative text-left">
-                <span className="absolute -left-3 -top-2 text-primary/30 text-5xl">"</span>
-                {t.explore.quote}
-              </p>
-              
-              <p className="scrub-text">
-                {t.explore.p3}
-              </p>
-              
-              <p className="scrub-text">
-                {t.explore.p4}
-              </p>
-              
-              <p className="scrub-text">
-                {t.explore.p5}
-              </p>
+              {content ? (
+                <PortableText 
+                  value={content} 
+                  components={{
+                    block: {
+                      normal: ({ children }: any) => <p className="scrub-text leading-relaxed mb-4 last:mb-0">{children}</p>,
+                      blockquote: ({ children }: any) => (
+                        <p className="scrub-text italic font-serif text-xl md:text-2xl text-foreground border-l-[3px] border-primary/40 pl-6 my-8 md:my-12 relative text-left">
+                          <span className="absolute -left-3 -top-2 text-primary/30 text-5xl">"</span>
+                          {children}
+                        </p>
+                      )
+                    }
+                  }}
+                />
+              ) : (
+                <>
+                  <p className="scrub-text">
+                    <span dangerouslySetInnerHTML={{ __html: t.explore.p1.replace('At first glance', '<strong class="text-foreground font-semibold">At first glance</strong>').replace('Pada pandangan pertama', '<strong class="text-foreground font-semibold">Pada pandangan pertama</strong>') }} />
+                  </p>
+                  
+                  <p className="scrub-text">
+                    {t.explore.p2}
+                  </p>
+                  
+                  <p className="scrub-text italic font-serif text-xl md:text-2xl text-foreground border-l-[3px] border-primary/40 pl-6 my-8 md:my-12 relative text-left">
+                    <span className="absolute -left-3 -top-2 text-primary/30 text-5xl">"</span>
+                    {t.explore.quote}
+                  </p>
+                  
+                  <p className="scrub-text">
+                    {t.explore.p3}
+                  </p>
+                  
+                  <p className="scrub-text">
+                    {t.explore.p4}
+                  </p>
+                  
+                  <p className="scrub-text">
+                    {t.explore.p5}
+                  </p>
 
-              <p className="scrub-text">
-                {t.explore.p6}
-              </p>
-              
-              <p className="scrub-text text-foreground font-medium pt-5 mt-8 md:mt-12 border-t border-border">
-                {t.explore.p7}
-              </p>
+                  <p className="scrub-text">
+                    {t.explore.p6}
+                  </p>
+                  
+                  <p className="scrub-text text-foreground font-medium pt-5 mt-8 md:mt-12 border-t border-border">
+                    {t.explore.p7}
+                  </p>
+                </>
+              )}
             </div>
           </div>
 

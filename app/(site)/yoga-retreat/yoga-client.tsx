@@ -26,6 +26,29 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
   const heroImageUrl =
     cmsData?.heroImage ? urlFor(cmsData.heroImage).width(2400).height(1350).url() : undefined
 
+  const getFormattedPrice = (fieldName: string, fallback: string) => {
+    const rawVal = cmsData ? cmsData[fieldName] : null;
+    let value = (typeof rawVal === 'string' && rawVal.trim() !== '') ? rawVal : fallback;
+    
+    // Auto-localize "pp" to avoid confusing the users
+    const localizedSuffix = language === 'id' ? ' / orang' : ' / person';
+    value = value.replace(/\s*pp\b/gi, localizedSuffix);
+    
+    const parts = value.split(/[·•]/);
+    const mainPrice = parts[0]?.trim() || "";
+    
+    if (parts.length > 1) {
+      const rest = parts.slice(1).map(p => p.trim()).join(" · ");
+      return (
+        <>
+          {mainPrice} <span className="text-foreground/40 font-normal text-xs">· {rest}</span>
+        </>
+      );
+    }
+    
+    return <>{mainPrice}</>;
+  };
+
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
@@ -194,28 +217,16 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
             <p className="text-foreground/60 font-light">{y.dailySubtitle}</p>
           </FadeIn>
           
-          {cmsData?.dailySchedule?.length ? (
-            <AnimatedTimeline
-              bgColor="#F5EFE4"
-              items={cmsData.dailySchedule.map((s: any, index: number) => ({
-                title: s.time,
-                // Use Indonesian activity description if language is 'id' and field exists
-                description: (language === 'id' && s.activity_id) ? s.activity_id : s.activity,
-                side: index % 2 === 0 ? "left" : "right"
-              }))}
-            />
-          ) : (
-            <AnimatedTimeline
-              bgColor="#F5EFE4"
-              items={[
-                { title: y.scheduleDawnTitle, description: y.scheduleDawnDesc, side: "left" },
-                { title: y.scheduleMorningTitle, description: y.scheduleMorningDesc, side: "right" },
-                { title: y.scheduleMiddayTitle, description: y.scheduleMiddayDesc, side: "left" },
-                { title: y.scheduleAfternoonTitle, description: y.scheduleAfternoonDesc, side: "right" },
-                { title: y.scheduleEveningTitle, description: y.scheduleEveningDesc, side: "left" },
-              ]}
-            />
-          )}
+          <AnimatedTimeline
+            bgColor="#F5EFE4"
+            items={[
+              { title: y.scheduleDawnTitle, description: y.scheduleDawnDesc, side: "left" },
+              { title: y.scheduleMorningTitle, description: y.scheduleMorningDesc, side: "right" },
+              { title: y.scheduleMiddayTitle, description: y.scheduleMiddayDesc, side: "left" },
+              { title: y.scheduleAfternoonTitle, description: y.scheduleAfternoonDesc, side: "right" },
+              { title: y.scheduleEveningTitle, description: y.scheduleEveningDesc, side: "left" },
+            ]}
+          />
           <FadeIn delay={0.3} className="text-center mt-12">
             <p className="text-base text-foreground/50 font-light italic">{y.dailyFooter}</p>
           </FadeIn>
@@ -433,30 +444,30 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
 
                     <div className="space-y-3 border-t border-[#D8C3A5]/30 pt-5">
                       {/* Single Occupancy */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 py-2">
-                        <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3">
+                        <div className="flex flex-col items-start gap-1">
                           <span className="inline-block text-[10px] uppercase tracking-widest font-bold text-[#2F4A3F] bg-[#D8C3A5]/30 px-3 py-1 rounded-full">{y.packagePrivate}</span>
-                          <span className="text-xs text-foreground/45 font-light">Private Bungalow</span>
+                          <span className="text-xs text-foreground/45 font-light pl-1">{y.configPrivate}</span>
                         </div>
-                        <p className="text-foreground/80 font-semibold text-sm">Rp 23,000,000 <span className="text-foreground/40 font-normal text-xs">· £1,012 · €1,150</span></p>
+                        <p className="text-foreground/80 font-semibold text-sm whitespace-nowrap sm:text-right shrink-0">{getFormattedPrice('priceSunrisePrivate', 'Rp 23,000,000 · £1,012 · €1,150')}</p>
                       </div>
 
                       {/* Shared Double */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 py-2 border-t border-[#D8C3A5]/15">
-                        <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 border-t border-[#D8C3A5]/15">
+                        <div className="flex flex-col items-start gap-1">
                           <span className="inline-block text-[10px] uppercase tracking-widest font-bold text-[#2F4A3F] bg-[#D8C3A5]/30 px-3 py-1 rounded-full">{y.packageSharedDouble}</span>
-                          <span className="text-xs text-foreground/45 font-light">Women only · sharing a double bed</span>
+                          <span className="text-xs text-foreground/45 font-light pl-1">{y.configSharedDouble}</span>
                         </div>
-                        <p className="text-foreground/80 font-semibold text-sm">Rp 17,500,000 <span className="text-foreground/40 font-normal text-xs">· £770 · €875 pp</span></p>
+                        <p className="text-foreground/80 font-semibold text-sm whitespace-nowrap sm:text-right shrink-0">{getFormattedPrice('priceSunriseShared', 'Rp 17,500,000 · £770 · €875 pp')}</p>
                       </div>
 
                       {/* Couples Special Rate */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 py-3 px-4 bg-primary/5 rounded-xl border border-primary/15 mt-1">
-                        <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 px-4 bg-primary/5 rounded-xl border border-primary/15 mt-1">
+                        <div className="flex flex-col items-start gap-1">
                           <span className="inline-block text-[10px] uppercase tracking-widest font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">{y.packageCouples}</span>
-                          <span className="text-xs text-foreground/45 font-light">Private Bungalow</span>
+                          <span className="text-xs text-foreground/45 font-light pl-1">{y.configPrivate}</span>
                         </div>
-                        <p className="text-foreground/80 font-semibold text-sm">Rp 16,000,000 <span className="text-foreground/40 font-normal text-xs">· £700 · €800 pp</span></p>
+                        <p className="text-foreground/80 font-semibold text-sm whitespace-nowrap sm:text-right shrink-0">{getFormattedPrice('priceSunriseCouple', 'Rp 16,000,000 · £700 · €800 pp')}</p>
                       </div>
                     </div>
                   </div>
@@ -505,30 +516,30 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
 
                     <div className="space-y-3 border-t border-[#D8C3A5]/30 pt-5">
                       {/* Single Occupancy */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 py-2">
-                        <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3">
+                        <div className="flex flex-col items-start gap-1">
                           <span className="inline-block text-[10px] uppercase tracking-widest font-bold text-[#2F4A3F] bg-[#D8C3A5]/30 px-3 py-1 rounded-full">{y.packagePrivate}</span>
-                          <span className="text-xs text-foreground/45 font-light">Private Bungalow</span>
+                          <span className="text-xs text-foreground/45 font-light pl-1">{y.configPrivate}</span>
                         </div>
-                        <p className="text-foreground/80 font-semibold text-sm">Rp 21,500,000 <span className="text-foreground/40 font-normal text-xs">· £945 · €1,075</span></p>
+                        <p className="text-foreground/80 font-semibold text-sm whitespace-nowrap sm:text-right shrink-0">{getFormattedPrice('priceSunsetPrivate', 'Rp 21,500,000 · £945 · €1,075')}</p>
                       </div>
 
                       {/* Shared Double */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 py-2 border-t border-[#D8C3A5]/15">
-                        <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 border-t border-[#D8C3A5]/15">
+                        <div className="flex flex-col items-start gap-1">
                           <span className="inline-block text-[10px] uppercase tracking-widest font-bold text-[#2F4A3F] bg-[#D8C3A5]/30 px-3 py-1 rounded-full">{y.packageSharedDouble}</span>
-                          <span className="text-xs text-foreground/45 font-light">Women only · sharing a double bed</span>
+                          <span className="text-xs text-foreground/45 font-light pl-1">{y.configSharedDouble}</span>
                         </div>
-                        <p className="text-foreground/80 font-semibold text-sm">Rp 17,000,000 <span className="text-foreground/40 font-normal text-xs">· £750 · €850 pp</span></p>
+                        <p className="text-foreground/80 font-semibold text-sm whitespace-nowrap sm:text-right shrink-0">{getFormattedPrice('priceSunsetShared', 'Rp 17,000,000 · £750 · €850 pp')}</p>
                       </div>
 
                       {/* Couples Special Rate */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 py-3 px-4 bg-primary/5 rounded-xl border border-primary/15 mt-1">
-                        <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 px-4 bg-primary/5 rounded-xl border border-primary/15 mt-1">
+                        <div className="flex flex-col items-start gap-1">
                           <span className="inline-block text-[10px] uppercase tracking-widest font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">{y.packageCouples}</span>
-                          <span className="text-xs text-foreground/45 font-light">Private Bungalow</span>
+                          <span className="text-xs text-foreground/45 font-light pl-1">{y.configPrivate}</span>
                         </div>
-                        <p className="text-foreground/80 font-semibold text-sm">Rp 15,000,000 <span className="text-foreground/40 font-normal text-xs">· £660 · €750 pp</span></p>
+                        <p className="text-foreground/80 font-semibold text-sm whitespace-nowrap sm:text-right shrink-0">{getFormattedPrice('priceSunsetCouple', 'Rp 15,000,000 · £660 · €750 pp')}</p>
                       </div>
                     </div>
                   </div>
@@ -577,21 +588,21 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
 
                     <div className="space-y-3 border-t border-[#D8C3A5]/30 pt-5">
                       {/* Shared Bungalow */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 py-2">
-                        <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3">
+                        <div className="flex flex-col items-start gap-1">
                           <span className="inline-block text-[10px] uppercase tracking-widest font-bold text-[#2F4A3F] bg-[#D8C3A5]/30 px-3 py-1 rounded-full">{y.packageSharedSeparate}</span>
-                          <span className="text-xs text-foreground/45 font-light">Own double bed · shared bathroom</span>
+                          <span className="text-xs text-foreground/45 font-light pl-1">{y.configSharedSeparate}</span>
                         </div>
-                        <p className="text-foreground/80 font-semibold text-sm">Rp 20,000,000 <span className="text-foreground/40 font-normal text-xs">· £880 · €1,000 pp</span></p>
+                        <p className="text-foreground/80 font-semibold text-sm whitespace-nowrap sm:text-right shrink-0">{getFormattedPrice('priceBaysideSharedSeparate', 'Rp 20,000,000 · £880 · €1,000 pp')}</p>
                       </div>
 
                       {/* Shared Double */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 py-2 border-t border-[#D8C3A5]/15">
-                        <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 border-t border-[#D8C3A5]/15">
+                        <div className="flex flex-col items-start gap-1">
                           <span className="inline-block text-[10px] uppercase tracking-widest font-bold text-[#2F4A3F] bg-[#D8C3A5]/30 px-3 py-1 rounded-full">{y.packageSharedDouble}</span>
-                          <span className="text-xs text-foreground/45 font-light">Women only · sharing a double bed</span>
+                          <span className="text-xs text-foreground/45 font-light pl-1">{y.configSharedDouble}</span>
                         </div>
-                        <p className="text-foreground/80 font-semibold text-sm">Rp 16,000,000 <span className="text-foreground/40 font-normal text-xs">· £800 · €804 pp</span></p>
+                        <p className="text-foreground/80 font-semibold text-sm whitespace-nowrap sm:text-right shrink-0">{getFormattedPrice('priceBaysideSharedDouble', 'Rp 16,000,000 · £700 · €800 pp')}</p>
                       </div>
                     </div>
                   </div>

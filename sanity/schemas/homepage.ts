@@ -4,11 +4,30 @@ export const homepageType = defineType({
   name: 'homepage',
   title: 'Homepage',
   type: 'document',
+  preview: {
+    select: { title: 'heroTitle' },
+    prepare({ title }) {
+      return {
+        title: 'Homepage',
+        subtitle: title || 'Edit homepage content',
+      }
+    },
+  },
   groups: [
     { name: 'hero', title: '🏠 Hero Section' },
     { name: 'welcome', title: '👋 Welcome Section' },
+    { name: 'explore', title: '☀️ Explore (Eco & Solar) Section' },
     { name: 'bungalows', title: '🛖 Bungalow Section' },
-    { name: 'builtByHand', title: '🔨 Built by Hand Section' },
+  ],
+  fieldsets: [
+    { name: 'hero_en', title: '🇬🇧 English Content', options: { collapsible: true, collapsed: false } },
+    { name: 'hero_id', title: '🇮🇩 Indonesian Content', options: { collapsible: true, collapsed: true } },
+    { name: 'welcome_en', title: '🇬🇧 English Content', options: { collapsible: true, collapsed: false } },
+    { name: 'welcome_id', title: '🇮🇩 Indonesian Content', options: { collapsible: true, collapsed: true } },
+    { name: 'explore_en', title: '🇬🇧 English Content', options: { collapsible: true, collapsed: false } },
+    { name: 'explore_id', title: '🇮🇩 Indonesian Content', options: { collapsible: true, collapsed: true } },
+    { name: 'builtByHand_en', title: '🇬🇧 English Content', options: { collapsible: true, collapsed: false } },
+    { name: 'builtByHand_id', title: '🇮🇩 Indonesian Content', options: { collapsible: true, collapsed: true } },
   ],
   fields: [
     // ── Hero Section ──────────────────────────────────
@@ -26,6 +45,7 @@ export const homepageType = defineType({
       description: 'Main large heading text over the background image.',
       type: 'string',
       group: 'hero',
+      fieldset: 'hero_en',
     }),
     defineField({
       name: 'heroTitle_id',
@@ -33,6 +53,7 @@ export const homepageType = defineType({
       description: 'Judul utama di atas gambar latar belakang.',
       type: 'string',
       group: 'hero',
+      fieldset: 'hero_id',
     }),
     defineField({
       name: 'heroSubtitle',
@@ -40,6 +61,7 @@ export const homepageType = defineType({
       description: 'Short phrase below the main heading.',
       type: 'string',
       group: 'hero',
+      fieldset: 'hero_en',
     }),
     defineField({
       name: 'heroSubtitle_id',
@@ -47,6 +69,7 @@ export const homepageType = defineType({
       description: 'Sub-judul di bawah heading utama.',
       type: 'string',
       group: 'hero',
+      fieldset: 'hero_id',
     }),
 
     // ── Welcome Section ───────────────────────────────
@@ -56,6 +79,7 @@ export const homepageType = defineType({
       description: 'The heading for the welcome text area.',
       type: 'string',
       group: 'welcome',
+      fieldset: 'welcome_en',
     }),
     defineField({
       name: 'welcomeTitle_id',
@@ -63,6 +87,7 @@ export const homepageType = defineType({
       description: 'Judul bagian selamat datang.',
       type: 'string',
       group: 'welcome',
+      fieldset: 'welcome_id',
     }),
     defineField({
       name: 'welcomeText',
@@ -71,6 +96,7 @@ export const homepageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'welcome',
+      fieldset: 'welcome_en',
     }),
     defineField({
       name: 'welcomeText_id',
@@ -79,6 +105,7 @@ export const homepageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'welcome',
+      fieldset: 'welcome_id',
     }),
     defineField({
       name: 'welcomeImage1',
@@ -105,39 +132,79 @@ export const homepageType = defineType({
       group: 'welcome',
     }),
 
-    // ── Built by Hand Section ─────────────────────────
+    // ── Explore (Built by Hand, Powered by Sun) Section ─────────────────────────
+    defineField({
+      name: 'exploreTitle',
+      title: 'Explore Section Title (English)',
+      description: 'Title. e.g., "Built by Hand, Powered by Sun". A responsive line break is automatically added after the comma.',
+      type: 'string',
+      group: 'explore',
+      fieldset: 'explore_en',
+    }),
+    defineField({
+      name: 'exploreTitle_id',
+      title: 'Explore Section Title (Indonesian)',
+      description: 'Judul. contoh: "Dibangun dengan Tangan, Ditenagai oleh Matahari". Baris baru otomatis ditambahkan setelah tanda koma.',
+      type: 'string',
+      group: 'explore',
+      fieldset: 'explore_id',
+    }),
+    defineField({
+      name: 'exploreContent',
+      title: 'Explore Section Content (English)',
+      description: 'Paragraphs and blockquotes. Use "Blockquote" style in the editor menu to format quotes. If empty, uses default text.',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'explore',
+      fieldset: 'explore_en',
+    }),
+    defineField({
+      name: 'exploreContent_id',
+      title: 'Explore Section Content (Indonesian)',
+      description: 'Paragraf & kutipan. Pilih format "Blockquote" pada menu atas untuk kutipan. Jika kosong, menggunakan teks bawaan.',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'explore',
+      fieldset: 'explore_id',
+    }),
+
+    // ── Bungalows Intro Section (formerly Built by Hand fields) ─────────────────────────
     defineField({
       name: 'builtByHandTitle',
-      title: 'Built by Hand Section Title (English)',
-      description: 'Heading for the middle storytelling section.',
+      title: 'Bungalows Section Intro Title (English)',
+      description: 'Heading shown directly above the bungalow cards. e.g., "Our Floating Bungalows".',
       type: 'string',
-      group: 'builtByHand',
+      group: 'bungalows',
+      fieldset: 'builtByHand_en',
     }),
     defineField({
       name: 'builtByHandTitle_id',
-      title: 'Built by Hand Section Title (Indonesian)',
-      description: 'Judul untuk bagian cerita di tengah halaman.',
+      title: 'Bungalows Section Intro Title (Indonesian)',
+      description: 'Judul yang ditampilkan tepat di atas kartu bungalow.',
       type: 'string',
-      group: 'builtByHand',
+      group: 'bungalows',
+      fieldset: 'builtByHand_id',
     }),
     defineField({
       name: 'builtByHandText',
-      title: 'Built by Hand Section Text (English)',
-      description: 'Story paragraphs about building Floating Paradise.',
+      title: 'Bungalows Section Intro Text (English)',
+      description: 'Introductory paragraphs above the bungalow cards.',
       type: 'array',
       of: [{ type: 'block' }],
-      group: 'builtByHand',
+      group: 'bungalows',
+      fieldset: 'builtByHand_en',
     }),
     defineField({
       name: 'builtByHandText_id',
-      title: 'Built by Hand Section Text (Indonesian)',
-      description: 'Cerita tentang pembangunan Floating Paradise.',
+      title: 'Bungalows Section Intro Text (Indonesian)',
+      description: 'Paragraf pengantar di atas kartu bungalow.',
       type: 'array',
       of: [{ type: 'block' }],
-      group: 'builtByHand',
+      group: 'bungalows',
+      fieldset: 'builtByHand_id',
     }),
 
-    // ── Bungalow Section ──────────────────────────────
+    // ── Bungalow Cards Image Section ──────────────────────────────
     defineField({
       name: 'bungalowImage1',
       title: 'Bungalow Card Image 1 — Sunrise Bungalow',

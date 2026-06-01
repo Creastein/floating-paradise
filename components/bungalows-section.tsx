@@ -8,6 +8,16 @@ import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
 import { TRIPLA_ROOM_IDS, type RoomKey } from '@/lib/tripla'
 import { trackEvent } from '@/lib/analytics'
 
+const hasPortableTextContent = (value: any) =>
+  Array.isArray(value) &&
+  value.some((block: any) =>
+    Array.isArray(block?.children) &&
+    block.children.some((child: any) => typeof child?.text === 'string' && child.text.trim().length > 0)
+  )
+
+const hasSanityImage = (image: any) =>
+  Boolean(image?.asset?._ref || image?.asset?._id || image?.asset?.url)
+
 type BungalowsSectionProps = {
   homepage?: any;
   bungalows?: any[];
@@ -43,8 +53,23 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
     },
   ]
 
-  // Use CMS data if available, fallback to defaults
-  const displayBungalows = cmsBungalows && cmsBungalows.length > 0 ? cmsBungalows.slice(0, 3) : defaultBungalows
+  const findCmsBungalow = (roomName: string) => {
+    if (!cmsBungalows?.length) return null
+    const roomKey = roomName.split(' ')[0].toLowerCase()
+
+    return cmsBungalows.find((bungalow: any) =>
+      typeof bungalow.name === 'string' &&
+      bungalow.name.toLowerCase().includes(roomKey)
+    ) || null
+  }
+
+  const displayBungalows = defaultBungalows.map((fallback) => ({
+    ...fallback,
+    ...(findCmsBungalow(fallback.name) || {}),
+    fallbackName: fallback.name,
+    fallbackDescription: fallback.description,
+    fallbackImage: fallback.image,
+  }))
 
   /** Map bungalow name to RoomKey for Tripla URL */
   const getRoomKey = (name: string): RoomKey => {
@@ -197,7 +222,9 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
               'Sunrise Bungalow': '/image/homepage/Sunrise-home.webp',
               'Sunset Bungalow':  '/image/homepage/Sunset-home.webp',
             }
-            const localFallback = fallbackByName[bungalow.name] || '/image/homepage/Sunrise-home.webp'
+            const displayName = bungalow.name || bungalow.fallbackName
+            const fallbackName = bungalow.fallbackName || displayName
+            const localFallback = bungalow.fallbackImage || fallbackByName[fallbackName] || '/image/homepage/Sunrise-home.webp'
 
             // Priority: 1) Homepage CMS image (matched by name)  2) Bungalow gallery/mainImage  3) Hardcoded default
             const homepageBungalowImageMap: Record<string, string> = {
@@ -205,13 +232,16 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
               'Sunset Bungalow':  'bungalowImage2',
               'Bayside Bungalow': 'bungalowImage3',
             }
-            const homepageImgField = homepageBungalowImageMap[bungalow.name]
+            const homepageImgField = homepageBungalowImageMap[fallbackName]
             const homepageImg = homepageImgField ? homepage?.[homepageImgField] : null
+            const cmsGallery = Array.isArray(bungalow.gallery)
+              ? bungalow.gallery.filter(hasSanityImage)
+              : []
 
             const imgSrc = homepageImg ? urlFor(homepageImg).width(600).format('webp').quality(75).url()
-                         : bungalow.gallery?.[0] ? urlFor(bungalow.gallery[0]).width(600).format('webp').quality(75).url()
-                         : bungalow.mainImage ? urlFor(bungalow.mainImage).width(600).format('webp').quality(75).url()
-                         : bungalow.image || localFallback;
+                         : cmsGallery[0] ? urlFor(cmsGallery[0]).width(600).format('webp').quality(75).url()
+                         : hasSanityImage(bungalow.mainImage) ? urlFor(bungalow.mainImage).width(600).format('webp').quality(75).url()
+                         : localFallback;
             
             return (
             <div key={index} className="bungalow-card group cursor-pointer flex flex-col h-full bg-[#f5efe6] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-700">
@@ -223,7 +253,7 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
                 >
                   <Image
                     src={imgSrc || "/image/homepage/Sunrise-home.webp"}
-                    alt={bungalow.name}
+                    alt={displayName}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -234,14 +264,14 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
               </div>
               <div className="p-8 md:p-10 flex flex-col flex-grow text-center">
                 <h3 className="font-serif text-2xl font-medium text-foreground mb-4">
-                  {bungalow.name}
+                  {displayName}
                 </h3>
                 <div className="text-foreground/70 text-base mb-8 flex-grow leading-relaxed flex flex-col items-center">
                   {(() => {
-                    const desc = getCmsValue(bungalow, 'description', bungalow.description);
-                    return typeof desc === 'string' ? (
+                    const desc = getCmsValue(bungalow, 'description', bungalow.fallbackDescription);
+                    return typeof desc === 'string' && desc.trim() ? (
                       <p>{desc}</p>
-                    ) : desc ? (
+                    ) : hasPortableTextContent(desc) ? (
                       <PortableText 
                         value={desc} 
                         components={{
@@ -250,7 +280,9 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
                           }
                         }}
                       />
-                    ) : null;
+                    ) : (
+                      <p>{bungalow.fallbackDescription}</p>
+                    );
                   })()}
                 </div>
                 <div className="mt-6 pt-5 border-t border-primary/20">
@@ -258,9 +290,9 @@ export default function BungalowsSection({ homepage, bungalows: cmsBungalows }: 
                     type="button"
                     data-tripla-booking-widget="search"
                     onClick={() => {
-                      const roomKey = getRoomKey(bungalow.name)
+                      const roomKey = getRoomKey(fallbackName)
                       const roomId = TRIPLA_ROOM_IDS[roomKey]
-                      trackEvent('book_now_click', { action: 'clicked', label: `bungalows_section_${bungalow.name.toLowerCase().replace(/ /g, '_')}` })
+                      trackEvent('book_now_click', { action: 'clicked', label: `bungalows_section_${fallbackName.toLowerCase().replace(/ /g, '_')}` })
                       if (typeof window !== 'undefined' && (window as any).__openTriplaBooking) {
                         (window as any).__openTriplaBooking(roomId)
                       }

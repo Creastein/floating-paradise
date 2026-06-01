@@ -7,7 +7,7 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.tripla.ai;
   img-src 'self' data: https: blob:;
   font-src 'self' data: https://fonts.gstatic.com;
-  frame-src https://book.tripla.asia https://*.tripla.asia https://*.tripla.ai;
+  frame-src https://book.tripla.asia https://*.tripla.asia https://*.tripla.ai https://www.google.com;
   connect-src 'self' https://*.tripla.asia https://*.tripla.ai https://tripla.jp https://*.sanity.io wss://*.sanity.io https://va.vercel-scripts.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://stats.g.doubleclick.net;
   media-src 'self' https:;
   object-src 'none';

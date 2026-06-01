@@ -37,7 +37,7 @@ export default async function Home({ params: paramsPromise }: { params: Promise<
       <HeroSection homepage={homepage} locale={locale} />
       <AboutUsSection homepage={homepage} />
       <div className="h-24 md:h-32 bg-gradient-to-b from-background to-[#f5efe6]" />
-      <ExploreSection />
+      <ExploreSection homepage={homepage} />
       <div className="h-24 md:h-32 bg-gradient-to-b from-[#f5efe6] to-background" />
       <BungalowsSection homepage={homepage} bungalows={bungalows} />
       <YogaRetreatSection />

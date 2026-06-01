@@ -9,6 +9,13 @@ interface AboutAstridTonoProps {
   cmsData?: any | null
 }
 
+const hasPortableTextContent = (value: any) =>
+  Array.isArray(value) &&
+  value.some((block: any) =>
+    Array.isArray(block?.children) &&
+    block.children.some((child: any) => typeof child?.text === 'string' && child.text.trim().length > 0)
+  )
+
 export default function AboutAstridTono({ cmsData }: AboutAstridTonoProps) {
   const { t } = useLanguage()
   const { getCmsValue } = useCmsTranslation()
@@ -55,7 +62,7 @@ export default function AboutAstridTono({ cmsData }: AboutAstridTonoProps) {
           </h3>
         </div>
         
-        {storyContent ? (
+        {hasPortableTextContent(storyContent) ? (
           <div className="text-foreground/80 space-y-4 md:space-y-6 text-lg text-justify leading-relaxed">
             <PortableText value={storyContent} />
           </div>

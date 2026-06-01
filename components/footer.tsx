@@ -3,8 +3,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useEffect } from 'react'
-import { Instagram, Facebook, Mail, MapPin } from 'lucide-react'
+import { Instagram, Facebook, Mail, MapPin, Youtube, Music2, Globe } from 'lucide-react'
 import { useSiteSettings } from './site-settings-provider'
+import { urlFor } from '@/lib/sanity.image'
 import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function Footer() {
@@ -12,6 +13,8 @@ export default function Footer() {
   const footerRef = useRef<HTMLElement>(null)
   
   const { t, language } = useLanguage()
+
+  const logoSrc = settings?.logo ? urlFor(settings.logo).width(400).height(110).url() : '/logo.webp'
 
   useEffect(() => {
     const isDesktop = window.matchMedia('(min-width: 768px)').matches
@@ -57,11 +60,12 @@ export default function Footer() {
           <div className="lg:col-span-5 space-y-6">
             <Link href={`/${language}`} className="footer-text flex items-center mb-6 w-fit">
               <Image
-                src="/logo.webp"
+                src={logoSrc}
                 alt="Floating Paradise"
                 width={200}
                 height={55}
-                className="h-14 w-auto brightness-0 invert opacity-90"
+                className="h-10 w-auto brightness-0 invert opacity-90"
+                unoptimized={!!settings?.logo}
               />
             </Link>
             <p className="footer-text text-primary-foreground/70 text-lg leading-relaxed max-w-sm">
@@ -114,14 +118,18 @@ export default function Footer() {
           <div className="lg:col-span-3 text-center md:text-left">
             <h4 className="footer-text font-serif text-xl mb-6 text-[#e8e4db] w-fit mx-auto md:mx-0">{t.footer.connect}</h4>
             <div className="flex justify-center md:justify-start gap-5 mb-10">
-              {settings?.socialLinks ? (
+              {settings?.socialLinks && settings.socialLinks.length > 0 ? (
                 settings.socialLinks.map((link: any, i: number) => {
-                  const p = link.platform?.toLowerCase() || ''
-                  const isIg = p.includes('instagram') || p.includes('ig')
-                  const isFb = p.includes('facebook') || p.includes('fb')
+                  const p = link.platform || 'globe'
+                  let Icon = Globe
+                  if (p === 'instagram') Icon = Instagram
+                  if (p === 'facebook') Icon = Facebook
+                  if (p === 'tiktok') Icon = Music2
+                  if (p === 'youtube') Icon = Youtube
+
                   return (
-                    <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Follow us on ${link.platform || 'social media'}`} className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
-                      {isIg ? <Instagram size={20} /> : isFb ? <Facebook size={20} /> : <span className="text-sm font-semibold">{link.platform || 'Link'}</span>}
+                    <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Follow us on ${p}`} className="footer-text p-3 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all text-white">
+                      <Icon size={20} />
                     </a>
                   )
                 })

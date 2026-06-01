@@ -8,18 +8,6 @@ export const homepageQuery = defineQuery(`
   *[_type == "homepage"][0]
 `)
 
-export const explorePageQuery = defineQuery(`
-  *[_type == "explorePage"][0]
-`)
-
-export const gettingHerePageQuery = defineQuery(`
-  *[_type == "gettingHerePage"][0]
-`)
-
-export const bungalowsPageQuery = defineQuery(`
-  *[_type == "bungalowsPage"][0]
-`)
-
 export const bungalowsQuery = defineQuery(`
   *[_type == "bungalow"] | order(name asc)
 `)
@@ -33,6 +21,10 @@ export const yogaRetreatQuery = defineQuery(`
     ...,
     "images": images[].asset->url
   }
+`)
+
+export const gettingHerePageQuery = defineQuery(`
+  *[_type == "gettingHerePage"][0]
 `)
 
 export const aboutPageQuery = defineQuery(`

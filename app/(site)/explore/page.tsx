@@ -1,5 +1,5 @@
 import ExploreClient from "./explore-client"
-import { getActivities, getExplorePage } from "@/lib/sanity.fetch"
+import { getActivities } from "@/lib/sanity.fetch"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata() {
@@ -8,7 +8,7 @@ export async function generateMetadata() {
 
 export default async function ExplorePage() {
   const { data: activities } = await getActivities()
-  const { data: pageData } = await getExplorePage()
+  const pageData = undefined
 
   const jsonLd = {
     "@context": "https://schema.org",

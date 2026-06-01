@@ -8,6 +8,15 @@ interface TutorialItem {
 
 const tutorials: TutorialItem[] = [
   {
+    question: '🌍 How to add translations (English / Indonesian)?',
+    steps: [
+      'Almost all content fields now use collapsible fieldsets for <strong>🇬🇧 English</strong> and <strong>🇮🇩 Indonesian</strong>.',
+      'By default, the English field is visible, and the Indonesian field is collapsed to save space.',
+      'Click on the <strong>🇮🇩 Indonesian</strong> header to expand it and enter the translated text.',
+      'Make sure both languages are filled out before publishing.',
+    ],
+  },
+  {
     question: '🏠 How to update the Homepage (Hero images, texts)?',
     steps: [
       'Click <strong>Website Pages → Homepage</strong> in the left sidebar.',
@@ -22,14 +31,14 @@ const tutorials: TutorialItem[] = [
       'Click <strong>Collections → Rooms & Bungalows</strong> in the left sidebar.',
       'Select the bungalow you want to update (e.g., "Bayside Bungalow").',
       'Find the <strong>Pricing / IDR</strong> fields and change the numbers. <em>Enter numbers only, no commas or dots.</em>',
-      'You can also update the description, gallery images, and amenities from here.',
+      'You can also update the description and gallery images from here.',
       'Click the green <strong>Publish</strong> button to save your changes to the live website.',
     ],
   },
   {
-    question: '🛶 How to edit Activities & Extras?',
+    question: '🛶 How to edit Explore items?',
     steps: [
-      'Click <strong>Collections → Activities & Extras</strong> in the left sidebar.',
+      'Click <strong>Collections → Explore</strong> in the left sidebar.',
       'Select the activity you want to update.',
       'Edit the title, description, price, or images as needed.',
       'The <strong>Slug</strong> field is LOCKED — do not attempt to change it. Contact the developer if needed.',
@@ -73,12 +82,11 @@ const tutorials: TutorialItem[] = [
     ],
   },
   {
-    question: '🔗 How to update the Booking URL (Tripla)?',
+    question: '🔗 How to update Tripla room booking?',
     steps: [
-      'Go to the relevant Bungalow or the Site Settings page.',
-      'Find the <strong>Tripla Booking URL</strong> field.',
-      'Paste the new URL from your Tripla dashboard.',
-      'Click <strong>Publish</strong> to activate the new URL.',
+      'Room booking is connected in code using the official Tripla room IDs.',
+      'Do not edit or add booking URL fields in the CMS.',
+      'If Tripla room IDs change, ask the developer to update the integration safely.',
     ],
   },
 ]
@@ -88,8 +96,8 @@ const quickLinks = [
   { emoji: '🏠', label: 'Homepage', hint: 'Hero slides, sections', tool: 'desk', target: 'homepage' },
   { emoji: '📖', label: 'About Us', hint: 'Story, team, hero image', tool: 'desk', target: 'aboutPage' },
   { emoji: '🧘', label: 'Yoga Retreat', hint: 'Packages, details, hero', tool: 'desk', target: 'yogaRetreat' },
-  { emoji: '🛖', label: 'Rooms & Bungalows', hint: 'Prices, descriptions, images', tool: 'desk', target: 'bungalowList' },
-  { emoji: '🛶', label: 'Activities & Extras', hint: 'Tours, experiences', tool: 'desk', target: 'activityList' },
+  { emoji: '🛖', label: 'Rooms & Bungalows', hint: 'Prices, descriptions, images', tool: 'desk', target: 'bungalow' },
+  { emoji: '🛶', label: 'Explore', hint: 'Tours, experiences', tool: 'desk', target: 'activity' },
 ]
 
 export function WelcomeDashboard() {
@@ -125,7 +133,7 @@ export function WelcomeDashboard() {
             <strong>Important – Read Before Editing</strong>
             <ul>
               <li><strong>Slug fields are LOCKED</strong> — these are internal identifiers used in code. Changing them will break the website. If you need a slug changed, contact the developer.</li>
-              <li><strong>Do not create new Bungalows or Activities</strong> without consulting the developer first — new items require code-level design integration.</li>
+              <li><strong>Do not create new Bungalows or Explore items</strong> without consulting the developer first — new items require code-level design integration.</li>
               <li>Always click <strong>Publish</strong> after editing to make your changes go live.</li>
             </ul>
           </div>
@@ -140,7 +148,7 @@ export function WelcomeDashboard() {
               <li>All <strong>text content</strong>: titles, descriptions, body text</li>
               <li>All <strong>images</strong>: hero slides, gallery photos, room photos</li>
               <li><strong>Prices</strong> (enter numbers only — no commas or dots)</li>
-              <li><strong>Booking URLs</strong> (Tripla links)</li>
+              <li><strong>Room booking IDs</strong> (Tripla integration handled by the developer)</li>
               <li><strong>Contact info</strong> and social media links</li>
             </ul>
           </div>

@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import LanguageSwitcher from './language-switcher'
 import { useLanguage } from '@/lib/i18n/language-context'
+import { useSiteSettings } from './site-settings-provider'
+import { urlFor } from '@/lib/sanity.image'
 import { trackEvent } from '@/lib/analytics'
 
 export default function Navigation() {
@@ -14,6 +16,9 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const { t, language } = useLanguage()
+  const settings = useSiteSettings()
+
+  const logoSrc = settings?.logo ? urlFor(settings.logo).width(468).height(130).url() : '/logo.webp'
 
   useEffect(() => {
     const onScroll = () => {
@@ -74,13 +79,14 @@ export default function Navigation() {
               className="flex items-center transition-all duration-300"
             >
               <Image
-                src="/logo.webp"
+                src={logoSrc}
                 alt="Floating Paradise"
                 width={234}
                 height={65}
-                className={`h-[52px] md:h-[62px] w-auto transition-all duration-300 ${
+                className={`h-[32px] md:h-[38px] w-auto transition-all duration-300 ${
                   isSolid ? '' : 'brightness-0 invert'
                 }`}
+                unoptimized={!!settings?.logo}
               />
             </Link>
 

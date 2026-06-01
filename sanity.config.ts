@@ -29,21 +29,17 @@ export default defineConfig({
 
             S.divider(),
 
-            // --- PAGES ---
+            // --- PAGES & COLLECTIONS (Ordered by website navigation) ---
             S.listItem()
               .title('🏠 Homepage')
               .id('homepage')
               .child(S.document().schemaType('homepage').documentId('homepage')),
 
-            S.listItem()
-              .title('🧭 Explore')
-              .id('explorePage')
-              .child(S.document().schemaType('explorePage').documentId('explorePage')),
+            S.documentTypeListItem('bungalow')
+              .title('🌿 Rooms & Bungalows'),
 
-            S.listItem()
-              .title('📖 About Us')
-              .id('aboutPage')
-              .child(S.document().schemaType('aboutPage').documentId('aboutPage')),
+            S.documentTypeListItem('activity')
+              .title('🛶 Explore'),
 
             S.listItem()
               .title('🧘 Yoga Retreat')
@@ -51,50 +47,19 @@ export default defineConfig({
               .child(S.document().schemaType('yogaRetreat').documentId('yogaRetreat')),
 
             S.listItem()
+              .title('Getting Here')
+              .id('gettingHerePage')
+              .child(S.document().schemaType('gettingHerePage').documentId('gettingHerePage')),
+
+            S.listItem()
+              .title('📖 About Us')
+              .id('aboutPage')
+              .child(S.document().schemaType('aboutPage').documentId('aboutPage')),
+
+            S.listItem()
               .title('❓ FAQ')
               .id('faqPage')
               .child(S.document().schemaType('faqPage').documentId('faqPage')),
-
-            S.divider(),
-
-            // --- COLLECTIONS ---
-            S.listItem()
-              .title('🌿 Rooms & Bungalows')
-              .id('bungalowList')
-              .child(
-                S.list()
-                  .title('Rooms & Bungalows')
-                  .items([
-                    S.listItem()
-                      .title('🛖 Bungalows Page (Hero)')
-                      .id('bungalowsPage')
-                      .child(S.document().schemaType('bungalowsPage').documentId('bungalowsPage')),
-
-                    S.divider(),
-
-                    S.documentTypeListItem('bungalow')
-                      .title('Rooms & Bungalows'),
-                  ])
-              ),
-
-            S.listItem()
-              .title('🛶 Activities & Extras')
-              .id('activityList')
-              .child(
-                S.list()
-                  .title('Activities & Extras')
-                  .items([
-                    S.listItem()
-                      .title('🧭 Getting Here (Hero)')
-                      .id('gettingHerePage')
-                      .child(S.document().schemaType('gettingHerePage').documentId('gettingHerePage')),
-
-                    S.divider(),
-
-                    S.documentTypeListItem('activity')
-                      .title('Activities & Extras'),
-                  ])
-              ),
           ]),
     }),
   ],

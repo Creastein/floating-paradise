@@ -4,10 +4,24 @@ export const aboutPageType = defineType({
   name: 'aboutPage',
   title: 'About Page',
   type: 'document',
+  preview: {
+    prepare() {
+      return {
+        title: 'About Us',
+        subtitle: 'Founders story, mission, and values',
+      }
+    },
+  },
   groups: [
     { name: 'hero', title: '🏠 Hero Section' },
     { name: 'founders', title: '👫 Founders Story' },
     { name: 'mission', title: '🎯 Mission Statement' },
+  ],
+  fieldsets: [
+    { name: 'founders_en', title: '🇬🇧 English Content', options: { collapsible: true, collapsed: false } },
+    { name: 'founders_id', title: '🇮🇩 Indonesian Content', options: { collapsible: true, collapsed: true } },
+    { name: 'mission_en', title: '🇬🇧 English Content', options: { collapsible: true, collapsed: false } },
+    { name: 'mission_id', title: '🇮🇩 Indonesian Content', options: { collapsible: true, collapsed: true } },
   ],
   fields: [
     // ── Hero Section ─────────────────────────────────
@@ -29,6 +43,7 @@ export const aboutPageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'founders',
+      fieldset: 'founders_en',
     }),
     defineField({
       name: 'storyContent_id',
@@ -37,6 +52,7 @@ export const aboutPageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'founders',
+      fieldset: 'founders_id',
     }),
     defineField({
       name: 'foundersPhoto',
@@ -55,6 +71,7 @@ export const aboutPageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'mission',
+      fieldset: 'mission_en',
     }),
     defineField({
       name: 'missionStatement_id',
@@ -63,6 +80,7 @@ export const aboutPageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'mission',
+      fieldset: 'mission_id',
     }),
 
   ],

@@ -23,9 +23,21 @@ interface DisplayRoom {
   guests: string
   size: string
   gallery: string[]
-  triplaUrl?: string
   features?: string[]
 }
+
+const hasPortableTextContent = (value: any) =>
+  Array.isArray(value) &&
+  value.some((block: any) =>
+    Array.isArray(block?.children) &&
+    block.children.some((child: any) => typeof child?.text === 'string' && child.text.trim().length > 0)
+  )
+
+const hasSanityImage = (image: any) =>
+  Boolean(image?.asset?._ref || image?.asset?._id || image?.asset?.url)
+
+const hasTextItems = (value: any) =>
+  Array.isArray(value) && value.some((item) => typeof item === 'string' && item.trim().length > 0)
 
 const ROOM_GALLERIES = {
   sunrise: [
@@ -126,6 +138,32 @@ export default function BungalowsClient({
     ) || null
   }
 
+  const getRoomDescription = (cmsBungalow: any, fallback: any) => {
+    const localizedDescription = getCmsValue(cmsBungalow, 'description', fallback)
+
+    return hasPortableTextContent(localizedDescription) || typeof localizedDescription === 'string'
+      ? localizedDescription
+      : fallback
+  }
+
+  const getRoomFeatures = (cmsBungalow: any) => {
+    const localizedFeatures = getCmsValue(cmsBungalow, 'features', ROOM_FACILITIES)
+
+    return hasTextItems(localizedFeatures)
+      ? localizedFeatures.filter((item: string) => item.trim().length > 0)
+      : ROOM_FACILITIES
+  }
+
+  const getRoomGallery = (cmsBungalow: any, fallbackGallery: string[]) => {
+    const cmsGallery = Array.isArray(cmsBungalow?.gallery)
+      ? cmsBungalow.gallery.filter(hasSanityImage)
+      : []
+
+    return cmsGallery.length > 0
+      ? cmsGallery.map((image: any) => urlFor(image).url())
+      : fallbackGallery
+  }
+
   const displayRooms: DisplayRoom[] = ROOMS.map((room) => {
     const cmsBungalow = findCmsBungalow(room.name.split(' ')[0]) // Match by "Sunrise", "Sunset", "Bayside"
     if (!cmsBungalow) return room
@@ -134,13 +172,11 @@ export default function BungalowsClient({
       ...room,
       name: cmsBungalow.name || room.name,
       roomKey: room.roomKey,
-      description: getCmsValue(cmsBungalow, 'description', room.description),
-      // Always use hardcoded image & gallery for consistent layout across languages
-      image: room.image,
+      description: getRoomDescription(cmsBungalow, room.description),
+      image: getRoomGallery(cmsBungalow, room.gallery)[0] || room.image,
       guests: cmsBungalow.maxGuests?.toString() || room.guests,
-      gallery: room.gallery,
-      triplaUrl: cmsBungalow.triplaUrl || TRIPLA_ROOM_IDS[room.roomKey],
-      features: cmsBungalow.features || ROOM_FACILITIES,
+      gallery: getRoomGallery(cmsBungalow, room.gallery),
+      features: getRoomFeatures(cmsBungalow),
     }
   });
 

@@ -9,6 +9,10 @@ export const bungalowType = defineType({
     { name: 'media', title: '🖼️ Gallery' },
     { name: 'booking', title: '📋 Booking & Capacity' },
   ],
+  fieldsets: [
+    { name: 'content_en', title: '🇬🇧 English Content', options: { collapsible: true, collapsed: false } },
+    { name: 'content_id', title: '🇮🇩 Indonesian Content', options: { collapsible: true, collapsed: true } },
+  ],
   fields: [
     // ── Content ───────────────────────────────────────
     defineField({
@@ -36,6 +40,7 @@ export const bungalowType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'content',
+      fieldset: 'content_en',
     }),
     defineField({
       name: 'description_id',
@@ -44,6 +49,7 @@ export const bungalowType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       group: 'content',
+      fieldset: 'content_id',
     }),
     defineField({
       name: 'features',
@@ -52,6 +58,7 @@ export const bungalowType = defineType({
       type: 'array',
       of: [{ type: 'string' }],
       group: 'content',
+      fieldset: 'content_en',
     }),
     defineField({
       name: 'features_id',
@@ -60,6 +67,7 @@ export const bungalowType = defineType({
       type: 'array',
       of: [{ type: 'string' }],
       group: 'content',
+      fieldset: 'content_id',
     }),
 
 
@@ -67,10 +75,11 @@ export const bungalowType = defineType({
     defineField({
       name: 'gallery',
       title: 'Photo Gallery',
-      description: 'High quality photos shown in the bungalow slideshow (landscape format recommended). If removed, the website will use the default images.',
+      description: 'High quality photos shown in the bungalow slideshow (landscape format recommended). Maximum 12 photos. If removed, the website will use the default images.',
       type: 'array',
       of: [{ type: 'image', options: { hotspot: true } }],
       group: 'media',
+      validation: (Rule) => Rule.max(12).warning('Recommended maximum is 12 photos per bungalow.'),
     }),
 
     // ── Booking & Capacity ────────────────────────────
@@ -79,13 +88,6 @@ export const bungalowType = defineType({
       title: 'Maximum Guests Allowed',
       description: 'Used for occupancy clarity on the website.',
       type: 'number',
-      group: 'booking',
-    }),
-    defineField({
-      name: 'triplaUrl',
-      title: 'Tripla Booking URL',
-      type: 'url',
-      description: 'Direct link to book this specific room on the Tripla platform.',
       group: 'booking',
     }),
   ],

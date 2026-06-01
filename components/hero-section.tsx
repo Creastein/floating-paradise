@@ -37,11 +37,14 @@ export default function HeroSection({ homepage, locale = 'en' }: HeroSectionProp
   // Get translations based on locale
   const t = locale === 'id' ? id : en;
   
-  // Extract text from CMS or fallback to translation
-  const titleObj = homepage?.heroTitle || {};
-  const subtitleObj = homepage?.heroSubtitle || {};
-  const title = titleObj[locale] || t.hero.defaultTitle;
-  const subtitle = subtitleObj[locale] || t.hero.defaultSubtitle;
+  // CMS fields: heroTitle (EN), heroTitle_id (ID) — flat strings
+  // Indonesian falls back to English value, then to translation default
+  const title = locale === 'id'
+    ? (homepage?.heroTitle_id || homepage?.heroTitle || t.hero.defaultTitle)
+    : (homepage?.heroTitle || t.hero.defaultTitle);
+  const subtitle = locale === 'id'
+    ? (homepage?.heroSubtitle_id || homepage?.heroSubtitle || t.hero.defaultSubtitle)
+    : (homepage?.heroSubtitle || t.hero.defaultSubtitle);
 
   return (
     <section className="relative h-[calc(100vh+4rem)] min-h-[calc(600px+4rem)] w-full overflow-hidden">

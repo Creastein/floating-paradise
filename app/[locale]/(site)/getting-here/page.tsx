@@ -1,6 +1,6 @@
 import GettingHereClient from "@/app/(site)/getting-here/getting-here-client"
-import { getGettingHerePage } from "@/lib/sanity.fetch"
 import { generatePageSeo } from "@/lib/i18n/seo"
+import { getGettingHerePage } from "@/lib/sanity.fetch"
 
 export async function generateMetadata({
   params: paramsPromise,

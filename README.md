@@ -1,35 +1,140 @@
-# floating-paradise-website-1
+# Floating Paradise Website
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+Production website and Sanity CMS for Floating Paradise, a boutique stay and experience platform in Karimunjawa. The project is built with Next.js, uses Sanity for editable content, and deploys through Vercel.
 
-## Built with v0
+## Overview
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+This repository contains:
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_ZzfeCzgoZenySOblYAZEyI8qXC8W)
+- Public marketing website with localized English and Indonesian routes.
+- Sanity Studio mounted at `/studio`.
+- CMS schemas for homepage, rooms, explore items, yoga retreat, getting here, about page, FAQ, and site settings.
+- Tripla booking integration handled in code.
+- Hardcoded fallbacks for key content so the public site remains stable if selected CMS fields are empty.
 
-## Getting Started
+## Tech Stack
 
-First, run the development server:
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS
+- Sanity CMS
+- Vercel Analytics
+- Tripla booking widget
+
+## Project Structure
+
+```text
+app/                         Next.js routes, layouts, pages, and Sanity Studio route
+components/                  Shared UI and website sections
+lib/                         Sanity client, fetch helpers, images, Tripla helpers
+sanity/schemas/              Sanity document schemas
+sanity/plugins/              Custom Sanity Studio plugins, including the welcome dashboard
+scripts/                     One-off CMS migration and seed scripts
+public/                      Static images and public assets
+docs/                        Internal CMS guide documents
+```
+
+## Environment Variables
+
+Create `.env.local` from `.env.example`:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET="production"
+SANITY_API_READ_TOKEN=
+SANITY_API_WRITE_TOKEN=
+```
+
+Notes:
+
+- `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` are required for the website and Studio.
+- `SANITY_API_READ_TOKEN` is used when private/read-token access is needed.
+- `SANITY_API_WRITE_TOKEN` is only needed for migration or seed scripts that write to Sanity.
+- Do not commit real tokens or `.env.local`.
+
+## Local Development
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Website: `http://localhost:3000`
+- Sanity Studio: `http://localhost:3000/studio`
 
-## Learn More
+## Useful Commands
 
-To learn more, take a look at the following resources:
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+npx tsc --noEmit
+npx sanity schemas validate
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+## CMS Editing Rules
 
-<a href="https://v0.app/chat/api/kiro/clone/Creastein/floating-paradise-website-1" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
+The CMS is designed for safe content editing, not structural redesign.
+
+Safe to edit:
+
+- Text content, titles, descriptions, and body copy.
+- Images and galleries.
+- Prices and price details where fields exist.
+- Contact information, WhatsApp, and social links.
+- Existing FAQ items and categories.
+
+Do not edit without developer review:
+
+- Slugs.
+- New rooms or bungalows.
+- New Explore items.
+- New transfer cities on Getting Here.
+- Booking integration or Tripla room IDs.
+- Large layout or navigation changes.
+
+## Tripla Booking
+
+Tripla booking is intentionally handled in code through official Tripla IDs in `lib/tripla.ts`. CMS editors should not add or edit booking URL fields. If Tripla room IDs or facility details change, update the code and verify the booking flow before deploying.
+
+## Sanity Content Scripts
+
+Some scripts require a write token:
+
+```powershell
+$env:SANITY_API_WRITE_TOKEN="your-write-token"
+node scripts\seed-getting-here-page.mjs
+```
+
+Only run write scripts after confirming the target dataset and expected document changes.
+
+## Deployment
+
+The production branch is `main`. Pushing to `main` triggers the connected Vercel deployment.
+
+Before pushing production changes, run:
+
+```bash
+npx tsc --noEmit
+npx sanity schemas validate
+```
+
+For frontend or CMS UI changes, also check the affected pages locally where possible.
+
+## Maintenance Notes
+
+- Keep generated files out of commits unless they are intentionally required.
+- Keep CMS guides aligned with the actual Sanity schemas and frontend behavior.
+- Prefer fallback-safe CMS changes: empty optional fields should not break public pages.
+- Treat booking, routing, and slugs as code-owned behavior.

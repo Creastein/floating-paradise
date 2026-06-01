@@ -8,96 +8,94 @@ interface TutorialItem {
 
 const tutorials: TutorialItem[] = [
   {
-    question: '🌍 How to add translations (English / Indonesian)?',
+    question: 'Cara mengisi konten English dan Indonesian',
     steps: [
-      'Almost all content fields now use collapsible fieldsets for <strong>🇬🇧 English</strong> and <strong>🇮🇩 Indonesian</strong>.',
-      'By default, the English field is visible, and the Indonesian field is collapsed to save space.',
-      'Click on the <strong>🇮🇩 Indonesian</strong> header to expand it and enter the translated text.',
-      'Make sure both languages are filled out before publishing.',
+      'Sebagian besar konten punya field <strong>English</strong> dan <strong>Indonesian</strong>.',
+      'English biasanya terbuka lebih dulu. Klik bagian Indonesian untuk membuka field Bahasa Indonesia.',
+      'Isi kedua bahasa sebelum publish agar halaman EN dan ID tetap lengkap.',
     ],
   },
   {
-    question: '🏠 How to update the Homepage (Hero images, texts)?',
+    question: 'Cara update Homepage',
     steps: [
-      'Click <strong>Website Pages → Homepage</strong> in the left sidebar.',
-      'To change the <em>Hero Slideshow</em>: scroll to the "Hero Slides" section. Click on a slide to edit its image or caption.',
-      'All text fields have helpful hints directly below them — read them before editing!',
-      'After making changes, click the green <strong>Publish</strong> button at the top right.',
+      'Buka <strong>Website Pages -> Homepage</strong>.',
+      'Edit hero slides, teks section, atau gambar yang tersedia.',
+      'Kosongkan gambar hanya jika ingin website memakai gambar default.',
+      'Klik <strong>Publish</strong> setelah selesai.',
     ],
   },
   {
-    question: '🛖 How to change Bungalow pricing or descriptions?',
+    question: 'Cara update Rooms & Bungalows',
     steps: [
-      'Click <strong>Collections → Rooms & Bungalows</strong> in the left sidebar.',
-      'Select the bungalow you want to update (e.g., "Bayside Bungalow").',
-      'Find the <strong>Pricing / IDR</strong> fields and change the numbers. <em>Enter numbers only, no commas or dots.</em>',
-      'You can also update the description and gallery images from here.',
-      'Click the green <strong>Publish</strong> button to save your changes to the live website.',
+      'Buka <strong>Collections -> Rooms & Bungalows</strong>.',
+      'Pilih room yang ingin diedit: Sunrise, Sunset, atau Bayside.',
+      'Edit description, features, maximum guests, atau photo gallery.',
+      'Gallery maksimal 12 foto. Jika kosong, website memakai gambar default.',
+      'Jangan ubah slug dan jangan tambah room baru tanpa developer.',
     ],
   },
   {
-    question: '🛶 How to edit Explore items?',
+    question: 'Cara update Explore',
     steps: [
-      'Click <strong>Collections → Explore</strong> in the left sidebar.',
-      'Select the activity you want to update.',
-      'Edit the title, description, price, or images as needed.',
-      'The <strong>Slug</strong> field is LOCKED — do not attempt to change it. Contact the developer if needed.',
-      'Click <strong>Publish</strong> to save.',
+      'Buka <strong>Collections -> Explore</strong>.',
+      'Pilih item yang ingin diedit.',
+      'Edit title, description, price detail jika field tersedia, atau gallery.',
+      'Jangan ubah slug. Jangan tambah item baru tanpa developer.',
+      'Klik <strong>Publish</strong> untuk menyimpan perubahan.',
     ],
   },
   {
-    question: '🧘 How to edit Yoga Retreat packages or details?',
+    question: 'Cara update Yoga Retreat',
     steps: [
-      'Click <strong>Website Pages → Yoga Retreat</strong> in the left sidebar.',
-      'You can edit the page hero, descriptions, and package details from here.',
-      'For package pricing, find the <strong>Packages</strong> section and update the price fields.',
-      'If you need to add a completely new package, please consult the developer first to avoid layout issues.',
-      'Click <strong>Publish</strong> to save.',
+      'Buka <strong>Website Pages -> Yoga Retreat</strong>.',
+      'Edit hero, teks retreat, package details, harga, atau gambar yang tersedia.',
+      'Isi field English dan Indonesian jika keduanya tersedia.',
+      'Untuk package baru atau perubahan layout besar, konsultasikan dengan developer dulu.',
     ],
   },
   {
-    question: '📖 How to update About Us content?',
+    question: 'Cara update About Us',
     steps: [
-      'Click <strong>Website Pages → About Us</strong> in the left sidebar.',
-      'Edit the story text, team member names/bios, and hero image from here.',
-      'Click <strong>Publish</strong> to save.',
+      'Buka <strong>Website Pages -> About Us</strong>.',
+      'Yang bisa diedit: hero image, founder story, founders photo, dan mission statement.',
+      'Bagian lain seperti values, Keep It Green, Kejora, dan CTA masih mengikuti default website.',
+      'Klik <strong>Publish</strong> setelah selesai.',
     ],
   },
   {
-    question: '⚙️ How to change Site Settings (logo, contact info, social links)?',
+    question: 'Cara update Site Settings',
     steps: [
-      'Click <strong>Site Settings</strong> at the top of the left sidebar.',
-      'Update the site logo, WhatsApp number, social media links, or any global information here.',
-      'These settings affect the entire website, so double-check before publishing!',
-      'Click <strong>Publish</strong> to save.',
+      'Buka <strong>Site Settings</strong> di sidebar.',
+      'Edit logo, WhatsApp, social links, atau informasi kontak global.',
+      'Karena dipakai di banyak halaman, cek ulang sebelum publish.',
     ],
   },
   {
-    question: '🖼️ How to upload & replace images?',
+    question: 'Cara upload atau ganti gambar',
     steps: [
-      'Click on any image field to select it.',
-      'Click the <strong>Upload</strong> button or drag and drop your new image file.',
-      'Recommended format: <strong>JPG/WEBP landscape</strong>, ideally 1920×1080px or wider, under 3MB.',
-      'Wait for the upload to complete, then click <strong>Publish</strong>.',
+      'Klik field gambar yang ingin diganti.',
+      'Upload file baru atau drag and drop ke field tersebut.',
+      'Gunakan gambar landscape yang jelas, idealnya JPG atau WEBP, lebar 1920px atau lebih, dan ukuran file tidak terlalu besar.',
+      'Tunggu upload selesai, lalu klik <strong>Publish</strong>.',
     ],
   },
   {
-    question: '🔗 How to update Tripla room booking?',
+    question: 'Cara update booking Tripla',
     steps: [
-      'Room booking is connected in code using the official Tripla room IDs.',
-      'Do not edit or add booking URL fields in the CMS.',
-      'If Tripla room IDs change, ask the developer to update the integration safely.',
+      'Booking Tripla tidak diedit dari CMS.',
+      'Room booking memakai official Tripla room IDs yang tersimpan di code.',
+      'Jika ID Tripla berubah, minta developer mengubah integrasi agar aman.',
     ],
   },
 ]
 
 const quickLinks = [
-  { emoji: '⚙️', label: 'Site Settings', hint: 'Logo, contacts, social links', tool: 'desk', target: 'siteSettings' },
-  { emoji: '🏠', label: 'Homepage', hint: 'Hero slides, sections', tool: 'desk', target: 'homepage' },
-  { emoji: '📖', label: 'About Us', hint: 'Story, team, hero image', tool: 'desk', target: 'aboutPage' },
-  { emoji: '🧘', label: 'Yoga Retreat', hint: 'Packages, details, hero', tool: 'desk', target: 'yogaRetreat' },
-  { emoji: '🛖', label: 'Rooms & Bungalows', hint: 'Prices, descriptions, images', tool: 'desk', target: 'bungalow' },
-  { emoji: '🛶', label: 'Explore', hint: 'Tours, experiences', tool: 'desk', target: 'activity' },
+  { label: 'Site Settings', hint: 'Logo, contacts, social links', target: 'siteSettings' },
+  { label: 'Homepage', hint: 'Hero slides and homepage sections', target: 'homepage' },
+  { label: 'About Us', hint: 'Founder story, mission, images', target: 'aboutPage' },
+  { label: 'Yoga Retreat', hint: 'Packages, details, hero', target: 'yogaRetreat' },
+  { label: 'Rooms & Bungalows', hint: 'Descriptions, features, gallery', target: 'bungalow' },
+  { label: 'Explore', hint: 'Tours and experiences', target: 'activity' },
 ]
 
 export function WelcomeDashboard() {
@@ -109,59 +107,53 @@ export function WelcomeDashboard() {
 
   return (
     <div className="wd-root">
-      {/* ── HERO HEADER ── */}
       <header className="wd-hero">
         <div className="wd-hero-inner">
           <div className="wd-hero-badge">Content Management Portal</div>
           <h1 className="wd-hero-title">
-            Welcome to <span className="wd-brand">Floating Paradise</span> CMS 🌴
+            Floating Paradise <span className="wd-brand">CMS</span>
           </h1>
           <p className="wd-hero-subtitle">
-            Your dedicated portal to manage website content — safely and easily.
+            Panduan singkat untuk mengubah konten website dengan aman.
             <br />
-            Read the guidelines below before making any changes.
+            Edit konten yang tersedia, publish, lalu cek hasilnya di website.
           </p>
         </div>
       </header>
 
       <div className="wd-body">
-
-        {/* ── WARNING BOX ── */}
         <div className="wd-alert wd-alert--warning">
-          <div className="wd-alert-icon">⚠️</div>
+          <div className="wd-alert-icon">!</div>
           <div className="wd-alert-content">
-            <strong>Important – Read Before Editing</strong>
+            <strong>Penting Sebelum Edit</strong>
             <ul>
-              <li><strong>Slug fields are LOCKED</strong> — these are internal identifiers used in code. Changing them will break the website. If you need a slug changed, contact the developer.</li>
-              <li><strong>Do not create new Bungalows or Explore items</strong> without consulting the developer first — new items require code-level design integration.</li>
-              <li>Always click <strong>Publish</strong> after editing to make your changes go live.</li>
+              <li><strong>Jangan edit slug.</strong> Slug dipakai sebagai identitas URL dan koneksi ke code.</li>
+              <li><strong>Jangan tambah Rooms, Explore items, atau kota transfer baru</strong> tanpa developer.</li>
+              <li><strong>Jangan edit booking Tripla dari CMS.</strong> Integrasi booking ditangani di code.</li>
+              <li>Selalu klik <strong>Publish</strong> setelah selesai edit.</li>
             </ul>
           </div>
         </div>
 
-        {/* ── WHAT YOU CAN EDIT ── */}
         <div className="wd-alert wd-alert--success">
-          <div className="wd-alert-icon">✅</div>
+          <div className="wd-alert-icon">OK</div>
           <div className="wd-alert-content">
-            <strong>What You Can Safely Edit</strong>
+            <strong>Yang Aman Diedit</strong>
             <ul>
-              <li>All <strong>text content</strong>: titles, descriptions, body text</li>
-              <li>All <strong>images</strong>: hero slides, gallery photos, room photos</li>
-              <li><strong>Prices</strong> (enter numbers only — no commas or dots)</li>
-              <li><strong>Room booking IDs</strong> (Tripla integration handled by the developer)</li>
-              <li><strong>Contact info</strong> and social media links</li>
+              <li>Teks konten: title, subtitle, description, body text</li>
+              <li>Gambar: hero image, gallery, room photos, section images</li>
+              <li>Harga dan detail harga pada field yang tersedia</li>
+              <li>Contact info, WhatsApp, dan social media links</li>
             </ul>
           </div>
         </div>
 
-        {/* ── QUICK ACCESS ── */}
         <section className="wd-section">
-          <h2 className="wd-section-title">⚡ Quick Access</h2>
-          <p className="wd-section-hint">Use the sidebar on the left to navigate, or use the direct links below as a reference for what each section contains.</p>
+          <h2 className="wd-section-title">Quick Access</h2>
+          <p className="wd-section-hint">Gunakan sidebar kiri untuk membuka document. Link di bawah hanya ringkasan lokasi konten.</p>
           <div className="wd-quick-grid">
             {quickLinks.map((link) => (
               <a href={`/studio/structure/${link.target}`} key={link.label} className="wd-quick-card" style={{ textDecoration: 'none' }}>
-                <div className="wd-quick-emoji">{link.emoji}</div>
                 <div className="wd-quick-info">
                   <div className="wd-quick-label">{link.label}</div>
                   <div className="wd-quick-hint">{link.hint}</div>
@@ -171,10 +163,9 @@ export function WelcomeDashboard() {
           </div>
         </section>
 
-        {/* ── TUTORIALS ── */}
         <section className="wd-section">
-          <h2 className="wd-section-title">📖 Step-by-Step Tutorials</h2>
-          <p className="wd-section-hint">Click on any question below to expand the tutorial.</p>
+          <h2 className="wd-section-title">Tutorial Singkat</h2>
+          <p className="wd-section-hint">Klik pertanyaan untuk melihat langkah-langkahnya.</p>
           <div className="wd-accordion">
             {tutorials.map((item, index) => (
               <div
@@ -187,7 +178,7 @@ export function WelcomeDashboard() {
                   aria-expanded={openIndex === index}
                 >
                   <span>{item.question}</span>
-                  <span className="wd-accordion-chevron">{openIndex === index ? '▲' : '▼'}</span>
+                  <span className="wd-accordion-chevron">{openIndex === index ? '^' : 'v'}</span>
                 </button>
                 {openIndex === index && (
                   <div className="wd-accordion-body">
@@ -203,15 +194,13 @@ export function WelcomeDashboard() {
           </div>
         </section>
 
-        {/* ── FOOTER ── */}
         <footer className="wd-footer">
           <p>
-            🛠️ Need help or want a structural change? Contact your developer.
+            Butuh perubahan struktur, item baru, atau booking integration? Hubungi developer.
             <br />
-            <span className="wd-footer-muted">Floating Paradise CMS — Powered by Sanity</span>
+            <span className="wd-footer-muted">Floating Paradise CMS - Powered by Sanity</span>
           </p>
         </footer>
-
       </div>
     </div>
   )

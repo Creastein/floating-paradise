@@ -455,7 +455,11 @@
           },
           {
             "q": "How many people can stay in each room?",
-            "a": "Sunrise and Sunset accommodate 2 guests (3 with an extra bed). Bayside is for up to 4 guests (5 with an extra bed)."
+            "a": "Sunrise and Sunset accommodate 2 guests, or up to 3 guests with 1 extra bed. Bayside accommodates up to 4 guests as standard, or up to 6 guests with 2 extra beds. With 2 extra beds, Bayside is a tighter setup, so it is best for guests who are comfortable sharing the space."
+          },
+          {
+            "q": "Are children allowed, and when is an extra bed required?",
+            "a": "Children under 7 can stay for free if they share existing bedding. If an extra bed is requested for a child under 7, it is Rp 150,000 per night. Children aged 7 and above need an extra bed at Rp 200,000 per night, including breakfast."
           },
           {
             "q": "What's the difference between Sunrise and Sunset bungalow?",
@@ -485,11 +489,11 @@
         "items": [
           {
             "q": "Is early check-in possible?",
-            "a": "Yes, on request we can try to have your room ready earlier — the earliest possible is 11:00 AM if there were previous guests in the room."
+            "a": "Yes. Guests may arrive at the property from 10:00 AM. If the room was not occupied the night before, early check-in from 10:00 AM may be possible. If there were guests the night before, we can usually have the room ready from 11:00 AM when early check-in is requested."
           },
           {
             "q": "Can we pay by card?",
-            "a": "Yes, card payment is accepted with a 3% processing fee."
+            "a": "Yes. Card payments are accepted for on-property extras, such as extra nights, restaurant/bar bills, and other add-ons. A 3% card processing fee applies to payments made at the property."
           }
         ]
       },
@@ -538,4 +542,3 @@
     }
   }
 }
-

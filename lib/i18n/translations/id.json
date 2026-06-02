@@ -455,7 +455,11 @@
           },
           {
             "q": "Berapa orang yang bisa menginap di setiap kamar?",
-            "a": "Sunrise dan Sunset menampung 2 tamu (3 dengan extra bed). Bayside untuk maksimal 4 tamu (5 dengan extra bed)."
+            "a": "Sunrise dan Sunset menampung 2 tamu, atau maksimal 3 tamu dengan 1 extra bed. Bayside menampung hingga 4 tamu sebagai kapasitas standar, atau maksimal 6 tamu dengan 2 extra bed. Dengan 2 extra bed, ruang Bayside akan terasa lebih padat, jadi paling cocok untuk tamu yang nyaman berbagi ruang."
+          },
+          {
+            "q": "Apakah anak-anak diperbolehkan, dan kapan perlu extra bed?",
+            "a": "Anak di bawah 7 tahun bisa menginap gratis jika berbagi tempat tidur yang tersedia. Jika meminta extra bed untuk anak di bawah 7 tahun, biayanya Rp 150.000 per malam. Anak usia 7 tahun ke atas perlu extra bed dengan biaya Rp 200.000 per malam, sudah termasuk sarapan."
           },
           {
             "q": "Apa perbedaan antara bungalow Sunrise dan Sunset?",
@@ -485,11 +489,11 @@
         "items": [
           {
             "q": "Apakah early check-in bisa dilakukan?",
-            "a": "Ya, atas permintaan kami akan berusaha menyiapkan kamar lebih awal — paling awal pukul 11:00 siang jika ada tamu sebelumnya."
+            "a": "Bisa. Tamu dapat datang ke properti mulai pukul 10:00 pagi. Jika kamar tidak ditempati pada malam sebelumnya, early check-in mulai pukul 10:00 pagi dapat dilakukan. Jika ada tamu pada malam sebelumnya, kamar biasanya bisa kami siapkan mulai pukul 11:00 pagi jika early check-in diminta sebelumnya."
           },
           {
             "q": "Bisakah bayar dengan kartu?",
-            "a": "Ya, pembayaran kartu diterima dengan biaya pemrosesan 3%."
+            "a": "Bisa. Pembayaran kartu diterima untuk biaya tambahan di properti, seperti tambahan malam menginap, tagihan restoran/bar, dan add-on lainnya. Biaya pemrosesan kartu 3% berlaku untuk pembayaran yang dilakukan di properti."
           }
         ]
       },
@@ -538,4 +542,3 @@
     }
   }
 }
-

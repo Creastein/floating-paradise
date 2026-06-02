@@ -72,8 +72,8 @@ export default async function BungalowsPage({
         "acceptedAnswer": {
           "@type": "Answer",
           "text": isId
-            ? "Setiap bungalow dapat menampung maksimal 2 tamu dewasa. Kami memiliki 3 bungalow: Sunrise, Sunset, dan Bayside, masing-masing dengan karakter dan pemandangan yang unik."
-            : "Each bungalow accommodates a maximum of 2 adult guests. We have 3 bungalows: Sunrise, Sunset, and Bayside, each with its own unique character and views."
+            ? "Sunrise dan Sunset menampung 2 tamu, atau maksimal 3 tamu dengan 1 extra bed. Bayside menampung hingga 4 tamu sebagai kapasitas standar, atau maksimal 6 tamu dengan 2 extra bed."
+            : "Sunrise and Sunset accommodate 2 guests, or up to 3 guests with 1 extra bed. Bayside accommodates up to 4 guests as standard, or up to 6 guests with 2 extra beds."
         }
       },
       {
@@ -82,8 +82,8 @@ export default async function BungalowsPage({
         "acceptedAnswer": {
           "@type": "Answer",
           "text": isId
-            ? "Check-in mulai pukul 14:00 dan check-out pukul 11:00. Kami dapat mengatur penyimpanan bagasi jika Anda tiba lebih awal atau berangkat lebih sore."
-            : "Check-in is from 2:00 PM and check-out is at 11:00 AM. We can arrange luggage storage if you arrive early or depart later in the day."
+            ? "Check-in pukul 12:00 siang dan check-out pukul 10:00 pagi. Tamu dapat datang ke properti mulai pukul 10:00 pagi, dan early check-in bergantung pada ketersediaan kamar."
+            : "Check-in is at 12:00 PM and check-out is at 10:00 AM. Guests may arrive at the property from 10:00 AM, and early check-in depends on room availability."
         }
       }
     ]

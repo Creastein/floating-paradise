@@ -49,6 +49,46 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
     return <>{mainPrice}</>;
   };
 
+  const fallbackReviews = [
+    {
+      quote: y.testi1,
+      guestName: y.testi1Name,
+    },
+    {
+      quote: y.testi2,
+      guestName: y.testi2Name,
+    },
+  ]
+
+  const cmsReviews = Array.isArray(cmsData?.reviews)
+    ? cmsData.reviews
+        .map((review: any) => {
+          const quote = language === 'id'
+            ? (review.quote_id || review.quote)
+            : review.quote
+          const guestDetail = language === 'id'
+            ? (review.guestDetail_id || review.guestDetail)
+            : review.guestDetail
+
+          return {
+            quote,
+            guestName: review.guestName,
+            guestDetail,
+          }
+        })
+        .filter((review: any) => review.quote && review.guestName)
+    : []
+
+  const reviews = cmsReviews.length > 0 ? cmsReviews : fallbackReviews
+  const reviewGridClass = reviews.length > 2
+    ? 'max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20'
+    : 'max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mt-20'
+
+  const formatGuestName = (name: string) =>
+    name.trim().startsWith('—') || name.trim().startsWith('-')
+      ? name
+      : `— ${name}`
+
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
@@ -332,15 +372,18 @@ export default function YogaClient({ cmsData }: YogaClientProps) {
         </div>
 
         {/* Testimonial Cards */}
-        <StaggerGrid className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
-          <StaggerItem className="bg-[#F5EFE4] rounded-2xl p-8 md:p-10 space-y-6">
-            <p className="text-foreground/70 font-light leading-relaxed italic text-lg font-serif">{y.testi1}</p>
-            <p className="text-foreground font-medium text-sm uppercase tracking-wider">{y.testi1Name}</p>
-          </StaggerItem>
-          <StaggerItem className="bg-[#F5EFE4] rounded-2xl p-8 md:p-10 space-y-6">
-            <p className="text-foreground/70 font-light leading-relaxed italic text-lg font-serif">{y.testi2}</p>
-            <p className="text-foreground font-medium text-sm uppercase tracking-wider">{y.testi2Name}</p>
-          </StaggerItem>
+        <StaggerGrid className={reviewGridClass}>
+          {reviews.map((review: any, index: number) => (
+            <StaggerItem key={`${review.guestName}-${index}`} className="bg-[#F5EFE4] rounded-2xl p-8 md:p-10 space-y-6">
+              <p className="text-foreground/70 font-light leading-relaxed italic text-lg font-serif">{review.quote}</p>
+              <div className="space-y-1">
+                <p className="text-foreground font-medium text-sm uppercase tracking-wider">{formatGuestName(review.guestName)}</p>
+                {review.guestDetail && (
+                  <p className="text-foreground/45 text-xs uppercase tracking-wider">{review.guestDetail}</p>
+                )}
+              </div>
+            </StaggerItem>
+          ))}
         </StaggerGrid>
       </section>
 

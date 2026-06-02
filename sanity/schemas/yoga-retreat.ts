@@ -111,6 +111,76 @@ export const yogaRetreatType = defineType({
 
     // ── 5. Pricing & Packages ───────────────────────
     defineField({
+      name: 'reviews',
+      title: 'Guest Reviews',
+      description: 'Add, remove, or reorder yoga retreat reviews. If empty, the website uses the default reviews.',
+      type: 'array',
+      group: 'facilitator',
+      of: [
+        {
+          type: 'object',
+          fieldsets: [
+            { name: 'review_en', title: 'English Review', options: { collapsible: true, collapsed: false } },
+            { name: 'review_id', title: 'Indonesian Review', options: { collapsible: true, collapsed: true } },
+          ],
+          fields: [
+            defineField({
+              name: 'quote',
+              title: 'Review Text (English)',
+              type: 'text',
+              rows: 4,
+              fieldset: 'review_en',
+              validation: (Rule) => Rule.required().error('English review text is required.'),
+            }),
+            defineField({
+              name: 'quote_id',
+              title: 'Review Text (Indonesian)',
+              type: 'text',
+              rows: 4,
+              fieldset: 'review_id',
+            }),
+            defineField({
+              name: 'guestName',
+              title: 'Guest Name',
+              type: 'string',
+              validation: (Rule) => Rule.required().error('Guest name is required.'),
+            }),
+            defineField({
+              name: 'guestDetail',
+              title: 'Guest Detail / Source (English)',
+              description: 'Optional. Example: "Yoga guest" or "Google review".',
+              type: 'string',
+              fieldset: 'review_en',
+            }),
+            defineField({
+              name: 'guestDetail_id',
+              title: 'Guest Detail / Source (Indonesian)',
+              description: 'Opsional. Contoh: "Tamu yoga" atau "Ulasan Google".',
+              type: 'string',
+              fieldset: 'review_id',
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'guestName',
+              subtitle: 'quote',
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: title || 'Guest Review',
+                subtitle: subtitle
+                  ? subtitle.length > 80
+                    ? `${subtitle.slice(0, 80)}...`
+                    : subtitle
+                  : '',
+              }
+            },
+          },
+        },
+      ],
+    }),
+
+    defineField({
       name: 'priceSunrisePrivate',
       title: 'Private Rate',
       description: 'Price for 1 person (Private).',

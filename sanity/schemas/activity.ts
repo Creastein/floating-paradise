@@ -43,6 +43,23 @@ const isFloatingMerchandise = (document: Record<string, unknown> | undefined) =>
   )
 }
 
+const isBookableExploreItem = (document: Record<string, unknown> | undefined) => {
+  const slug = getDocumentSlug(document)
+  const name = getDocumentName(document)
+
+  return (
+    slug === 'boat-tour' ||
+    slug === 'private-eco-boat-tour' ||
+    slug === 'kayaking' ||
+    slug === 'kayak-lunch-and-chill' ||
+    slug === 'trekking' ||
+    slug === 'trekking-nyamplungan' ||
+    name.includes('boat') ||
+    name.includes('kayak') ||
+    name.includes('trek')
+  )
+}
+
 export const activityType = defineType({
   name: 'activity',
   title: 'Explore',
@@ -113,6 +130,44 @@ export const activityType = defineType({
 
           return `Maximum ${maxImages} images for this activity. Leave the gallery empty to use the default website images.`
         }),
+    }),
+    defineField({
+      name: 'whatsappNumber',
+      title: 'WhatsApp Booking Number',
+      description:
+        'Optional. Used for this Explore item booking button. Format: 6281326008111. If empty, the website uses the default activity number.',
+      type: 'string',
+      hidden: ({ document }) => !isBookableExploreItem(document),
+    }),
+    defineField({
+      name: 'whatsappCtaText',
+      title: 'WhatsApp Button Text (English)',
+      description: 'Optional. Leave empty to use "Book via WhatsApp".',
+      type: 'string',
+      hidden: ({ document }) => !isBookableExploreItem(document),
+    }),
+    defineField({
+      name: 'whatsappCtaText_id',
+      title: 'WhatsApp Button Text (Indonesian)',
+      description: 'Opsional. Kosongkan untuk memakai "Pesan via WhatsApp".',
+      type: 'string',
+      hidden: ({ document }) => !isBookableExploreItem(document),
+    }),
+    defineField({
+      name: 'whatsappMessage',
+      title: 'WhatsApp Message (English)',
+      description: 'Optional pre-filled message sent when visitors click the booking button.',
+      type: 'text',
+      rows: 3,
+      hidden: ({ document }) => !isBookableExploreItem(document),
+    }),
+    defineField({
+      name: 'whatsappMessage_id',
+      title: 'WhatsApp Message (Indonesian)',
+      description: 'Opsional. Pesan otomatis saat pengunjung menekan tombol booking.',
+      type: 'text',
+      rows: 3,
+      hidden: ({ document }) => !isBookableExploreItem(document),
     }),
     defineField({
       name: 'priceDetail',

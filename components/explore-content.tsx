@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRef, useEffect, useState } from 'react'
 import Lightbox from '@/components/lightbox'
 import { Camera } from 'lucide-react'
+import WhatsAppIcon from '@/components/icons/whatsapp-icon'
 import { PortableText } from '@/components/portable-text'
 import { urlFor } from '@/lib/sanity.image'
 import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
@@ -18,10 +19,33 @@ const hasPortableTextContent = (value: any) =>
 const hasSanityImage = (image: any) =>
   Boolean(image?.asset?._ref || image?.asset?._id || image?.asset?.url)
 
+const DEFAULT_EXPLORE_WHATSAPP_NUMBER = '6281326008111'
+const BOOKABLE_ACTIVITY_SLUGS = new Set(['boat-tour', 'kayaking', 'trekking'])
+
+const cleanWhatsAppNumber = (value: any) => {
+  const digits = String(value || '').replace(/\D/g, '')
+  if (!digits) return ''
+  return digits.startsWith('0') ? `62${digits.slice(1)}` : digits
+}
+
+const getWhatsAppLink = (number: string, message: string) =>
+  `https://wa.me/${number}${message ? `?text=${encodeURIComponent(message)}` : ''}`
+
+const getDefaultWhatsAppMessage = (title: string, language: string) =>
+  language === 'id'
+    ? `Halo Floating Paradise, saya ingin bertanya tentang ${title}.`
+    : `Hi Floating Paradise, I would like to ask about ${title}.`
+
 export default function ExploreContent({ initialActivities }: { initialActivities?: any[] }) {
   const { t, language } = useLanguage()
   const { getCmsValue } = useCmsTranslation()
   const gridRef = useRef<HTMLDivElement>(null)
+  const whatsappCtaText = language === 'id' ? 'Pesan via WhatsApp' : 'Book via WhatsApp'
+  const defaultWhatsAppLink = (title: string) =>
+    getWhatsAppLink(
+      DEFAULT_EXPLORE_WHATSAPP_NUMBER,
+      getDefaultWhatsAppMessage(title, language)
+    )
 
   const FALLBACK_ACTIVITIES = [
     {
@@ -38,9 +62,10 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Private Eco Boat Tour/PB7.webp',
         '/image/Explore/Private Eco Boat Tour/PB8.webp',
       ],
-      ctaText: t.explorePage.learnMore,
-      ctaLink: '/faq',
-      ctaExternal: false,
+      ctaText: whatsappCtaText,
+      ctaLink: defaultWhatsAppLink(t.explorePage.activities.boatTour.title),
+      ctaExternal: true,
+      ctaIcon: 'whatsapp',
     },
     {
       slug: 'sunset-yoga',
@@ -72,9 +97,10 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Kayak, Lunch & Chill/kayak5.webp',
         '/image/Explore/Kayak, Lunch & Chill/kayak6.webp',
       ],
-      ctaText: t.explorePage.learnMore,
-      ctaLink: '/faq',
-      ctaExternal: false,
+      ctaText: whatsappCtaText,
+      ctaLink: defaultWhatsAppLink(t.explorePage.activities.kayaking.title),
+      ctaExternal: true,
+      ctaIcon: 'whatsapp',
     },
     {
       slug: 'trekking',
@@ -87,9 +113,10 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
         '/image/Explore/Trekking Nyamplungan/Trekking4.webp',
         '/image/Explore/Trekking Nyamplungan/Trekking5.webp',
       ],
-      ctaText: t.explorePage.learnMore,
-      ctaLink: '/faq',
-      ctaExternal: false,
+      ctaText: whatsappCtaText,
+      ctaLink: defaultWhatsAppLink(t.explorePage.activities.trekking.title),
+      ctaExternal: true,
+      ctaIcon: 'whatsapp',
     },
     {
       slug: 'cuisine',
@@ -247,6 +274,29 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
           : cmsActivity.priceDetail)
       : undefined;
     const detail = isMerchandise ? (cmsDetail || fallback.detail) : fallback.detail;
+    let ctaText = fallback.ctaText;
+    let ctaLink = fallback.ctaLink;
+    let ctaExternal = fallback.ctaExternal;
+    let ctaIcon = fallback.ctaIcon;
+
+    if (BOOKABLE_ACTIVITY_SLUGS.has(fallback.slug)) {
+      const cmsNumber = cleanWhatsAppNumber(cmsActivity.whatsappNumber);
+      const whatsappNumber = cmsNumber || DEFAULT_EXPLORE_WHATSAPP_NUMBER;
+      const cmsCtaText = language === 'id'
+        ? (cmsActivity.whatsappCtaText_id || cmsActivity.whatsappCtaText)
+        : cmsActivity.whatsappCtaText;
+      const cmsMessage = language === 'id'
+        ? (cmsActivity.whatsappMessage_id || cmsActivity.whatsappMessage)
+        : cmsActivity.whatsappMessage;
+
+      ctaText = cmsCtaText || whatsappCtaText;
+      ctaLink = getWhatsAppLink(
+        whatsappNumber,
+        cmsMessage || getDefaultWhatsAppMessage(title, language)
+      );
+      ctaExternal = true;
+      ctaIcon = 'whatsapp';
+    }
 
     return {
       ...fallback,
@@ -254,6 +304,10 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
       description,
       gallery,
       detail,
+      ctaText,
+      ctaLink,
+      ctaExternal,
+      ctaIcon,
     };
   });
 
@@ -407,15 +461,17 @@ export default function ExploreContent({ initialActivities }: { initialActivitie
                     href={activity.ctaLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-[#2F4A3F] text-white px-7 py-3 rounded-full text-sm font-medium tracking-wide transition-opacity duration-300 hover:opacity-90"
+                    className="inline-flex items-center gap-2 bg-[#2F4A3F] text-white px-7 py-3 rounded-full text-sm font-medium tracking-wide transition-opacity duration-300 hover:opacity-90"
                   >
+                    {activity.ctaIcon === 'whatsapp' && <WhatsAppIcon className="w-4 h-4" />}
                     {activity.ctaText}
                   </a>
                 ) : (
                   <a
                     href={activity.ctaLink}
-                    className="inline-block bg-[#2F4A3F] text-white px-7 py-3 rounded-full text-sm font-medium tracking-wide transition-opacity duration-300 hover:opacity-90"
+                    className="inline-flex items-center gap-2 bg-[#2F4A3F] text-white px-7 py-3 rounded-full text-sm font-medium tracking-wide transition-opacity duration-300 hover:opacity-90"
                   >
+                    {activity.ctaIcon === 'whatsapp' && <WhatsAppIcon className="w-4 h-4" />}
                     {activity.ctaText}
                   </a>
                 )}

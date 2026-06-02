@@ -1,4 +1,4 @@
-import { getBungalows } from "@/lib/sanity.fetch"
+import { getBungalows, getBungalowsPage } from "@/lib/sanity.fetch"
 import BungalowsClient from "./bungalows-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
@@ -8,7 +8,7 @@ export async function generateMetadata() {
 
 export default async function BungalowsPage() {
   const { data: bungalows } = await getBungalows()
-  const pageData = undefined
+  const { data: pageData } = await getBungalowsPage()
 
   const jsonLd = {
     "@context": "https://schema.org",

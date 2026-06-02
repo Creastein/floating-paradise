@@ -1,5 +1,6 @@
 import { siteSettingsType } from './site-settings'
 import { homepageType } from './homepage'
+import { bungalowsPageType } from './bungalows-page'
 import { bungalowType } from './bungalow'
 import { activityType } from './activity'
 import { yogaRetreatType } from './yoga-retreat'
@@ -11,6 +12,7 @@ export const schema = {
   types: [
     siteSettingsType,
     homepageType,
+    bungalowsPageType,
     bungalowType,
     activityType,
     yogaRetreatType,

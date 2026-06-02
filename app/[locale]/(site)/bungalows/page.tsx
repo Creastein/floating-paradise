@@ -1,4 +1,4 @@
-import { getBungalows, getSiteSettings } from "@/lib/sanity.fetch"
+import { getBungalows, getBungalowsPage, getSiteSettings } from "@/lib/sanity.fetch"
 import BungalowsClient from "@/app/(site)/bungalows/bungalows-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 import { LodgingBusinessSchema } from "@/components/schema-org"
@@ -19,7 +19,7 @@ export default async function BungalowsPage({
 }) {
   const params = await paramsPromise
   const { data: bungalows } = await getBungalows()
-  const pageData = undefined
+  const { data: pageData } = await getBungalowsPage()
   const { data: siteSettings } = await getSiteSettings()
 
   const isId = params.locale === "id"

@@ -2,7 +2,7 @@ import { client } from './sanity.client'
 import {
   siteSettingsQuery,
   homepageQuery,
-
+  bungalowsPageQuery,
   bungalowsQuery,
   activitiesQuery,
   yogaRetreatQuery,
@@ -39,6 +39,16 @@ export async function getHomepage(): Promise<FetchResult<any>> {
   return { source: 'local', data: null }
 }
 
+
+export async function getBungalowsPage(): Promise<FetchResult<any>> {
+  try {
+    const data = await client.fetch(bungalowsPageQuery, {}, fetchOptions)
+    if (data) return { source: 'cms', data }
+  } catch (error) {
+    console.error("Sanity fetch error (Bungalows Page):", error)
+  }
+  return { source: 'local', data: null }
+}
 
 export async function getBungalows(): Promise<FetchResult<any>> {
   try {

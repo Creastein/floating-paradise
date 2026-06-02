@@ -27,7 +27,7 @@ const PATHS_BY_TYPE: Record<string, string[]> = {
   homepage: ['/', '/en', '/id'],
   bungalowsPage: ['/bungalows', '/en/bungalows', '/id/bungalows'],
   bungalow: ['/', '/en', '/id', '/bungalows', '/en/bungalows', '/id/bungalows'],
-  activity: ['/', '/en', '/id'],
+  activity: ['/', '/en', '/id', '/explore', '/en/explore', '/id/explore'],
   yogaRetreat: ['/yoga-retreat', '/en/yoga-retreat', '/id/yoga-retreat'],
   gettingHerePage: ['/getting-here', '/en/getting-here', '/id/getting-here'],
   aboutPage: ['/about', '/en/about', '/id/about'],

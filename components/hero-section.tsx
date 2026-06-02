@@ -11,34 +11,20 @@ type HeroSectionProps = {
 }
 
 /**
- * Server Component — renders the hero image as static HTML so the browser
- * discovers it immediately (no JS required). The `priority` prop on <Image>
- * tells Next.js to emit a <link rel="preload"> in <head>.
- *
- * Client-side GSAP parallax and framer-motion text animations are isolated
- * in <HeroAnimations>, which hydrates independently.
- *
- * Performance: two image URLs are generated — a small mobile version (640px)
- * and a full desktop version (1200px). This significantly reduces LCP on mobile.
+ * Server Component - renders the hero image as static HTML so the browser
+ * discovers it immediately. The CMS image uses a high-resolution Sanity
+ * transform so the full-screen hero stays sharp on desktop and HiDPI screens.
  */
 export default function HeroSection({ homepage, locale = 'en' }: HeroSectionProps) {
   const image = homepage?.heroImage
 
-  // Mobile-optimized: 640px @ quality 45 — minimal bytes for fast LCP
-  const heroImageMobile = image
-    ? urlFor(image).width(640).format('webp').quality(45).url()
+  const heroImage = image
+    ? urlFor(image).width(2400).format('webp').quality(75).url()
     : "/hero-img.webp"
 
-  // Desktop: high quality, full resolution
-  const heroImageDesktop = image
-    ? urlFor(image).width(1920).format('webp').quality(65).url()
-    : "/hero-img.webp"
-
-  // Get translations based on locale
   const t = locale === 'id' ? id : en;
-  
-  // CMS fields: heroTitle (EN), heroTitle_id (ID) — flat strings
-  // Indonesian falls back to English value, then to translation default
+
+  // CMS fields: heroTitle (EN), heroTitle_id (ID) - flat strings.
   const title = locale === 'id'
     ? (homepage?.heroTitle_id || homepage?.heroTitle || t.hero.defaultTitle)
     : (homepage?.heroTitle || t.hero.defaultTitle);
@@ -48,25 +34,21 @@ export default function HeroSection({ homepage, locale = 'en' }: HeroSectionProp
 
   return (
     <section className="relative h-[calc(100vh+4rem)] min-h-[calc(600px+4rem)] w-full overflow-hidden">
-      {/* Static Background Image — rendered server-side for instant LCP */}
       <div className="absolute inset-0">
         <Image
-          src={heroImageMobile}
-          alt="Floating Paradise — eco-luxury retreat above the sea"
+          src={heroImage}
+          alt="Floating Paradise - eco-luxury retreat above the sea"
           fill
           className="object-cover"
           priority
           fetchPriority="high"
-          // Precise sizes: on mobile (<768px) exactly 100vw so browser picks 640px srcset
-          sizes="(max-width: 767px) 100vw, 100vw"
-          quality={45}
+          sizes="100vw"
+          quality={75}
         />
-        {/* Cinematic Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
       </div>
 
-      {/* Client-side animations (parallax + text entrance) */}
-      <HeroAnimations heroImageUrl={heroImageDesktop}>
+      <HeroAnimations>
         <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-medium text-white text-pretty leading-tight drop-shadow-lg">
           {title}
         </h1>

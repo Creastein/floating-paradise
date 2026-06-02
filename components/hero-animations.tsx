@@ -2,10 +2,9 @@
 
 import { ChevronDown } from 'lucide-react'
 import { useRef, useEffect, useState } from 'react'
-import { useLanguage, useCmsTranslation } from '@/lib/i18n/language-context'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 type HeroAnimationsProps = {
-  heroImageUrl: string;
   children: React.ReactNode;
 }
 
@@ -15,7 +14,7 @@ function trackEvent(eventName: string, params: Record<string, string>) {
   }
 }
 
-export default function HeroAnimations({ heroImageUrl, children }: HeroAnimationsProps) {
+export default function HeroAnimations({ children }: HeroAnimationsProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)

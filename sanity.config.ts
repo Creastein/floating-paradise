@@ -36,12 +36,23 @@ export default defineConfig({
               .child(S.document().schemaType('homepage').documentId('homepage')),
 
             S.listItem()
-              .title('Rooms & Bungalows Page')
-              .id('bungalowsPage')
-              .child(S.document().schemaType('bungalowsPage').documentId('bungalowsPage')),
+              .title('🌿 Rooms & Bungalows')
+              .id('roomsBungalows')
+              .child(
+                S.list()
+                  .title('Rooms & Bungalows')
+                  .items([
+                    S.listItem()
+                      .title('Page Settings')
+                      .id('bungalowsPage')
+                      .child(S.document().schemaType('bungalowsPage').documentId('bungalowsPage')),
 
-            S.documentTypeListItem('bungalow')
-              .title('🌿 Rooms & Bungalows'),
+                    S.divider(),
+
+                    S.documentTypeListItem('bungalow')
+                      .title('Bungalow Rooms'),
+                  ])
+              ),
 
             S.documentTypeListItem('activity')
               .title('🛶 Explore'),

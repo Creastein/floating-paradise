@@ -149,6 +149,14 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-8 mt-12 w-full overflow-hidden">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-primary-foreground/50 gap-4">
             <p className="footer-text">&copy; {new Date().getFullYear()} {t.footer.rights}</p>
+            <a
+              href="https://www.wellibuilds.online/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-text text-[11px] tracking-[0.2em] font-mono uppercase hover:text-white transition-colors"
+            >
+              Website by <span className="font-bold">WelliBuilds</span>
+            </a>
             <div className="flex flex-wrap justify-center gap-6 md:gap-8 items-center pr-16">
               <button 
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {

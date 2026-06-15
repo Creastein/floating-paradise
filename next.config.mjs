@@ -46,6 +46,13 @@ const nextConfig = {
         source: '/(.*)',
         headers: securityHeaders,
       },
+      {
+        // Prevent Google from indexing static assets (fonts, JS chunks)
+        source: '/_next/static/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+        ],
+      },
     ]
   },
 

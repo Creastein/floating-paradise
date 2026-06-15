@@ -1,0 +1,12 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Floating Paradise",
+  "name_for_model": "floating_paradise",
+  "description_for_human": "Off-grid eco resort with overwater bungalows in Karimunjawa, Indonesia",
+  "description_for_model": "Floating Paradise is a solar-powered eco resort in Karimunjawa, Central Java, Indonesia. It has 3 handcrafted overwater bungalows (Sunrise, Sunset, Bayside) with direct reef access. Key facts: 100% solar powered, natural ventilation, Karimunjawa National Park location, snorkeling from bungalow deck.",
+  "auth": { "type": "none" },
+  "api": { "type": "openapi", "url": "https://floatingparadise.id/llms.txt" },
+  "logo_url": "https://floatingparadise.id/logo.png",
+  "contact_email": "floatingparadise.legonlele@gmail.com",
+  "legal_info_url": "https://floatingparadise.id/en/faq"
+}

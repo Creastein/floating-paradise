@@ -74,6 +74,12 @@ export async function generateMetadata({
     verification: {
       google: 'uzqU-wJg4uZLFdlf30fzK8gDWj-umICe7BaW4X7DyOo',
     },
+    other: {
+      'geo.region': 'ID-JT',
+      'geo.placename': 'Karimunjawa, Jepara, Central Java',
+      'geo.position': '-5.8024;110.4473',
+      'ICBM': '-5.8024, 110.4473',
+    },
   }
 }
 

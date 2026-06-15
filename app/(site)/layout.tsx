@@ -60,6 +60,10 @@ export async function generateMetadata(): Promise<Metadata> {
       icon: '/favicon.svg',
       apple: '/logo.png',
     },
+    robots: {
+      index: false,
+      follow: true,
+    },
   }
 }
 

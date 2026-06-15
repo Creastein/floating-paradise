@@ -231,8 +231,20 @@ export function FaqSchema({ locale }: FaqSchemaProps) {
         answer: "You can get to Karimunjawa by taking the Express Bahari Ferry from Jepara, Central Java."
       },
       {
-        question: "How many bungalows are available?",
-        answer: "There are 3 overwater bungalows available, each accommodating a maximum of 2 guests."
+        question: "How many bungalows are available and what is the capacity?",
+        answer: "There are 3 overwater bungalows available: Sunrise and Sunset bungalows are for a maximum of 2 guests. Bayside Bungalow has a maximum capacity of 6 guests (with 2 extra beds)."
+      },
+      {
+        question: "What is the check-in and check-out time?",
+        answer: "Check-in is at 14:00 and check-out is at 11:00. Early check-in from 10:00 AM is possible if the room was not occupied the night before. Otherwise, we can get the room ready by 11:00 AM upon specific request."
+      },
+      {
+        question: "Are children allowed?",
+        answer: "Yes, children under 7 can stay for free (without an extra bed). An extra bed for children under 7 is Rp 150,000/night. For ages 7 and above, an extra bed is Rp 200,000/night including breakfast."
+      },
+      {
+        question: "Is there a card payment fee?",
+        answer: "A 3% card payment fee applies for payments made at the property (e.g., for extras, bar bills, or extra nights)."
       },
       {
         question: "Is there reef access?",
@@ -253,8 +265,20 @@ export function FaqSchema({ locale }: FaqSchemaProps) {
         answer: "Anda dapat menuju ke Karimunjawa dengan menggunakan Feri Express Bahari dari Jepara, Jawa Tengah."
       },
       {
-        question: "Berapa banyak bungalow yang tersedia?",
-        answer: "Tersedia 3 bungalow di atas air, masing-masing dapat menampung maksimal 2 orang tamu."
+        question: "Berapa banyak bungalow yang tersedia dan berapa kapasitasnya?",
+        answer: "Tersedia 3 bungalow di atas air: Bungalow Sunrise dan Sunset berkapasitas maksimal 2 tamu. Bungalow Bayside berkapasitas maksimal 6 tamu (dengan 2 kasur tambahan)."
+      },
+      {
+        question: "Jam berapa waktu check-in dan check-out?",
+        answer: "Check-in dimulai pukul 14:00 dan check-out pukul 11:00. Check-in lebih awal dari pukul 10:00 pagi dimungkinkan jika kamar tidak ditempati malam sebelumnya. Jika ada tamu, kami dapat menyiapkan kamar pukul 11:00 pagi berdasarkan permintaan khusus."
+      },
+      {
+        question: "Apakah anak-anak diperbolehkan?",
+        answer: "Ya, anak-anak di bawah 7 tahun dapat menginap gratis (tanpa kasur tambahan). Kasur tambahan untuk anak di bawah 7 tahun dikenakan biaya Rp 150.000/malam. Untuk usia 7 tahun ke atas, kasur tambahan seharga Rp 200.000/malam termasuk sarapan."
+      },
+      {
+        question: "Apakah ada biaya pembayaran kartu?",
+        answer: "Terdapat biaya pembayaran kartu sebesar 3% untuk pembayaran yang dilakukan di properti (misalnya, untuk tambahan, tagihan restoran, atau menginap ekstra)."
       },
       {
         question: "Apakah ada akses ke terumbu karang?",
@@ -282,6 +306,31 @@ export function FaqSchema({ locale }: FaqSchemaProps) {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+    />
+  )
+}
+
+interface SpeakableSchemaProps {
+  locale: string
+  pagePath: string
+}
+
+export function SpeakableSchema({ locale, pagePath }: SpeakableSchemaProps) {
+  const speakableSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Floating Paradise",
+    "url": `https://floatingparadise.id/${locale}${pagePath}`,
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".hero-title", ".hero-subtitle", ".about-summary", "h1", "h2"]
+    }
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
     />
   )
 }

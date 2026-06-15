@@ -33,11 +33,21 @@ export default async function AboutPage({
     "founder": [
       {
         "@type": "Person",
-        "name": "Astrid"
+        "name": "Astrid",
+        "jobTitle": "Co-Founder",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Floating Paradise"
+        }
       },
       {
         "@type": "Person",
-        "name": "Tono"
+        "name": "Tono",
+        "jobTitle": "Co-Founder",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Floating Paradise"
+        }
       }
     ],
     "address": {

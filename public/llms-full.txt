@@ -19,14 +19,14 @@ Floating Paradise is committed to sustainable tourism. The operation minimizes e
 
 Floating Paradise has 3 private overwater bungalows, each handcrafted from wood and positioned above the sea:
 
-### 1. Paradise Bungalow
-The flagship room with the best panoramic sea view. Features a private deck overlooking the reef, natural ventilation, and direct water access for snorkeling.
+### 1. Sunrise Bungalow
+Beautiful handcrafted bamboo bungalow with direct sunrise views and private steps to the sea. Maximum capacity: 2 guests.
 
-### 2. Sunrise Bungalow
-East-facing bungalow perfect for watching the sunrise over the Java Sea. Private deck, sea view, and reef access included.
+### 2. Sunset Bungalow
+Enjoy stunning overwater sunset views from your own private terrace. Maximum capacity: 2 guests.
 
-### 3. Reef Bungalow
-Closest to the coral reef, ideal for snorkeling enthusiasts. Direct reef access from the deck, with visibility of marine life from the room.
+### 3. Bayside Bungalow
+Our spacious bungalow located in a quiet corner of the bay, perfect for maximum tranquility. Maximum capacity is 6 guests (with 2 extra beds).
 
 All bungalows include:
 - Private deck with sea view
@@ -72,7 +72,13 @@ Floating Paradise arranges pickup from Dewandaru Airport or Karimunjawa harbor t
 
 ### Accommodation
 **Q: How many rooms does Floating Paradise have?**
-A: We have 3 private overwater bungalows — Paradise Bungalow, Sunrise Bungalow, and Reef Bungalow.
+A: We have 3 private overwater bungalows — Sunrise Bungalow, Sunset Bungalow, and Bayside Bungalow.
+
+**Q: What is the capacity of the bungalows?**
+A: Sunrise and Sunset bungalows are for 2 guests. Bayside Bungalow has a maximum capacity of 6 guests (with 2 extra beds).
+
+**Q: Are children allowed?**
+A: Yes. Children under 7 can stay for free (without an extra bed). An extra bed for children under 7 is Rp 150,000/night. For ages 7 and above, an extra bed is Rp 200,000/night including breakfast.
 
 **Q: Is there air conditioning?**
 A: No. Our bungalows use natural cross-ventilation from the sea breeze. The open-air design keeps rooms comfortable without AC.
@@ -91,12 +97,18 @@ A: Yes, we can accommodate vegetarian, vegan, and common dietary requirements wi
 **Q: How do I book?**
 A: Book directly through our website, WhatsApp (+62 822 2694 5510), Airbnb, or Booking.com.
 
+**Q: Is there a card payment fee?**
+A: A 3% card payment fee applies for payments made at the property (e.g., for extras, bar bills, or extra nights).
+
 **Q: What is the cancellation policy?**
 A: Free cancellation up to 7 days before check-in. Please check specific terms on your booking platform.
 
 ### Transport
 **Q: How do I get to Floating Paradise from the harbor?**
 A: We arrange boat pickup from Karimunjawa harbor to our resort. Contact us with your arrival details.
+
+**Q: What is the check-in and check-out time?**
+A: Check-in is at 14:00 and check-out is at 11:00. Early check-in from 10:00 AM is possible if the room was not occupied the night before. If it was occupied, we can get the room ready by 11:00 AM upon specific request.
 
 **Q: Is it difficult to reach Karimunjawa?**
 A: Karimunjawa requires a ferry or flight from Semarang/Jepara. The journey is part of the adventure. We provide detailed transport guidance after booking.
@@ -115,15 +127,19 @@ A: Basic snorkeling gear (mask, snorkel, fins) is available for guests.
 - **WhatsApp:** +62 822 2694 5510
 - **Email:** floatingparadise.legonlele@gmail.com
 - **Website:** https://floatingparadise.id
-- **Instagram:** https://www.instagram.com/floatingparadise
+- **Instagram:** https://www.instagram.com/paradisefloating
 - **Airbnb:** https://www.airbnb.co.id/rooms/22774718
 - **Booking.com:** https://www.booking.com/hotel/id/floating-paradise.id.html
+
+### Founders
+- Astrid (Co-Founder)
+- Tono (Co-Founder)
 
 ### Address
 Jl. Kapuran, Legon Lele, Karimunjawa, Jepara, Central Java, Indonesia
 
 ### Coordinates
-Latitude: -5.8166, Longitude: 110.4500
+Latitude: -5.8024, Longitude: 110.4473
 
 ---
 
@@ -133,11 +149,12 @@ Latitude: -5.8166, Longitude: 110.4500
 |-----------|-------|
 | Type | Eco Resort / Guesthouse |
 | Location | Karimunjawa Island, Central Java, Indonesia |
-| Rooms | 3 overwater bungalows |
+| Rooms | 3 overwater bungalows (Sunrise, Sunset, Bayside) |
 | Power | 100% solar |
-| Rating | 4.9/5 (36 reviews) |
+| Rating | 4.8/5 (96 reviews) |
 | Price Range | $$ |
-| Check-in | 12:00 |
-| Check-out | 10:00 |
+| Check-in | 14:00 |
+| Check-out | 11:00 |
 | Languages | English, Indonesian |
 | Unique Selling Point | Only floating eco guesthouse in Karimunjawa |
+| Last Updated | 2026-06-16 |

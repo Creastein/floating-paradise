@@ -11,7 +11,7 @@ import BungalowsSection from "@/components/bungalows-section"
 import YogaRetreatSection from "@/components/yoga-retreat-section"
 import ReviewBadges from "@/components/review-badges"
 import Footer from "@/components/footer"
-import { LodgingBusinessSchema, FaqSchema } from "@/components/schema-org"
+import { LodgingBusinessSchema, FaqSchema, SpeakableSchema } from "@/components/schema-org"
 
 export async function generateMetadata({
   params: paramsPromise,
@@ -33,6 +33,7 @@ export default async function Home({ params: paramsPromise }: { params: Promise<
     <main className="min-h-screen">
       <LodgingBusinessSchema siteSettings={siteSettings} bungalows={bungalows} locale={locale} />
       <FaqSchema locale={locale} />
+      <SpeakableSchema locale={locale} pagePath="" />
       <Navigation />
       <HeroSection homepage={homepage} locale={locale} />
       <AboutUsSection homepage={homepage} />

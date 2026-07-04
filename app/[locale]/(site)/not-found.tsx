@@ -42,7 +42,7 @@ export default function NotFound() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Link
-              href="/"
+              href={`/${language || 'en'}`}
               className="inline-block text-base font-medium px-8 py-3 rounded-full bg-[#2d5a3d] text-white hover:bg-[#3d7a53] transition-colors duration-300"
             >
               {t.notFound?.backHome || "Back to Homepage"}

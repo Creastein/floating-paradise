@@ -1,4 +1,4 @@
-import ContactClient from '@/app/(site)/contact/contact-client'
+import ContactClient from '@/components/contact-client'
 import { generatePageSeo } from '@/lib/i18n/seo'
 import { WA_GENERAL } from '@/lib/constants'
 

@@ -1,5 +1,5 @@
 import { getYogaRetreat } from "@/lib/sanity.fetch"
-import YogaClient from "@/app/(site)/yoga-retreat/yoga-client"
+import YogaClient from "@/components/yoga-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({

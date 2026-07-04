@@ -1,4 +1,4 @@
-import GettingHereClient from "@/app/(site)/getting-here/getting-here-client"
+import GettingHereClient from "@/components/getting-here-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 import { getGettingHerePage } from "@/lib/sanity.fetch"
 

@@ -7,7 +7,7 @@ import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function FloatingWhatsapp() {
   const { general: waNumber } = useWhatsAppNumbers()
-  const { language } = useLanguage()
+  const { language, t } = useLanguage()
 
   return (
     <div className="fixed bottom-6 right-6 z-50 sm:bottom-8 sm:right-8 flex flex-col items-end gap-2">
@@ -47,7 +47,7 @@ export default function FloatingWhatsapp() {
         <span 
           className="pointer-events-none absolute right-full mr-4 whitespace-nowrap rounded-2xl rounded-br-sm bg-white px-4 py-3 text-[13px] font-medium text-slate-800 shadow-[0_5px_15px_rgba(0,0,0,0.1)] ring-1 ring-black/5 origin-bottom-right transition-all duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100"
         >
-          How can I help you?
+          {t.whatsapp.greeting}
         </span>
       </a>
     </div>

@@ -1,4 +1,14 @@
 {
+  "reviews": {
+    "trustedByGuests": "Trusted by Guests",
+    "whatOurVisitorsSay": "What Our Visitors Say",
+    "excellent": "EXCELLENT",
+    "readOur": "Read our",
+    "reviewsCount": "reviews"
+  },
+  "whatsapp": {
+    "greeting": "How can I help you?"
+  },
   "nav": {
     "home": "Home",
     "bungalows": "Bungalows",

@@ -1,4 +1,4 @@
-import ExploreClient from "@/app/(site)/explore/explore-client"
+import ExploreClient from "@/components/explore-client"
 import { getActivities } from "@/lib/sanity.fetch"
 import { generatePageSeo } from "@/lib/i18n/seo"
 

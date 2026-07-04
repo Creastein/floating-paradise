@@ -1,4 +1,14 @@
 {
+  "reviews": {
+    "trustedByGuests": "Dipercaya oleh Tamu",
+    "whatOurVisitorsSay": "Apa Kata Pengunjung Kami",
+    "excellent": "SANGAT BAIK",
+    "readOur": "Baca",
+    "reviewsCount": "ulasan kami"
+  },
+  "whatsapp": {
+    "greeting": "Ada yang bisa saya bantu?"
+  },
   "nav": {
     "home": "Beranda",
     "bungalows": "Bungalow",

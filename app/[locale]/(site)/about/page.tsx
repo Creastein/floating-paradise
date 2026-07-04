@@ -1,5 +1,5 @@
 import { getAboutPage } from "@/lib/sanity.fetch"
-import AboutClient from "@/app/(site)/about/about-client"
+import AboutClient from "@/components/about-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 
 export async function generateMetadata({

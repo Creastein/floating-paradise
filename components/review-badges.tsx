@@ -2,11 +2,14 @@
 
 import { useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function ReviewBadges() {
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const badgesRef = useRef<HTMLDivElement>(null)
+  const { t } = useLanguage()
+  const r = t.reviews
 
   useEffect(() => {
     // Skip GSAP on mobile — reduces TBT significantly
@@ -69,10 +72,10 @@ export default function ReviewBadges() {
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-10">
           <p className="text-sm tracking-widest text-primary uppercase font-bold mb-3">
-            Trusted by Guests
+            {r.trustedByGuests}
           </p>
           <h2 className="font-serif text-2xl md:text-3xl text-foreground font-medium">
-            What Our Visitors Say
+            {r.whatOurVisitorsSay}
           </h2>
         </div>
 
@@ -88,7 +91,7 @@ export default function ReviewBadges() {
             style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
           >
             <div className="text-[12px] font-extrabold text-black tracking-wide mb-1 mt-1 flex items-center gap-1.5">
-              EXCELLENT <span className="font-light text-gray-300">|</span> 4.9
+              {r.excellent} <span className="font-light text-gray-300">|</span> 4.9
             </div>
             <div className="flex items-center text-[22px] font-bold tracking-tighter" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
               <span className="text-[#4285F4]">G</span>
@@ -115,7 +118,7 @@ export default function ReviewBadges() {
               </span>
             </div>
             <div className="text-[11px] font-medium text-black mt-1 flex items-center gap-1">
-              Read our <b>145 reviews</b> <span className="text-gray-400 font-extrabold">&gt;</span>
+              {r.readOur} <b>145 {r.reviewsCount}</b> <span className="text-gray-400 font-extrabold">&gt;</span>
             </div>
           </Link>
 
@@ -136,10 +139,9 @@ export default function ReviewBadges() {
               ))}
             </div>
             <div className="text-[11px] font-medium text-black flex items-center gap-1">
-              Read our <b>36 reviews</b> <span className="text-gray-400 font-extrabold">&gt;</span>
+              {r.readOur} <b>36 {r.reviewsCount}</b> <span className="text-gray-400 font-extrabold">&gt;</span>
             </div>
           </Link>
-
         </div>
       </div>
     </section>

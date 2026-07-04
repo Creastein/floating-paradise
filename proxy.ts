@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 const SUPPORTED_LOCALES = ['en', 'id']
 const DEFAULT_LOCALE = 'en'
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { searchParams, pathname } = request.nextUrl
   const langParam = searchParams.get('lang')
 

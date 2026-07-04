@@ -115,7 +115,3 @@ export async function POST(request: NextRequest) {
 
   return handleRevalidate(request, body)
 }
-
-export async function GET(request: NextRequest) {
-  return handleRevalidate(request)
-}

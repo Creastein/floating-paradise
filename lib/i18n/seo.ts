@@ -73,10 +73,7 @@ export function generatePageSeo(
       images: [`${BASE_URL}/og-image.png`],
     },
     other: {
-      'article:author': 'Floating Paradise',
-      'article:modified_time': new Date().toISOString().split('T')[0],
       'DC.creator': 'Floating Paradise',
-      'DC.date': new Date().toISOString().split('T')[0],
     },
   }
 }

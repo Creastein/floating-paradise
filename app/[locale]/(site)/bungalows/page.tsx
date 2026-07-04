@@ -1,5 +1,5 @@
 import { getBungalows, getBungalowsPage, getSiteSettings } from "@/lib/sanity.fetch"
-import BungalowsClient from "@/app/(site)/bungalows/bungalows-client"
+import BungalowsClient from "@/components/bungalows-client"
 import { generatePageSeo } from "@/lib/i18n/seo"
 import { LodgingBusinessSchema } from "@/components/schema-org"
 
@@ -82,8 +82,8 @@ export default async function BungalowsPage({
         "acceptedAnswer": {
           "@type": "Answer",
           "text": isId
-            ? "Check-in pukul 12:00 siang dan check-out pukul 10:00 pagi. Tamu dapat datang ke properti mulai pukul 10:00 pagi, dan early check-in bergantung pada ketersediaan kamar."
-            : "Check-in is at 12:00 PM and check-out is at 10:00 AM. Guests may arrive at the property from 10:00 AM, and early check-in depends on room availability."
+            ? "Check-in dimulai pukul 14:00 dan check-out pukul 11:00. Check-in lebih awal dari pukul 10:00 pagi dimungkinkan jika kamar tidak ditempati malam sebelumnya."
+            : "Check-in is at 14:00 and check-out is at 11:00. Early check-in from 10:00 AM is possible if the room was not occupied the night before."
         }
       }
     ]

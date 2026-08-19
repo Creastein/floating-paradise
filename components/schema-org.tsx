@@ -187,8 +187,8 @@ export function LodgingBusinessSchema({
       "longitude": longitude
     },
     "numberOfRooms": resolvedBungalows.length,
-    "checkinTime": "14:00",
-    "checkoutTime": "11:00",
+    "checkinTime": "12:00",
+    "checkoutTime": "10:00",
     "priceRange": priceRange,
     "image": siteSettings?.logo ? urlFor(siteSettings.logo).url() : "https://floatingparadise.id/og-image.png",
     "amenityFeature": amenityFeature,
@@ -236,7 +236,7 @@ export function FaqSchema({ locale }: FaqSchemaProps) {
       },
       {
         question: "What is the check-in and check-out time?",
-        answer: "Check-in is at 14:00 and check-out is at 11:00. Early check-in from 10:00 AM is possible if the room was not occupied the night before. Otherwise, we can get the room ready by 11:00 AM upon specific request."
+        answer: "Check-in is at 12:00 PM and check-out is at 10:00 AM. Guests may arrive at the property from 10:00 AM. If the room was not occupied the night before, early check-in from 10:00 AM may be possible. If there were guests the night before, we can usually have the room ready from 11:00 AM when early check-in is requested."
       },
       {
         question: "Are children allowed?",
@@ -270,7 +270,7 @@ export function FaqSchema({ locale }: FaqSchemaProps) {
       },
       {
         question: "Jam berapa waktu check-in dan check-out?",
-        answer: "Check-in dimulai pukul 14:00 dan check-out pukul 11:00. Check-in lebih awal dari pukul 10:00 pagi dimungkinkan jika kamar tidak ditempati malam sebelumnya. Jika ada tamu, kami dapat menyiapkan kamar pukul 11:00 pagi berdasarkan permintaan khusus."
+        answer: "Check-in pukul 12:00 siang dan check-out pukul 10:00 pagi. Tamu dapat datang ke properti mulai pukul 10:00 pagi. Jika kamar tidak ditempati pada malam sebelumnya, early check-in mulai pukul 10:00 pagi dapat dilakukan. Jika ada tamu pada malam sebelumnya, kamar biasanya bisa kami siapkan mulai pukul 11:00 pagi jika early check-in diminta sebelumnya."
       },
       {
         question: "Apakah anak-anak diperbolehkan?",

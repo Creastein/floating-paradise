@@ -108,7 +108,7 @@ A: Free cancellation up to 7 days before check-in. Please check specific terms o
 A: We arrange boat pickup from Karimunjawa harbor to our resort. Contact us with your arrival details.
 
 **Q: What is the check-in and check-out time?**
-A: Check-in is at 14:00 and check-out is at 11:00. Early check-in from 10:00 AM is possible if the room was not occupied the night before. If it was occupied, we can get the room ready by 11:00 AM upon specific request.
+A: Check-in is at 12:00 PM and check-out is at 10:00 AM. Early check-in from 10:00 AM is possible if the room was not occupied the night before. If it was occupied, we can get the room ready by 11:00 AM upon specific request.
 
 **Q: Is it difficult to reach Karimunjawa?**
 A: Karimunjawa requires a ferry or flight from Semarang/Jepara. The journey is part of the adventure. We provide detailed transport guidance after booking.
@@ -153,8 +153,8 @@ Latitude: -5.8024, Longitude: 110.4473
 | Power | 100% solar |
 | Rating | 4.8/5 (96 reviews) |
 | Price Range | $$ |
-| Check-in | 14:00 |
-| Check-out | 11:00 |
+| Check-in | 12:00 |
+| Check-out | 10:00 |
 | Languages | English, Indonesian |
 | Unique Selling Point | Only floating eco guesthouse in Karimunjawa |
 | Last Updated | 2026-06-16 |

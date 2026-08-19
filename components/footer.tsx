@@ -155,7 +155,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="footer-text text-[11px] tracking-[0.2em] font-mono uppercase hover:text-white transition-colors"
             >
-              Website by <span className="font-bold">WelliBuilds</span>
+              Website by <span className="font-bold">WL-STUDIO</span>
             </a>
             <div className="flex flex-wrap justify-center gap-6 md:gap-8 items-center pr-16">
               <button 
